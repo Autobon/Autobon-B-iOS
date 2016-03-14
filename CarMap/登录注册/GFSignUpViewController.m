@@ -1,32 +1,39 @@
 //
 //  GFSignUpViewController.m
-//  车邻邦自定义控件
+//  车邻邦客户端
 //
-//  Created by 陈光法 on 16/2/15.
+//  Created by 陈光法 on 16/3/2.
 //  Copyright © 2016年 陈光法. All rights reserved.
 //
 
 #import "GFSignUpViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
+//#import "GFHttpTool.h"
+
+#import "GFJoinInViewController_1.h"
+
+
 
 @interface GFSignUpViewController () {
     
     CGFloat kWidth;
     CGFloat kHeight;
     
+    
     CGFloat jiange1;
     CGFloat jiange2;
     CGFloat jiange3;
-    
-    CGFloat jianjv1;
+    CGFloat jiange4;
 }
+
 @property (nonatomic, strong) GFNavigationView *navView;
-@property (nonatomic, strong) GFTextField *userNameTxt;
+
+@property (nonatomic, strong) GFTextField *enterpriseNameTxt;
+@property (nonatomic, strong) GFTextField *phoneTxt;
 @property (nonatomic, strong) GFTextField *verifyTxt;
-@property (nonatomic, strong) GFTextField *passWordTxt;
-
-
+@property (nonatomic, strong) GFTextField *passwordTxt;
+@property (nonatomic, strong) GFTextField *againPwdTxt;
 
 @end
 
@@ -34,15 +41,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // 基础设置
     [self _setBase];
     
     // 界面搭建
     [self _setView];
-    
-    
-    
 }
 
 - (void)_setBase {
@@ -50,136 +54,124 @@
     kWidth = [UIScreen mainScreen].bounds.size.width;
     kHeight = [UIScreen mainScreen].bounds.size.height;
     
-    jiange1 = kHeight * 0.081;
-    jiange2 = kHeight * 0.024;
-    jiange3 = kHeight * 0.104;
-    
-    jianjv1 = kWidth * 0.116;
+    jiange1 = kHeight * 0.0287;
+    jiange2 = kHeight * 0.008;
+    jiange3 = kHeight * 0.143;
+    jiange4 = kHeight * 0.015625;
     
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
-
+    
+    // 导航栏
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"加盟商" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.navView];
 }
 
 - (void)_setView {
-
-    // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"返回.png" withLeftImgHightName:@"点击返回.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"注册" withFrame:CGRectMake(0, 0, kWidth, 64)];
-    [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.navView];
     
+    // 企业简称
+    self.enterpriseNameTxt = [[GFTextField alloc] initWithY:jiange1 + 64 withPlaceholder:@"企业简称"];
+    [self.view addSubview:self.enterpriseNameTxt];
     
-    //账号输入框
-    CGFloat userNameTxtW = kWidth * 0.768;
-    CGFloat userNameTxtH = kHeight * 0.0625;
-    CGFloat userNameTxtX = (kWidth - userNameTxtW) / 2.0 - 3 / 320.0 * kWidth;
-    CGFloat userNameTxtY = jiange1 + 64;
-    self.userNameTxt = [[GFTextField alloc] initWithImage:[UIImage imageNamed:@"手机.png"] withFrame:CGRectMake(userNameTxtX, userNameTxtY, userNameTxtW, userNameTxtH)];
-    self.userNameTxt.centerTxt.placeholder = @"请输入手机号";
-    [self.userNameTxt.centerTxt setValue:[UIFont systemFontOfSize:(15 / 320.0 * kWidth)] forKeyPath:@"_placeholderLabel.font"];
-    [self.view addSubview:self.userNameTxt];
+    // 请输入您的手机号
+    self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.enterpriseNameTxt.frame) + jiange2 withPlaceholder:@"请输入您的手机号"];
+    [self.view addSubview:self.phoneTxt];
     
-    
-    // 验证码输入框
-    UIButton *verifyBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    verifyBut.frame = CGRectMake(0, 0, kWidth * 0.139, kHeight * 0.037);
-    verifyBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
-    verifyBut.layer.borderWidth = 1;
-    verifyBut.layer.cornerRadius = 5;
-    [verifyBut setTitle:@"验证" forState:UIControlStateNormal];
-    [verifyBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
-    verifyBut.titleLabel.font = [UIFont systemFontOfSize:12 / 320.0 * kWidth];
-    
-    CGFloat verifyTxtW = userNameTxtW;
-    CGFloat verifyTxtH = userNameTxtH;
-    CGFloat verifyTxtX = userNameTxtX;
-    CGFloat verifyTxtY = CGRectGetMaxY(self.userNameTxt.frame) + jiange2;
-    self.verifyTxt = [[GFTextField alloc] initWithImage:[UIImage imageNamed:@"验证.png"] withRightButton:verifyBut withFrame:CGRectMake(verifyTxtX, verifyTxtY, verifyTxtW, verifyTxtH)];
-    self.verifyTxt.centerTxt.placeholder = @"请输入验证码";
-    [self.verifyTxt.centerTxt setValue:[UIFont systemFontOfSize:(15 / 320.0 * kWidth)] forKeyPath:@"_placeholderLabel.font"];
+    // 验证码
+    self.verifyTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"验证码"];
     [self.view addSubview:self.verifyTxt];
     
+    // 获取验证码
+    CGFloat getVerifyButW = kWidth * 0.172;
+    CGFloat getVerifyButH = kHeight * 0.042;
+    CGFloat getVerifyButX = kWidth - getVerifyButW - kWidth * 0.075;
+    CGFloat getVerifyButY = (kHeight * 0.078 - getVerifyButH) / 2.0;
+    UIButton *getVerifyBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    getVerifyBut.frame = CGRectMake(getVerifyButX, getVerifyButY, getVerifyButW, getVerifyButH);
+    getVerifyBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
+    getVerifyBut.layer.borderWidth = 1;
+    getVerifyBut.layer.cornerRadius = 5;
+    [getVerifyBut setTitle:@"获取验证" forState:UIControlStateNormal];
+    [getVerifyBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
+    getVerifyBut.titleLabel.font = [UIFont systemFontOfSize:12 / 320.0 * kWidth];
+    [self.verifyTxt addSubview:getVerifyBut];
+    [getVerifyBut addTarget:self action:@selector(getVerifyButClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    // 密码输入框
-    UIButton *passwordBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    passwordBut.frame = CGRectMake(0, 0, kWidth * 0.139, kHeight * 0.037);
-    [passwordBut setImage:[UIImage imageNamed:@"eye-隐藏.png"] forState:UIControlStateNormal];
-    [passwordBut setImage:[UIImage imageNamed:@"eye-open.png"] forState:UIControlStateSelected];
-    passwordBut.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [passwordBut addTarget:self action:@selector(passwordButClick:) forControlEvents:UIControlEventTouchUpInside];
+    // 密码
+    self.passwordTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.verifyTxt.frame) + jiange2 withPlaceholder:@"密码"];
+    [self.view addSubview:self.passwordTxt];
     
-    CGFloat passWordTxtW = userNameTxtW;
-    CGFloat passWordTxtH = userNameTxtH;
-    CGFloat passWordTxtX = userNameTxtX;
-    CGFloat passWordTxtY = CGRectGetMaxY(self.verifyTxt.frame) + jiange2;
-    self.passWordTxt = [[GFTextField alloc] initWithImage:[UIImage imageNamed:@"确认密码.png"] withRightButton:passwordBut withFrame:CGRectMake(passWordTxtX, passWordTxtY, passWordTxtW, passWordTxtH)];
-    self.passWordTxt.centerTxt.placeholder = @"请输入密码";
-    [self.passWordTxt.centerTxt setValue:[UIFont systemFontOfSize:(15 / 320.0 * kWidth)] forKeyPath:@"_placeholderLabel.font"];
-    self.passWordTxt.centerTxt.secureTextEntry = YES;
-    [self.view addSubview:self.passWordTxt];
+    // 确认密码
+    self.againPwdTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.passwordTxt.frame) + jiange2 withPlaceholder:@"确认密码"];
+    [self.view addSubview:self.againPwdTxt];
     
+    // 注册按钮
+    CGFloat signUpButW = kWidth - (kWidth * 0.116) * 2;
+    CGFloat signUpButH = kHeight * 0.07;
+    CGFloat signUpButX = kWidth * 0.116;
+    CGFloat signUpButY = CGRectGetMaxY(self.againPwdTxt.frame) + jiange3;
+    UIButton *signUpBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    signUpBut.frame = CGRectMake(signUpButX, signUpButY, signUpButW, signUpButH);
+    signUpBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    signUpBut.layer.cornerRadius = 5;
+    [signUpBut setTitle:@"注册" forState:UIControlStateNormal];
+    [self.view addSubview:signUpBut];
+    [signUpBut addTarget:self action:@selector(signUpButClick) forControlEvents:UIControlEventTouchUpInside];
     
-    // 提交按钮
-    CGFloat submitButW = kWidth - jianjv1 * 2 + 8;
-    CGFloat submitButH = kHeight * 0.073;
-    CGFloat submitButX = jianjv1 - 4;
-    CGFloat submitButY = CGRectGetMaxY(self.passWordTxt.frame) + jiange3;
-    UIButton *submitBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBut.frame = CGRectMake(submitButX, submitButY, submitButW, submitButH);
-    [submitBut setBackgroundImage:[UIImage imageNamed:@"默认按钮.png"] forState:UIControlStateNormal];
-    [submitBut setBackgroundImage:[UIImage imageNamed:@"点击按钮.png"] forState:UIControlStateHighlighted];
-    [submitBut setTitle:@"提交" forState:UIControlStateNormal];
-    [submitBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    submitBut.titleLabel.font = [UIFont systemFontOfSize:19 / 320.0 * kWidth];
-    [self.view addSubview:submitBut];
+    // 车邻邦合作商加盟服务协议
+    CGFloat agreeLabW = kWidth;
+    CGFloat agreeLabH = kHeight * 0.024;
+    CGFloat agreeLabX = 0;
+    CGFloat agreeLabY = CGRectGetMaxY(signUpBut.frame) + jiange4;
+    UILabel *agreeLab = [[UILabel alloc] initWithFrame:CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH)];
+    [self.view addSubview:agreeLab];
+    agreeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
+    agreeLab.textAlignment = NSTextAlignmentCenter;
+    NSMutableAttributedString *MAStr = [[NSMutableAttributedString alloc] initWithString:@"点击“注册”代表本人已阅读并同意《车邻邦合作商服务协议》"];
+    [MAStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] range:NSMakeRange(16, 12)];
+    agreeLab.attributedText = MAStr;
+    agreeLab.font = [UIFont systemFontOfSize:10.5 / 320.0 * kWidth];
+    agreeLab.userInteractionEnabled = YES;
     
-    
-    // 车邻邦服务协议
-    CGFloat leftLabW = kWidth * 0.608;
-    CGFloat leftLabH = kHeight * 0.024;
-    CGFloat leftLabX = 0;
-    CGFloat leftLabY = CGRectGetMaxY(submitBut.frame) + jiange2;
-    UILabel *leftLab = [[UILabel alloc] initWithFrame:CGRectMake(leftLabX, leftLabY, leftLabW, leftLabH)];
-    leftLab.text = @"点击“提交”代表本人已阅读并同意";
-    leftLab.textAlignment = NSTextAlignmentRight;
-    leftLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
-    leftLab.font = [UIFont systemFontOfSize:10.5 / 320.0 * kWidth];
-    [self.view addSubview:leftLab];
-    
-    CGFloat rightButW = kWidth - leftLabW;
-    CGFloat rightButH = leftLabH;
-    CGFloat rightButX = CGRectGetMaxX(leftLab.frame);
-    CGFloat rightButY = leftLabY;
-    UIButton *rightBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBut.frame = CGRectMake(rightButX, rightButY, rightButW, rightButH);
-    [rightBut setTitle:@"《车邻邦服务协议》" forState:UIControlStateNormal];
-    [rightBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
-    rightBut.titleLabel.font = [UIFont systemFontOfSize:10.5 / 320.0 * kWidth];
-    rightBut.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.view addSubview:rightBut];
-
+    CGFloat agreeButW = kWidth / 2.0;
+    CGFloat agreeButH = agreeLabH;
+    CGFloat agreeButX = kWidth / 2.0;
+    CGFloat agreeButY = 0;
+    UIButton *agreeBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    agreeBut.frame = CGRectMake(agreeButX, agreeButY, agreeButW, agreeButH);
+    [agreeLab addSubview:agreeBut];
+    [agreeBut addTarget:self action:@selector(agreeButClick) forControlEvents:UIControlEventTouchUpInside];
     
     
-}
-
-- (void)leftButClick {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)passwordButClick:(UIButton *)sender {
-    
-    sender.selected = !sender.selected;
-    self.passWordTxt.centerTxt.secureTextEntry = !self.passWordTxt.centerTxt.secureTextEntry;
     
     
 }
 
+
+- (void)agreeButClick {
+
+
+    NSLog(@"同意");
+}
+
+
+- (void)signUpButClick {
+
+    GFJoinInViewController_1 *joinVC_1 = [[GFJoinInViewController_1 alloc] init];
+    [self.navigationController pushViewController:joinVC_1 animated:YES];
+    
+}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     [self.view endEditing:YES];
 }
 
+
+- (void)leftButClick {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
