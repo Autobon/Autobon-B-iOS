@@ -1,5 +1,5 @@
 //
-//  GFSignInViewController.h
+//  GFJoinInViewController_2.h
 //  车邻邦客户端
 //
 //  Created by 陈光法 on 16/3/1.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GFSignInViewController : UIViewController
+@interface GFJoinInViewController_2 : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
 		86B890F41C73355B0068B95D /* GFForgetPwdViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890E61C73355B0068B95D /* GFForgetPwdViewController_1.m */; };
 		86B890F51C73355B0068B95D /* GFForgetPwdViewController_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890E81C73355B0068B95D /* GFForgetPwdViewController_2.m */; };
 		86B890F61C73355B0068B95D /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890EA1C73355B0068B95D /* GFNavigationView.m */; };
@@ -16,6 +17,34 @@
 		9B7301571C5F2CDF00FB2DEB /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7301561C5F2CDF00FB2DEB /* SecondViewController.m */; };
 		9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8513D81C965E2800BB9CF5 /* libPods.a */; };
 		9B9515391C60501B00445F93 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9515381C60501B00445F93 /* TestViewController.m */; };
+=======
+		368FB3069A8AB11C0125708F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D41BE1C67690080F4127E9 /* libPods.a */; };
+		86D4FB041C96A08F004E26AC /* GFAddWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAD11C96A08F004E26AC /* GFAddWorkerViewController.m */; };
+		86D4FB051C96A08F004E26AC /* GFChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAD31C96A08F004E26AC /* GFChangePwdViewController.m */; };
+		86D4FB061C96A08F004E26AC /* GFEvaluateShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAD51C96A08F004E26AC /* GFEvaluateShareViewController.m */; };
+		86D4FB071C96A08F004E26AC /* GFEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAD71C96A08F004E26AC /* GFEvaluateViewController.m */; };
+		86D4FB081C96A08F004E26AC /* GFForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAD91C96A08F004E26AC /* GFForgetPwdViewController.m */; };
+		86D4FB091C96A08F004E26AC /* GFIndentDetialsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FADB1C96A08F004E26AC /* GFIndentDetialsViewController.m */; };
+		86D4FB0A1C96A08F004E26AC /* GFIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FADD1C96A08F004E26AC /* GFIndentTableViewCell.m */; };
+		86D4FB0B1C96A08F004E26AC /* GFIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FADF1C96A08F004E26AC /* GFIndentViewController.m */; };
+		86D4FB0C1C96A08F004E26AC /* GFIWillAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAE11C96A08F004E26AC /* GFIWillAddViewController.m */; };
+		86D4FB0D1C96A08F004E26AC /* GFJoinInViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAE31C96A08F004E26AC /* GFJoinInViewController_1.m */; };
+		86D4FB0E1C96A08F004E26AC /* GFJoinInViewController_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAE51C96A08F004E26AC /* GFJoinInViewController_2.m */; };
+		86D4FB0F1C96A08F004E26AC /* GFPartnersMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAE71C96A08F004E26AC /* GFPartnersMessageViewController.m */; };
+		86D4FB101C96A08F004E26AC /* GFSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAE91C96A08F004E26AC /* GFSignInViewController.m */; };
+		86D4FB111C96A08F004E26AC /* GFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAEB1C96A08F004E26AC /* GFSignUpViewController.m */; };
+		86D4FB121C96A08F004E26AC /* GFWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAED1C96A08F004E26AC /* GFWorkerTableViewCell.m */; };
+		86D4FB131C96A08F004E26AC /* GFWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAEF1C96A08F004E26AC /* GFWorkerViewController.m */; };
+		86D4FB141C96A08F004E26AC /* GFNoIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF21C96A08F004E26AC /* GFNoIndentTableViewCell.m */; };
+		86D4FB151C96A08F004E26AC /* GFNoIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF41C96A08F004E26AC /* GFNoIndentViewController.m */; };
+		86D4FB161C96A08F004E26AC /* GFOneIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF61C96A08F004E26AC /* GFOneIndentViewController.m */; };
+		86D4FB171C96A08F004E26AC /* GFAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF91C96A08F004E26AC /* GFAlertView.m */; };
+		86D4FB181C96A08F004E26AC /* GFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFB1C96A08F004E26AC /* GFButton.m */; };
+		86D4FB191C96A08F004E26AC /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
+		86D4FB1A1C96A08F004E26AC /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
+		86D4FB1B1C96A08F004E26AC /* GFTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FB011C96A08F004E26AC /* GFTipView.m */; };
+		86D4FB1C1C96A08F004E26AC /* GFTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FB031C96A08F004E26AC /* GFTitleView.m */; };
+>>>>>>> master
 		9B9515411C60503800445F93 /* GFAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153C1C60503800445F93 /* GFAnnotation.m */; };
 		9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153E1C60503800445F93 /* GFAnnotationView.m */; };
 		9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9515401C60503800445F93 /* GFMapViewController.mm */; };
@@ -26,11 +55,6 @@
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
-		9BA526CC1C63115700A2298F /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9BA526CB1C63115700A2298F /* PoiSearchDemoViewController.mm */; };
-		9BA9CBD51C5B02220059F145 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9CBD41C5B02220059F145 /* FirstViewController.m */; };
-		9BE53AE41C72ADED00BBB424 /* CLAutobonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE53AE31C72ADED00BBB424 /* CLAutobonViewController.m */; };
-		9BE53AEA1C7301A200BBB424 /* CLCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE53AE91C7301A200BBB424 /* CLCertifyViewController.m */; };
-		9BE53AF31C73406800BBB424 /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE53AF21C73406800BBB424 /* GFTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,24 +68,65 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		86B890E51C73355B0068B95D /* GFForgetPwdViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFForgetPwdViewController_1.h; sourceTree = "<group>"; };
-		86B890E61C73355B0068B95D /* GFForgetPwdViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFForgetPwdViewController_1.m; sourceTree = "<group>"; };
-		86B890E71C73355B0068B95D /* GFForgetPwdViewController_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFForgetPwdViewController_2.h; sourceTree = "<group>"; };
-		86B890E81C73355B0068B95D /* GFForgetPwdViewController_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFForgetPwdViewController_2.m; sourceTree = "<group>"; };
-		86B890E91C73355B0068B95D /* GFNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNavigationView.h; sourceTree = "<group>"; };
-		86B890EA1C73355B0068B95D /* GFNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNavigationView.m; sourceTree = "<group>"; };
-		86B890EB1C73355B0068B95D /* GFSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignInViewController.h; sourceTree = "<group>"; };
-		86B890EC1C73355B0068B95D /* GFSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignInViewController.m; sourceTree = "<group>"; };
-		86B890ED1C73355B0068B95D /* GFSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignUpViewController.h; sourceTree = "<group>"; };
-		86B890EE1C73355B0068B95D /* GFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignUpViewController.m; sourceTree = "<group>"; };
-		86B890F21C73355B0068B95D /* GFMyMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFMyMessageViewController.h; sourceTree = "<group>"; };
-		86B890F31C73355B0068B95D /* GFMyMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFMyMessageViewController.m; sourceTree = "<group>"; };
+		86D4FAD01C96A08F004E26AC /* GFAddWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddWorkerViewController.h; sourceTree = "<group>"; };
+		86D4FAD11C96A08F004E26AC /* GFAddWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddWorkerViewController.m; sourceTree = "<group>"; };
+		86D4FAD21C96A08F004E26AC /* GFChangePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFChangePwdViewController.h; sourceTree = "<group>"; };
+		86D4FAD31C96A08F004E26AC /* GFChangePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFChangePwdViewController.m; sourceTree = "<group>"; };
+		86D4FAD41C96A08F004E26AC /* GFEvaluateShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFEvaluateShareViewController.h; sourceTree = "<group>"; };
+		86D4FAD51C96A08F004E26AC /* GFEvaluateShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFEvaluateShareViewController.m; sourceTree = "<group>"; };
+		86D4FAD61C96A08F004E26AC /* GFEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFEvaluateViewController.h; sourceTree = "<group>"; };
+		86D4FAD71C96A08F004E26AC /* GFEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFEvaluateViewController.m; sourceTree = "<group>"; };
+		86D4FAD81C96A08F004E26AC /* GFForgetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFForgetPwdViewController.h; sourceTree = "<group>"; };
+		86D4FAD91C96A08F004E26AC /* GFForgetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFForgetPwdViewController.m; sourceTree = "<group>"; };
+		86D4FADA1C96A08F004E26AC /* GFIndentDetialsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentDetialsViewController.h; sourceTree = "<group>"; };
+		86D4FADB1C96A08F004E26AC /* GFIndentDetialsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentDetialsViewController.m; sourceTree = "<group>"; };
+		86D4FADC1C96A08F004E26AC /* GFIndentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentTableViewCell.h; sourceTree = "<group>"; };
+		86D4FADD1C96A08F004E26AC /* GFIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentTableViewCell.m; sourceTree = "<group>"; };
+		86D4FADE1C96A08F004E26AC /* GFIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentViewController.h; sourceTree = "<group>"; };
+		86D4FADF1C96A08F004E26AC /* GFIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentViewController.m; sourceTree = "<group>"; };
+		86D4FAE01C96A08F004E26AC /* GFIWillAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIWillAddViewController.h; sourceTree = "<group>"; };
+		86D4FAE11C96A08F004E26AC /* GFIWillAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIWillAddViewController.m; sourceTree = "<group>"; };
+		86D4FAE21C96A08F004E26AC /* GFJoinInViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFJoinInViewController_1.h; sourceTree = "<group>"; };
+		86D4FAE31C96A08F004E26AC /* GFJoinInViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_1.m; sourceTree = "<group>"; };
+		86D4FAE41C96A08F004E26AC /* GFJoinInViewController_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFJoinInViewController_2.h; sourceTree = "<group>"; };
+		86D4FAE51C96A08F004E26AC /* GFJoinInViewController_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_2.m; sourceTree = "<group>"; };
+		86D4FAE61C96A08F004E26AC /* GFPartnersMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFPartnersMessageViewController.h; sourceTree = "<group>"; };
+		86D4FAE71C96A08F004E26AC /* GFPartnersMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFPartnersMessageViewController.m; sourceTree = "<group>"; };
+		86D4FAE81C96A08F004E26AC /* GFSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignInViewController.h; sourceTree = "<group>"; };
+		86D4FAE91C96A08F004E26AC /* GFSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignInViewController.m; sourceTree = "<group>"; };
+		86D4FAEA1C96A08F004E26AC /* GFSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignUpViewController.h; sourceTree = "<group>"; };
+		86D4FAEB1C96A08F004E26AC /* GFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignUpViewController.m; sourceTree = "<group>"; };
+		86D4FAEC1C96A08F004E26AC /* GFWorkerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerTableViewCell.h; sourceTree = "<group>"; };
+		86D4FAED1C96A08F004E26AC /* GFWorkerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFWorkerTableViewCell.m; sourceTree = "<group>"; };
+		86D4FAEE1C96A08F004E26AC /* GFWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerViewController.h; sourceTree = "<group>"; };
+		86D4FAEF1C96A08F004E26AC /* GFWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFWorkerViewController.m; sourceTree = "<group>"; };
+		86D4FAF11C96A08F004E26AC /* GFNoIndentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNoIndentTableViewCell.h; sourceTree = "<group>"; };
+		86D4FAF21C96A08F004E26AC /* GFNoIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNoIndentTableViewCell.m; sourceTree = "<group>"; };
+		86D4FAF31C96A08F004E26AC /* GFNoIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNoIndentViewController.h; sourceTree = "<group>"; };
+		86D4FAF41C96A08F004E26AC /* GFNoIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNoIndentViewController.m; sourceTree = "<group>"; };
+		86D4FAF51C96A08F004E26AC /* GFOneIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFOneIndentViewController.h; sourceTree = "<group>"; };
+		86D4FAF61C96A08F004E26AC /* GFOneIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFOneIndentViewController.m; sourceTree = "<group>"; };
+		86D4FAF81C96A08F004E26AC /* GFAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAlertView.h; sourceTree = "<group>"; };
+		86D4FAF91C96A08F004E26AC /* GFAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAlertView.m; sourceTree = "<group>"; };
+		86D4FAFA1C96A08F004E26AC /* GFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFButton.h; sourceTree = "<group>"; };
+		86D4FAFB1C96A08F004E26AC /* GFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFButton.m; sourceTree = "<group>"; };
+		86D4FAFC1C96A08F004E26AC /* GFNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNavigationView.h; sourceTree = "<group>"; };
+		86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNavigationView.m; sourceTree = "<group>"; };
+		86D4FAFE1C96A08F004E26AC /* GFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTextField.h; sourceTree = "<group>"; };
+		86D4FAFF1C96A08F004E26AC /* GFTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTextField.m; sourceTree = "<group>"; };
+		86D4FB001C96A08F004E26AC /* GFTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTipView.h; sourceTree = "<group>"; };
+		86D4FB011C96A08F004E26AC /* GFTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTipView.m; sourceTree = "<group>"; };
+		86D4FB021C96A08F004E26AC /* GFTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTitleView.h; sourceTree = "<group>"; };
+		86D4FB031C96A08F004E26AC /* GFTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTitleView.m; sourceTree = "<group>"; };
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+<<<<<<< HEAD
 		9B7301551C5F2CDF00FB2DEB /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		9B7301561C5F2CDF00FB2DEB /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		9B8513D81C965E2800BB9CF5 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		9B9515371C60501B00445F93 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		9B9515381C60501B00445F93 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+=======
+>>>>>>> master
 		9B95153B1C60503800445F93 /* GFAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotation.h; sourceTree = "<group>"; };
 		9B95153C1C60503800445F93 /* GFAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAnnotation.m; sourceTree = "<group>"; };
 		9B95153D1C60503800445F93 /* GFAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotationView.h; sourceTree = "<group>"; };
@@ -82,16 +147,6 @@
 		9B9754521C5765B3004BDC7C /* CarMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B9754561C5765B3004BDC7C /* CarMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarMapUITests.m; sourceTree = "<group>"; };
 		9B9754581C5765B3004BDC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BA526CA1C63115700A2298F /* PoiSearchDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchDemoViewController.h; sourceTree = "<group>"; };
-		9BA526CB1C63115700A2298F /* PoiSearchDemoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PoiSearchDemoViewController.mm; sourceTree = "<group>"; };
-		9BA9CBD31C5B02220059F145 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		9BA9CBD41C5B02220059F145 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		9BE53AE21C72ADED00BBB424 /* CLAutobonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLAutobonViewController.h; sourceTree = "<group>"; };
-		9BE53AE31C72ADED00BBB424 /* CLAutobonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLAutobonViewController.m; sourceTree = "<group>"; };
-		9BE53AE81C7301A200BBB424 /* CLCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCertifyViewController.h; sourceTree = "<group>"; };
-		9BE53AE91C7301A200BBB424 /* CLCertifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCertifyViewController.m; sourceTree = "<group>"; };
-		9BE53AF11C73406800BBB424 /* GFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTextField.h; sourceTree = "<group>"; };
-		9BE53AF21C73406800BBB424 /* GFTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTextField.m; sourceTree = "<group>"; };
 		9BFA805A1C5F4009001651C3 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Base.framework"; sourceTree = "<group>"; };
 		9BFA805B1C5F4009001651C3 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Cloud.framework"; sourceTree = "<group>"; };
 		9BFA805C1C5F4009001651C3 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Location.framework"; sourceTree = "<group>"; };
@@ -135,32 +190,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		86B890E41C73355B0068B95D /* 登录注册 */ = {
+		86D4FACF1C96A08F004E26AC /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
-				86B890E51C73355B0068B95D /* GFForgetPwdViewController_1.h */,
-				86B890E61C73355B0068B95D /* GFForgetPwdViewController_1.m */,
-				86B890E71C73355B0068B95D /* GFForgetPwdViewController_2.h */,
-				86B890E81C73355B0068B95D /* GFForgetPwdViewController_2.m */,
-				86B890E91C73355B0068B95D /* GFNavigationView.h */,
-				86B890EA1C73355B0068B95D /* GFNavigationView.m */,
-				86B890EB1C73355B0068B95D /* GFSignInViewController.h */,
-				86B890EC1C73355B0068B95D /* GFSignInViewController.m */,
-				86B890ED1C73355B0068B95D /* GFSignUpViewController.h */,
-				86B890EE1C73355B0068B95D /* GFSignUpViewController.m */,
-				9BE53AF11C73406800BBB424 /* GFTextField.h */,
-				9BE53AF21C73406800BBB424 /* GFTextField.m */,
+				86D4FAD01C96A08F004E26AC /* GFAddWorkerViewController.h */,
+				86D4FAD11C96A08F004E26AC /* GFAddWorkerViewController.m */,
+				86D4FAD21C96A08F004E26AC /* GFChangePwdViewController.h */,
+				86D4FAD31C96A08F004E26AC /* GFChangePwdViewController.m */,
+				86D4FAD41C96A08F004E26AC /* GFEvaluateShareViewController.h */,
+				86D4FAD51C96A08F004E26AC /* GFEvaluateShareViewController.m */,
+				86D4FAD61C96A08F004E26AC /* GFEvaluateViewController.h */,
+				86D4FAD71C96A08F004E26AC /* GFEvaluateViewController.m */,
+				86D4FAD81C96A08F004E26AC /* GFForgetPwdViewController.h */,
+				86D4FAD91C96A08F004E26AC /* GFForgetPwdViewController.m */,
+				86D4FADA1C96A08F004E26AC /* GFIndentDetialsViewController.h */,
+				86D4FADB1C96A08F004E26AC /* GFIndentDetialsViewController.m */,
+				86D4FADC1C96A08F004E26AC /* GFIndentTableViewCell.h */,
+				86D4FADD1C96A08F004E26AC /* GFIndentTableViewCell.m */,
+				86D4FADE1C96A08F004E26AC /* GFIndentViewController.h */,
+				86D4FADF1C96A08F004E26AC /* GFIndentViewController.m */,
+				86D4FAE01C96A08F004E26AC /* GFIWillAddViewController.h */,
+				86D4FAE11C96A08F004E26AC /* GFIWillAddViewController.m */,
+				86D4FAE21C96A08F004E26AC /* GFJoinInViewController_1.h */,
+				86D4FAE31C96A08F004E26AC /* GFJoinInViewController_1.m */,
+				86D4FAE41C96A08F004E26AC /* GFJoinInViewController_2.h */,
+				86D4FAE51C96A08F004E26AC /* GFJoinInViewController_2.m */,
+				86D4FAE61C96A08F004E26AC /* GFPartnersMessageViewController.h */,
+				86D4FAE71C96A08F004E26AC /* GFPartnersMessageViewController.m */,
+				86D4FAE81C96A08F004E26AC /* GFSignInViewController.h */,
+				86D4FAE91C96A08F004E26AC /* GFSignInViewController.m */,
+				86D4FAEA1C96A08F004E26AC /* GFSignUpViewController.h */,
+				86D4FAEB1C96A08F004E26AC /* GFSignUpViewController.m */,
+				86D4FAEC1C96A08F004E26AC /* GFWorkerTableViewCell.h */,
+				86D4FAED1C96A08F004E26AC /* GFWorkerTableViewCell.m */,
+				86D4FAEE1C96A08F004E26AC /* GFWorkerViewController.h */,
+				86D4FAEF1C96A08F004E26AC /* GFWorkerViewController.m */,
 			);
 			path = "登录注册";
 			sourceTree = "<group>";
 		};
-		86B890F11C73355B0068B95D /* 我的信息 */ = {
+		86D4FAF01C96A08F004E26AC /* 老五临时界面 */ = {
 			isa = PBXGroup;
 			children = (
-				86B890F21C73355B0068B95D /* GFMyMessageViewController.h */,
-				86B890F31C73355B0068B95D /* GFMyMessageViewController.m */,
+				86D4FAF11C96A08F004E26AC /* GFNoIndentTableViewCell.h */,
+				86D4FAF21C96A08F004E26AC /* GFNoIndentTableViewCell.m */,
+				86D4FAF31C96A08F004E26AC /* GFNoIndentViewController.h */,
+				86D4FAF41C96A08F004E26AC /* GFNoIndentViewController.m */,
+				86D4FAF51C96A08F004E26AC /* GFOneIndentViewController.h */,
+				86D4FAF61C96A08F004E26AC /* GFOneIndentViewController.m */,
 			);
-			path = "我的信息";
+			path = "老五临时界面";
+			sourceTree = "<group>";
+		};
+		86D4FAF71C96A08F004E26AC /* 自定义控件 */ = {
+			isa = PBXGroup;
+			children = (
+				86D4FAF81C96A08F004E26AC /* GFAlertView.h */,
+				86D4FAF91C96A08F004E26AC /* GFAlertView.m */,
+				86D4FAFA1C96A08F004E26AC /* GFButton.h */,
+				86D4FAFB1C96A08F004E26AC /* GFButton.m */,
+				86D4FAFC1C96A08F004E26AC /* GFNavigationView.h */,
+				86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */,
+				86D4FAFE1C96A08F004E26AC /* GFTextField.h */,
+				86D4FAFF1C96A08F004E26AC /* GFTextField.m */,
+				86D4FB001C96A08F004E26AC /* GFTipView.h */,
+				86D4FB011C96A08F004E26AC /* GFTipView.m */,
+				86D4FB021C96A08F004E26AC /* GFTitleView.h */,
+				86D4FB031C96A08F004E26AC /* GFTitleView.m */,
+			);
+			path = "自定义控件";
 			sourceTree = "<group>";
 		};
 		8C8F7DDB3387FA41E0656EC2 /* Pods */ = {
@@ -239,19 +337,11 @@
 			children = (
 				9B97543F1C5765B3004BDC7C /* AppDelegate.h */,
 				9B9754401C5765B3004BDC7C /* AppDelegate.mm */,
-				86B890E41C73355B0068B95D /* 登录注册 */,
-				86B890F11C73355B0068B95D /* 我的信息 */,
-				9BE53AE11C72ADB800BBB424 /* 车邻邦认证 */,
 				9B9754421C5765B3004BDC7C /* ViewController.h */,
 				9B9754431C5765B3004BDC7C /* ViewController.m */,
-				9B7301551C5F2CDF00FB2DEB /* SecondViewController.h */,
-				9B7301561C5F2CDF00FB2DEB /* SecondViewController.m */,
-				9BA9CBD31C5B02220059F145 /* FirstViewController.h */,
-				9BA9CBD41C5B02220059F145 /* FirstViewController.m */,
-				9B9515371C60501B00445F93 /* TestViewController.h */,
-				9B9515381C60501B00445F93 /* TestViewController.m */,
-				9BA526CA1C63115700A2298F /* PoiSearchDemoViewController.h */,
-				9BA526CB1C63115700A2298F /* PoiSearchDemoViewController.mm */,
+				86D4FACF1C96A08F004E26AC /* 登录注册 */,
+				86D4FAF01C96A08F004E26AC /* 老五临时界面 */,
+				86D4FAF71C96A08F004E26AC /* 自定义控件 */,
 				9B95153A1C60503800445F93 /* 百度地图 */,
 				9B9754451C5765B3004BDC7C /* Main.storyboard */,
 				9B9515441C6089A200445F93 /* PrefixHeader.pch */,
@@ -278,17 +368,6 @@
 				9B9754581C5765B3004BDC7C /* Info.plist */,
 			);
 			path = CarMapUITests;
-			sourceTree = "<group>";
-		};
-		9BE53AE11C72ADB800BBB424 /* 车邻邦认证 */ = {
-			isa = PBXGroup;
-			children = (
-				9BE53AE21C72ADED00BBB424 /* CLAutobonViewController.h */,
-				9BE53AE31C72ADED00BBB424 /* CLAutobonViewController.m */,
-				9BE53AE81C7301A200BBB424 /* CLCertifyViewController.h */,
-				9BE53AE91C7301A200BBB424 /* CLCertifyViewController.m */,
-			);
-			path = "车邻邦认证";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,25 +533,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86D4FB101C96A08F004E26AC /* GFSignInViewController.m in Sources */,
 				9B9515411C60503800445F93 /* GFAnnotation.m in Sources */,
-				86B890FA1C73355B0068B95D /* GFMyMessageViewController.m in Sources */,
-				9B7301571C5F2CDF00FB2DEB /* SecondViewController.m in Sources */,
-				9BE53AE41C72ADED00BBB424 /* CLAutobonViewController.m in Sources */,
-				86B890F71C73355B0068B95D /* GFSignInViewController.m in Sources */,
-				9B9515391C60501B00445F93 /* TestViewController.m in Sources */,
-				9BE53AEA1C7301A200BBB424 /* CLCertifyViewController.m in Sources */,
-				86B890F61C73355B0068B95D /* GFNavigationView.m in Sources */,
+				86D4FB081C96A08F004E26AC /* GFForgetPwdViewController.m in Sources */,
+				86D4FB181C96A08F004E26AC /* GFButton.m in Sources */,
+				86D4FB161C96A08F004E26AC /* GFOneIndentViewController.m in Sources */,
+				86D4FB1C1C96A08F004E26AC /* GFTitleView.m in Sources */,
+				86D4FB131C96A08F004E26AC /* GFWorkerViewController.m in Sources */,
 				9B9754441C5765B3004BDC7C /* ViewController.m in Sources */,
-				86B890F51C73355B0068B95D /* GFForgetPwdViewController_2.m in Sources */,
-				86B890F41C73355B0068B95D /* GFForgetPwdViewController_1.m in Sources */,
+				86D4FB071C96A08F004E26AC /* GFEvaluateViewController.m in Sources */,
 				9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */,
+				86D4FB191C96A08F004E26AC /* GFNavigationView.m in Sources */,
+				86D4FB051C96A08F004E26AC /* GFChangePwdViewController.m in Sources */,
+				86D4FB0C1C96A08F004E26AC /* GFIWillAddViewController.m in Sources */,
+				86D4FB091C96A08F004E26AC /* GFIndentDetialsViewController.m in Sources */,
+				86D4FB1B1C96A08F004E26AC /* GFTipView.m in Sources */,
+				86D4FB0F1C96A08F004E26AC /* GFPartnersMessageViewController.m in Sources */,
+				86D4FB0D1C96A08F004E26AC /* GFJoinInViewController_1.m in Sources */,
+				86D4FB0B1C96A08F004E26AC /* GFIndentViewController.m in Sources */,
+				86D4FB061C96A08F004E26AC /* GFEvaluateShareViewController.m in Sources */,
+				86D4FB141C96A08F004E26AC /* GFNoIndentTableViewCell.m in Sources */,
+				86D4FB171C96A08F004E26AC /* GFAlertView.m in Sources */,
 				9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */,
-				9BE53AF31C73406800BBB424 /* GFTextField.m in Sources */,
+				86D4FB151C96A08F004E26AC /* GFNoIndentViewController.m in Sources */,
 				9B97543E1C5765B3004BDC7C /* main.m in Sources */,
+				86D4FB1A1C96A08F004E26AC /* GFTextField.m in Sources */,
+				86D4FB041C96A08F004E26AC /* GFAddWorkerViewController.m in Sources */,
+				86D4FB0A1C96A08F004E26AC /* GFIndentTableViewCell.m in Sources */,
+				86D4FB111C96A08F004E26AC /* GFSignUpViewController.m in Sources */,
 				9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */,
-				86B890F81C73355B0068B95D /* GFSignUpViewController.m in Sources */,
-				9BA526CC1C63115700A2298F /* PoiSearchDemoViewController.mm in Sources */,
-				9BA9CBD51C5B02220059F145 /* FirstViewController.m in Sources */,
+				86D4FB0E1C96A08F004E26AC /* GFJoinInViewController_2.m in Sources */,
+				86D4FB121C96A08F004E26AC /* GFWorkerTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
