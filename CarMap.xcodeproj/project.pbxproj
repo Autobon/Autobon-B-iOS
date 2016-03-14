@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		368FB3069A8AB11C0125708F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4D41BE1C67690080F4127E9 /* libPods.a */; };
 		86B890F41C73355B0068B95D /* GFForgetPwdViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890E61C73355B0068B95D /* GFForgetPwdViewController_1.m */; };
 		86B890F51C73355B0068B95D /* GFForgetPwdViewController_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890E81C73355B0068B95D /* GFForgetPwdViewController_2.m */; };
 		86B890F61C73355B0068B95D /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890EA1C73355B0068B95D /* GFNavigationView.m */; };
@@ -15,6 +14,7 @@
 		86B890F81C73355B0068B95D /* GFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890EE1C73355B0068B95D /* GFSignUpViewController.m */; };
 		86B890FA1C73355B0068B95D /* GFMyMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B890F31C73355B0068B95D /* GFMyMessageViewController.m */; };
 		9B7301571C5F2CDF00FB2DEB /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7301561C5F2CDF00FB2DEB /* SecondViewController.m */; };
+		9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8513D81C965E2800BB9CF5 /* libPods.a */; };
 		9B9515391C60501B00445F93 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9515381C60501B00445F93 /* TestViewController.m */; };
 		9B9515411C60503800445F93 /* GFAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153C1C60503800445F93 /* GFAnnotation.m */; };
 		9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153E1C60503800445F93 /* GFAnnotationView.m */; };
@@ -59,6 +59,7 @@
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9B7301551C5F2CDF00FB2DEB /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		9B7301561C5F2CDF00FB2DEB /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		9B8513D81C965E2800BB9CF5 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		9B9515371C60501B00445F93 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		9B9515381C60501B00445F93 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		9B95153B1C60503800445F93 /* GFAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotation.h; sourceTree = "<group>"; };
@@ -112,7 +113,6 @@
 		9BFA80811C5F4744001651C3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9BFA80841C5F475B001651C3 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		C95997697E5E85C90BAF73FD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		D4D41BE1C67690080F4127E9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F99A50507FF60FC41E844D9D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				368FB3069A8AB11C0125708F /* libPods.a in Frameworks */,
+				9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +175,7 @@
 		909B27CA6FA162B8934C9008 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B8513D81C965E2800BB9CF5 /* libPods.a */,
 				9BFA80841C5F475B001651C3 /* libstdc++.6.0.9.tbd */,
 				9BFA80811C5F4744001651C3 /* libsqlite3.0.tbd */,
 				9BFA807F1C5F4596001651C3 /* UIKit.framework */,
@@ -196,7 +197,6 @@
 				9BFA805F1C5F4009001651C3 /* BaiduMapAPI_Search.framework */,
 				9BFA80601C5F4009001651C3 /* BaiduMapAPI_Utils.framework */,
 				9B02AF661C5A22CB0044FB71 /* StoreKit.framework */,
-				D4D41BE1C67690080F4127E9 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -614,6 +614,11 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = CarNeighbor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -631,6 +636,11 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = CarNeighbor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
