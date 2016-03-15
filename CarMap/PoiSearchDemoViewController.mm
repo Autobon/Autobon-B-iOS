@@ -9,6 +9,9 @@
 #import "BMKLocationService.h"
 #import "GFAnnotation.h"
 #import "GFAnnotationView.h"
+#import "GFNavigationView.h"
+#import "GFTitleView.h"
+#import "GFJoinInViewController_2.h"
 
 
 
@@ -45,7 +48,18 @@
     
     
     
-    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 84, self.view.frame.size.width-100, 40)];
+    // 导航栏
+    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    [navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:navView];
+    
+    
+    GFTitleView *zhizhaoView = [[GFTitleView alloc] initWithY:75 Title:@"商户位置"];
+    [self.view addSubview:zhizhaoView];
+    
+    
+    
+    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 84 + 60, self.view.frame.size.width-100, 40)];
     //    searchbar.backgroundColor = [UIColor whiteColor];
     _searchbar.barTintColor = [UIColor whiteColor];
     //    searchbar.barStyle = UIBarStyleDefault;
@@ -58,7 +72,7 @@
     _searchbar.clipsToBounds = YES;
     
     
-    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 84, 60, 40)];
+    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 84 + 60, 60, 40)];
     [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -77,7 +91,7 @@
     
     
     
-     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 150, self.view.frame.size.width , self.view.frame.size.width*7/10)];
+     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 150 + 60, self.view.frame.size.width , self.view.frame.size.width*7/10)];
     _mapView.delegate = self;
     
     [self.view addSubview:_mapView];
@@ -88,6 +102,17 @@
     _nextPageButton.enabled = false;
     _mapView.isSelectedAnnotationViewFront = YES;
     
+    
+    
+    UIButton *trueButton = [[UIButton alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(_mapView.frame)+20, self.view.frame.size.width-60, 40)];
+    [trueButton setTitle:@"确认" forState:UIControlStateNormal];
+    [trueButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+    [trueButton setBackgroundImage:[UIImage imageNamed:@"buttonClick"] forState:UIControlStateHighlighted];
+    [trueButton addTarget:self action:@selector(trueBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:trueButton];
+    
+    
+    
    
     [self _setLocationService];
     
@@ -95,6 +120,19 @@
    
 }
 
+#pragma mark - 确认按钮的响应方法
+- (void)trueBtnClick{
+    
+    GFJoinInViewController_2 *joinInView = [[GFJoinInViewController_2 alloc]init];
+    [self.navigationController pushViewController:joinInView animated:YES];
+    
+    
+}
+
+
+- (void)leftButClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 #pragma mark - ***** 大头针 *****

@@ -438,7 +438,8 @@
         
         
         // 计时器
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork:) userInfo:nil repeats:YES];
+//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork:) userInfo:nil repeats:YES];
+//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork) userInfo:nil repeats:YES];
 
     }
     

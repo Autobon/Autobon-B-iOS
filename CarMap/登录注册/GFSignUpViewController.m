@@ -148,6 +148,10 @@
 }
 
 
+- (void)getVerifyButClick:(UIButton *)button{
+    
+}
+
 - (void)agreeButClick {
 
 

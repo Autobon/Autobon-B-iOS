@@ -13,6 +13,10 @@
 #import "GFSignUpViewController.h"
 
 #import "GFForgetPwdViewController.h"
+#import "CLCooperateFailViewController.h"
+#import "CLCooperatingViewController.h"
+#import "GFOneIndentViewController.h"
+
 
 
 @interface GFSignInViewController () {
@@ -64,8 +68,9 @@
     CGFloat logoImgViewX = (kWidth - logoImgViewW) * 0.5;
     CGFloat logoImgViewY = kHeight * 0.141 + 20;
     UIImageView *logoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(logoImgViewX, logoImgViewY, logoImgViewW, logoImgViewH)];
+    logoImgView.image = [UIImage imageNamed:@"LOGO"];
     [self.view addSubview:logoImgView];
-    logoImgView.backgroundColor = [UIColor redColor];
+//    logoImgView.backgroundColor = [UIColor redColor];
     
     // 企业简称
     self.enterpriseTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(logoImgView.frame) + kHeight * 0.091 withPlaceholder:@"企业简称"];
@@ -123,8 +128,17 @@
     
 }
 
+
+#pragma mark - 登录按钮的响应的响应方法
 - (void)signInButClick {
 
+//    CLCooperatingViewController *cooperateView = [[CLCooperatingViewController alloc]init];
+//    CLCooperateFailViewController *cooperateView = [[CLCooperateFailViewController alloc]init];
+//    [self.navigationController pushViewController:cooperateView animated:YES];
+    
+    GFOneIndentViewController *homeView = [[GFOneIndentViewController alloc]init];
+    [self.navigationController pushViewController:homeView animated:YES];
+    
     
 }
 

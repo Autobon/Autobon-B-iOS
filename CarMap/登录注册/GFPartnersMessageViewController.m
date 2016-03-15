@@ -9,6 +9,10 @@
 #import "GFPartnersMessageViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
+#import "GFIndentViewController.h"
+#import "GFJoinInViewController_1.h"
+#import "GFWorkerViewController.h"
+#import "GFChangePwdViewController.h"
 
 
 @interface GFPartnersMessageViewController () {
@@ -101,25 +105,35 @@
     UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
     but1.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [but1 addTarget:self action:@selector(but1Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 withLeftImgName:@"" withCenterText:@"我的订单" withRightImgName:@"" withBut:but1];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 withLeftImgName:@"order" withCenterText:@"我的订单" withRightImgName:@"right" withBut:but1];
     
     // 合作商加盟
     UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
     but2.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [but2 addTarget:self action:@selector(but2Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 2 + kHeight * 0.078 withLeftImgName:@"" withCenterText:@"合作商加盟" withRightImgName:@"" withBut:but2];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 2 + kHeight * 0.078 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:but2];
     
     // 业务员管理
     UIButton *but3 = [UIButton buttonWithType:UIButtonTypeCustom];
     but3.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
-    [but3 addTarget:self action:@selector(but4Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 3 + kHeight * 0.078 * 2 withLeftImgName:@"" withCenterText:@"业务员管理" withRightImgName:@"" withBut:but3];
+    [but3 addTarget:self action:@selector(but3Click) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 3 + kHeight * 0.078 * 2 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:but3];
+    
+    
+    
     
     // 车邻班专职客服电话
     UIButton *but4 = [UIButton buttonWithType:UIButtonTypeCustom];
     but4.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [but4 addTarget:self action:@selector(but4Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"" withCenterText:@"车邻班专职客服电话" withRightText:@"4001871500" withBut:but4];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:but4];
+    
+    
+    // 车邻班专职客服电话
+    UIButton *but5 = [UIButton buttonWithType:UIButtonTypeCustom];
+    but5.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [but5 addTarget:self action:@selector(but5Click) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"person-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:but5];
     
     // 退出登录
     CGFloat exitViewW = kWidth;
@@ -158,7 +172,7 @@
     CGFloat leftImgViewX = jianjv;
     CGFloat leftImgViewY = jiange;
     UIImageView *leftImgView = [[UIImageView alloc] initWithFrame:CGRectMake(leftImgViewX, leftImgViewY, leftImgViewW, leftImgViewH)];
-    leftImgView.backgroundColor = [UIColor redColor];
+//    leftImgView.backgroundColor = [UIColor redColor];
     leftImgView.image = [UIImage imageNamed:imgNameLeft];
     [baseView addSubview:leftImgView];
     
@@ -171,12 +185,12 @@
     lab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView addSubview:lab];
     
-    CGFloat righntImgViewW = leftImgViewW;
+    CGFloat righntImgViewW = leftImgViewW*2/3.0;
     CGFloat righntImgViewH = leftImgViewH;
     CGFloat righntImgViewX = kWidth - jianjv - righntImgViewW;
     CGFloat righntImgViewY = leftImgViewY;
     UIImageView *righntImgView = [[UIImageView alloc] initWithFrame:CGRectMake(righntImgViewX, righntImgViewY, righntImgViewW, righntImgViewH)];
-    righntImgView.backgroundColor = [UIColor redColor];
+//    righntImgView.backgroundColor = [UIColor redColor];
     righntImgView.image = [UIImage imageNamed:imgNameRight];
     [baseView addSubview:righntImgView];
     
@@ -209,7 +223,7 @@
     CGFloat leftImgViewX = jianjv;
     CGFloat leftImgViewY = jiange;
     UIImageView *leftImgView = [[UIImageView alloc] initWithFrame:CGRectMake(leftImgViewX, leftImgViewY, leftImgViewW, leftImgViewH)];
-    leftImgView.backgroundColor = [UIColor redColor];
+//    leftImgView.backgroundColor = [UIColor redColor];
     leftImgView.image = [UIImage imageNamed:imgNameLeft];
     [baseView addSubview:leftImgView];
     
@@ -246,22 +260,47 @@
 }
 
 
+#pragma mark - 我的订单
 - (void)but1Click {
 
+    GFIndentViewController *indentView = [[GFIndentViewController alloc]init];
+    [self.navigationController pushViewController:indentView animated:YES];
     
     NSLog(@"我的订单");
 }
+
+
+#pragma mark - 合作商加盟
 - (void)but2Click {
     
+    GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
+    [self.navigationController pushViewController:joinInView animated:YES];
     
     NSLog(@"合作商加盟");
 }
+
+
+#pragma mark - 业务员管理
 - (void)but3Click {
     
+    GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
+    [self.navigationController pushViewController:workerView animated:YES];
     
     NSLog(@"业务员管理");
 }
+
+
+#pragma mark - 修改密码
 - (void)but4Click {
+    
+    GFChangePwdViewController *changePwd = [[GFChangePwdViewController alloc]init];
+    [self.navigationController pushViewController:changePwd animated:YES];
+    NSLog(@"修改密码");
+}
+
+
+#pragma mark - 车邻邦专职客服电话
+- (void)but5Click {
     
     
     NSLog(@"车邻邦专职客服电话");

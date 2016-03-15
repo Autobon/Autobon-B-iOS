@@ -8,19 +8,16 @@
 
 #import "AppDelegate.h"
 #import "GeTuiSdk.h"
-#import "FirstViewController.h"
-#import "ViewController.h"
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialSinaHandler.h"
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaSSOHandler.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
-#import "SecondViewController.h"
-#import "TestViewController.h"
-#import "GFMapViewController.h"
-//#import "ViewController.h"
 
+
+#import "GFSignInViewController.h"
+#import "GFAddWorkerViewController.h"
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
@@ -71,10 +68,11 @@
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
-//    _firstView = [[ViewController alloc]init];
+//    GFAddWorkerViewController *firstView = [[GFAddWorkerViewController alloc]init];
+    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
 //    CLAutobonViewController *firstView = [[CLAutobonViewController alloc]init];
 //    CLCertifyViewController *firstView = [[CLCertifyViewController alloc]init];
-//    _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
+    _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
     [_window makeKeyAndVisible];
@@ -236,10 +234,10 @@
 //    [window addSubview:first.view];
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
-    FirstViewController *first = [[FirstViewController alloc]init];
-    [_navigation pushViewController:first animated:NO];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//    FirstViewController *first = [[FirstViewController alloc]init];
+//    [_navigation pushViewController:first animated:NO];
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     
 // 收到的推送消息还是要存储起来的，用来查看历史订单不用存储到数据库中吧

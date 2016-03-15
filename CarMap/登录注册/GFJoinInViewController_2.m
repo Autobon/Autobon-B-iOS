@@ -165,7 +165,8 @@
     self.shengBut.titleLabel.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:self.shengBut];
     [self.shengBut addTarget:self action:@selector(shengButClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.shengBut.layer.borderWidth = 1;
+    [self.shengBut setBackgroundImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
+//    self.shengBut.layer.borderWidth = 1;
     // 请选择市
     CGFloat shiButW = shengButW;
     CGFloat shiButH = shengButH;
@@ -178,7 +179,8 @@
     self.shiBut.titleLabel.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:self.shiBut];
     [self.shiBut addTarget:self action:@selector(shiButClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.shiBut.layer.borderWidth = 1;
+    [self.shiBut setBackgroundImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
+//    self.shiBut.layer.borderWidth = 1;
     // 请选择区
     CGFloat quButW = shengButW;
     CGFloat quButH = shengButH;
@@ -191,7 +193,8 @@
     self.quBut.titleLabel.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:self.quBut];
     [self.quBut addTarget:self action:@selector(quButClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.quBut.layer.borderWidth = 1;
+    [self.quBut setBackgroundImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
+//    self.quBut.layer.borderWidth = 1;
     // tableView
     tableViewW = shengButW;
     tableViewH = 100;
@@ -202,22 +205,26 @@
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.layer.borderWidth = 1;
+//    self.tableView.layer.borderWidth = 1;
     self.tableView.hidden = YES;
-    [self.scrollerView addSubview:self.tableView];
+    
     // 请填写发票邮寄地址
     CGFloat baseView2W = kWidth;
     CGFloat baseView2H = 0.214 * kHeight;
     CGFloat baseView2X = 0;
     CGFloat baseView2Y = CGRectGetMaxY(baseView.frame);
     UIView *baseView2 = [[UIView alloc] initWithFrame:CGRectMake(baseView2X, baseView2Y, baseView2W, baseView2H)];
-    baseView2.backgroundColor = [UIColor greenColor];
+//    baseView2.backgroundColor = [UIColor greenColor];
     [self.scrollerView addSubview:baseView2];
     UITextView *txtView = [[UITextView alloc] initWithFrame:CGRectMake(kWidth * 0.075, kHeight * 0.026, kWidth - (kWidth * 0.075) * 2, baseView2H - (kHeight * 0.026) * 2)];
-    txtView.backgroundColor = [UIColor redColor];
+    txtView.text = @"请填写发票邮寄地址";
+    txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+//    txtView.backgroundColor = [UIColor redColor];
+    
     txtView.delegate = self;
     [baseView2 addSubview:txtView];
     
+    [self.scrollerView addSubview:self.tableView];
     
     // 联系人姓名
     self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(baseView2.frame) + jiange2 withPlaceholder:@"联系人姓名"];
@@ -268,13 +275,22 @@
     
 }
 
+#pragma mark - 加盟按钮的响应方法
 - (void)joinInButClick {
 
     
     GFAlertView *alertView = [[GFAlertView alloc] initWithTipName:@"提交成功" withTipMessage:@"恭喜您资料提交成功，我们将会在一个工作日内审核信息并以短信的形式告知结果，请注意查收" withButtonNameArray:@[@"OK"]];
+    [alertView.okBut addTarget:self action:@selector(OKBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:alertView];
     
 }
+
+- (void)OKBtnClick{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+
 
 - (void)agreeButClick {
 

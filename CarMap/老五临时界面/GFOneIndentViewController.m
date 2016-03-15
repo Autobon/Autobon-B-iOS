@@ -10,8 +10,12 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFTitleView.h"
+#import "GFPartnersMessageViewController.h"
+#import "GFNoIndentViewController.h"
 
-@interface GFOneIndentViewController () {
+
+
+@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -30,11 +34,11 @@
 @property (nonatomic, strong) UIScrollView *scrollerView;
 
 // 灰色提示条
-@property (nonatomic, strong) UILabel *tipLab;
+@property (nonatomic, strong) UIButton *tipButton;
 // 订单信息
 @property (nonatomic, strong) GFTitleView *msgView;
 // 示例图
-@property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) UIButton *imgView;
 // 请填写备注
 @property (nonatomic, strong) UITextView *txtView;
 // 施工时间Lab
@@ -73,16 +77,17 @@
     jianjv1 = kWidth * 0.0416;
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"person" withLeftImgHightName:@"personClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
+    
 }
 
 - (void)_setView {
     
     
     CGFloat scrollerViewW = kWidth;
-    CGFloat scrollerViewH = 500;
+    CGFloat scrollerViewH = kHeight - 64 - kHeight * 0.0625;
     CGFloat scrollerViewX = 0;
     CGFloat scrollerViewY = CGRectGetMaxY(self.navView.frame);
     self.scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
@@ -106,16 +111,19 @@
     CGFloat tipLabH = kHeight * 0.0625;
     CGFloat tipLabX = 0;
     CGFloat tipLabY = 0;
-    self.tipLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
-    self.tipLab.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    self.tipLab.textAlignment = NSTextAlignmentCenter;
-    self.tipLab.textColor = [UIColor whiteColor];
-    self.tipLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
-    self.tipLab.text = @"有3个未完成订单";
-    [baseView addSubview:self.tipLab];
+    self.tipButton = [[UIButton alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
+    self.tipButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+//    self.tipButton.textAlignment = NSTextAlignmentCenter;
+//    [_tipButton setTitleColor:<#(nullable UIColor *)#> forState:<#(UIControlState)#>]
+//    self.tipButton.textColor = [UIColor whiteColor];
+    self.tipButton.titleLabel.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
+//    self.tipButton.text = @"有3个未完成订单";
+    [_tipButton setTitle:@"有3个未完成订单" forState:UIControlStateNormal];
+    [baseView addSubview:self.tipButton];
+    [_tipButton addTarget:self action:@selector(tipBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     // 订单信息
-    self.msgView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(self.tipLab.frame) + jiange1 Title:@"订单信息"];
+    self.msgView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(self.tipButton.frame) + jiange1 Title:@"订单信息"];
     [baseView addSubview:self.msgView];
     
     // 示例图
@@ -123,9 +131,21 @@
     CGFloat imgViewH = kHeight * 0.24;
     CGFloat imgViewX = jianjv1;
     CGFloat imgViewY = CGRectGetMaxY(self.msgView.frame) + jiange2;
-    self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
-    self.imgView.backgroundColor = [UIColor redColor];
+    self.imgView = [[UIButton alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
+//    self.imgView.backgroundColor = [UIColor redColor];
+//    self.imgView.image = [UIImage imageNamed:@"orderImage"];
+    [self.imgView setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
     [baseView addSubview:self.imgView];
+    
+    UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cameraBtn.frame = CGRectMake(CGRectGetMaxX(self.imgView.frame)-15, CGRectGetMaxY(self.imgView.frame)-15, 30, 30);
+    [cameraBtn setBackgroundImage:[UIImage imageNamed:@"cameraUser"] forState:UIControlStateNormal];
+    [baseView addSubview:cameraBtn];
+    
+    [cameraBtn addTarget:self action:@selector(cameraBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.imgView addTarget:self action:@selector(cameraBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     
     // 边线
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(jianjv1, CGRectGetMaxY(self.imgView.frame) + jiange2, kWidth - jianjv1 * 2, 1)];
@@ -226,10 +246,73 @@
     
 }
 
+
+#pragma mark - 未完成订单的响应方法
+- (void)tipBtnClick{
+    
+    GFNoIndentViewController *noIndent = [[GFNoIndentViewController alloc]init];
+    [self.navigationController pushViewController:noIndent animated:YES];
+    
+}
+
+
+#pragma mark - 一键下单按钮响应方法
 - (void)signInButClick {
     
     
 }
+
+#pragma mark - 相机按钮的响应方法
+- (void)cameraBtnClick{
+    
+    BOOL result = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (result) {
+        NSLog(@"---支持使用相机---");
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        [self  presentViewController:imagePicker animated:YES completion:^{
+        }];
+    }else{
+        NSLog(@"----不支持使用相机----");
+    }
+    
+}
+
+#pragma mark - 图片协议方法
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+        [self.imgView setBackgroundImage:image forState:UIControlStateNormal];
+    
+}
+
+
+#pragma mark - 压缩图片尺寸
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
+}
+
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)butClick:(UIButton *)sender {
     
@@ -312,7 +395,11 @@
 
 - (void)leftButClick {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
+    [self.navigationController pushViewController:partnerView animated:YES];
+    
+    
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

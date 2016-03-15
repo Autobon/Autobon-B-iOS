@@ -10,8 +10,11 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFTitleView.h"
+#import "PoiSearchDemoViewController.h"
 
-@interface GFJoinInViewController_1 () {
+
+
+@interface GFJoinInViewController_1 ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -24,6 +27,11 @@
     CGFloat jiange6;
     
     CGFloat jianjv1;
+    
+    UIView *_chooseView;
+    UIButton *_certificateImage;
+    UIButton *_idImageViewBtn;
+    BOOL _isCertificate;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -123,16 +131,24 @@
     CGFloat imgView1H = baseView1H - jiange3 - jiange4;
     CGFloat imgView1X = jianjv1;
     CGFloat imgView1Y = jiange3;
-    UIImageView *imgView1 = [[UIImageView alloc] initWithFrame:CGRectMake(imgView1X, imgView1Y, imgView1W, imgView1H)];
-//    imgView1.image = [UIImage imageNamed:@""];
-    imgView1.backgroundColor = [UIColor redColor];
-    [baseView1 addSubview:imgView1];
+    _certificateImage = [[UIButton alloc] initWithFrame:CGRectMake(imgView1X, imgView1Y, imgView1W, imgView1H)];
+    [_certificateImage setBackgroundImage:[UIImage imageNamed:@"userImage"] forState:UIControlStateNormal];
+//    imgView1.image = [UIImage imageNamed:@"userImage"];
+    [baseView1 addSubview:_certificateImage];
     // 边线
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, baseView1H, baseView1W, 1)];
     lineView1.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView1 addSubview:lineView1];
     
-    
+#pragma mark - 上传营业执照副本的相机按钮
+    UIButton *certificateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    certificateBtn.frame = CGRectMake(CGRectGetMaxX(_certificateImage.frame)-15, CGRectGetMaxY(_certificateImage.frame)-15, 30, 30);
+    [certificateBtn setBackgroundImage:[UIImage imageNamed:@"cameraUser"] forState:UIControlStateNormal];
+    [baseView1 addSubview:certificateBtn];
+    _certificateImage.tag =1;
+    certificateBtn.tag = 1;
+    [_certificateImage addTarget:self action:@selector(cameraBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [certificateBtn addTarget:self action:@selector(cameraBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     // 法人身份证正面照
     GFTitleView *idCardView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(baseView1.frame) + jiange5 Title:@"法人身份证正面照"];
@@ -152,14 +168,27 @@
     CGFloat imgView2H = baseView1H - jiange3 - jiange4;
     CGFloat imgView2X = jianjv1;
     CGFloat imgView2Y = jiange3;
-    UIImageView *imgView2 = [[UIImageView alloc] initWithFrame:CGRectMake(imgView2X, imgView2Y, imgView2W, imgView2H)];
-    //    imgView1.image = [UIImage imageNamed:@""];
-    imgView2.backgroundColor = [UIColor redColor];
-    [baseView2 addSubview:imgView2];
+    _idImageViewBtn = [[UIButton alloc] initWithFrame:CGRectMake(imgView2X, imgView2Y, imgView2W, imgView2H)];
+    [_idImageViewBtn setBackgroundImage:[UIImage imageNamed:@"userImage"] forState:UIControlStateNormal];
+//    imgView2.image = [UIImage imageNamed:@"userImage"];
+//    imgView2.backgroundColor = [UIColor redColor];
+    [baseView2 addSubview:_idImageViewBtn];
     // 边线
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, baseView2H, baseView2W, 1)];
     lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView2 addSubview:lineView2];
+    
+#pragma mark - 法人身份证正面照照片按钮
+    UIButton *idImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    idImageBtn.frame = CGRectMake(CGRectGetMaxX(_idImageViewBtn.frame)-15, CGRectGetMaxY(_idImageViewBtn.frame)-15, 30, 30);
+    [idImageBtn setBackgroundImage:[UIImage imageNamed:@"cameraUser"] forState:UIControlStateNormal];
+    [baseView2 addSubview:idImageBtn];
+    
+    _idImageViewBtn.tag = 2;
+    idImageBtn.tag = 2;
+    
+    [_idImageViewBtn addTarget:self action:@selector(cameraBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [idImageBtn addTarget:self action:@selector(cameraBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
     // 注册按钮
@@ -180,7 +209,139 @@
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(nextBut.frame) + 50);
 }
 
+
+
+#pragma mark - 相机按钮的响应方法
+- (void)cameraBtnClick:(UIButton *)button{
+    NSLog(@"--请选择照片－－");
+    if (button.tag == 1) {
+        _isCertificate = YES;
+    }else{
+        _isCertificate = NO;
+    }
+    
+    _chooseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-100, 80)];
+    _chooseView.center = self.view.center;
+    _chooseView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    _chooseView.layer.cornerRadius = 15;
+    _chooseView.clipsToBounds = YES;
+    [self.view addSubview:_chooseView];
+    
+    // 相机和相册按钮
+    UIButton *cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-100, 40)];
+    [cameraButton setTitle:@"相册" forState:UIControlStateNormal];
+    [cameraButton addTarget:self action:@selector(imageChoose:) forControlEvents:UIControlEventTouchUpInside];
+    cameraButton.tag = 1;
+    [_chooseView addSubview:cameraButton];
+    
+    UIButton *photoButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 40, self.view.frame.size.width-100, 40)];
+    [photoButton setTitle:@"相机" forState:UIControlStateNormal];
+    [photoButton addTarget:self action:@selector(imageChoose:) forControlEvents:UIControlEventTouchUpInside];
+    photoButton.tag = 2;
+    [_chooseView addSubview:photoButton];
+    
+    
+    
+}
+
+#pragma mark - 选择照片
+- (void)imageChoose:(UIButton *)button{
+    [_chooseView removeFromSuperview];
+//    _scrollView.userInteractionEnabled = YES;
+    if (button.tag == 1) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        imagePickerController.delegate =self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }else{
+        NSLog(@"打开相机");
+        BOOL result = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+        if (result) {
+            NSLog(@"---支持使用相机---");
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePicker.delegate = self;
+            [self  presentViewController:imagePicker animated:YES completion:^{
+            }];
+        }else{
+            NSLog(@"----不支持使用相机----");
+        }
+        
+    }
+    
+    
+}
+
+#pragma mark - 图片协议方法
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_isCertificate) {
+        [_certificateImage setBackgroundImage:image forState:UIControlStateNormal];
+//        CGSize imagesize;
+//        imagesize.width = image.size.width/2;
+//        imagesize.height = image.size.height/2;
+//        UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
+////        NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
+        
+        
+    }else{
+        [_idImageViewBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //        _haveIdentityImage = YES;
+//        _identityButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+//        CGSize imagesize;
+//        imagesize.width = image.size.width/2;
+//        imagesize.height = image.size.height/2;
+//        UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
+//        NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
+//        [GFHttpTool idPhotoImage:imageData success:^(NSDictionary *responseObject) {
+//            NSLog(@"----%@---",responseObject);
+//            if ([responseObject[@"result"]intValue] == 1) {
+//                _haveIdentityImage = YES;
+//                [self addAlertView:@"证件照上传成功"];
+//            }else{
+//                [self addAlertView:@"证件照上传失败"];
+//            }
+//        } failure:^(NSError *error) {
+//            
+//        }];
+        
+    }
+    
+}
+
+
+#pragma mark - 压缩图片尺寸
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
+}
+
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - 下一步
 - (void)nextButClick {
+    
+    PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
+    [self.navigationController pushViewController:poiSearchView animated:YES];
     
     NSLog(@"下一步");
 
