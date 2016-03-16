@@ -10,6 +10,9 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFWorkerTableViewCell.h"
+#import "GFAddWorkerViewController.h"
+
+
 
 @interface GFWorkerViewController () {
     
@@ -56,6 +59,25 @@
     self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"业务员管理" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
+    
+    
+    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 60, 22, 40, 44)];
+    [addButton setTitle:@"增加" forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(addWorker) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:addButton];
+    
+    
+    
+    
+}
+
+
+#pragma mark - 增加业务员的按钮响应方法
+- (void)addWorker{
+    
+    GFAddWorkerViewController *addWorker = [[GFAddWorkerViewController alloc]init];
+    [self.navigationController pushViewController:addWorker animated:YES];
+    
 }
 
 - (void)_setView {

@@ -10,6 +10,10 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFTitleView.h"
+#import "GFEvaluateViewController.h"
+
+
+
 
 @interface GFIndentDetialsViewController () {
     
@@ -65,7 +69,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"服务中心" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"订单详情" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
 }
@@ -125,6 +129,7 @@
     [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
     [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
     pingjiaBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:pingjiaBut];
     
     // 边线
@@ -301,6 +306,15 @@
     
     
 }
+
+#pragma mark - 去评价按钮的响应方法
+- (void)judgeBtnClick{
+    GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+    [self.navigationController pushViewController:evaluateView animated:YES];
+    
+    
+}
+
 
 - (void)leftButClick {
     

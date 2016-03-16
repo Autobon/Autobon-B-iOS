@@ -10,6 +10,9 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFTitleView.h"
+#import "GFEvaluateShareViewController.h"
+
+
 
 @interface GFEvaluateViewController () {
     
@@ -54,7 +57,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"服务中心" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"评价" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
 }
@@ -242,8 +245,17 @@
     submitBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     submitBut.layer.cornerRadius = 5;
     [submitBut setTitle:@"提交评价" forState:UIControlStateNormal];
+    [submitBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:submitBut];
     
+}
+
+#pragma mark - 提交评价按钮的响应方法
+- (void)submitBtnClick{
+    
+    GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+    [self.navigationController pushViewController:shareView animated:YES];
+
 }
 
 

@@ -52,7 +52,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"服务中心" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"新增账户" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
 }
@@ -110,6 +110,7 @@
     signInBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     signInBut.layer.cornerRadius = 5;
     [signInBut setTitle:@"确认" forState:UIControlStateNormal];
+    [signInBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInBut];
     
     // 点击“提交”
@@ -122,15 +123,21 @@
     
 }
 
+#pragma mark - 确认按钮的响应方法
+- (void)submitBtnClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 
 - (UIView *)messageButView:(NSString *)messageStr withSelected:(BOOL)select withX:(CGFloat)x withY:(CGFloat)y{
     
     UIButton *imgBut = [UIButton buttonWithType:UIButtonTypeCustom];
     imgBut.frame = CGRectMake(0, 0, kWidth * 0.051, kWidth * 0.051);
-    [imgBut setImage:[UIImage imageNamed:@"over.png"] forState:UIControlStateNormal];
-    [imgBut setImage:[UIImage imageNamed:@"overClick.png"] forState:UIControlStateSelected];
+    [imgBut setImage:[UIImage imageNamed:@"over"] forState:UIControlStateNormal];
+    [imgBut setImage:[UIImage imageNamed:@"overClick"] forState:UIControlStateSelected];
     imgBut.selected = select;
-    imgBut.backgroundColor = [UIColor redColor];
+//    imgBut.backgroundColor = [UIColor redColor];
     
     NSString *fenStr = messageStr;
     NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];

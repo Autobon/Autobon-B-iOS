@@ -42,7 +42,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"服务中心" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"评价" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
 }
@@ -185,6 +185,7 @@
     [shareBut setTitle:@"分享" forState:UIControlStateNormal];
     [shareBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     shareBut.backgroundColor = [UIColor redColor];
+    [shareBut addTarget:self action:@selector(shareBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:shareBut];
     
     
@@ -201,12 +202,28 @@
     [homeBut setTitle:@"首页" forState:UIControlStateNormal];
     [homeBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     homeBut.backgroundColor = [UIColor redColor];
+    [homeBut addTarget:self action:@selector(homeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:homeBut];
     
     
     
     
 }
+
+
+#pragma mark - 分享按钮响应方法
+- (void)shareBtnClick{
+    NSLog(@"分享");
+}
+
+
+#pragma mark - 首页按钮响应方法
+- (void)homeBtnClick{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+
 
 - (void)leftButClick {
     

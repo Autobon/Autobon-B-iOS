@@ -12,7 +12,7 @@
 //#import "GFHttpTool.h"
 
 #import "GFIndentTableViewCell.h"
-//#import "GFIndentDetailsViewController.h"
+#import "GFIndentDetialsViewController.h"
 
 #import "MJRefresh.h"
 //#import "GFTipView.h"
@@ -193,8 +193,8 @@
     
 //    [GFTipView tipViewWithHeight:2 withTipViewMessage:@"gsag"];
 
-//    GFIndentDetailsViewController *indentDeVC = [[GFIndentDetailsViewController alloc] init];
-//    [self.navigationController pushViewController:indentDeVC animated:YES];
+    GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
+    [self.navigationController pushViewController:indentDeVC animated:YES];
 }
 
 - (void)leftButClick {
