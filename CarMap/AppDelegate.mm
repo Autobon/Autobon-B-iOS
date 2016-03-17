@@ -21,9 +21,9 @@
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
-#define kGtAppId      @"bA8VREs20O83tJSR23Q2w4"
-#define kGtAppKey     @"J7erlQojfG6L4Fli5I3kz1"
-#define kGtAppSecret  @"9CI81CHleC6R4KyDvQYK35"
+#define kGtAppId      @"IED5iJnuVu8dklsGy35E54"
+#define kGtAppKey     @"22mn0WmsqS6k7omIUytIo4"
+#define kGtAppSecret  @"QIBL2KCDIX5wbklRBLIxUA"
 
 @interface AppDelegate ()<GeTuiSdkDelegate,BMKGeneralDelegate>
 {
