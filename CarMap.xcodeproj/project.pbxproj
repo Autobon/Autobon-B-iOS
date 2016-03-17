@@ -14,22 +14,6 @@
 		8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC71C99459200666634 /* AFURLResponseSerialization.m */; };
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
 		8673FDD21C99459200666634 /* GFHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDCB1C99459200666634 /* GFHttpTool.m */; };
-		9B6756E71C97CA000001C478 /* GFAddWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756C81C97CA000001C478 /* GFAddWorkerViewController.m */; };
-		9B6756E81C97CA000001C478 /* GFChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756CA1C97CA000001C478 /* GFChangePwdViewController.m */; };
-		9B6756E91C97CA000001C478 /* GFEvaluateShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756CC1C97CA000001C478 /* GFEvaluateShareViewController.m */; };
-		9B6756EA1C97CA000001C478 /* GFEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756CE1C97CA000001C478 /* GFEvaluateViewController.m */; };
-		9B6756EB1C97CA000001C478 /* GFForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756D01C97CA000001C478 /* GFForgetPwdViewController.m */; };
-		9B6756EC1C97CA000001C478 /* GFIndentDetialsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756D21C97CA000001C478 /* GFIndentDetialsViewController.m */; };
-		9B6756ED1C97CA000001C478 /* GFIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756D41C97CA000001C478 /* GFIndentTableViewCell.m */; };
-		9B6756EE1C97CA000001C478 /* GFIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756D61C97CA000001C478 /* GFIndentViewController.m */; };
-		9B6756EF1C97CA000001C478 /* GFIWillAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756D81C97CA000001C478 /* GFIWillAddViewController.m */; };
-		9B6756F01C97CA000001C478 /* GFJoinInViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756DA1C97CA000001C478 /* GFJoinInViewController_1.m */; };
-		9B6756F11C97CA000001C478 /* GFJoinInViewController_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756DC1C97CA000001C478 /* GFJoinInViewController_2.m */; };
-		9B6756F21C97CA000001C478 /* GFPartnersMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756DE1C97CA000001C478 /* GFPartnersMessageViewController.m */; };
-		9B6756F31C97CA000001C478 /* GFSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756E01C97CA000001C478 /* GFSignInViewController.m */; };
-		9B6756F41C97CA000001C478 /* GFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756E21C97CA000001C478 /* GFSignUpViewController.m */; };
-		9B6756F51C97CA000001C478 /* GFWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756E41C97CA000001C478 /* GFWorkerTableViewCell.m */; };
-		9B6756F61C97CA000001C478 /* GFWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756E61C97CA000001C478 /* GFWorkerViewController.m */; };
 		9B6757241C97CAC70001C478 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */; };
 		9B6757251C97CAC70001C478 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FC1C97CAC70001C478 /* MJRefreshBackFooter.m */; };
 		9B6757261C97CAC70001C478 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FE1C97CAC70001C478 /* MJRefreshComponent.m */; };
@@ -51,22 +35,38 @@
 		9B6757361C97CAC70001C478 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6757231C97CAC70001C478 /* UIView+MJExtension.m */; };
 		9B6757371C97CAFE0001C478 /* GFAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF91C96A08F004E26AC /* GFAlertView.m */; };
 		9B6757381C97CB770001C478 /* GFTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FB031C96A08F004E26AC /* GFTitleView.m */; };
-		9B67573D1C9804C00001C478 /* CLCooperateFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67573A1C9804C00001C478 /* CLCooperateFailViewController.m */; };
-		9B67573E1C9804C00001C478 /* CLCooperatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B67573C1C9804C00001C478 /* CLCooperatingViewController.m */; };
-		9B67573F1C980A6C0001C478 /* GFOneIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF61C96A08F004E26AC /* GFOneIndentViewController.m */; };
-		9B6757401C9819AD0001C478 /* GFNoIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF41C96A08F004E26AC /* GFNoIndentViewController.m */; };
-		9B6757411C9819BF0001C478 /* GFNoIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAF21C96A08F004E26AC /* GFNoIndentTableViewCell.m */; };
+		9B6B6E3B1C9A452C00449259 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E341C9A452C00449259 /* FirstViewController.m */; };
+		9B6B6E3C1C9A452C00449259 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E361C9A452C00449259 /* SecondViewController.m */; };
+		9B6B6E3D1C9A452C00449259 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E381C9A452C00449259 /* TestViewController.m */; };
+		9B6B6E3E1C9A452C00449259 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E3A1C9A452C00449259 /* ViewController.m */; };
+		9B6B6E461C9A466D00449259 /* GFNoIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E411C9A466D00449259 /* GFNoIndentTableViewCell.m */; };
+		9B6B6E471C9A466D00449259 /* GFNoIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E431C9A466D00449259 /* GFNoIndentViewController.m */; };
+		9B6B6E481C9A466D00449259 /* GFOneIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E451C9A466D00449259 /* GFOneIndentViewController.m */; };
+		9B6B6E961C9A485B00449259 /* CLCooperateFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E891C9A485B00449259 /* CLCooperateFailViewController.m */; };
+		9B6B6E971C9A485B00449259 /* CLCooperatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E8B1C9A485B00449259 /* CLCooperatingViewController.m */; };
+		9B6B6E981C9A485B00449259 /* GFIWillAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E8D1C9A485B00449259 /* GFIWillAddViewController.m */; };
+		9B6B6E991C9A485B00449259 /* GFJoinInViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E8F1C9A485B00449259 /* GFJoinInViewController_1.m */; };
+		9B6B6E9A1C9A485B00449259 /* GFJoinInViewController_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */; };
+		9B6B6E9B1C9A485B00449259 /* GFPartnersMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */; };
+		9B6B6E9C1C9A485B00449259 /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E951C9A485B00449259 /* PoiSearchDemoViewController.mm */; };
+		9B6B6EAE1C9A4B1400449259 /* GFAddWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EA91C9A4B1400449259 /* GFAddWorkerViewController.m */; };
+		9B6B6EAF1C9A4B1400449259 /* GFWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EAB1C9A4B1400449259 /* GFWorkerTableViewCell.m */; };
+		9B6B6EB01C9A4B1400449259 /* GFWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EAD1C9A4B1400449259 /* GFWorkerViewController.m */; };
+		9B6B6EBA1C9A4B6400449259 /* GFChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EB31C9A4B6400449259 /* GFChangePwdViewController.m */; };
+		9B6B6EBB1C9A4B6400449259 /* GFForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EB51C9A4B6400449259 /* GFForgetPwdViewController.m */; };
+		9B6B6EBC1C9A4B6400449259 /* GFSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EB71C9A4B6400449259 /* GFSignInViewController.m */; };
+		9B6B6EBD1C9A4B6400449259 /* GFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EB91C9A4B6400449259 /* GFSignUpViewController.m */; };
+		9B6B6EC91C9A4BAC00449259 /* GFEvaluateShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC01C9A4BAC00449259 /* GFEvaluateShareViewController.m */; };
+		9B6B6ECA1C9A4BAC00449259 /* GFEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC21C9A4BAC00449259 /* GFEvaluateViewController.m */; };
+		9B6B6ECB1C9A4BAC00449259 /* GFIndentDetialsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC41C9A4BAC00449259 /* GFIndentDetialsViewController.m */; };
+		9B6B6ECC1C9A4BAC00449259 /* GFIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC61C9A4BAC00449259 /* GFIndentTableViewCell.m */; };
+		9B6B6ECD1C9A4BAC00449259 /* GFIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC81C9A4BAC00449259 /* GFIndentViewController.m */; };
 		9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8513D81C965E2800BB9CF5 /* libPods.a */; };
-		9B8513DC1C96A97800BB9CF5 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8513DB1C96A97800BB9CF5 /* FirstViewController.m */; };
-		9B8513E11C96A99100BB9CF5 /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B8513DE1C96A99100BB9CF5 /* PoiSearchDemoViewController.mm */; };
-		9B8513E21C96A99100BB9CF5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8513E01C96A99100BB9CF5 /* SecondViewController.m */; };
-		9B8513E51C96A9B000BB9CF5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8513E41C96A9B000BB9CF5 /* TestViewController.m */; };
 		9B9515411C60503800445F93 /* GFAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153C1C60503800445F93 /* GFAnnotation.m */; };
 		9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153E1C60503800445F93 /* GFAnnotationView.m */; };
 		9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9515401C60503800445F93 /* GFMapViewController.mm */; };
 		9B97543E1C5765B3004BDC7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B97543D1C5765B3004BDC7C /* main.m */; };
 		9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754401C5765B3004BDC7C /* AppDelegate.mm */; };
-		9B9754441C5765B3004BDC7C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754431C5765B3004BDC7C /* ViewController.m */; };
 		9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754451C5765B3004BDC7C /* Main.storyboard */; };
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */; };
@@ -101,12 +101,6 @@
 		8673FDC91C99459200666634 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		8673FDCA1C99459200666634 /* GFHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFHttpTool.h; sourceTree = "<group>"; };
 		8673FDCB1C99459200666634 /* GFHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFHttpTool.m; sourceTree = "<group>"; };
-		86D4FAF11C96A08F004E26AC /* GFNoIndentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNoIndentTableViewCell.h; sourceTree = "<group>"; };
-		86D4FAF21C96A08F004E26AC /* GFNoIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNoIndentTableViewCell.m; sourceTree = "<group>"; };
-		86D4FAF31C96A08F004E26AC /* GFNoIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNoIndentViewController.h; sourceTree = "<group>"; };
-		86D4FAF41C96A08F004E26AC /* GFNoIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNoIndentViewController.m; sourceTree = "<group>"; };
-		86D4FAF51C96A08F004E26AC /* GFOneIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFOneIndentViewController.h; sourceTree = "<group>"; };
-		86D4FAF61C96A08F004E26AC /* GFOneIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFOneIndentViewController.m; sourceTree = "<group>"; };
 		86D4FAF81C96A08F004E26AC /* GFAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAlertView.h; sourceTree = "<group>"; };
 		86D4FAF91C96A08F004E26AC /* GFAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAlertView.m; sourceTree = "<group>"; };
 		86D4FAFA1C96A08F004E26AC /* GFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFButton.h; sourceTree = "<group>"; };
@@ -120,38 +114,6 @@
 		86D4FB021C96A08F004E26AC /* GFTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTitleView.h; sourceTree = "<group>"; };
 		86D4FB031C96A08F004E26AC /* GFTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTitleView.m; sourceTree = "<group>"; };
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		9B6756C71C97CA000001C478 /* GFAddWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddWorkerViewController.h; sourceTree = "<group>"; };
-		9B6756C81C97CA000001C478 /* GFAddWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddWorkerViewController.m; sourceTree = "<group>"; };
-		9B6756C91C97CA000001C478 /* GFChangePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFChangePwdViewController.h; sourceTree = "<group>"; };
-		9B6756CA1C97CA000001C478 /* GFChangePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFChangePwdViewController.m; sourceTree = "<group>"; };
-		9B6756CB1C97CA000001C478 /* GFEvaluateShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFEvaluateShareViewController.h; sourceTree = "<group>"; };
-		9B6756CC1C97CA000001C478 /* GFEvaluateShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFEvaluateShareViewController.m; sourceTree = "<group>"; };
-		9B6756CD1C97CA000001C478 /* GFEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFEvaluateViewController.h; sourceTree = "<group>"; };
-		9B6756CE1C97CA000001C478 /* GFEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFEvaluateViewController.m; sourceTree = "<group>"; };
-		9B6756CF1C97CA000001C478 /* GFForgetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFForgetPwdViewController.h; sourceTree = "<group>"; };
-		9B6756D01C97CA000001C478 /* GFForgetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFForgetPwdViewController.m; sourceTree = "<group>"; };
-		9B6756D11C97CA000001C478 /* GFIndentDetialsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentDetialsViewController.h; sourceTree = "<group>"; };
-		9B6756D21C97CA000001C478 /* GFIndentDetialsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentDetialsViewController.m; sourceTree = "<group>"; };
-		9B6756D31C97CA000001C478 /* GFIndentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentTableViewCell.h; sourceTree = "<group>"; };
-		9B6756D41C97CA000001C478 /* GFIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentTableViewCell.m; sourceTree = "<group>"; };
-		9B6756D51C97CA000001C478 /* GFIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentViewController.h; sourceTree = "<group>"; };
-		9B6756D61C97CA000001C478 /* GFIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentViewController.m; sourceTree = "<group>"; };
-		9B6756D71C97CA000001C478 /* GFIWillAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIWillAddViewController.h; sourceTree = "<group>"; };
-		9B6756D81C97CA000001C478 /* GFIWillAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIWillAddViewController.m; sourceTree = "<group>"; };
-		9B6756D91C97CA000001C478 /* GFJoinInViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFJoinInViewController_1.h; sourceTree = "<group>"; };
-		9B6756DA1C97CA000001C478 /* GFJoinInViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_1.m; sourceTree = "<group>"; };
-		9B6756DB1C97CA000001C478 /* GFJoinInViewController_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFJoinInViewController_2.h; sourceTree = "<group>"; };
-		9B6756DC1C97CA000001C478 /* GFJoinInViewController_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_2.m; sourceTree = "<group>"; };
-		9B6756DD1C97CA000001C478 /* GFPartnersMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFPartnersMessageViewController.h; sourceTree = "<group>"; };
-		9B6756DE1C97CA000001C478 /* GFPartnersMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFPartnersMessageViewController.m; sourceTree = "<group>"; };
-		9B6756DF1C97CA000001C478 /* GFSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignInViewController.h; sourceTree = "<group>"; };
-		9B6756E01C97CA000001C478 /* GFSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignInViewController.m; sourceTree = "<group>"; };
-		9B6756E11C97CA000001C478 /* GFSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignUpViewController.h; sourceTree = "<group>"; };
-		9B6756E21C97CA000001C478 /* GFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignUpViewController.m; sourceTree = "<group>"; };
-		9B6756E31C97CA000001C478 /* GFWorkerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerTableViewCell.h; sourceTree = "<group>"; };
-		9B6756E41C97CA000001C478 /* GFWorkerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFWorkerTableViewCell.m; sourceTree = "<group>"; };
-		9B6756E51C97CA000001C478 /* GFWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerViewController.h; sourceTree = "<group>"; };
-		9B6756E61C97CA000001C478 /* GFWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFWorkerViewController.m; sourceTree = "<group>"; };
 		9B6756F91C97CAC70001C478 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		9B6756FB1C97CAC70001C478 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -190,19 +152,59 @@
 		9B6757211C97CAC70001C478 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		9B6757221C97CAC70001C478 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		9B6757231C97CAC70001C478 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		9B6757391C9804C00001C478 /* CLCooperateFailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCooperateFailViewController.h; sourceTree = "<group>"; };
-		9B67573A1C9804C00001C478 /* CLCooperateFailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCooperateFailViewController.m; sourceTree = "<group>"; };
-		9B67573B1C9804C00001C478 /* CLCooperatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCooperatingViewController.h; sourceTree = "<group>"; };
-		9B67573C1C9804C00001C478 /* CLCooperatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCooperatingViewController.m; sourceTree = "<group>"; };
+		9B6B6E331C9A452C00449259 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		9B6B6E341C9A452C00449259 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		9B6B6E351C9A452C00449259 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		9B6B6E361C9A452C00449259 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		9B6B6E371C9A452C00449259 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		9B6B6E381C9A452C00449259 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		9B6B6E391C9A452C00449259 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9B6B6E3A1C9A452C00449259 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9B6B6E401C9A466D00449259 /* GFNoIndentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNoIndentTableViewCell.h; sourceTree = "<group>"; };
+		9B6B6E411C9A466D00449259 /* GFNoIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNoIndentTableViewCell.m; sourceTree = "<group>"; };
+		9B6B6E421C9A466D00449259 /* GFNoIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNoIndentViewController.h; sourceTree = "<group>"; };
+		9B6B6E431C9A466D00449259 /* GFNoIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNoIndentViewController.m; sourceTree = "<group>"; };
+		9B6B6E441C9A466D00449259 /* GFOneIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFOneIndentViewController.h; sourceTree = "<group>"; };
+		9B6B6E451C9A466D00449259 /* GFOneIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFOneIndentViewController.m; sourceTree = "<group>"; };
+		9B6B6E881C9A485B00449259 /* CLCooperateFailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCooperateFailViewController.h; sourceTree = "<group>"; };
+		9B6B6E891C9A485B00449259 /* CLCooperateFailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCooperateFailViewController.m; sourceTree = "<group>"; };
+		9B6B6E8A1C9A485B00449259 /* CLCooperatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCooperatingViewController.h; sourceTree = "<group>"; };
+		9B6B6E8B1C9A485B00449259 /* CLCooperatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCooperatingViewController.m; sourceTree = "<group>"; };
+		9B6B6E8C1C9A485B00449259 /* GFIWillAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIWillAddViewController.h; sourceTree = "<group>"; };
+		9B6B6E8D1C9A485B00449259 /* GFIWillAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIWillAddViewController.m; sourceTree = "<group>"; };
+		9B6B6E8E1C9A485B00449259 /* GFJoinInViewController_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFJoinInViewController_1.h; sourceTree = "<group>"; };
+		9B6B6E8F1C9A485B00449259 /* GFJoinInViewController_1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_1.m; sourceTree = "<group>"; };
+		9B6B6E901C9A485B00449259 /* GFJoinInViewController_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFJoinInViewController_2.h; sourceTree = "<group>"; };
+		9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_2.m; sourceTree = "<group>"; };
+		9B6B6E921C9A485B00449259 /* GFPartnersMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFPartnersMessageViewController.h; sourceTree = "<group>"; };
+		9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFPartnersMessageViewController.m; sourceTree = "<group>"; };
+		9B6B6E941C9A485B00449259 /* PoiSearchDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchDemoViewController.h; sourceTree = "<group>"; };
+		9B6B6E951C9A485B00449259 /* PoiSearchDemoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PoiSearchDemoViewController.mm; sourceTree = "<group>"; };
+		9B6B6EA81C9A4B1400449259 /* GFAddWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddWorkerViewController.h; sourceTree = "<group>"; };
+		9B6B6EA91C9A4B1400449259 /* GFAddWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddWorkerViewController.m; sourceTree = "<group>"; };
+		9B6B6EAA1C9A4B1400449259 /* GFWorkerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerTableViewCell.h; sourceTree = "<group>"; };
+		9B6B6EAB1C9A4B1400449259 /* GFWorkerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFWorkerTableViewCell.m; sourceTree = "<group>"; };
+		9B6B6EAC1C9A4B1400449259 /* GFWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerViewController.h; sourceTree = "<group>"; };
+		9B6B6EAD1C9A4B1400449259 /* GFWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFWorkerViewController.m; sourceTree = "<group>"; };
+		9B6B6EB21C9A4B6400449259 /* GFChangePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFChangePwdViewController.h; sourceTree = "<group>"; };
+		9B6B6EB31C9A4B6400449259 /* GFChangePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFChangePwdViewController.m; sourceTree = "<group>"; };
+		9B6B6EB41C9A4B6400449259 /* GFForgetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFForgetPwdViewController.h; sourceTree = "<group>"; };
+		9B6B6EB51C9A4B6400449259 /* GFForgetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFForgetPwdViewController.m; sourceTree = "<group>"; };
+		9B6B6EB61C9A4B6400449259 /* GFSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignInViewController.h; sourceTree = "<group>"; };
+		9B6B6EB71C9A4B6400449259 /* GFSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignInViewController.m; sourceTree = "<group>"; };
+		9B6B6EB81C9A4B6400449259 /* GFSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFSignUpViewController.h; sourceTree = "<group>"; };
+		9B6B6EB91C9A4B6400449259 /* GFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFSignUpViewController.m; sourceTree = "<group>"; };
+		9B6B6EBF1C9A4BAC00449259 /* GFEvaluateShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFEvaluateShareViewController.h; sourceTree = "<group>"; };
+		9B6B6EC01C9A4BAC00449259 /* GFEvaluateShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFEvaluateShareViewController.m; sourceTree = "<group>"; };
+		9B6B6EC11C9A4BAC00449259 /* GFEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFEvaluateViewController.h; sourceTree = "<group>"; };
+		9B6B6EC21C9A4BAC00449259 /* GFEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFEvaluateViewController.m; sourceTree = "<group>"; };
+		9B6B6EC31C9A4BAC00449259 /* GFIndentDetialsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentDetialsViewController.h; sourceTree = "<group>"; };
+		9B6B6EC41C9A4BAC00449259 /* GFIndentDetialsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentDetialsViewController.m; sourceTree = "<group>"; };
+		9B6B6EC51C9A4BAC00449259 /* GFIndentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentTableViewCell.h; sourceTree = "<group>"; };
+		9B6B6EC61C9A4BAC00449259 /* GFIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentTableViewCell.m; sourceTree = "<group>"; };
+		9B6B6EC71C9A4BAC00449259 /* GFIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentViewController.h; sourceTree = "<group>"; };
+		9B6B6EC81C9A4BAC00449259 /* GFIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentViewController.m; sourceTree = "<group>"; };
 		9B8513D81C965E2800BB9CF5 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		9B8513DA1C96A97800BB9CF5 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		9B8513DB1C96A97800BB9CF5 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		9B8513DD1C96A99100BB9CF5 /* PoiSearchDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchDemoViewController.h; sourceTree = "<group>"; };
-		9B8513DE1C96A99100BB9CF5 /* PoiSearchDemoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PoiSearchDemoViewController.mm; sourceTree = "<group>"; };
-		9B8513DF1C96A99100BB9CF5 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		9B8513E01C96A99100BB9CF5 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		9B8513E31C96A9B000BB9CF5 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		9B8513E41C96A9B000BB9CF5 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		9B95153B1C60503800445F93 /* GFAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotation.h; sourceTree = "<group>"; };
 		9B95153C1C60503800445F93 /* GFAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAnnotation.m; sourceTree = "<group>"; };
 		9B95153D1C60503800445F93 /* GFAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotationView.h; sourceTree = "<group>"; };
@@ -214,8 +216,6 @@
 		9B97543D1C5765B3004BDC7C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9B97543F1C5765B3004BDC7C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9B9754401C5765B3004BDC7C /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		9B9754421C5765B3004BDC7C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9B9754431C5765B3004BDC7C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9B9754461C5765B3004BDC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B9754481C5765B3004BDC7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B97544B1C5765B3004BDC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -296,19 +296,6 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
-		86D4FAF01C96A08F004E26AC /* 老五临时界面 */ = {
-			isa = PBXGroup;
-			children = (
-				86D4FAF11C96A08F004E26AC /* GFNoIndentTableViewCell.h */,
-				86D4FAF21C96A08F004E26AC /* GFNoIndentTableViewCell.m */,
-				86D4FAF31C96A08F004E26AC /* GFNoIndentViewController.h */,
-				86D4FAF41C96A08F004E26AC /* GFNoIndentViewController.m */,
-				86D4FAF51C96A08F004E26AC /* GFOneIndentViewController.h */,
-				86D4FAF61C96A08F004E26AC /* GFOneIndentViewController.m */,
-			);
-			path = "老五临时界面";
-			sourceTree = "<group>";
-		};
 		86D4FAF71C96A08F004E26AC /* 自定义控件 */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,49 +351,6 @@
 				9B02AF661C5A22CB0044FB71 /* StoreKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9B6756C61C97CA000001C478 /* 登录注册 */ = {
-			isa = PBXGroup;
-			children = (
-				9B6756C71C97CA000001C478 /* GFAddWorkerViewController.h */,
-				9B6756C81C97CA000001C478 /* GFAddWorkerViewController.m */,
-				9B6756C91C97CA000001C478 /* GFChangePwdViewController.h */,
-				9B6756CA1C97CA000001C478 /* GFChangePwdViewController.m */,
-				9B6756CB1C97CA000001C478 /* GFEvaluateShareViewController.h */,
-				9B6756CC1C97CA000001C478 /* GFEvaluateShareViewController.m */,
-				9B6756CD1C97CA000001C478 /* GFEvaluateViewController.h */,
-				9B6756CE1C97CA000001C478 /* GFEvaluateViewController.m */,
-				9B6756CF1C97CA000001C478 /* GFForgetPwdViewController.h */,
-				9B6756D01C97CA000001C478 /* GFForgetPwdViewController.m */,
-				9B6756D11C97CA000001C478 /* GFIndentDetialsViewController.h */,
-				9B6756D21C97CA000001C478 /* GFIndentDetialsViewController.m */,
-				9B6756D31C97CA000001C478 /* GFIndentTableViewCell.h */,
-				9B6756D41C97CA000001C478 /* GFIndentTableViewCell.m */,
-				9B6756D51C97CA000001C478 /* GFIndentViewController.h */,
-				9B6756D61C97CA000001C478 /* GFIndentViewController.m */,
-				9B6756D71C97CA000001C478 /* GFIWillAddViewController.h */,
-				9B6756D81C97CA000001C478 /* GFIWillAddViewController.m */,
-				9B6756D91C97CA000001C478 /* GFJoinInViewController_1.h */,
-				9B6756DA1C97CA000001C478 /* GFJoinInViewController_1.m */,
-				9B6756DB1C97CA000001C478 /* GFJoinInViewController_2.h */,
-				9B6756DC1C97CA000001C478 /* GFJoinInViewController_2.m */,
-				9B6756DD1C97CA000001C478 /* GFPartnersMessageViewController.h */,
-				9B6756DE1C97CA000001C478 /* GFPartnersMessageViewController.m */,
-				9B6756DF1C97CA000001C478 /* GFSignInViewController.h */,
-				9B6756E01C97CA000001C478 /* GFSignInViewController.m */,
-				9B6756E11C97CA000001C478 /* GFSignUpViewController.h */,
-				9B6756E21C97CA000001C478 /* GFSignUpViewController.m */,
-				9B6756E31C97CA000001C478 /* GFWorkerTableViewCell.h */,
-				9B6756E41C97CA000001C478 /* GFWorkerTableViewCell.m */,
-				9B6756E51C97CA000001C478 /* GFWorkerViewController.h */,
-				9B6756E61C97CA000001C478 /* GFWorkerViewController.m */,
-				9B6757391C9804C00001C478 /* CLCooperateFailViewController.h */,
-				9B67573A1C9804C00001C478 /* CLCooperateFailViewController.m */,
-				9B67573B1C9804C00001C478 /* CLCooperatingViewController.h */,
-				9B67573C1C9804C00001C478 /* CLCooperatingViewController.m */,
-			);
-			path = "登录注册";
 			sourceTree = "<group>";
 		};
 		9B6756F71C97CAC70001C478 /* MJRefresh */ = {
@@ -502,6 +446,100 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		9B6B6E321C9A452C00449259 /* 工具页面 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6B6E331C9A452C00449259 /* FirstViewController.h */,
+				9B6B6E341C9A452C00449259 /* FirstViewController.m */,
+				9B6B6E351C9A452C00449259 /* SecondViewController.h */,
+				9B6B6E361C9A452C00449259 /* SecondViewController.m */,
+				9B6B6E371C9A452C00449259 /* TestViewController.h */,
+				9B6B6E381C9A452C00449259 /* TestViewController.m */,
+				9B6B6E391C9A452C00449259 /* ViewController.h */,
+				9B6B6E3A1C9A452C00449259 /* ViewController.m */,
+			);
+			path = "工具页面";
+			sourceTree = "<group>";
+		};
+		9B6B6E3F1C9A466D00449259 /* 主页面 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6B6E401C9A466D00449259 /* GFNoIndentTableViewCell.h */,
+				9B6B6E411C9A466D00449259 /* GFNoIndentTableViewCell.m */,
+				9B6B6E421C9A466D00449259 /* GFNoIndentViewController.h */,
+				9B6B6E431C9A466D00449259 /* GFNoIndentViewController.m */,
+				9B6B6E441C9A466D00449259 /* GFOneIndentViewController.h */,
+				9B6B6E451C9A466D00449259 /* GFOneIndentViewController.m */,
+			);
+			path = "主页面";
+			sourceTree = "<group>";
+		};
+		9B6B6E871C9A485B00449259 /* 加盟 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6B6E881C9A485B00449259 /* CLCooperateFailViewController.h */,
+				9B6B6E891C9A485B00449259 /* CLCooperateFailViewController.m */,
+				9B6B6E8A1C9A485B00449259 /* CLCooperatingViewController.h */,
+				9B6B6E8B1C9A485B00449259 /* CLCooperatingViewController.m */,
+				9B6B6E8C1C9A485B00449259 /* GFIWillAddViewController.h */,
+				9B6B6E8D1C9A485B00449259 /* GFIWillAddViewController.m */,
+				9B6B6E8E1C9A485B00449259 /* GFJoinInViewController_1.h */,
+				9B6B6E8F1C9A485B00449259 /* GFJoinInViewController_1.m */,
+				9B6B6E901C9A485B00449259 /* GFJoinInViewController_2.h */,
+				9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */,
+				9B6B6E921C9A485B00449259 /* GFPartnersMessageViewController.h */,
+				9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */,
+				9B6B6E941C9A485B00449259 /* PoiSearchDemoViewController.h */,
+				9B6B6E951C9A485B00449259 /* PoiSearchDemoViewController.mm */,
+			);
+			path = "加盟";
+			sourceTree = "<group>";
+		};
+		9B6B6EA71C9A4B1400449259 /* 人员管理 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6B6EA81C9A4B1400449259 /* GFAddWorkerViewController.h */,
+				9B6B6EA91C9A4B1400449259 /* GFAddWorkerViewController.m */,
+				9B6B6EAA1C9A4B1400449259 /* GFWorkerTableViewCell.h */,
+				9B6B6EAB1C9A4B1400449259 /* GFWorkerTableViewCell.m */,
+				9B6B6EAC1C9A4B1400449259 /* GFWorkerViewController.h */,
+				9B6B6EAD1C9A4B1400449259 /* GFWorkerViewController.m */,
+			);
+			path = "人员管理";
+			sourceTree = "<group>";
+		};
+		9B6B6EB11C9A4B6400449259 /* 登录注册 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6B6EB21C9A4B6400449259 /* GFChangePwdViewController.h */,
+				9B6B6EB31C9A4B6400449259 /* GFChangePwdViewController.m */,
+				9B6B6EB41C9A4B6400449259 /* GFForgetPwdViewController.h */,
+				9B6B6EB51C9A4B6400449259 /* GFForgetPwdViewController.m */,
+				9B6B6EB61C9A4B6400449259 /* GFSignInViewController.h */,
+				9B6B6EB71C9A4B6400449259 /* GFSignInViewController.m */,
+				9B6B6EB81C9A4B6400449259 /* GFSignUpViewController.h */,
+				9B6B6EB91C9A4B6400449259 /* GFSignUpViewController.m */,
+			);
+			path = "登录注册";
+			sourceTree = "<group>";
+		};
+		9B6B6EBE1C9A4BAC00449259 /* 评价 */ = {
+			isa = PBXGroup;
+			children = (
+				9B6B6EBF1C9A4BAC00449259 /* GFEvaluateShareViewController.h */,
+				9B6B6EC01C9A4BAC00449259 /* GFEvaluateShareViewController.m */,
+				9B6B6EC11C9A4BAC00449259 /* GFEvaluateViewController.h */,
+				9B6B6EC21C9A4BAC00449259 /* GFEvaluateViewController.m */,
+				9B6B6EC31C9A4BAC00449259 /* GFIndentDetialsViewController.h */,
+				9B6B6EC41C9A4BAC00449259 /* GFIndentDetialsViewController.m */,
+				9B6B6EC51C9A4BAC00449259 /* GFIndentTableViewCell.h */,
+				9B6B6EC61C9A4BAC00449259 /* GFIndentTableViewCell.m */,
+				9B6B6EC71C9A4BAC00449259 /* GFIndentViewController.h */,
+				9B6B6EC81C9A4BAC00449259 /* GFIndentViewController.m */,
+			);
+			path = "评价";
+			sourceTree = "<group>";
+		};
 		9B95153A1C60503800445F93 /* 百度地图 */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,18 +578,12 @@
 			children = (
 				9B97543F1C5765B3004BDC7C /* AppDelegate.h */,
 				9B9754401C5765B3004BDC7C /* AppDelegate.mm */,
-				9B8513DA1C96A97800BB9CF5 /* FirstViewController.h */,
-				9B8513DB1C96A97800BB9CF5 /* FirstViewController.m */,
-				9B8513DD1C96A99100BB9CF5 /* PoiSearchDemoViewController.h */,
-				9B8513DE1C96A99100BB9CF5 /* PoiSearchDemoViewController.mm */,
-				9B8513DF1C96A99100BB9CF5 /* SecondViewController.h */,
-				9B8513E01C96A99100BB9CF5 /* SecondViewController.m */,
-				9B8513E31C96A9B000BB9CF5 /* TestViewController.h */,
-				9B8513E41C96A9B000BB9CF5 /* TestViewController.m */,
-				9B9754421C5765B3004BDC7C /* ViewController.h */,
-				9B9754431C5765B3004BDC7C /* ViewController.m */,
-				9B6756C61C97CA000001C478 /* 登录注册 */,
-				86D4FAF01C96A08F004E26AC /* 老五临时界面 */,
+				9B6B6EB11C9A4B6400449259 /* 登录注册 */,
+				9B6B6E321C9A452C00449259 /* 工具页面 */,
+				9B6B6EA71C9A4B1400449259 /* 人员管理 */,
+				9B6B6E871C9A485B00449259 /* 加盟 */,
+				9B6B6E3F1C9A466D00449259 /* 主页面 */,
+				9B6B6EBE1C9A4BAC00449259 /* 评价 */,
 				86D4FAF71C96A08F004E26AC /* 自定义控件 */,
 				8673FDBB1C99459200666634 /* 网络请求(AFNetworking) */,
 				9B6756F71C97CAC70001C478 /* MJRefresh */,
@@ -747,66 +779,66 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B6757411C9819BF0001C478 /* GFNoIndentTableViewCell.m in Sources */,
-				9B6757401C9819AD0001C478 /* GFNoIndentViewController.m in Sources */,
-				9B67573F1C980A6C0001C478 /* GFOneIndentViewController.m in Sources */,
+				9B6B6EBC1C9A4B6400449259 /* GFSignInViewController.m in Sources */,
 				9B6757381C97CB770001C478 /* GFTitleView.m in Sources */,
+				9B6B6E3B1C9A452C00449259 /* FirstViewController.m in Sources */,
 				9B6757371C97CAFE0001C478 /* GFAlertView.m in Sources */,
-				9B6756EC1C97CA000001C478 /* GFIndentDetialsViewController.m in Sources */,
 				9B6757291C97CAC70001C478 /* MJRefreshAutoGifFooter.m in Sources */,
+				9B6B6E981C9A485B00449259 /* GFIWillAddViewController.m in Sources */,
+				9B6B6E471C9A466D00449259 /* GFNoIndentViewController.m in Sources */,
+				9B6B6E3C1C9A452C00449259 /* SecondViewController.m in Sources */,
+				9B6B6EBA1C9A4B6400449259 /* GFChangePwdViewController.m in Sources */,
 				9B67572E1C97CAC70001C478 /* MJRefreshBackStateFooter.m in Sources */,
 				9B6757361C97CAC70001C478 /* UIView+MJExtension.m in Sources */,
 				9B6757271C97CAC70001C478 /* MJRefreshFooter.m in Sources */,
 				9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */,
-				9B6756E81C97CA000001C478 /* GFChangePwdViewController.m in Sources */,
 				8673FDCF1C99459200666634 /* AFURLRequestSerialization.m in Sources */,
+				9B6B6E9B1C9A485B00449259 /* GFPartnersMessageViewController.m in Sources */,
 				8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */,
 				9B6757241C97CAC70001C478 /* MJRefreshAutoFooter.m in Sources */,
 				9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */,
-				9B67573E1C9804C00001C478 /* CLCooperatingViewController.m in Sources */,
+				9B6B6ECB1C9A4BAC00449259 /* GFIndentDetialsViewController.m in Sources */,
+				9B6B6E9C1C9A485B00449259 /* PoiSearchDemoViewController.mm in Sources */,
+				9B6B6E971C9A485B00449259 /* CLCooperatingViewController.m in Sources */,
+				9B6B6E461C9A466D00449259 /* GFNoIndentTableViewCell.m in Sources */,
+				9B6B6E9A1C9A485B00449259 /* GFJoinInViewController_2.m in Sources */,
 				9B6757341C97CAC70001C478 /* UIScrollView+MJExtension.m in Sources */,
-				9B8513E21C96A99100BB9CF5 /* SecondViewController.m in Sources */,
 				9B67572B1C97CAC70001C478 /* MJRefreshAutoStateFooter.m in Sources */,
-				9B6756E91C97CA000001C478 /* GFEvaluateShareViewController.m in Sources */,
-				9B8513E11C96A99100BB9CF5 /* PoiSearchDemoViewController.mm in Sources */,
 				9B9515411C60503800445F93 /* GFAnnotation.m in Sources */,
 				8673FDCC1C99459200666634 /* AFHTTPSessionManager.m in Sources */,
 				9B6757281C97CAC70001C478 /* MJRefreshHeader.m in Sources */,
-				9B6756F01C97CA000001C478 /* GFJoinInViewController_1.m in Sources */,
-				9B9754441C5765B3004BDC7C /* ViewController.m in Sources */,
-				9B6756EE1C97CA000001C478 /* GFIndentViewController.m in Sources */,
-				9B6756F51C97CA000001C478 /* GFWorkerTableViewCell.m in Sources */,
-				9B6756ED1C97CA000001C478 /* GFIndentTableViewCell.m in Sources */,
+				9B6B6EBB1C9A4B6400449259 /* GFForgetPwdViewController.m in Sources */,
+				9B6B6ECD1C9A4BAC00449259 /* GFIndentViewController.m in Sources */,
 				8673FDCE1C99459200666634 /* AFSecurityPolicy.m in Sources */,
-				9B6756F61C97CA000001C478 /* GFWorkerViewController.m in Sources */,
-				9B6756EA1C97CA000001C478 /* GFEvaluateViewController.m in Sources */,
-				9B6756EF1C97CA000001C478 /* GFIWillAddViewController.m in Sources */,
+				9B6B6ECC1C9A4BAC00449259 /* GFIndentTableViewCell.m in Sources */,
 				9B6757351C97CAC70001C478 /* UIScrollView+MJRefresh.m in Sources */,
 				9B67572D1C97CAC70001C478 /* MJRefreshBackNormalFooter.m in Sources */,
-				9B8513E51C96A9B000BB9CF5 /* TestViewController.m in Sources */,
 				9B6757251C97CAC70001C478 /* MJRefreshBackFooter.m in Sources */,
-				9B8513DC1C96A97800BB9CF5 /* FirstViewController.m in Sources */,
-				9B6756E71C97CA000001C478 /* GFAddWorkerViewController.m in Sources */,
-				9B6756F11C97CA000001C478 /* GFJoinInViewController_2.m in Sources */,
 				9B67572F1C97CAC70001C478 /* MJRefreshGifHeader.m in Sources */,
+				9B6B6EAF1C9A4B1400449259 /* GFWorkerTableViewCell.m in Sources */,
 				9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */,
+				9B6B6ECA1C9A4BAC00449259 /* GFEvaluateViewController.m in Sources */,
+				9B6B6E961C9A485B00449259 /* CLCooperateFailViewController.m in Sources */,
 				9B67572A1C97CAC70001C478 /* MJRefreshAutoNormalFooter.m in Sources */,
+				9B6B6E991C9A485B00449259 /* GFJoinInViewController_1.m in Sources */,
 				9B67572C1C97CAC70001C478 /* MJRefreshBackGifFooter.m in Sources */,
 				8673FDCD1C99459200666634 /* AFNetworkReachabilityManager.m in Sources */,
+				9B6B6EC91C9A4BAC00449259 /* GFEvaluateShareViewController.m in Sources */,
 				9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */,
-				9B6756F21C97CA000001C478 /* GFPartnersMessageViewController.m in Sources */,
-				9B6756EB1C97CA000001C478 /* GFForgetPwdViewController.m in Sources */,
+				9B6B6EB01C9A4B1400449259 /* GFWorkerViewController.m in Sources */,
 				8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */,
 				9B97543E1C5765B3004BDC7C /* main.m in Sources */,
-				9B6756F31C97CA000001C478 /* GFSignInViewController.m in Sources */,
+				9B6B6EBD1C9A4B6400449259 /* GFSignUpViewController.m in Sources */,
+				9B6B6E3D1C9A452C00449259 /* TestViewController.m in Sources */,
 				9B6757311C97CAC70001C478 /* MJRefreshStateHeader.m in Sources */,
 				9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */,
 				8673FDD21C99459200666634 /* GFHttpTool.m in Sources */,
-				9B67573D1C9804C00001C478 /* CLCooperateFailViewController.m in Sources */,
+				9B6B6E3E1C9A452C00449259 /* ViewController.m in Sources */,
 				9B6757331C97CAC70001C478 /* MJRefreshConst.m in Sources */,
-				9B6756F41C97CA000001C478 /* GFSignUpViewController.m in Sources */,
 				9B6757301C97CAC70001C478 /* MJRefreshNormalHeader.m in Sources */,
+				9B6B6E481C9A466D00449259 /* GFOneIndentViewController.m in Sources */,
 				9B6757261C97CAC70001C478 /* MJRefreshComponent.m in Sources */,
+				9B6B6EAE1C9A4B1400449259 /* GFAddWorkerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
