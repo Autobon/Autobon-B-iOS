@@ -61,7 +61,7 @@
 //    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"439118116" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 
     _mapManager = [[BMKMapManager alloc]init];
-    BOOL ret = [_mapManager start:@"qQxUcaGNCZfeFmhB8EHWVvgt" generalDelegate:self];
+    BOOL ret = [_mapManager start:@"er5ppSPS6vxnd5BtvWDsgthy" generalDelegate:self];
     if (!ret) {
         NSLog(@"manager start failed!");
     }

@@ -11,6 +11,8 @@
 #import "GFTextField.h"
 #import "GFTitleView.h"
 #import "PoiSearchDemoViewController.h"
+#import "GFHttpTool.h"
+#import "GFTipView.h"
 
 
 
@@ -32,6 +34,13 @@
     UIButton *_certificateImage;
     UIButton *_idImageViewBtn;
     BOOL _isCertificate;
+    
+    
+    BOOL _isUpCertificate;
+    BOOL _isUpidImageView;
+    
+    NSMutableDictionary *_dataDictionary;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -52,6 +61,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _dataDictionary = [[NSMutableDictionary alloc]init];
+    
     
     // 基础设置
     [self _setBase];
@@ -277,34 +289,48 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     if (_isCertificate) {
         [_certificateImage setBackgroundImage:image forState:UIControlStateNormal];
-//        CGSize imagesize;
-//        imagesize.width = image.size.width/2;
-//        imagesize.height = image.size.height/2;
-//        UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
-////        NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
-        
+        CGSize imagesize;
+        imagesize.width = image.size.width/2;
+        imagesize.height = image.size.height/2;
+        UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
+        NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
+        [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
+            NSLog(@"上传成功－－%@--",responseObject);
+            if ([responseObject[@"result"] integerValue] == 1) {
+                _isUpCertificate = YES;
+                [_dataDictionary setObject:responseObject[@"data"] forKey:@"bussinessLicensePic"];
+            }else{
+                [self addAlertView:responseObject[@"message"]];
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"上传失败－－%@---",error);
+        }];
         
     }else{
         [_idImageViewBtn setBackgroundImage:image forState:UIControlStateNormal];
         //        _haveIdentityImage = YES;
 //        _identityButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
-//        CGSize imagesize;
-//        imagesize.width = image.size.width/2;
-//        imagesize.height = image.size.height/2;
-//        UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
-//        NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
-//        [GFHttpTool idPhotoImage:imageData success:^(NSDictionary *responseObject) {
-//            NSLog(@"----%@---",responseObject);
-//            if ([responseObject[@"result"]intValue] == 1) {
-//                _haveIdentityImage = YES;
-//                [self addAlertView:@"证件照上传成功"];
-//            }else{
-//                [self addAlertView:@"证件照上传失败"];
-//            }
-//        } failure:^(NSError *error) {
-//            
-//        }];
+        CGSize imagesize;
+        imagesize.width = image.size.width/2;
+        imagesize.height = image.size.height/2;
+        UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
+        NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
+        [GFHttpTool postIdImageViewImage:imageData success:^(id responseObject) {
+            
+            NSLog(@"－－－－上传成功－－－%@--",responseObject);
+            if ([responseObject[@"result"] integerValue] == 1) {
+                _isUpidImageView = YES;
+                [_dataDictionary setObject:responseObject[@"data"] forKey:@"corporationIdPicA"];
+            }else{
+                [self addAlertView:responseObject[@"message"]];
+            }
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"---请求失败－－－error---%@---",error);
+            
+        }];
         
     }
     
@@ -341,13 +367,57 @@
 - (void)nextButClick {
     
     PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
+    poiSearchView.dataDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{@"title":@"Autobon"}];
     [self.navigationController pushViewController:poiSearchView animated:YES];
+    
+    if (_yingyeNameTxt.text.length == 0) {
+        [self addAlertView:@"请填写营业执照的工商注册名称"];
+    }else{
+        if (_zhizhaohaoTxt.text.length == 0) {
+            [self addAlertView:@"请输入营业执照号"];
+        }else{
+            if (_nameTxt.text.length == 0) {
+                [self addAlertView:@"请输入法人姓名"];
+            }else{
+                if (_idCardTxt.text.length == 0) {
+                    [self addAlertView:@"请输入法人身份证号"];
+                }else{
+                    if (_isUpCertificate) {
+                        if (_isUpidImageView) {
+                         
+                            [_dataDictionary setObject:_yingyeNameTxt.text forKey:@"fullname"];
+                            [_dataDictionary setObject:_zhizhaohaoTxt.text forKey:@"businessLicense"];
+                            [_dataDictionary setObject:_nameTxt.text forKey:@"corporationName"];
+                            [_dataDictionary setObject:_idCardTxt.text forKey:@"corporationIdNo"];
+                            
+                            PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
+                            [self.navigationController pushViewController:poiSearchView animated:YES];
+                            
+                        }else{
+                            [self addAlertView:@"请上传法人身份证正面照"];
+                        }
+                    }else{
+                        [self addAlertView:@"请上传营业执照副本"];
+                    }
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    
+    
     
     NSLog(@"下一步");
 
 }
 
-
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     

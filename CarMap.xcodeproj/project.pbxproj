@@ -13,7 +13,6 @@
 		8673FDCF1C99459200666634 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC51C99459200666634 /* AFURLRequestSerialization.m */; };
 		8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC71C99459200666634 /* AFURLResponseSerialization.m */; };
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
-		8673FDD21C99459200666634 /* GFHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDCB1C99459200666634 /* GFHttpTool.m */; };
 		9B6757241C97CAC70001C478 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */; };
 		9B6757251C97CAC70001C478 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FC1C97CAC70001C478 /* MJRefreshBackFooter.m */; };
 		9B6757261C97CAC70001C478 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FE1C97CAC70001C478 /* MJRefreshComponent.m */; };
@@ -61,6 +60,9 @@
 		9B6B6ECB1C9A4BAC00449259 /* GFIndentDetialsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC41C9A4BAC00449259 /* GFIndentDetialsViewController.m */; };
 		9B6B6ECC1C9A4BAC00449259 /* GFIndentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC61C9A4BAC00449259 /* GFIndentTableViewCell.m */; };
 		9B6B6ECD1C9A4BAC00449259 /* GFIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EC81C9A4BAC00449259 /* GFIndentViewController.m */; };
+		9B6B6ECE1C9A594E00449259 /* GFTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FB011C96A08F004E26AC /* GFTipView.m */; };
+		9B6B6ED11C9A59EA00449259 /* GFHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6ED01C9A59EA00449259 /* GFHttpTool.m */; };
+		9B6B6ED41C9A5A1A00449259 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6ED31C9A5A1A00449259 /* Reachability.m */; };
 		9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8513D81C965E2800BB9CF5 /* libPods.a */; };
 		9B9515411C60503800445F93 /* GFAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153C1C60503800445F93 /* GFAnnotation.m */; };
 		9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153E1C60503800445F93 /* GFAnnotationView.m */; };
@@ -73,6 +75,7 @@
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
+		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,8 +102,6 @@
 		8673FDC71C99459200666634 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		8673FDC81C99459200666634 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		8673FDC91C99459200666634 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		8673FDCA1C99459200666634 /* GFHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFHttpTool.h; sourceTree = "<group>"; };
-		8673FDCB1C99459200666634 /* GFHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFHttpTool.m; sourceTree = "<group>"; };
 		86D4FAF81C96A08F004E26AC /* GFAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAlertView.h; sourceTree = "<group>"; };
 		86D4FAF91C96A08F004E26AC /* GFAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAlertView.m; sourceTree = "<group>"; };
 		86D4FAFA1C96A08F004E26AC /* GFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFButton.h; sourceTree = "<group>"; };
@@ -204,6 +205,10 @@
 		9B6B6EC61C9A4BAC00449259 /* GFIndentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentTableViewCell.m; sourceTree = "<group>"; };
 		9B6B6EC71C9A4BAC00449259 /* GFIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentViewController.h; sourceTree = "<group>"; };
 		9B6B6EC81C9A4BAC00449259 /* GFIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentViewController.m; sourceTree = "<group>"; };
+		9B6B6ECF1C9A59EA00449259 /* GFHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFHttpTool.h; sourceTree = "<group>"; };
+		9B6B6ED01C9A59EA00449259 /* GFHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFHttpTool.m; sourceTree = "<group>"; };
+		9B6B6ED21C9A5A1A00449259 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9B6B6ED31C9A5A1A00449259 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9B8513D81C965E2800BB9CF5 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		9B95153B1C60503800445F93 /* GFAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotation.h; sourceTree = "<group>"; };
 		9B95153C1C60503800445F93 /* GFAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAnnotation.m; sourceTree = "<group>"; };
@@ -223,6 +228,7 @@
 		9B9754521C5765B3004BDC7C /* CarMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B9754561C5765B3004BDC7C /* CarMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarMapUITests.m; sourceTree = "<group>"; };
 		9B9754581C5765B3004BDC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BDD16241C9BF27B0017E8E9 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		9BFA805A1C5F4009001651C3 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Base.framework"; sourceTree = "<group>"; };
 		9BFA805B1C5F4009001651C3 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Cloud.framework"; sourceTree = "<group>"; };
 		9BFA805C1C5F4009001651C3 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Location.framework"; sourceTree = "<group>"; };
@@ -270,8 +276,10 @@
 			isa = PBXGroup;
 			children = (
 				8673FDBC1C99459200666634 /* AFNetworking */,
-				8673FDCA1C99459200666634 /* GFHttpTool.h */,
-				8673FDCB1C99459200666634 /* GFHttpTool.m */,
+				9B6B6ECF1C9A59EA00449259 /* GFHttpTool.h */,
+				9B6B6ED01C9A59EA00449259 /* GFHttpTool.m */,
+				9B6B6ED21C9A5A1A00449259 /* Reachability.h */,
+				9B6B6ED31C9A5A1A00449259 /* Reachability.m */,
 			);
 			path = "网络请求(AFNetworking)";
 			sourceTree = "<group>";
@@ -592,6 +600,7 @@
 				9B9515441C6089A200445F93 /* PrefixHeader.pch */,
 				9B9754481C5765B3004BDC7C /* Assets.xcassets */,
 				9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */,
+				9BDD16241C9BF27B0017E8E9 /* address.plist */,
 				9B97544D1C5765B3004BDC7C /* Info.plist */,
 				9B97543C1C5765B3004BDC7C /* Supporting Files */,
 			);
@@ -711,6 +720,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */,
+				9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */,
 				9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */,
 				9B6757321C97CAC70001C478 /* MJRefresh.bundle in Resources */,
 				9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */,
@@ -779,6 +789,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B6B6ECE1C9A594E00449259 /* GFTipView.m in Sources */,
 				9B6B6EBC1C9A4B6400449259 /* GFSignInViewController.m in Sources */,
 				9B6757381C97CB770001C478 /* GFTitleView.m in Sources */,
 				9B6B6E3B1C9A452C00449259 /* FirstViewController.m in Sources */,
@@ -820,19 +831,20 @@
 				9B6B6ECA1C9A4BAC00449259 /* GFEvaluateViewController.m in Sources */,
 				9B6B6E961C9A485B00449259 /* CLCooperateFailViewController.m in Sources */,
 				9B67572A1C97CAC70001C478 /* MJRefreshAutoNormalFooter.m in Sources */,
+				9B6B6ED41C9A5A1A00449259 /* Reachability.m in Sources */,
 				9B6B6E991C9A485B00449259 /* GFJoinInViewController_1.m in Sources */,
 				9B67572C1C97CAC70001C478 /* MJRefreshBackGifFooter.m in Sources */,
 				8673FDCD1C99459200666634 /* AFNetworkReachabilityManager.m in Sources */,
 				9B6B6EC91C9A4BAC00449259 /* GFEvaluateShareViewController.m in Sources */,
 				9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */,
 				9B6B6EB01C9A4B1400449259 /* GFWorkerViewController.m in Sources */,
+				9B6B6ED11C9A59EA00449259 /* GFHttpTool.m in Sources */,
 				8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */,
 				9B97543E1C5765B3004BDC7C /* main.m in Sources */,
 				9B6B6EBD1C9A4B6400449259 /* GFSignUpViewController.m in Sources */,
 				9B6B6E3D1C9A452C00449259 /* TestViewController.m in Sources */,
 				9B6757311C97CAC70001C478 /* MJRefreshStateHeader.m in Sources */,
 				9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */,
-				8673FDD21C99459200666634 /* GFHttpTool.m in Sources */,
 				9B6B6E3E1C9A452C00449259 /* ViewController.m in Sources */,
 				9B6757331C97CAC70001C478 /* MJRefreshConst.m in Sources */,
 				9B6757301C97CAC70001C478 /* MJRefreshNormalHeader.m in Sources */,
@@ -897,8 +909,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Xiong Guanghua (T69DE3Y6T9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xiong Guanghua (T69DE3Y6T9)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Xiong Guanghua (T69DE3Y6T9)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -922,7 +934,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
-				PROVISIONING_PROFILE = "d29d946a-e11c-4f51-a81a-b1fdbfe1df84";
+				PROVISIONING_PROFILE = "2524b3ab-1e6e-4951-9277-1e545019b94b";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -945,7 +957,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Xiong Guanghua (T69DE3Y6T9)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xiong Guanghua (T69DE3Y6T9)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -963,7 +975,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
-				PROVISIONING_PROFILE = "d29d946a-e11c-4f51-a81a-b1fdbfe1df84";
+				PROVISIONING_PROFILE = "2524b3ab-1e6e-4951-9277-1e545019b94b";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -979,6 +991,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1001,6 +1014,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
