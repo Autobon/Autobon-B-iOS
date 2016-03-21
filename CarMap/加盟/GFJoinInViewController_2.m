@@ -32,6 +32,13 @@
     CGFloat tableViewY;
     
     CGFloat suo;
+    
+    NSArray *_addressArray;
+    NSMutableArray *_tableViewArray;
+    NSMutableArray *_provinceArray;
+    NSInteger _provinceNumber;
+    NSInteger _cityNumber;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -52,26 +59,25 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) NSArray *shengArr;
-@property (nonatomic, strong) NSArray *shiArr;
-@property (nonatomic, strong) NSArray *quArr;
-@property (nonatomic, strong) NSArray *showArr;
 
 @end
 
 @implementation GFJoinInViewController_2
 
-- (NSArray *)showArr {
-    
-    if(_showArr == nil) {
-        _showArr = [[NSArray alloc] init];
-    }
-    
-    return _showArr;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    NSDictionary *addressDictionary = []
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"address" ofType:@"plist"];
+    NSDictionary *plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    NSLog(@"----addressDictionary---%@---",plistDictionary);
+    _addressArray = plistDictionary[@"address"];
+    _tableViewArray = [[NSMutableArray alloc]init];
+//    _provinceArray = [[NSMutableArray alloc]init];
+    
+//    _tableViewArray = _provinceArray;
     
     // 基础设置
     [self _setBase];
@@ -109,14 +115,10 @@
 
 - (void)_setView {
     
-    self.shengArr = @[@"浙江省", @"河北省", @"河南省", @"湖北省", @"湖南省", @"四川省", @"甘肃省"];
-    self.shiArr = @[@"温州市", @"武汉市", @"北京市", @"上海市"];
-    self.quArr = @[@"龙湾区", @"鹿城区", @"瓯海区"];
+   
     
     suo = 0;
     
-    
-    self.showArr = [NSArray arrayWithArray:self.shengArr];
     
     
     // 发票信息
@@ -304,70 +306,56 @@
 }
 
 - (void)shengButClick:(UIButton *)sender {
-    self.tableView.frame = CGRectMake(sender.frame.origin.x, tableViewY, tableViewW, tableViewH);
-    self.showArr = [NSArray arrayWithArray:self.shengArr];
-    [self.tableView reloadData];
-    
-    if(suo == 1 || suo == 0) {
-        
-        NSLog(@"请选择省份%@", self.shengArr);
-        self.tableView.hidden = !self.tableView.hidden;
-    }else {
-        
-        self.tableView.hidden = NO;
-        
-    }
-    
     suo = 1;
     
+    __block NSMutableArray *array = [[NSMutableArray alloc]init];
+    [_addressArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [array addObject:obj[@"name"]];
+    }];
+    _tableViewArray = [[NSMutableArray alloc]initWithArray:array];
+    NSLog(@"---_provinceArray--%@---",_provinceArray);
     
-    
+    self.tableView.frame = CGRectMake(sender.frame.origin.x, tableViewY, tableViewW, tableViewH);
+    self.tableView.hidden = !self.tableView.hidden;
+    [self.tableView reloadData];
+    NSLog(@"省－－－%@-",_tableViewArray);
 }
 
 - (void)shiButClick:(UIButton *)sender {
-    
-    self.tableView.frame = CGRectMake(sender.frame.origin.x, tableViewY, tableViewW, tableViewH);
-    self.showArr = [NSArray arrayWithArray:self.shiArr];
-    [self.tableView reloadData];
-    
-    if(suo == 2 || suo == 0) {
-    
-        NSLog(@"请选择市 %@", self.shiArr);
-        
-        
-        
-        self.tableView.hidden = !self.tableView.hidden;
-    }else {
-    
-        self.tableView.hidden = NO;
-        
-    }
-    
+    NSLog(@"市－－－");
     suo = 2;
+    self.tableView.frame = CGRectMake(sender.frame.origin.x, tableViewY, tableViewW, tableViewH);
+    self.tableView.hidden = !self.tableView.hidden;
+  
+        NSDictionary *dictionary = _addressArray[_provinceNumber];
+        NSArray *cityArray = dictionary[@"sub"];
+//        [_tableViewArray removeAllObjects];
+    __block NSMutableArray *array = [[NSMutableArray alloc]init];
+        [cityArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [array addObject:obj[@"name"]];
+        }];
+    _tableViewArray = [[NSMutableArray alloc]initWithArray:array];
+    
+    
+    
+    [self.tableView reloadData];
 }
 
 - (void)quButClick:(UIButton *)sender {
-    self.tableView.frame = CGRectMake(sender.frame.origin.x, tableViewY, tableViewW, tableViewH);
-    self.showArr = [NSArray arrayWithArray:self.quArr];
-    [self.tableView reloadData];
-    
-    if(suo == 3 || suo == 0) {
-        
-        NSLog(@"请选择区%@", self.quArr);
-        
-        
-        
-        
-        
-        self.tableView.hidden = !self.tableView.hidden;
-    
-    }else {
-        
-        self.tableView.hidden = NO;
-        
-    }
-    
+     NSLog(@"区－－－");
     suo = 3;
+    self.tableView.frame = CGRectMake(sender.frame.origin.x, tableViewY, tableViewW, tableViewH);
+    self.tableView.hidden = !self.tableView.hidden;
+    
+        NSDictionary *dictionary = _addressArray[_provinceNumber];
+        NSArray *cityArray = dictionary[@"sub"];
+    NSLog(@"-----cityArray----%@----_cityNumber---%ld--",cityArray,(long)_cityNumber);
+        NSDictionary *areaDictionary = cityArray[_cityNumber];
+//        [_tableViewArray removeAllObjects];
+        _tableViewArray = areaDictionary[@"sub"];
+    
+    
+    [self.tableView reloadData];
     
     
 }
@@ -375,7 +363,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     
-    return self.showArr.count;
+    return _tableViewArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -387,7 +375,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
-    cell.textLabel.text = self.showArr[indexPath.row];
+    cell.textLabel.text = _tableViewArray[indexPath.row];
     
     
     return cell;
@@ -397,21 +385,19 @@
 
     if(suo == 1) {
         
-        [self.shengBut setTitle:self.showArr[indexPath.row] forState:UIControlStateNormal];
-        self.tableView.hidden = YES;
-    
+        [self.shengBut setTitle:_tableViewArray[indexPath.row] forState:UIControlStateNormal];
+        _provinceNumber = indexPath.row;
+        
     }else if(suo == 2) {
         
-        [self.shiBut setTitle:self.showArr[indexPath.row] forState:UIControlStateNormal];
-        self.tableView.hidden = YES;
-    
+        [self.shiBut setTitle:_tableViewArray[indexPath.row] forState:UIControlStateNormal];
+        _cityNumber = indexPath.row;
     }else if(suo == 3) {
+        [self.quBut setTitle:_tableViewArray[indexPath.row] forState:UIControlStateNormal];
         
-        [self.quBut setTitle:self.showArr[indexPath.row] forState:UIControlStateNormal];
-        self.tableView.hidden = YES;
     
     }
-    
+    self.tableView.hidden = YES;
 }
 
 

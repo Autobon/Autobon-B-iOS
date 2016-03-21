@@ -60,10 +60,37 @@
     
     // 请输入旧密码
     self.oldPwdTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入旧密码"];
+    _oldPwdTxt.secureTextEntry = YES;
     [self.view addSubview:self.oldPwdTxt];
+    
+    UIButton *eyeButton = [[UIButton alloc]init];
+    eyeButton.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton.center = CGPointMake(self.view.frame.size.width - 50, _oldPwdTxt.center.y);
+    [eyeButton setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
+    eyeButton.tag = 1;
+    [eyeButton addTarget:self action:@selector(eyeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:eyeButton];
+    
+    
+    
+    
     // 请输入新密码
     self.xinPwdtxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.oldPwdTxt.frame) + jiange2 withPlaceholder:@"请输入新密码"];
+    _xinPwdtxt.secureTextEntry = YES;
     [self.view addSubview:self.xinPwdtxt];
+    
+    
+    
+    UIButton *eyeButton2 = [[UIButton alloc]init];
+    eyeButton2.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton2.center = CGPointMake(self.view.frame.size.width - 50, _xinPwdtxt.center.y);
+    [eyeButton2 setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
+    eyeButton2.tag = 2;
+    [eyeButton2 addTarget:self action:@selector(eyeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:eyeButton2];
+    
+    
+    
     // "密码由8~18位英文字母与数字组成"
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kWidth * 0.075, CGRectGetMaxY(self.xinPwdtxt.frame) + 10, kWidth - 50, kHeight * 0.021)];
     lab.text = @"密码由8~18位英文字母与数字组成";
@@ -91,6 +118,31 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+
+#pragma mark - 眼睛按钮的响应方法
+- (void)eyeBtnClick:(UIButton *)button{
+    if (button.tag == 1) {
+        if (self.oldPwdTxt.secureTextEntry) {
+            [button setBackgroundImage:[UIImage imageNamed:@"eyeOpen"] forState:UIControlStateNormal];
+        }else{
+            [button setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
+        }
+        self.oldPwdTxt.secureTextEntry = !self.oldPwdTxt.secureTextEntry;
+    }else{
+        if (self.xinPwdtxt.secureTextEntry) {
+            [button setBackgroundImage:[UIImage imageNamed:@"eyeOpen"] forState:UIControlStateNormal];
+        }else{
+            [button setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
+        }
+        self.xinPwdtxt.secureTextEntry = !self.xinPwdtxt.secureTextEntry;
+        
+    }
+    
+}
+
+
 
 
 - (void)didReceiveMemoryWarning {

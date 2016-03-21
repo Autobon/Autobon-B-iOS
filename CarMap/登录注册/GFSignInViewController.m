@@ -16,6 +16,8 @@
 #import "CLCooperateFailViewController.h"
 #import "CLCooperatingViewController.h"
 #import "GFOneIndentViewController.h"
+#import "GFHttpTool.h"
+#import "GFTipView.h"
 
 
 
@@ -78,11 +80,23 @@
     
     // 手机号
     self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.enterpriseTxt.frame) + jiange1 withPlaceholder:@"请输入您的手机号"];
+    self.phoneTxt.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:self.phoneTxt];
     
     // 密码
     self.passwordTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange1 withPlaceholder:@"请输入您的密码"];
+    self.passwordTxt.secureTextEntry = YES;
     [self.view addSubview:self.passwordTxt];
+    
+    
+    UIButton *eyeButton = [[UIButton alloc]init];
+    eyeButton.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton.center = CGPointMake(self.view.frame.size.width - 50, _passwordTxt.center.y);
+    [eyeButton setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
+    eyeButton.tag = 1;
+    [eyeButton addTarget:self action:@selector(eyeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:eyeButton];
+    
     
     // 登录按钮
     CGFloat signInButW = kWidth - (kWidth * 0.116) * 2;
@@ -126,21 +140,114 @@
     [signUpBut addTarget:self action:@selector(signUpButCliclk) forControlEvents:UIControlEventTouchUpInside];
     
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    _enterpriseTxt.text = [userDefaults objectForKey:@"userEnterprise"];
+    _phoneTxt.text = [userDefaults objectForKey:@"userPhone"];
+    _passwordTxt.text = [userDefaults objectForKey:@"userPassword"];
+    
+    
+    
 }
 
 
 #pragma mark - 登录按钮的响应的响应方法
 - (void)signInButClick {
-
-//    CLCooperatingViewController *cooperateView = [[CLCooperatingViewController alloc]init];
-//    CLCooperateFailViewController *cooperateView = [[CLCooperateFailViewController alloc]init];
-//    [self.navigationController pushViewController:cooperateView animated:YES];
     
-    GFOneIndentViewController *homeView = [[GFOneIndentViewController alloc]init];
-    [self.navigationController pushViewController:homeView animated:YES];
+    
+    
+    if (_enterpriseTxt.text.length == 0) {
+        [self addAlertView:@"请输入企业简称"];
+    }else{
+        if ([self isPhoneNumber:_phoneTxt.text]) {
+            if (_passwordTxt.text.length == 0) {
+                [self addAlertView:@"请输入密码"];
+            }else{
+                NSDictionary *dictionary = @{@"shortname":_enterpriseTxt.text,@"phone":_phoneTxt.text,@"password":_passwordTxt.text};
+                
+                
+                [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
+                    
+                    NSLog(@"------%@---",responseObject);
+                    
+                    if ([responseObject[@"result"] integerValue] == 1) {
+                        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                        [userDefaults setObject:_enterpriseTxt.text forKey:@"userEnterprise"];
+                        [userDefaults setObject:_phoneTxt.text forKey:@"userPhone"];
+                        [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
+                        
+                        GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+                        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                        UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+                        window.rootViewController = navigation;
+                        navigation.navigationBarHidden = YES;
+
+                        
+                    }else{
+                        [self addAlertView:responseObject[@"message"]];
+                    }
+                    
+                    
+                    
+                    
+                } failure:^(NSError *error) {
+                    NSLog(@"登录失败---%@----",error);
+                }];
+            }
+        }else{
+            [self addAlertView:@"请输入合法手机号"];
+        }
+        
+    }
     
     
 }
+
+
+#pragma mark - 眼睛按钮的响应方法
+- (void)eyeBtnClick:(UIButton *)button{
+        if (self.passwordTxt.secureTextEntry) {
+            [button setBackgroundImage:[UIImage imageNamed:@"eyeOpen"] forState:UIControlStateNormal];
+        }else{
+            [button setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
+        }
+        self.passwordTxt.secureTextEntry = !self.passwordTxt.secureTextEntry;
+   
+    
+}
+
+
+
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
+
+#pragma mark - 判断输入字符串是否是手机号
+- (BOOL)isPhoneNumber:(NSString *)number{
+    
+    number =  [number stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
+    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
+    NSString * CU = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
+    NSString * CT = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
+    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
+    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
+    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
+    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
+    if (([regextestmobile evaluateWithObject:number] == YES)
+        || ([regextestcm evaluateWithObject:number] == YES)
+        || ([regextestct evaluateWithObject:number] == YES)
+        || ([regextestcu evaluateWithObject:number] == YES))
+    {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+
+
 
 - (void)forgetButClick {
     
