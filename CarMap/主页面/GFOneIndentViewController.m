@@ -26,6 +26,8 @@
     
     
     CGFloat jianjv1;
+    
+    NSMutableArray *_buttonArray;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -205,6 +207,7 @@
     butView.backgroundColor = [UIColor whiteColor];
     [self.scrollerView addSubview:butView];
     NSArray *nameArr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁"];
+    _buttonArray = [[NSMutableArray alloc]init];
     for(int i=0; i<4; i++) {
         CGFloat butW = kWidth * 0.218;
         CGFloat butH = kHeight * 0.068;
@@ -221,6 +224,7 @@
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         but.layer.cornerRadius = 17;
         [butView addSubview:but];
+        [_buttonArray addObject:but];
     }
     
     // 边线
@@ -319,7 +323,13 @@
     sender.selected = !sender.selected;
     
     if(sender.selected == YES) {
+        
+        [_buttonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj setBackgroundColor:[UIColor colorWithRed:237 / 255.0 green:238 / 255.0 blue:239 / 255.0 alpha:1]];
+            obj.selected = NO;
+        }];
         sender.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        sender.selected = YES;
     }else {
         [sender setBackgroundColor:[UIColor colorWithRed:237 / 255.0 green:238 / 255.0 blue:239 / 255.0 alpha:1]];
     }

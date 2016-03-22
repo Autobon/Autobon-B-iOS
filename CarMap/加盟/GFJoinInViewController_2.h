@@ -10,4 +10,7 @@
 
 @interface GFJoinInViewController_2 : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
+@property (nonatomic ,strong) NSMutableDictionary *dataDictionary;
+
+
 @end

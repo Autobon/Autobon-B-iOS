@@ -136,7 +136,10 @@
 #pragma mark - 确认按钮的响应方法
 - (void)trueBtnClick{
     
+    
+    
     GFJoinInViewController_2 *joinInView = [[GFJoinInViewController_2 alloc]init];
+    joinInView.dataDictionary = _dataDictionary;
     [self.navigationController pushViewController:joinInView animated:YES];
     
     
@@ -176,30 +179,6 @@
 }
 
 
-- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
-{
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-    [_mapView removeAnnotations:array];
-    array = [NSArray arrayWithArray:_mapView.overlays];
-    [_mapView removeOverlays:array];
-    if (error == 0) {
-        BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-        item.coordinate = result.location;
-        item.title = result.address;
-        [_mapView addAnnotation:item];
-        _mapView.centerCoordinate = result.location;
-        NSString* titleStr;
-        NSString* showmeg;
-        
-        titleStr = @"正向地理编码";
-        showmeg = [NSString stringWithFormat:@"经度:%f,纬度:%f",item.coordinate.latitude,item.coordinate.longitude];
-        
-       
-        
-        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
-        [myAlertView show];
-    }
-}
 
 -(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
@@ -227,8 +206,8 @@
         
         NSLog(@"看看字典－222－_dataDictionary--%@-",_dataDictionary);       
         
-        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
-        [myAlertView show];
+//        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
+//        [myAlertView show];
     }
 }
 
@@ -254,25 +233,6 @@
     }
     
 }
-
--(void)onClickGeocode
-{
-    
-    BMKGeoCodeSearchOption *geocodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
-    geocodeSearchOption.city= @"武汉";
-    geocodeSearchOption.address = @"光谷软件园";
-    BOOL flag = [_geocodesearch geoCode:geocodeSearchOption];
-    if(flag)
-    {
-        NSLog(@"geo检索发送成功");
-    }
-    else
-    {
-        NSLog(@"geo检索发送失败");
-    }
-    
-}
-
 
 
 
@@ -400,6 +360,7 @@
 //}
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
 {
+    NSLog(@"----选中大头针--%f--",view.annotation.coordinate.latitude);
     [mapView bringSubviewToFront:view];
     [mapView setNeedsDisplay];
 }
@@ -424,6 +385,7 @@
             item.coordinate = poi.pt;
             item.title = poi.name;
             [annotations addObject:item];
+            
 		}
         [_mapView addAnnotations:annotations];
         [_mapView showAnnotations:annotations animated:YES];
