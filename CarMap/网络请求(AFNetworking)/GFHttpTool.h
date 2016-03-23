@@ -38,5 +38,12 @@
 + (void)postIdImageViewImage:(NSData *)imageData success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
+// 提交加盟信息
++ (void)postCheckForUser:(NSDictionary *)check success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+
+
+
+
 
 @end

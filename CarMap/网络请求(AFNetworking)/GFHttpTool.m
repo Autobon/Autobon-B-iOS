@@ -14,7 +14,7 @@
 
 
 NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
-
+NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
 
 @implementation GFHttpTool
 
@@ -22,7 +22,7 @@ NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
 + (void)codeGetParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *URLString = [NSString stringWithFormat:@"%@/verifySms",HOST];
+    NSString *URLString = [NSString stringWithFormat:@"%@/pub/verifySms",PUBHOST];
     [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if(success) {
             success(responseObject);
@@ -131,7 +131,7 @@ NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
     
 }
 
-#pragma mark -
+#pragma mark - 上传法人正面照
 + (void)postIdImageViewImage:(NSData *)imageData success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
     NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
@@ -143,8 +143,7 @@ NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
     
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    
+
     [manager POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFileData:imageData name:@"file" fileName:@"1235.jpg" mimeType:@"JPEG"];
         
@@ -159,6 +158,30 @@ NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
             failure(error);
         }
     }];
+    
+}
+
+
+#pragma mark - 提交加盟信息
++ (void)postCheckForUser:(NSDictionary *)check success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *token = [userDefaultes objectForKey:@"autoken"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+    NSString *URLString = [NSString stringWithFormat:@"%@/coop/check",HOST];
+    
+    
+    [manager POST:URLString parameters:check progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        if(success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if(failure) {
+            failure(error);
+        }
+    }];
+    
     
 }
 

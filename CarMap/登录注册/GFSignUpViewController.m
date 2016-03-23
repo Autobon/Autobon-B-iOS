@@ -203,7 +203,7 @@
 
 #pragma mark - 获取验证码按钮响应方法
 - (void)getVerifyButClick:(UIButton *)button{
-    
+    [self.view endEditing:YES];
     if ([self isPhoneNumber:_phoneTxt.text]) {
         button.userInteractionEnabled = NO;
         [GFHttpTool codeGetParameters:@{@"phone":_phoneTxt.text} success:^(id responseObject) {
@@ -219,11 +219,12 @@
                 
             }else{
                 [self addAlertView:responseObject[@"message"]];
+                 button.userInteractionEnabled = YES;
             }
         } failure:^(NSError *error) {
-            
-            NSLog(@"----请求失败--%@----",error);
-            
+//            NSLog(@"----请求失败--%@----",error);
+            [self addAlertView:@"请求验证码失败"];
+            button.userInteractionEnabled = YES;
         }];
     }else{
         [self addAlertView:@"请输入合法手机号"];
@@ -236,11 +237,10 @@
 - (void)showTime {
     
     if(_time != 0 ) {
-        
-        
+
         [_getVerifyBut setTitle:[NSString stringWithFormat:@"(%ld)秒", --_time] forState:UIControlStateNormal];
         
-    }else {
+    }else{
         
         [_getVerifyBut setTitle:@"再次获取" forState:UIControlStateNormal];
         _getVerifyBut.userInteractionEnabled = YES;
@@ -372,18 +372,10 @@
 - (BOOL)isPhoneNumber:(NSString *)number{
     
     number =  [number stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
-    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
-    NSString * CU = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
-    NSString * CT = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
-    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
-    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
-    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
-    if (([regextestmobile evaluateWithObject:number] == YES)
-        || ([regextestcm evaluateWithObject:number] == YES)
-        || ([regextestct evaluateWithObject:number] == YES)
-        || ([regextestcu evaluateWithObject:number] == YES))
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,0-9]))\\d{8}$";
+    
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    if ([phoneTest evaluateWithObject:number])
     {
         return YES;
     }else{
