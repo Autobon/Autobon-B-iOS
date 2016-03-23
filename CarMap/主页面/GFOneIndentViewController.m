@@ -13,9 +13,19 @@
 #import "GFPartnersMessageViewController.h"
 #import "GFNoIndentViewController.h"
 
+@interface MYScrollView : UIScrollView
 
+@end
 
-@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
+@implementation MYScrollView
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self endEditing:YES];
+}
+
+@end
+
+@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -28,12 +38,14 @@
     CGFloat jianjv1;
     
     NSMutableArray *_buttonArray;
+    UIDatePicker *_datePicker;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
 
-@property (nonatomic, strong) UIScrollView *scrollerView;
+@property (nonatomic, strong) MYScrollView *scrollerView;
 
 // 灰色提示条
 @property (nonatomic, strong) UIButton *tipButton;
@@ -92,7 +104,7 @@
     CGFloat scrollerViewH = kHeight - 64 - kHeight * 0.0625;
     CGFloat scrollerViewX = 0;
     CGFloat scrollerViewY = CGRectGetMaxY(self.navView.frame);
-    self.scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
+    self.scrollerView = [[MYScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     self.scrollerView.contentSize = CGSizeMake(0, 1000);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
@@ -160,6 +172,9 @@
     CGFloat txtViewX = jianjv1;
     CGFloat txtViewY = CGRectGetMaxY(lineView1.frame) + kHeight * 0.024;
     self.txtView = [[UITextView alloc] initWithFrame:CGRectMake(txtViewX, txtViewY, txtViewW, txtViewH)];
+    self.txtView.text = @"订单备注";
+    self.txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    self.txtView.delegate = self;
     [baseView addSubview:self.txtView];
     
     baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(self.txtView.frame) + 20);
@@ -183,10 +198,25 @@
     CGFloat timeLabX = kWidth * 0.065;
     CGFloat timeLabY = 0;
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
-    self.timeLab.text = @"2016年02月14日";
+    // 显示时间
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    self.timeLab.text = dateString;
     self.timeLab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     self.timeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     [labView addSubview:self.timeLab];
+    
+    
+    UIButton *button = [[UIButton alloc]initWithFrame:labView.bounds];
+//    button.backgroundColor = [UIColor redColor];
+    
+    
+    [button addTarget:self action:@selector(timeChoose) forControlEvents:UIControlEventTouchUpInside];
+    [labView addSubview:button];
+    
+    
     
     // 边线
     UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.099, kWidth, 1)];
@@ -248,6 +278,44 @@
     
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     
+    _datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
+    _datePicker.center = self.view.center;
+    _datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [_datePicker addTarget:self action:@selector(time) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_datePicker];
+    _datePicker.hidden = YES;
+    
+}
+
+- (void)timeChoose{
+    _datePicker.hidden = NO;
+    
+    
+    
+    
+}
+- (void)time{
+    NSLog(@"－－－－－－");
+}
+
+
+
+
+#pragma mark - textView的协议方法
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if ([textView.text isEqualToString:@"订单备注"]) {
+        textView.text = nil;
+        textView.textColor = [UIColor blackColor];
+    }
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        textView.text = @"订单备注";
+        textView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    }
 }
 
 
@@ -262,6 +330,8 @@
 
 #pragma mark - 一键下单按钮响应方法
 - (void)signInButClick {
+    
+    
     
     
 }

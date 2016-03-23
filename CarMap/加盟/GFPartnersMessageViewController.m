@@ -13,6 +13,7 @@
 #import "GFJoinInViewController_1.h"
 #import "GFWorkerViewController.h"
 #import "GFChangePwdViewController.h"
+#import "GFSignInViewController.h"
 
 
 @interface GFPartnersMessageViewController () {
@@ -153,8 +154,23 @@
     [exitBut setTitle:@"退出登录" forState:UIControlStateNormal];
     [exitBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
     exitBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [exitBut addTarget:self action:@selector(leaveSignin) forControlEvents:UIControlEventTouchUpInside];
     [exitView addSubview:exitBut];
 }
+
+#pragma mark - 推出登录的响应方法
+- (void)leaveSignin{
+    
+    GFSignInViewController *signinView = [[GFSignInViewController alloc]init];
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:signinView];
+    window.rootViewController = navigation;
+    navigation.navigationBarHidden = YES;
+    
+    
+}
+
+
 
 - (void)setGFViewWithY:(CGFloat)y withLeftImgName:(NSString *)imgNameLeft withCenterText:(NSString *)centerStr withRightImgName:(NSString *)imgNameRight withBut:(UIButton *)button {
 

@@ -366,9 +366,9 @@
 #pragma mark - 下一步
 - (void)nextButClick {
     
-//    PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
-//    poiSearchView.dataDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{@"title":@"Autobon"}];
-//    [self.navigationController pushViewController:poiSearchView animated:YES];
+    PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
+    poiSearchView.dataDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{@"title":@"Autobon"}];
+    [self.navigationController pushViewController:poiSearchView animated:YES];
     
     if (_yingyeNameTxt.text.length == 0) {
         [self addAlertView:@"请填写营业执照的工商注册名称"];

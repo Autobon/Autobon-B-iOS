@@ -175,7 +175,7 @@
     [self.locationService startUserLocationService];
     self.locationService.allowsBackgroundLocationUpdates = NO;
     self.locationService.pausesLocationUpdatesAutomatically = YES;
-    
+    [self.locationService stopUserLocationService];
 }
 
 
@@ -236,6 +236,49 @@
 
 
 
+- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
+{
+    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+    [_mapView removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapView.overlays];
+    [_mapView removeOverlays:array];
+    if (error == 0) {
+        BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
+        item.coordinate = result.location;
+        item.title = result.address;
+        [_mapView addAnnotation:item];
+        _mapView.centerCoordinate = result.location;
+        NSString* titleStr;
+        NSString* showmeg;
+        
+        titleStr = @"正向地理编码";
+        showmeg = [NSString stringWithFormat:@"经度:%f,纬度:%f",item.coordinate.latitude,item.coordinate.longitude];
+        
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
+        [myAlertView show];
+    }
+}
+
+
+-(void)onClickGeocode
+{
+//    isGeoSearch = true;
+    
+    
+    BMKGeoCodeSearchOption *geocodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
+//    geocodeSearchOption.city= _cityText.text;
+    geocodeSearchOption.address = _searchbar.text;
+    BOOL flag = [_geocodesearch geoCode:geocodeSearchOption];
+    if(flag)
+    {
+        NSLog(@"geo检索发送成功");
+    }
+    else
+    {
+        NSLog(@"geo检索发送失败");
+    }
+    
+}
 #pragma mark - ***** 定位代理 *****
 /**
  *用户位置更新后，会调用此函数
@@ -257,7 +300,8 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     
-    [self searchBtnClick];
+    [self onClickGeocode];
+//    [self searchBtnClick];
 }
 
 
