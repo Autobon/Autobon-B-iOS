@@ -13,7 +13,8 @@
 #import "PoiSearchDemoViewController.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
-
+#import "UIButton+WebCache.h"
+#import "CLTouchScrollView.h"
 
 
 @interface GFJoinInViewController_1 ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
@@ -45,7 +46,7 @@
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
-@property (nonatomic, strong) UIScrollView *scrollerView;
+@property (nonatomic, strong) CLTouchScrollView *scrollerView;
 
 
 @property (nonatomic, strong) GFTextField *yingyeNameTxt;
@@ -89,7 +90,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // scrollerView
-    self.scrollerView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.scrollerView = [[CLTouchScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     self.scrollerView.contentSize = CGSizeMake(0, 1000);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
@@ -216,6 +217,20 @@
     [self.scrollerView addSubview:nextBut];
     [nextBut addTarget:self action:@selector(nextButClick) forControlEvents:UIControlEventTouchUpInside];
 
+    
+    if (_dataForPastDictionary) {
+       
+        self.yingyeNameTxt.text = _dataForPastDictionary[@"fullname"];
+        self.zhizhaohaoTxt.text = _dataForPastDictionary[@"businessLicense"];
+        self.nameTxt.text = _dataForPastDictionary[@"corporationName"];
+        self.idCardTxt.text = _dataForPastDictionary[@"corporationIdNo"];
+        [_certificateImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+        [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
+        [_idImageViewBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+        [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"bussinessLicensePic"];
+        _isUpCertificate = YES;
+        _isUpidImageView = YES;
+    }
     
     
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(nextBut.frame) + 50);
@@ -366,9 +381,9 @@
 #pragma mark - 下一步
 - (void)nextButClick {
     
-    PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
-    poiSearchView.dataDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{@"title":@"Autobon"}];
-    [self.navigationController pushViewController:poiSearchView animated:YES];
+//    PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
+//    poiSearchView.dataDictionary = [[NSMutableDictionary alloc]initWithDictionary:@{@"title":@"Autobon"}];
+//    [self.navigationController pushViewController:poiSearchView animated:YES];
     
     if (_yingyeNameTxt.text.length == 0) {
         [self addAlertView:@"请填写营业执照的工商注册名称"];
@@ -379,7 +394,7 @@
             if (_nameTxt.text.length == 0) {
                 [self addAlertView:@"请输入法人姓名"];
             }else{
-                if (_idCardTxt.text.length == 0) {
+                if (![self validateIdentityCard:_idCardTxt.text]) {
                     [self addAlertView:@"请输入法人身份证号"];
                 }else{
                     if (_isUpCertificate) {
@@ -392,6 +407,9 @@
                             
                             PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
                             poiSearchView.dataDictionary = _dataDictionary;
+                             NSLog(@"---——dataForPast--%@-",_dataForPastDictionary);
+                            poiSearchView.dataForPastDictionary = _dataForPastDictionary;
+                            
                             [self.navigationController pushViewController:poiSearchView animated:YES];
                             
                         }else{
@@ -420,11 +438,18 @@
     [tipView tipViewShow];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-    [self.view endEditing:YES];
+#pragma mark - 身份证号正则表达式
+- (BOOL) validateIdentityCard: (NSString *)identityCard
+{
+    BOOL flag;
+    if (identityCard.length <= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex2 = @"^(\\d{14}|\\d{17})(\\d|[xX])$";
+    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex2];
+    return [identityCardPredicate evaluateWithObject:identityCard];
 }
-
 
 - (void)leftButClick {
     

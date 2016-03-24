@@ -8,6 +8,7 @@
 
 #import "CLCooperatingViewController.h"
 #import "GFNavigationView.h"
+#import "UIImageView+WebCache.h"
 
 
 
@@ -67,24 +68,24 @@
     // 营业执照名，号；法人姓名，身份证号
     
     UILabel *licenceName = [[UILabel alloc]init];
-    licenceName.text = @"营业执照名：北京卡曼车饰有限公司";
+    licenceName.text = [NSString stringWithFormat:@"营业执照名：%@",_dataDictionary[@"fullname"]];
     licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:licenceName];
     
     UILabel *licenceNumber = [[UILabel alloc]init];
-    licenceNumber.text = @"营业执照号：420023123515";
+    licenceNumber.text = [NSString stringWithFormat:@"营业执照号：%@",_dataDictionary[@"businessLicense"]];
     licenceNumber.frame = CGRectMake(15, licenceName.frame.origin.y + 35, self.view.frame.size.width-30, 30);
     [scrollView addSubview:licenceNumber];
     
     
     UILabel *legalEntity = [[UILabel alloc]init];
-    legalEntity.text = @"法人的姓名：北京卡曼车饰有限公司";
+    legalEntity.text = [NSString stringWithFormat:@"法人的姓名：%@",_dataDictionary[@"corporationName"]];
     legalEntity.frame = CGRectMake(15, licenceNumber.frame.origin.y + 35, self.view.frame.size.width-30, 30);
     [scrollView addSubview:legalEntity];
     
     
     UILabel *legalEntityId = [[UILabel alloc]init];
-    legalEntityId.text = @"法人身份证：42100000000000000001236";
+    legalEntityId.text = [NSString stringWithFormat:@"法人身份证：%@",_dataDictionary[@"corporationIdNo"]];
     legalEntityId.frame = CGRectMake(15, legalEntity.frame.origin.y + 35, self.view.frame.size.width-30, 30);
     [scrollView addSubview:legalEntityId];
     
@@ -108,6 +109,7 @@
     UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];
     licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
     licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
+    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@""]];
     [scrollView addSubview:licenceDuplicateImage];
     
     // 法人身份证正面照
@@ -124,12 +126,14 @@
     legalEntityIdLabel.backgroundColor = [UIColor whiteColor];
     legalEntityIdLabel.font = [UIFont systemFontOfSize:16];
     legalEntityIdLabel.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    
     [scrollView addSubview:legalEntityIdLabel];
     
     
     UIImageView *legalEntityIdImage = [[UIImageView alloc]init];
     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
     legalEntityIdImage.backgroundColor = [UIColor darkGrayColor];
+    [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@""]];
     [scrollView addSubview:legalEntityIdImage];
     
     
@@ -151,18 +155,18 @@
     
     // 发票抬头，纳税识别号，邮政编号
     UILabel *invoiceName = [[UILabel alloc]init];
-    invoiceName.text = @"发票抬头名：北京卡曼车饰有限公司";
+    invoiceName.text = [NSString stringWithFormat:@"发票抬头名：%@",_dataDictionary[@"invoiceHeader"]];
     invoiceName.frame = CGRectMake(15, lineView4.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:invoiceName];
     
     
     UILabel *payNumber = [[UILabel alloc]init];
-    payNumber.text = @"纳税识别号：4200231213544";
+    payNumber.text = [NSString stringWithFormat:@"纳税识别号：%@",_dataDictionary[@"taxIdNo"]];
     payNumber.frame = CGRectMake(15, invoiceName.frame.origin.y + 35 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:payNumber];
     
     UILabel *postcode = [[UILabel alloc]init];
-    postcode.text = @"邮政编码号：400101";
+    postcode.text = [NSString stringWithFormat:@"邮政编码号：%@",_dataDictionary[@"postcode"]];
     postcode.frame = CGRectMake(15, payNumber.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:postcode];
     
@@ -176,13 +180,13 @@
     
     
     UILabel *addressLabel = [[UILabel alloc]init];
-    addressLabel.text = @"邮寄地址：北京市朝阳区某某某位置";
+    addressLabel.text = [NSString stringWithFormat:@"邮寄地址：%@%@%@%@",_dataDictionary[@"province"],_dataDictionary[@"city"],_dataDictionary[@"district"],_dataDictionary[@"address"]];
     addressLabel.frame = CGRectMake(15, lineView5.frame.origin.y + 11 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:addressLabel];
     
     
     UILabel *placeLabel = [[UILabel alloc]init];
-    placeLabel.text = @"商户位置：北京市朝阳区某某某位置";
+    placeLabel.text = [NSString stringWithFormat:@"商户位置：%@%@%@%@",_dataDictionary[@"province"],_dataDictionary[@"city"],_dataDictionary[@"district"],_dataDictionary[@"address"]];
     placeLabel.frame = CGRectMake(15, addressLabel.frame.origin.y + 35 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:placeLabel];
     
@@ -206,6 +210,7 @@
 
 - (void)backBtnClick{
     
+    [self.navigationController popViewControllerAnimated:YES];
     
     
 }

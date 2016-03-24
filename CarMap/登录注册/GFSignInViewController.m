@@ -18,6 +18,9 @@
 #import "GFOneIndentViewController.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
+#import "GFJoinInViewController_1.h"
+#import "CLCooperateFailViewController.h"
+#import "CLCooperatingViewController.h"
 
 
 
@@ -153,7 +156,7 @@
 #pragma mark - 登录按钮的响应的响应方法
 - (void)signInButClick {
     
-    
+    [self.view endEditing:YES];
     
     if (_enterpriseTxt.text.length == 0) {
         [self addAlertView:@"请输入企业简称"];
@@ -175,11 +178,51 @@
                         [userDefaults setObject:_phoneTxt.text forKey:@"userPhone"];
                         [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
                         
-                        GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
-                        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                        UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
-                        window.rootViewController = navigation;
-                        navigation.navigationBarHidden = YES;
+                        NSDictionary *dataDictionary = responseObject[@"data"];
+                        
+                        if ([dataDictionary[@"address"] isKindOfClass:[NSNull class]]) {
+            // 没有填写认证信息
+                            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
+                            [self.navigationController pushViewController:joinInView animated:YES];
+//                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//                            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:joinInView];
+//                            window.rootViewController = navigation;
+//                            navigation.navigationBarHidden = YES;
+                            
+                            
+                        }else{
+                            if ([dataDictionary[@"statusCode"] integerValue] == 1) {
+                // 正在审核中
+                                CLCooperatingViewController *cooperating = [[CLCooperatingViewController alloc]init];
+                                cooperating.dataDictionary = dataDictionary;
+                                [self.navigationController pushViewController:cooperating animated:YES];
+//
+//                                
+//                                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//                                UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:cooperating];
+//                                window.rootViewController = navigation;
+//                                navigation.navigationBarHidden = YES;
+                            }else if ([dataDictionary[@"statusCode"] integerValue] == 0){
+                // 审核失败
+                                CLCooperateFailViewController *cooperateFail = [[CLCooperateFailViewController alloc]init];
+                                cooperateFail.dataDictionary = dataDictionary;
+                                [self.navigationController pushViewController:cooperateFail animated:YES];
+//                                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//                                UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:cooperateFail];
+//                                window.rootViewController = navigation;
+//                                navigation.navigationBarHidden = YES;
+                                
+                            }else if ([dataDictionary[@"statusCode"] integerValue] == 2){
+                                GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+                                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                                UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+                                window.rootViewController = navigation;
+                                navigation.navigationBarHidden = YES;
+                            }
+                        }
+                        
+                        
+                        
 
                         
                     }else{
@@ -227,23 +270,16 @@
 - (BOOL)isPhoneNumber:(NSString *)number{
     
     number =  [number stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
-    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
-    NSString * CU = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
-    NSString * CT = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
-    NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
-    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
-    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
-    if (([regextestmobile evaluateWithObject:number] == YES)
-        || ([regextestcm evaluateWithObject:number] == YES)
-        || ([regextestct evaluateWithObject:number] == YES)
-        || ([regextestcu evaluateWithObject:number] == YES))
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,0-9]))\\d{8}$";
+    
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    if ([phoneTest evaluateWithObject:number])
     {
         return YES;
     }else{
         return NO;
     }
+    
 }
 
 
@@ -257,6 +293,10 @@
 -(void)signUpButCliclk {
 
     GFSignUpViewController *signUpVC = [[GFSignUpViewController alloc] init];
+    
+    
+    
+    
     [self.navigationController pushViewController:signUpVC animated:YES];
     
 }

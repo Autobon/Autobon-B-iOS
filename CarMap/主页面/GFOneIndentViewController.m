@@ -12,20 +12,13 @@
 #import "GFTitleView.h"
 #import "GFPartnersMessageViewController.h"
 #import "GFNoIndentViewController.h"
+#import "UWDatePickerView.h"
+#import "CLTouchScrollView.h"
 
-@interface MYScrollView : UIScrollView
 
-@end
 
-@implementation MYScrollView
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self endEditing:YES];
-}
-
-@end
-
-@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate> {
+@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -38,14 +31,15 @@
     CGFloat jianjv1;
     
     NSMutableArray *_buttonArray;
-    UIDatePicker *_datePicker;
+   
+    UWDatePickerView *_pickerView;
     
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
 
-@property (nonatomic, strong) MYScrollView *scrollerView;
+@property (nonatomic, strong) CLTouchScrollView *scrollerView;
 
 // 灰色提示条
 @property (nonatomic, strong) UIButton *tipButton;
@@ -104,7 +98,7 @@
     CGFloat scrollerViewH = kHeight - 64 - kHeight * 0.0625;
     CGFloat scrollerViewX = 0;
     CGFloat scrollerViewY = CGRectGetMaxY(self.navView.frame);
-    self.scrollerView = [[MYScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
+    self.scrollerView = [[CLTouchScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     self.scrollerView.contentSize = CGSizeMake(0, 1000);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
@@ -200,7 +194,7 @@
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
     // 显示时间
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     self.timeLab.text = dateString;
@@ -278,18 +272,59 @@
     
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     
-    _datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, 0, 300, 250)];
-    _datePicker.center = self.view.center;
-    _datePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    [_datePicker addTarget:self action:@selector(time) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:_datePicker];
-    _datePicker.hidden = YES;
+    
     
 }
 
-- (void)timeChoose{
-    _datePicker.hidden = NO;
+
+#pragma mark =======  PickerView ========
+//选择时间的代码，时间选择器
+- (void)setupDateView:(DateType)type {
     
+    _pickerView = [UWDatePickerView instanceDatePickerView];
+    _pickerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [_pickerView setBackgroundColor:[UIColor clearColor]];
+    _pickerView.delegate = self;
+    _pickerView.type = type;
+    
+    [self.view addSubview:_pickerView];
+}
+
+- (void)getSelectDate:(NSString *)date type:(DateType)type {
+    
+//    self.laterSetterTimeButton.selected =NO;
+    
+    //即那个获取的时间复制给该全局变量，根据该全局变量或者选择时间按钮的标题来进行判断
+//    self.selectTime = date;
+    
+//    [self.setterTimeButton setTitle:date forState:UIControlStateNormal];
+    NSLog(@"----选择的时间－－－－%@---",date);
+    
+    switch (type) {
+        case DateTypeOfStart:// TODO 日期确定选择
+            break;
+        case DateTypeOfEnd:// TODO 日期取消选择
+            break;
+        default:
+            break;
+    }
+}
+
+////设置显示在按钮上的时间的格式
+//-(NSString *)stringFromDate:(NSDate *)date{
+//    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    //    [dateFormatter setDateFormat:@"YYYY-MM-DD HH:MM:SS"];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    
+//    NSString *destDateString = [dateFormatter stringFromDate:date];
+//    return destDateString;
+//}
+
+- (void)timeChoose{
+    
+    
+    [self setupDateView:DateTypeOfStart];
     
     
     

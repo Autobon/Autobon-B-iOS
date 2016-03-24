@@ -15,6 +15,7 @@
 
 
 #import "GFJoinInViewController_1.h"
+#import "CLDelegateViewController.h"
 
 
 
@@ -256,7 +257,11 @@
 - (void)agreeButClick {
 
 
-    NSLog(@"同意");
+    CLDelegateViewController *delegateView = [[CLDelegateViewController alloc]init];
+    
+    [self.navigationController pushViewController:delegateView animated:YES];
+    
+    
 }
 
 

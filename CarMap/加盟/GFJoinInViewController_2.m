@@ -13,6 +13,9 @@
 #import "GFAlertView.h"
 #import "GFTipView.h"
 #import "GFHttpTool.h"
+#import "CLDelegateViewController.h"
+#import "CLTouchScrollView.h"
+
 
 
 @interface GFJoinInViewController_2 () {
@@ -50,7 +53,7 @@
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
-@property (nonatomic, strong) UIScrollView *scrollerView;
+@property (nonatomic, strong) CLTouchScrollView *scrollerView;
 
 @property (nonatomic, strong) GFTextField *invoiceHeadTxt;  // 发票抬头
 @property (nonatomic, strong) GFTextField *payNumTxt;       // 纳税识别号
@@ -107,7 +110,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // scrollerView
-    self.scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
+    self.scrollerView = [[CLTouchScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     self.scrollerView.contentSize = CGSizeMake(0, 1000);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
@@ -287,6 +290,28 @@
     [agreeLab addSubview:agreeBut];
     [agreeBut addTarget:self action:@selector(agreeButClick) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    NSLog(@"---_dataForPast---%@---",_dataForPastDictionary);
+    if (_dataForPastDictionary) {
+        self.invoiceHeadTxt.text = _dataForPastDictionary[@"invoiceHeader"];
+        self.payNumTxt.text = _dataForPastDictionary[@"taxIdNo"];
+        self.postNumTxt.text = _dataForPastDictionary[@"postcode"];
+        [self.shengBut setTitle:_dataForPastDictionary[@"province"] forState:UIControlStateNormal];
+        [self.shengBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _shengString = _dataForPastDictionary[@"province"];
+        [self.shiBut setTitle:_dataForPastDictionary[@"city"] forState:UIControlStateNormal];
+        [self.shiBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _shiString = _dataForPastDictionary[@"city"];
+        [self.quBut setTitle:_dataForPastDictionary[@"district"] forState:UIControlStateNormal];
+        [self.quBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _quString = _dataForPastDictionary[@"district"];
+        _txtView.text = _dataForPastDictionary[@"address"];
+        _txtView.textColor = [UIColor blackColor];
+        self.nameTxt.text = _dataForPastDictionary[@"contact"];
+        self.phoneTxt.text = _dataForPastDictionary[@"contactPhone"];
+        
+    }
+    
 }
 
 #pragma mark - 加盟按钮的响应方法
@@ -331,7 +356,11 @@
                                         NSLog(@"---_dataDictionary--%@---",_dataDictionary);
                                         
                                         [GFHttpTool postCheckForUser:_dataDictionary success:^(id responseObject) {
-                                            
+                                            if ([responseObject[@"result"] integerValue] == 1) {
+                                                [self.navigationController popToRootViewControllerAnimated:YES];
+                                            }else{
+                                                [self addAlertView:responseObject[@"message"]];
+                                            }
                                             NSLog(@"－－－请求成功－－%@---",responseObject);
                                             
                                         } failure:^(NSError *error) {
@@ -368,7 +397,9 @@
 
 - (void)agreeButClick {
 
-    NSLog(@"协议");
+    CLDelegateViewController *delegateView = [[CLDelegateViewController alloc]init];
+    [self.navigationController pushViewController:delegateView animated:YES];
+    
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {

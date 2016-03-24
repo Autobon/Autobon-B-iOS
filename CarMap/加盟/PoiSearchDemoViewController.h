@@ -18,6 +18,8 @@
     int curPage;
 }
 
+@property (nonatomic ,strong) NSDictionary *dataForPastDictionary;
+
 @property (nonatomic ,strong) NSMutableDictionary *dataDictionary;
 
 

@@ -10,4 +10,6 @@
 
 @interface CLCooperateFailViewController : UIViewController
 
+@property (nonatomic ,strong) NSDictionary *dataDictionary;
+
 @end

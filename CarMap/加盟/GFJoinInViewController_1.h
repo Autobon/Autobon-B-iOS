@@ -10,4 +10,8 @@
 
 @interface GFJoinInViewController_1 : UIViewController
 
+
+@property (nonatomic ,strong) NSDictionary *dataForPastDictionary;
+
+
 @end

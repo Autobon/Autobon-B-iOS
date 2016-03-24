@@ -18,6 +18,7 @@
 
 #import "GFSignInViewController.h"
 #import "GFAddWorkerViewController.h"
+#import "GFOneIndentViewController.h"
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
@@ -72,6 +73,7 @@
     GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
 //    CLAutobonViewController *firstView = [[CLAutobonViewController alloc]init];
 //    CLCertifyViewController *firstView = [[CLCertifyViewController alloc]init];
+//    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;

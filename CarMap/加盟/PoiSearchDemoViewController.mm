@@ -54,7 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    NSLog(@"----———_data POI---%@--",_dataForPastDictionary);
     
     // 导航栏
     GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
@@ -140,6 +140,9 @@
     
     GFJoinInViewController_2 *joinInView = [[GFJoinInViewController_2 alloc]init];
     joinInView.dataDictionary = _dataDictionary;
+    
+    joinInView.dataForPastDictionary = _dataForPastDictionary;
+    
     [self.navigationController pushViewController:joinInView animated:YES];
     
     

@@ -10,4 +10,7 @@
 
 @interface CLCooperatingViewController : UIViewController
 
+@property (nonatomic ,strong) NSDictionary *dataDictionary;
+
+
 @end
