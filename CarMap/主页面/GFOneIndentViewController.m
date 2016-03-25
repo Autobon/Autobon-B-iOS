@@ -238,13 +238,13 @@
     
     
     // 施工时间
-    GFTitleView *timeView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(baseView.frame) + jiange3 Title:@"施工时间"];
-    [self.scrollerView addSubview:timeView];
+    GFTitleView *timeView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(lineView2.frame) + jiange3 Title:@"施工时间"];
+    [baseView addSubview:timeView];
     
     // 施工时间Lab
     UIView *labView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(timeView.frame), kWidth, kHeight * 0.099)];
     labView.backgroundColor = [UIColor whiteColor];
-    [self.scrollerView addSubview:labView];
+    [baseView addSubview:labView];
     CGFloat timeLabW = kWidth - (kWidth * 0.065 * 2);
     CGFloat timeLabH = kHeight * 0.099;
     CGFloat timeLabX = kWidth * 0.065;
@@ -278,7 +278,7 @@
     
     // 施工项目
     GFTitleView *projectView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(labView.frame) + jiange3 Title:@"施工项目"];
-    [self.scrollerView addSubview:projectView];
+    [baseView addSubview:projectView];
     
     // 施工项目按钮
     CGFloat butViewW = kWidth;
@@ -287,7 +287,7 @@
     CGFloat butViewY = CGRectGetMaxY(projectView.frame);
     UIView *butView = [[UIView alloc] initWithFrame:CGRectMake(butViewX, butViewY, butViewW, butViewH)];
     butView.backgroundColor = [UIColor whiteColor];
-    [self.scrollerView addSubview:butView];
+    [baseView addSubview:butView];
     NSArray *nameArr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁"];
     _buttonArray = [[NSMutableArray alloc]init];
     for(int i=0; i<4; i++) {
@@ -324,13 +324,15 @@
     signInBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     signInBut.layer.cornerRadius = 5;
     [signInBut setTitle:@"一键下单" forState:UIControlStateNormal];
-    [self.scrollerView addSubview:signInBut];
+    [baseView addSubview:signInBut];
     [signInBut addTarget:self action:@selector(signInButClick) forControlEvents:UIControlEventTouchUpInside];
     
     
+    baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     
-    
+//    baseView.backgroundColor = [UIColor redColor];
+//    self.scrollerView.backgroundColor = [UIColor greenColor];
     
 }
 

@@ -70,10 +70,10 @@
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
 //    GFAddWorkerViewController *firstView = [[GFAddWorkerViewController alloc]init];
-    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
+//    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
 //    CLAutobonViewController *firstView = [[CLAutobonViewController alloc]init];
 //    CLCertifyViewController *firstView = [[CLCertifyViewController alloc]init];
-//    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
+    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
