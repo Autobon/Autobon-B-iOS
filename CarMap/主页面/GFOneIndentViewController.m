@@ -40,6 +40,9 @@
     NSInteger _orderType;
     NSMutableArray *_modelArray;
     
+    
+    CGFloat baseViewHH;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -58,7 +61,7 @@
 // 施工时间Lab
 @property (nonatomic, strong) UILabel *timeLab;
 
-
+@property (nonatomic, strong) UIView *baseView;
 
 @property (nonatomic, strong) UILabel *timeLab1;
 
@@ -107,6 +110,16 @@
         NSLog(@"－－请求成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
+            
+            NSInteger ff = [dataDictionary[@"totalElements"] integerValue];
+            if(ff > 0) {
+                self.baseView.frame = CGRectMake(0, kHeight * 0.0625, kWidth, baseViewHH + kHeight * 0.0625);
+                self.scrollerView.contentSize = CGSizeMake(0, baseViewHH + kHeight * 0.0625);
+            }else {
+                self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH);
+                self.scrollerView.contentSize = CGSizeMake(0, baseViewHH);
+            }
+            
             [_tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
             NSArray *listArray = dataDictionary[@"list"];
             NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
@@ -168,15 +181,15 @@
     CGFloat baseViewH = 500;
     CGFloat baseViewX = 0;
     CGFloat baseViewY = 0;
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
-    baseView.backgroundColor = [UIColor whiteColor];
-    [self.scrollerView addSubview:baseView];
+    self.baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
+    self.baseView.backgroundColor = [UIColor whiteColor];
+    [self.scrollerView addSubview:self.baseView];
     
     // 灰色提示框
     CGFloat tipLabW = kWidth;
     CGFloat tipLabH = kHeight * 0.0625;
     CGFloat tipLabX = 0;
-    CGFloat tipLabY = 0;
+    CGFloat tipLabY = -tipLabH;
     self.tipButton = [[UIButton alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
     self.tipButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
 //    self.tipButton.textAlignment = NSTextAlignmentCenter;
@@ -185,12 +198,12 @@
     self.tipButton.titleLabel.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
 //    self.tipButton.text = @"有3个未完成订单";
 //    [_tipButton setTitle:@"有3个未完成订单" forState:UIControlStateNormal];
-    [baseView addSubview:self.tipButton];
+    [self.baseView addSubview:self.tipButton];
     [_tipButton addTarget:self action:@selector(tipBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     // 订单信息
     self.msgView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(self.tipButton.frame) + jiange1 Title:@"订单信息"];
-    [baseView addSubview:self.msgView];
+    [self.baseView addSubview:self.msgView];
     
     // 示例图
     CGFloat imgViewW = kWidth - 2 * jianjv1;
@@ -201,12 +214,12 @@
 //    self.imgView.backgroundColor = [UIColor redColor];
 //    self.imgView.image = [UIImage imageNamed:@"orderImage"];
     [self.imgView setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
-    [baseView addSubview:self.imgView];
+    [self.baseView addSubview:self.imgView];
     
     UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraBtn.frame = CGRectMake(CGRectGetMaxX(self.imgView.frame)-15, CGRectGetMaxY(self.imgView.frame)-15, 30, 30);
     [cameraBtn setBackgroundImage:[UIImage imageNamed:@"cameraUser"] forState:UIControlStateNormal];
-    [baseView addSubview:cameraBtn];
+    [self.baseView addSubview:cameraBtn];
     
     [cameraBtn addTarget:self action:@selector(cameraBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.imgView addTarget:self action:@selector(cameraBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -216,7 +229,7 @@
     // 边线
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(jianjv1, CGRectGetMaxY(self.imgView.frame) + jiange2, kWidth - jianjv1 * 2, 1)];
     lineView1.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
-    [baseView addSubview:lineView1];
+    [self.baseView addSubview:lineView1];
     
     // 请填写备注
     CGFloat txtViewW = imgViewW;
@@ -227,24 +240,24 @@
     self.txtView.text = @"订单备注";
     self.txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     self.txtView.delegate = self;
-    [baseView addSubview:self.txtView];
+    [self.baseView addSubview:self.txtView];
     
-    baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(self.txtView.frame) + 20);
+    self.baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(self.txtView.frame) + 20);
     
     // 边线
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.txtView.frame) + 20, kWidth, 1)];
     lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
-    [baseView addSubview:lineView2];
+    [self.baseView addSubview:lineView2];
     
     
     // 施工时间
     GFTitleView *timeView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(lineView2.frame) + jiange3 Title:@"施工时间"];
-    [baseView addSubview:timeView];
+    [self.baseView addSubview:timeView];
     
     // 施工时间Lab
     UIView *labView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(timeView.frame), kWidth, kHeight * 0.099)];
     labView.backgroundColor = [UIColor whiteColor];
-    [baseView addSubview:labView];
+    [self.baseView addSubview:labView];
     CGFloat timeLabW = kWidth - (kWidth * 0.065 * 2);
     CGFloat timeLabH = kHeight * 0.099;
     CGFloat timeLabX = kWidth * 0.065;
@@ -278,7 +291,7 @@
     
     // 施工项目
     GFTitleView *projectView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(labView.frame) + jiange3 Title:@"施工项目"];
-    [baseView addSubview:projectView];
+    [self.baseView addSubview:projectView];
     
     // 施工项目按钮
     CGFloat butViewW = kWidth;
@@ -287,7 +300,7 @@
     CGFloat butViewY = CGRectGetMaxY(projectView.frame);
     UIView *butView = [[UIView alloc] initWithFrame:CGRectMake(butViewX, butViewY, butViewW, butViewH)];
     butView.backgroundColor = [UIColor whiteColor];
-    [baseView addSubview:butView];
+    [self.baseView addSubview:butView];
     NSArray *nameArr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁"];
     _buttonArray = [[NSMutableArray alloc]init];
     for(int i=0; i<4; i++) {
@@ -324,11 +337,11 @@
     signInBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     signInBut.layer.cornerRadius = 5;
     [signInBut setTitle:@"一键下单" forState:UIControlStateNormal];
-    [baseView addSubview:signInBut];
+    [self.baseView addSubview:signInBut];
     [signInBut addTarget:self action:@selector(signInButClick) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
+    baseViewHH = CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443;
+    self.baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     
 //    baseView.backgroundColor = [UIColor redColor];
