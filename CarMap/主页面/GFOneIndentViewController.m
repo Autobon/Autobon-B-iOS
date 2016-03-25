@@ -14,6 +14,9 @@
 #import "GFNoIndentViewController.h"
 #import "UWDatePickerView.h"
 #import "CLTouchScrollView.h"
+#import "GFTipView.h"
+#import "GFHttpTool.h"
+#import "CLIndentModel.h"
 
 
 
@@ -33,6 +36,9 @@
     NSMutableArray *_buttonArray;
    
     UWDatePickerView *_pickerView;
+    BOOL _isUpOrderImage;
+    NSInteger _orderType;
+    NSMutableArray *_modelArray;
     
 }
 
@@ -89,13 +95,65 @@
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
     
+    [self getListUnfinished];
 }
+
+#pragma mark - 获取商户未完成订单
+- (void)getListUnfinished{
+    
+    _modelArray = [[NSMutableArray alloc]init];
+    
+    [GFHttpTool postListUnfinishedDictionary:@{@"page":@"1",@"pageSize":@"2"} success:^(id responseObject) {
+        NSLog(@"－－请求成功－－%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            [_tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
+            NSArray *listArray = dataDictionary[@"list"];
+            NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
+            
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+            
+            [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                CLIndentModel *model = [[CLIndentModel alloc]init];
+                model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
+//                model.status = obj[@"status"];
+                NSInteger type = [obj[@"orderType"] integerValue];
+                model.orderType = typeArray[type];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
+                model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+                
+                model.photo = obj[@"photo"];
+                model.remark = obj[@"remark"];
+            
+                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
+                model.addTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                [_modelArray addObject:model];
+                if ([obj[@"mainTech"] isKindOfClass:[NSNull class]]) {
+                    model.workName = @"";
+                    model.status = @"未接单";
+                }else{
+                    NSDictionary *mainDictionary = obj[@"mainTech"];
+                    model.workName = mainDictionary[@"name"];
+                    model.status = @"已接单";
+                }
+                
+                
+            }];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"----shibaile---%@---",error);
+    }];
+}
+
 
 - (void)_setView {
     
     
     CGFloat scrollerViewW = kWidth;
-    CGFloat scrollerViewH = kHeight - 64 - kHeight * 0.0625;
+    CGFloat scrollerViewH = kHeight - 64;
     CGFloat scrollerViewX = 0;
     CGFloat scrollerViewY = CGRectGetMaxY(self.navView.frame);
     self.scrollerView = [[CLTouchScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
@@ -126,7 +184,7 @@
 //    self.tipButton.textColor = [UIColor whiteColor];
     self.tipButton.titleLabel.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
 //    self.tipButton.text = @"有3个未完成订单";
-    [_tipButton setTitle:@"有3个未完成订单" forState:UIControlStateNormal];
+//    [_tipButton setTitle:@"有3个未完成订单" forState:UIControlStateNormal];
     [baseView addSubview:self.tipButton];
     [_tipButton addTarget:self action:@selector(tipBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -194,7 +252,7 @@
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
     // 显示时间
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     self.timeLab.text = dateString;
@@ -295,19 +353,19 @@
 //    self.laterSetterTimeButton.selected =NO;
     
     //即那个获取的时间复制给该全局变量，根据该全局变量或者选择时间按钮的标题来进行判断
-//    self.selectTime = date;
-    
+    self.timeLab.text = date;
+    self.timeLab.textColor = [UIColor blackColor];
 //    [self.setterTimeButton setTitle:date forState:UIControlStateNormal];
     NSLog(@"----选择的时间－－－－%@---",date);
     
-    switch (type) {
-        case DateTypeOfStart:// TODO 日期确定选择
-            break;
-        case DateTypeOfEnd:// TODO 日期取消选择
-            break;
-        default:
-            break;
-    }
+//    switch (type) {
+//        case DateTypeOfStart:// TODO 日期确定选择
+//            break;
+//        case DateTypeOfEnd:// TODO 日期取消选择
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 ////设置显示在按钮上的时间的格式
@@ -329,9 +387,7 @@
     
     
 }
-- (void)time{
-    NSLog(@"－－－－－－");
-}
+
 
 
 
@@ -358,6 +414,7 @@
 - (void)tipBtnClick{
     
     GFNoIndentViewController *noIndent = [[GFNoIndentViewController alloc]init];
+    noIndent.modelMutableArray = _modelArray;
     [self.navigationController pushViewController:noIndent animated:YES];
     
 }
@@ -366,8 +423,17 @@
 #pragma mark - 一键下单按钮响应方法
 - (void)signInButClick {
     
-    
-    
+    if (!_isUpOrderImage) {
+        [self addAlertView:@"请上传订单图片"];
+    }else{
+        if (_orderType == 0) {
+            [self addAlertView:@"请选择订单类型"];
+        }else{
+         
+            NSLog(@"一键下单--%ld--",_orderType);
+            
+        }
+    }
     
 }
 
@@ -392,8 +458,8 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
     [self dismissViewControllerAnimated:YES completion:nil];
     
-        [self.imgView setBackgroundImage:image forState:UIControlStateNormal];
-    
+    [self.imgView setBackgroundImage:image forState:UIControlStateNormal];
+    _isUpOrderImage = YES;
 }
 
 
@@ -428,7 +494,7 @@
     sender.selected = !sender.selected;
     
     if(sender.selected == YES) {
-        
+        _orderType = sender.tag;
         [_buttonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [obj setBackgroundColor:[UIColor colorWithRed:237 / 255.0 green:238 / 255.0 blue:239 / 255.0 alpha:1]];
             obj.selected = NO;
@@ -436,6 +502,7 @@
         sender.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         sender.selected = YES;
     }else {
+        _orderType = 0;
         [sender setBackgroundColor:[UIColor colorWithRed:237 / 255.0 green:238 / 255.0 blue:239 / 255.0 alpha:1]];
     }
     
@@ -515,6 +582,12 @@
     
     
 //    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
 }
 
 

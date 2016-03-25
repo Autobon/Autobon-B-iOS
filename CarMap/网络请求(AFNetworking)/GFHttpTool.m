@@ -187,6 +187,66 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
 
 
 
+#pragma mark - 一键下单接口
++ (void)postOneIndentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *token = [userDefaultes objectForKey:@"autoken"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+    NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/createOrder",HOST];
+    
+    
+    [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        if(success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if(failure) {
+            failure(error);
+        }
+    }];
+    
+}
+
+
+#pragma mark - 获取商户未完成订单
++ (void)postListUnfinishedDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *token = [userDefaultes objectForKey:@"autoken"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+    NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/listUnfinished",HOST];
+    
+    
+    [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        if(success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if(failure) {
+            failure(error);
+        }
+    }];
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 #pragma mark - 判断网络连接情况
 // 加号方法里只能够调用加号方法

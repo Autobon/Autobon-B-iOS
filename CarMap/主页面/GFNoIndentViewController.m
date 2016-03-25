@@ -11,11 +11,21 @@
 #import "GFTextField.h"
 
 #import "GFNoIndentTableViewCell.h"
+#import "CLIndentModel.h"
+#import "MJRefresh.h"
+#import "GFHttpTool.h"
+#import "CLIndentModel.h"
+
+
 
 @interface GFNoIndentViewController () {
     
     CGFloat kWidth;
     CGFloat kHeight;
+    
+    NSInteger _page;
+    NSInteger _pageSize;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -62,16 +72,97 @@
     
     
     
-    
-    
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    _page = 1;
+    _pageSize = 2;
     
 }
+
+#pragma mark - 头刷新
+- (void)headRefresh{
+    
+    _page = 1;
+    
+    _modelMutableArray = [[NSMutableArray alloc]init];
+    [self getListUnfinished];
+    
+
+}
+
+#pragma mark - 尾刷新
+- (void)footRefresh{
+    
+    _page = _page+1;
+    
+    [self getListUnfinished];
+    
+    NSLog(@"-------");
+}
+
+#pragma mark - 获取商户未完成订单
+- (void)getListUnfinished{
+    
+    _tableView.userInteractionEnabled = NO;
+    
+    [GFHttpTool postListUnfinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
+        NSLog(@"－－请求成功－－%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            NSArray *listArray = dataDictionary[@"list"];
+            NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
+            
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+            
+            [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                CLIndentModel *model = [[CLIndentModel alloc]init];
+                model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
+                //                model.status = obj[@"status"];
+                NSInteger type = [obj[@"orderType"] integerValue];
+                model.orderType = typeArray[type];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
+                model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+                model.photo = obj[@"photo"];
+                model.remark = obj[@"remark"];
+                
+                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
+                model.addTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                [_modelMutableArray addObject:model];
+                
+                if ([obj[@"mainTech"] isKindOfClass:[NSNull class]]) {
+                    model.workName = @"";
+                    model.status = @"未接单";
+                }else{
+                    NSDictionary *mainDictionary = obj[@"mainTech"];
+                    model.workName = mainDictionary[@"name"];
+                    model.status = @"已接单";
+                }
+                
+                
+            }];
+            [self.tableView.header endRefreshing];
+            [self.tableView.footer endRefreshing];
+            [self.tableView reloadData];
+            _tableView.userInteractionEnabled = YES;
+        }
+        
+    } failure:^(NSError *error) {
+        _tableView.userInteractionEnabled = YES;
+        NSLog(@"----shibaile---%@---",error);
+    }];
+}
+
+
+
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     
-    return 2;
+    return _modelMutableArray.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,13 +173,18 @@
         cell = [[GFNoIndentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
-    cell.orderNum = @"gasgasdgfasg";
-    cell.orderType = @"接单";
-    cell.beizhu = @"放假撒旦了房价俺是打工啦打发苏开发商发誓的发生了回复撒见到过爱手工奥斯卡说服力撒谎的发完烧的";
-    cell.workCon = @"汽车贴膜";
-    cell.workTime = @"公园2012";
-    cell.xiadanTime = @"fsdgfas";
-    [cell.workerBut setTitle:@"老五" forState:UIControlStateNormal];
+    CLIndentModel *model = _modelMutableArray[indexPath.row];
+    
+    
+    NSLog(@"---num--%@--",model.orderNum);
+    
+    cell.orderNum = model.orderNum;
+    cell.orderType = model.status;
+    cell.beizhu = model.remark;
+    cell.workCon = model.orderType;
+    cell.workTime = model.orderTime;
+    cell.xiadanTime = model.addTime;
+    [cell.workerBut setTitle:model.workName forState:UIControlStateNormal];
     [cell setMessage];
     
     self.cellHhh = cell.cellHeight;

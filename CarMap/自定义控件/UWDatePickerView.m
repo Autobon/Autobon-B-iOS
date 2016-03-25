@@ -66,7 +66,7 @@
     //设置时间格式，转换成24小时的,
 //    [dateFormatter setDateFormat:@"YYYY-MM-DD HH:MM:SS"];
     
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     
     NSString *currentOlderOneDateStr = [dateFormatter stringFromDate:selected];
     return currentOlderOneDateStr;

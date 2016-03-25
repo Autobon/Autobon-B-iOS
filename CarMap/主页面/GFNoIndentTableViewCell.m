@@ -107,7 +107,8 @@
         CGFloat imageViewX = jianjv1 - 2;
         CGFloat imageViewY = CGRectGetMaxY(lineView1.frame) + jiange3;
         self.indentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
-        self.indentImgView.backgroundColor = [UIColor redColor];
+//        self.indentImgView.backgroundColor = [UIColor redColor];
+        self.indentImgView.image = [UIImage imageNamed:@"orderImage"];
         [self.baseView addSubview:self.indentImgView];
         
         
@@ -166,6 +167,7 @@
     
 
     if([self.orderType isEqualToString:@"未接单"]) {
+        self.workerBut.hidden = YES;
         indentView.rightLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     }else {
         self.workerBut.hidden = NO;

@@ -113,6 +113,7 @@
     // 密码
     self.passwordTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.verifyTxt.frame) + jiange2 withPlaceholder:@"密码"];
     self.passwordTxt.secureTextEntry = YES;
+    self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
     
     UIButton *eyeButton = [[UIButton alloc]init];
@@ -128,6 +129,7 @@
     // 确认密码
     self.againPwdTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.passwordTxt.frame) + jiange2 withPlaceholder:@"确认密码"];
     self.againPwdTxt.secureTextEntry = YES;
+    self.againPwdTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.againPwdTxt];
     
     

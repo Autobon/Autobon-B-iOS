@@ -61,6 +61,7 @@
     // 请输入旧密码
     self.oldPwdTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入旧密码"];
     _oldPwdTxt.secureTextEntry = YES;
+    self.oldPwdTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.oldPwdTxt];
     
     UIButton *eyeButton = [[UIButton alloc]init];
@@ -77,6 +78,7 @@
     // 请输入新密码
     self.xinPwdtxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.oldPwdTxt.frame) + jiange2 withPlaceholder:@"请输入新密码"];
     _xinPwdtxt.secureTextEntry = YES;
+    self.xinPwdtxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.xinPwdtxt];
     
     

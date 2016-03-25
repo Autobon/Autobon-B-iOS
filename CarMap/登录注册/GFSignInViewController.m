@@ -89,6 +89,7 @@
     // 密码
     self.passwordTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange1 withPlaceholder:@"请输入您的密码"];
     self.passwordTxt.secureTextEntry = YES;
+    self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
     
     
@@ -177,42 +178,25 @@
                         [userDefaults setObject:_enterpriseTxt.text forKey:@"userEnterprise"];
                         [userDefaults setObject:_phoneTxt.text forKey:@"userPhone"];
                         [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
-                        
                         NSDictionary *dataDictionary = responseObject[@"data"];
                         
                         if ([dataDictionary[@"address"] isKindOfClass:[NSNull class]]) {
             // 没有填写认证信息
                             GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
                             [self.navigationController pushViewController:joinInView animated:YES];
-//                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:joinInView];
-//                            window.rootViewController = navigation;
-//                            navigation.navigationBarHidden = YES;
-                            
                             
                         }else{
-                            if ([dataDictionary[@"statusCode"] integerValue] == 1) {
+                            if ([dataDictionary[@"statusCode"] integerValue] == 2) {
                 // 正在审核中
                                 CLCooperatingViewController *cooperating = [[CLCooperatingViewController alloc]init];
                                 cooperating.dataDictionary = dataDictionary;
                                 [self.navigationController pushViewController:cooperating animated:YES];
-//
-//                                
-//                                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                                UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:cooperating];
-//                                window.rootViewController = navigation;
-//                                navigation.navigationBarHidden = YES;
                             }else if ([dataDictionary[@"statusCode"] integerValue] == 0){
                 // 审核失败
                                 CLCooperateFailViewController *cooperateFail = [[CLCooperateFailViewController alloc]init];
                                 cooperateFail.dataDictionary = dataDictionary;
                                 [self.navigationController pushViewController:cooperateFail animated:YES];
-//                                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                                UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:cooperateFail];
-//                                window.rootViewController = navigation;
-//                                navigation.navigationBarHidden = YES;
-                                
-                            }else if ([dataDictionary[@"statusCode"] integerValue] == 2){
+                            }else if ([dataDictionary[@"statusCode"] integerValue] == 1){
                                 GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
                                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                                 UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];

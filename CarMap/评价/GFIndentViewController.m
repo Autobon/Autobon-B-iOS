@@ -69,7 +69,7 @@
     UIButton *mainBut = [UIButton buttonWithType:UIButtonTypeCustom];
     mainBut.frame = CGRectMake(0, 0, baseViewW / 2.0, baseViewH);
     mainBut.titleLabel.font = [UIFont boldSystemFontOfSize:14 / 320.0 * kWidth];
-    [mainBut setTitle:@"主负责人" forState:UIControlStateNormal];
+    [mainBut setTitle:@"全部" forState:UIControlStateNormal];
     [mainBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
     [mainBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateSelected];
     mainBut.selected = YES;
@@ -80,7 +80,7 @@
     UIButton *otherBut = [UIButton buttonWithType:UIButtonTypeCustom];
     otherBut.frame = CGRectMake(CGRectGetMaxX(mainBut.frame), 0, kWidth / 2.0, baseViewH);
     otherBut.titleLabel.font = [UIFont boldSystemFontOfSize:14 / 320.0 * kWidth];
-    [otherBut setTitle:@"次负责人" forState:UIControlStateNormal];
+    [otherBut setTitle:@"待评价" forState:UIControlStateNormal];
     [otherBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
     [otherBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateSelected];
     [baseView addSubview:otherBut];

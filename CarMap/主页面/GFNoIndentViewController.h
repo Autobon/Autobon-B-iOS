@@ -10,4 +10,6 @@
 
 @interface GFNoIndentViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic ,strong) NSMutableArray *modelMutableArray;
+
 @end
