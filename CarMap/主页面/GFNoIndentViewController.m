@@ -15,6 +15,9 @@
 #import "MJRefresh.h"
 #import "GFHttpTool.h"
 #import "CLIndentModel.h"
+#import "UIImageView+WebCache.h"
+#import "GFAlertView.h"
+#import "GFTipView.h"
 
 
 
@@ -116,11 +119,15 @@
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
             
+            if (listArray.count == 0) {
+                [self addAlertView:@"已加载全部"];
+            }
+            
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 CLIndentModel *model = [[CLIndentModel alloc]init];
                 model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
                 //                model.status = obj[@"status"];
-                NSInteger type = [obj[@"orderType"] integerValue];
+                NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
                 model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
@@ -184,7 +191,10 @@
     cell.workCon = model.orderType;
     cell.workTime = model.orderTime;
     cell.xiadanTime = model.addTime;
+    [cell.indentImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
     [cell.workerBut setTitle:model.workName forState:UIControlStateNormal];
+    [cell.workerBut addTarget:self action:@selector(workerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    cell.workerBut.tag = indexPath.row;
     [cell setMessage];
     
     self.cellHhh = cell.cellHeight;
@@ -194,6 +204,22 @@
 
 }
 
+- (void)workerBtnClick:(UIButton *)button{
+    
+    NSLog(@"查看技师信息");
+    NSLog(@"有人邀请");
+//    NSDictionary *dictionary = Notification.userInfo[@"owner"];
+//    NSDictionary *orderDictionary = Notification.userInfo[@"order"];
+//    NSArray *skillArray = @[@"隔热膜",@"隐形车衣",@"车身改色",@"美容清洁"];
+//    NSString *orderDetail = [NSString stringWithFormat:@"邀请你参与%@的订单，订单号%@",skillArray[[orderDictionary[@"orderType"] integerValue] - 1],orderDictionary[@"orderNum"]];
+//    GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:dictionary[@"avatar"] name:dictionary[@"name"] mark:[dictionary[@"starRate"] floatValue] orderNumber:[dictionary[@"unpaidOrders"] integerValue] goodNumber:1.0 order:orderDetail];
+//    [alertView.okBut addTarget:self action:@selector(OrderDetailBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:@"/uploads/technician/avatar/2.jpg" name:@"FIVE" mark:3.0 orderNumber:20];
+    
+    [self.view addSubview:alertView];
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -208,6 +234,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

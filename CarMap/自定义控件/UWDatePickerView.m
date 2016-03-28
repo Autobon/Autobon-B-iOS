@@ -38,7 +38,7 @@
     self.sureBtn.layer.cornerRadius = 3;
     
 //    self.sureBtn.backgroundColor = LYColor(193, 251, 255);
-    self.sureBtn.backgroundColor = [UIColor colorWithRed:193/255.0 green:251/255.0 blue:255/255.0 alpha:1.0];
+    self.sureBtn.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
 //    self.sureBtn.layer.borderWidth = 1;
 //    self.sureBtn.layer.borderColor = [[UIColor grayColor] CGColor];
     
@@ -49,7 +49,7 @@
    
 //    self.cannelBtn.backgroundColor = LYColor(193, 251, 255);
     
-    self.cannelBtn.backgroundColor = [UIColor colorWithRed:193/255.0 green:251/255.0 blue:255/255.0 alpha:1.0];
+    self.cannelBtn.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
 //    self.cannelBtn.layer.borderWidth = 1;
 //    self.cannelBtn.layer.borderColor = [[UIColor grayColor] CGColor];
     self.cannelBtn.layer.masksToBounds = YES;

@@ -41,30 +41,18 @@
         CGFloat numberLabH = kHeight * 0.078125;
         CGFloat numberLabX = jiange;
         CGFloat numberLabY = 0;
-        self.numberLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, numberLabY, numberLabW, numberLabH)];
-        self.numberLab.text = @"订单编号sdjfhashdfgs";
+        self.numberLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, numberLabY-15, numberLabW, numberLabH)];
+//        self.numberLab.text = @"订单编号sdjfhashdfgs";
         self.numberLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
-//        [baseView addSubview:self.numberLab];
-        // 订单编号
-        CGFloat moneyLabW = 200;
-        CGFloat moneyLabH = kHeight * 0.078125 / 2.0;
-        CGFloat moneyLabX = jiange;
-        CGFloat moneyLabY = 3 / 568.0 * kHeight;
-        self.moneyLab = [[UILabel alloc] initWithFrame:CGRectMake(moneyLabX, moneyLabY, moneyLabW, moneyLabH)];
-        self.moneyLab.text = @"￥200";
-        self.moneyLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
-//        self.moneyLab.textAlignment = NSTextAlignmentRight;
-//        self.moneyLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
-//        self.moneyLab.backgroundColor = [UIColor redColor];
-        [baseView addSubview:self.moneyLab];
+        [baseView addSubview:self.numberLab];
         
         // 工作内容
-        CGFloat tipLabW = moneyLabW;
-        CGFloat tipLabH = moneyLabH;
-        CGFloat tipLabX = moneyLabX;
-        CGFloat tipLabY = CGRectGetMaxY(self.moneyLab.frame) - 6 / 568.0 * kHeight;
-        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
-        self.timeLab.text = @"￥20000";
+        CGFloat tipLabW = 200;
+        CGFloat tipLabH = kHeight * 0.078125 / 2.0;
+        CGFloat tipLabX = jiange;
+        CGFloat tipLabY = CGRectGetMaxY(self.numberLab.frame);
+        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY-20, tipLabW, tipLabH)];
+//        self.timeLab.text = @"￥20000";
         self.timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         self.timeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
 //        self.timeLab.backgroundColor = [UIColor redColor];
@@ -89,7 +77,7 @@
         CGFloat photoImgViewH = kHeight * 0.2344;
         CGFloat photoImgViewX = jiange;
         CGFloat photoImgViewY = CGRectGetMaxY(self.numberLab.frame) + kHeight * 0.013;
-        self.photoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(photoImgViewX, photoImgViewY, photoImgViewW, photoImgViewH)];
+        self.photoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(photoImgViewX, photoImgViewY+10, photoImgViewW, photoImgViewH)];
         self.photoImgView.image = [UIImage imageNamed:@"orderImage.png"];
         [baseView addSubview:self.photoImgView];
         
@@ -103,7 +91,7 @@
         downLine.backgroundColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1];
         [baseView addSubview:downLine];
         
-        UIView *line_1 = [[UIView alloc] initWithFrame:CGRectMake(photoImgViewX, CGRectGetMaxY(self.numberLab.frame), photoImgViewW, 1)];
+        UIView *line_1 = [[UIView alloc] initWithFrame:CGRectMake(photoImgViewX, CGRectGetMaxY(self.numberLab.frame)+10, photoImgViewW, 1)];
         line_1.backgroundColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1];
         [baseView addSubview:line_1];
         

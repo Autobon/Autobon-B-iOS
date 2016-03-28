@@ -12,11 +12,9 @@
 
 
 @property (nonatomic, strong) UILabel *numberLab;
-@property (nonatomic, strong) UILabel *moneyLab;
-@property (nonatomic, strong) UILabel *tipLab;
 @property (nonatomic, strong) UIImageView *photoImgView;
 @property (nonatomic, strong) UILabel *timeLab;
-
 @property (nonatomic, strong) UIButton *pingjiaBut;
+
 
 @end
