@@ -27,5 +27,8 @@
 
 - (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber;
 
+// 进度条
++ (instancetype)initWithJinduTiaoTipName:(NSString *)tipName;
+
 
 @end
