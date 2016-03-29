@@ -9,6 +9,8 @@
 #import "GFEvaluateShareViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
+#import "UIImageView+WebCache.h"
+#import "UMSocial.h"
 
 
 @interface GFEvaluateShareViewController () {
@@ -65,7 +67,8 @@
     UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImgViewX, iconImgViewY, iconImgViewW, iconImgViewH)];
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
-    iconImgView.backgroundColor =[UIColor redColor];
+//    iconImgView.backgroundColor =[UIColor redColor];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"23"]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
     [iconView addSubview:iconImgView];
     // 姓名
     NSString *nameStr = @"陈光法";
@@ -80,7 +83,7 @@
     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];
     nameLab.text = nameStr;
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
-    nameLab.backgroundColor = [UIColor blueColor];
+//    nameLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:nameLab];
     // 订单数
     NSString *indentStr = @"订单数";
@@ -95,7 +98,7 @@
     UILabel *indentLab = [[UILabel alloc] initWithFrame:CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH)];
     indentLab.text = indentStr;
     indentLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
-    indentLab.backgroundColor = [UIColor blueColor];
+//    indentLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:indentLab];
     // 灰色星星
     for(int i=0; i<5; i++) {
@@ -106,7 +109,7 @@
         CGFloat starImgViewY = nameLabY;
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
-        starImgView.backgroundColor = [UIColor greenColor];
+//        starImgView.backgroundColor = [UIColor greenColor];
         [iconView addSubview:starImgView];
     }
     // 橘色星星
@@ -118,7 +121,7 @@
         CGFloat starImgViewY = nameLabY;
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
-        starImgView.backgroundColor = [UIColor redColor];
+//        starImgView.backgroundColor = [UIColor redColor];
         [iconView addSubview:starImgView];
     }
     // 订单数目
@@ -144,7 +147,7 @@
         [self.view addSubview:imgView];
         imgView.image = [UIImage imageNamed:@"detailsStarDark.png"];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
-        imgView.backgroundColor = [UIColor redColor];
+//        imgView.backgroundColor = [UIColor redColor];
     }
     
     for(int i=0; i<4; i++) {
@@ -157,7 +160,7 @@
         [self.view addSubview:imgView];
         imgView.image = [UIImage imageNamed:@"information.png"];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
-        imgView.backgroundColor = [UIColor greenColor];
+//        imgView.backgroundColor = [UIColor greenColor];
     }
 
     
@@ -179,13 +182,14 @@
     CGFloat shareButY = kHeight - shareButH - kHeight * 0.052;
     UIButton *shareBut = [UIButton buttonWithType:UIButtonTypeCustom];
     shareBut.frame = CGRectMake(shareButX, shareButY, shareButW, shareButH);
-    shareBut.layer.borderWidth = 1;
-    shareBut.layer.borderColor = [[UIColor blackColor] CGColor];
-    shareBut.layer.cornerRadius = shareButW * 0.5;
-    [shareBut setTitle:@"分享" forState:UIControlStateNormal];
+//    shareBut.layer.borderWidth = 1;
+//    shareBut.layer.borderColor = [[UIColor blackColor] CGColor];
+//    shareBut.layer.cornerRadius = shareButW * 0.5;
+//    [shareBut setTitle:@"分享" forState:UIControlStateNormal];
     [shareBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    shareBut.backgroundColor = [UIColor redColor];
+//    shareBut.backgroundColor = [UIColor redColor];
     [shareBut addTarget:self action:@selector(shareBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [shareBut setBackgroundImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [self.view addSubview:shareBut];
     
     
@@ -196,13 +200,14 @@
     CGFloat homeButY = kHeight - homeButH - kHeight * 0.052;
     UIButton *homeBut = [UIButton buttonWithType:UIButtonTypeCustom];
     homeBut.frame = CGRectMake(homeButX, homeButY, homeButW, homeButH);
-    homeBut.layer.borderWidth = 1;
-    homeBut.layer.borderColor = [[UIColor blackColor] CGColor];
-    homeBut.layer.cornerRadius = homeButW * 0.5;
-    [homeBut setTitle:@"首页" forState:UIControlStateNormal];
+//    homeBut.layer.borderWidth = 1;
+//    homeBut.layer.borderColor = [[UIColor blackColor] CGColor];
+//    homeBut.layer.cornerRadius = homeButW * 0.5;
+//    [homeBut setTitle:@"首页" forState:UIControlStateNormal];
     [homeBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    homeBut.backgroundColor = [UIColor redColor];
+//    homeBut.backgroundColor = [UIColor redColor];
     [homeBut addTarget:self action:@selector(homeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [homeBut setBackgroundImage:[UIImage imageNamed:@"Home"] forState:UIControlStateNormal];
     [self.view addSubview:homeBut];
     
     
@@ -214,6 +219,12 @@
 #pragma mark - 分享按钮响应方法
 - (void)shareBtnClick{
     NSLog(@"分享");
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"564d41b4e0f55a596d003fe4"
+                                      shareText:@"车邻邦测试分享消息"
+                                     shareImage:nil
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil]
+                                       delegate:self];
 }
 
 

@@ -9,6 +9,10 @@
 #import "GFChangePwdViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
+#import "GFHttpTool.h"
+#import "GFTipView.h"
+
+
 
 @interface GFChangePwdViewController () {
     
@@ -110,7 +114,60 @@
     signInBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     signInBut.layer.cornerRadius = 5;
     [signInBut setTitle:@"提交" forState:UIControlStateNormal];
+    [signInBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInBut];
+    
+    
+    
+}
+
+
+- (void)submitBtnClick{
+
+    NSLog(@"修改密码");
+    [self.view endEditing:YES];
+    if (self.oldPwdTxt.text.length == 0) {
+        [self addAlertView:@"请输入旧密码"];
+    }else{
+        if ([self isPassword:self.oldPwdTxt.text]) {
+            if (self.xinPwdtxt.text.length == 0) {
+                [self addAlertView:@"请输入新密码"];
+            }else{
+                if ([self isPassword:self.xinPwdtxt.text]) {
+                    
+                    [GFHttpTool postChangePasswordParameters:@{@"oldPassword":self.oldPwdTxt.text,@"newPassword":self.xinPwdtxt.text} success:^(id responseObject) {
+                        
+                        NSLog(@"修改成功－－%@--",responseObject);
+                        if ([responseObject[@"result"] integerValue] == 1) {
+                            
+                            [UIView animateWithDuration:2 animations:^{
+                                
+                                [self tipView:kHeight * 0.8 withTipmessage:@"修改密码成功"];
+                                
+                            } completion:^(BOOL finished) {
+                                
+                                [self.navigationController popViewControllerAnimated:YES];
+                                
+                            }];
+                            
+                        }else{
+                            [self addAlertView:responseObject[@"message"]];
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        NSLog(@"请求失败--%@--",error);
+                    }];
+
+                    
+                }else{
+                    [self addAlertView:@"新密码格式错误"];
+                }
+            }
+            
+        }else{
+            [self addAlertView:@"旧密码错误"];
+        }
+    }
     
     
     
@@ -121,7 +178,40 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - 有延迟回调方法的提示框
+- (void)tipView:(CGFloat)tipviewY withTipmessage:(NSString *)messageStr {
+    
+    NSString *str = messageStr;
+    NSMutableDictionary *attDic = [[NSMutableDictionary alloc] init];
+    attDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+    attDic[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    CGRect strRect = [str boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attDic context:nil];
+    
+    CGFloat tipViewW = strRect.size.width + 30;
+    CGFloat tipViewH = kHeight * 0.0625;
+    CGFloat tipViewX = (kWidth - tipViewW) / 2.0;
+    CGFloat tipViewY = tipviewY;
+    UIView *tipView = [[UIView alloc] initWithFrame:CGRectMake(tipViewX, tipViewY, tipViewW, tipViewH)];
+    tipView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    tipView.layer.cornerRadius = 7.5;
+    [self.view addSubview:tipView];
+    
+    CGFloat msgLabW = tipViewW;
+    CGFloat msgLabH = tipViewH;
+    CGFloat msgLabX = 0;
+    CGFloat msgLabY = 0;
+    UILabel *msgLab = [[UILabel alloc] initWithFrame:CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH)];
+    msgLab.text = messageStr;
+    [tipView addSubview:msgLab];
+    msgLab.textAlignment = NSTextAlignmentCenter;
+    msgLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+    msgLab.textColor = [UIColor whiteColor];
+    
+}
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 #pragma mark - 眼睛按钮的响应方法
 - (void)eyeBtnClick:(UIButton *)button{
@@ -144,7 +234,19 @@
     
 }
 
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
 
+#pragma mark - 判断密码是否符合要求
+- (BOOL)isPassword:(NSString *)password{
+    NSString * regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,18}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:password];
+    return isMatch;
+}
 
 
 - (void)didReceiveMemoryWarning {

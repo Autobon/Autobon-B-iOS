@@ -41,7 +41,7 @@
         CGFloat numberLabH = kHeight * 0.078125;
         CGFloat numberLabX = jiange;
         CGFloat numberLabY = 0;
-        self.numberLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, numberLabY-15, numberLabW, numberLabH)];
+        self.numberLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, numberLabY-5, numberLabW, numberLabH)];
 //        self.numberLab.text = @"订单编号sdjfhashdfgs";
         self.numberLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         [baseView addSubview:self.numberLab];
@@ -51,7 +51,7 @@
         CGFloat tipLabH = kHeight * 0.078125 / 2.0;
         CGFloat tipLabX = jiange;
         CGFloat tipLabY = CGRectGetMaxY(self.numberLab.frame);
-        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY-20, tipLabW, tipLabH)];
+        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY-15, tipLabW, tipLabH)];
 //        self.timeLab.text = @"￥20000";
         self.timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         self.timeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];

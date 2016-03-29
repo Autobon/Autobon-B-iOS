@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import "GFIndentModel.h"
 #import "UIImageView+WebCache.h"
+#import "GFEvaluateViewController.h"
 
 
 
@@ -28,6 +29,7 @@
     CGFloat kHeight;
     
     NSMutableArray *_dataArray;
+    BOOL _isAll;
     
 }
 
@@ -43,6 +45,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _isAll = YES;
     // 基础设置
     [self _setBase];
     
@@ -126,7 +129,7 @@
     self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     
     [self.tableview.header beginRefreshing];
-    [self.tableview.footer beginRefreshing];
+//    [self.tableview.footer beginRefreshing];
     
 }
 
@@ -135,12 +138,12 @@
     sender.selected = YES;
     
     if(sender.tag == 1000) {
-        
+        _isAll = YES;
         UIButton *but = (UIButton *)[self.view viewWithTag:2000];
         but.selected = NO;
         
     }else {
-        
+        _isAll = NO;
         UIButton *but = (UIButton *)[self.view viewWithTag:1000];
         but.selected = NO;
     
@@ -153,14 +156,21 @@
         self.lineView.center = oriPoint;
     }];
     
+    [self.tableview.header beginRefreshing];
+    
 }
 
 - (void)headRefresh {
     
     NSLog(@"脑袋刷新");
     _dataArray = [[NSMutableArray alloc]init];
-    [self getOrder];
-    [self.tableview.header endRefreshing];
+    if (_isAll) {
+        [self getOrder];
+    }else{
+        [self getListUncomment];
+    }
+    
+    
     
 }
 
@@ -168,9 +178,64 @@
     
     NSLog(@"大脚刷新");
     
-    [self.tableview.footer endRefreshing];
 }
 
+
+#pragma mark - 获取未评论订单列表
+- (void)getListUncomment{
+    [GFHttpTool postListUncommentDictionary:@{@"page":@"1",@"pageSize":@"5"} success:^(id responseObject) {
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            NSArray *listArray = dataDictionary[@"list"];
+            NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+            [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                GFIndentModel *model = [[GFIndentModel alloc]init];
+                model.orderNum = obj[@"orderNum"];
+                model.commentDictionary = obj[@"comment"];
+                model.photo = obj[@"photo"];
+                NSInteger type = [obj[@"orderType"] integerValue] - 1;
+                model.orderType = typeArray[type];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"startTime"] floatValue]/1000];
+                model.workTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+                model.remark = obj[@"remark"];
+                
+                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"signinTime"] floatValue]/1000];
+                model.signinTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                model.mainTechDictionary = obj[@"mainTech"];
+                model.secondTechDictionary = obj[@"secondTech"];
+                
+                [_dataArray addObject:model];
+                
+                //                if ([obj[@"secondConstruct"]isKindOfClass:[NSNull class]]) {
+                //                    NSDictionary *mainConstructDic = obj[@"mainConstruct"];
+                //                    model.payment = [NSString stringWithFormat:@"%@",mainConstructDic[@"payment"]];
+                //                }else{
+                //                    NSDictionary *mainConstructDic = obj[@"mainConstruct"];
+                //                    NSDictionary *secondConstructDic = obj[@"secondConstruct"];
+                //                    NSInteger pay = [mainConstructDic[@"payment"] integerValue] + [secondConstructDic[@"payment"] integerValue];
+                //                    model.payment = [NSString stringWithFormat:@"%ld",pay];
+                //                }
+                //                model.payment = obj[@""]
+                //                model.payStatus =
+                
+            }];
+            
+            [_tableview reloadData];
+            [self.tableview.header endRefreshing];
+            [self.tableview.footer endRefreshing];
+        }
+        
+        NSLog(@"--请求成功－－%@--",responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"请求失败---%@--",error);
+        
+    }];
+}
 
 #pragma mark - 获取已完成订单
 - (void)getOrder{
@@ -197,7 +262,8 @@
                 
                 date = [NSDate dateWithTimeIntervalSince1970:[obj[@"signinTime"] floatValue]/1000];
                 model.signinTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
-                
+                model.mainTechDictionary = obj[@"mainTech"];
+                model.secondTechDictionary = obj[@"secondTech"];
                 [_dataArray addObject:model];
                 
 //                if ([obj[@"secondConstruct"]isKindOfClass:[NSNull class]]) {
@@ -215,6 +281,8 @@
             }];
             
             [_tableview reloadData];
+            [self.tableview.header endRefreshing];
+            [self.tableview.footer endRefreshing];
         }
         
         NSLog(@"--请求成功－－%@--",responseObject);
@@ -251,10 +319,20 @@
     [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
     if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
         [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+        cell.pingjiaBut.tag = indexPath.row;
+        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }else{
         [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
     }
     return cell;
+}
+
+- (void)judgeBtnClick:(UIButton *)button{
+    GFIndentModel *model = _dataArray[button.tag];
+    
+    GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+    [self.navigationController pushViewController:evaluateView animated:YES];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

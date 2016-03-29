@@ -11,10 +11,10 @@
 #import "GFTextField.h"
 #import "GFTitleView.h"
 #import "GFEvaluateShareViewController.h"
+#import "UIImageView+WebCache.h"
 
 
-
-@interface GFEvaluateViewController () {
+@interface GFEvaluateViewController ()<UITextViewDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -25,6 +25,12 @@
     
     CGFloat jianjv3;
     CGFloat jianjv4;
+    
+    NSMutableArray *_starBtnArray;
+    NSMutableArray *_selectBtnArray;
+    
+    NSInteger _star;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -35,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _star = 5;
     // 基础设置
     [self _setBase];
     
@@ -80,7 +86,8 @@
     UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImgViewX, iconImgViewY, iconImgViewW, iconImgViewH)];
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
-    iconImgView.backgroundColor =[UIColor redColor];
+//    iconImgView.backgroundColor =[UIColor redColor];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",@"123"]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
     [iconView addSubview:iconImgView];
     // 姓名
     NSString *nameStr = @"陈光法";
@@ -95,7 +102,7 @@
     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];
     nameLab.text = nameStr;
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
-    nameLab.backgroundColor = [UIColor blueColor];
+//    nameLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:nameLab];
     // 订单数
     NSString *indentStr = @"订单数";
@@ -110,7 +117,7 @@
     UILabel *indentLab = [[UILabel alloc] initWithFrame:CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH)];
     indentLab.text = indentStr;
     indentLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
-    indentLab.backgroundColor = [UIColor blueColor];
+//    indentLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:indentLab];
     // 灰色星星
     for(int i=0; i<5; i++) {
@@ -121,7 +128,8 @@
         CGFloat starImgViewY = nameLabY;
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
-        starImgView.backgroundColor = [UIColor greenColor];
+        starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
+//        starImgView.backgroundColor = [UIColor greenColor];
         [iconView addSubview:starImgView];
     }
     // 橘色星星
@@ -133,7 +141,8 @@
         CGFloat starImgViewY = nameLabY;
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
-        starImgView.backgroundColor = [UIColor redColor];
+        starImgView.image = [UIImage imageNamed:@"information"];
+//        starImgView.backgroundColor = [UIColor redColor];
         [iconView addSubview:starImgView];
     }
     // 订单数目
@@ -160,39 +169,32 @@
     GFTitleView *pingjiaView = [[GFTitleView alloc] initWithY:0 Title:@"评价技师"];
     [baseView addSubview:pingjiaView];
     
-    // 星星
+    _starBtnArray = [[NSMutableArray alloc]init];
     for(int i=0; i<5; i++) {
         
         CGFloat imgViewW = (kWidth - kWidth * 0.25 * 2) / 5.0;
         CGFloat imgViewH = imgViewW - 4 / 320.0 * kWidth;
         CGFloat imgViewX = kWidth * 0.21 + (imgViewW + 1 / 320.0 * kWidth) * i;
         CGFloat imgViewY = jianjv3 + CGRectGetMaxY(pingjiaView.frame);
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
-        [baseView addSubview:imgView];
-        imgView.image = [UIImage imageNamed:@"detailsStarDark.png"];
-        imgView.contentMode = UIViewContentModeScaleAspectFit;
-        imgView.backgroundColor = [UIColor redColor];
+        UIButton *starBtn = [[UIButton alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
+        [baseView addSubview:starBtn];
+//        imgView.image = [UIImage imageNamed:@"information.png"];
+        [starBtn setBackgroundImage:[UIImage imageNamed:@"information"] forState:UIControlStateNormal];
+        [_starBtnArray addObject:starBtn];
+        starBtn.tag = i+1;
+        [starBtn addTarget:self action:@selector(starBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        imgView.contentMode = UIViewContentModeScaleAspectFit;
+//        imgView.backgroundColor = [UIColor greenColor];
     }
     
-    for(int i=0; i<4; i++) {
-        
-        CGFloat imgViewW = (kWidth - kWidth * 0.25 * 2) / 5.0;
-        CGFloat imgViewH = imgViewW - 4 / 320.0 * kWidth;
-        CGFloat imgViewX = kWidth * 0.21 + (imgViewW + 1 / 320.0 * kWidth) * i;
-        CGFloat imgViewY = jianjv3 + CGRectGetMaxY(pingjiaView.frame);
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
-        [baseView addSubview:imgView];
-        imgView.image = [UIImage imageNamed:@"information.png"];
-        imgView.contentMode = UIViewContentModeScaleAspectFit;
-        imgView.backgroundColor = [UIColor greenColor];
-    }
+    _selectBtnArray = [[NSMutableArray alloc]init];
     
     // 准时到达
     UIView *daodaView = [self messageButView:@"准时到达" withSelected:YES withX:jiange2 withY:CGRectGetMaxY(pingjiaView.frame) + jianjv3 * 2 + jianjv4 + (kWidth - kWidth * 0.25 * 2) / 5.0 - 4 / 320.0 * kWidth];
     [baseView addSubview:daodaView];
     
     // 准时完工
-    UIView *wangongView = [self messageButView:@"准时完工" withSelected:NO withX:kWidth * 0.676 withY:CGRectGetMaxY(pingjiaView.frame) + jianjv3 * 2 + jianjv4 + (kWidth - kWidth * 0.25 * 2) / 5.0 - 4 / 320.0 * kWidth];
+    UIView *wangongView = [self messageButView:@"准时完工" withSelected:YES withX:kWidth * 0.676 withY:CGRectGetMaxY(pingjiaView.frame) + jianjv3 * 2 + jianjv4 + (kWidth - kWidth * 0.25 * 2) / 5.0 - 4 / 320.0 * kWidth];
     [baseView addSubview:wangongView];
     
     // 技术专业
@@ -200,7 +202,7 @@
     [baseView addSubview:zhuanyeView];
     
     // 着装整洁
-    UIView *zhengjieView = [self messageButView:@"着装整洁" withSelected:NO withX:kWidth * 0.676 withY:CGRectGetMaxY(wangongView.frame) + jianjv4];
+    UIView *zhengjieView = [self messageButView:@"着装整洁" withSelected:YES withX:kWidth * 0.676 withY:CGRectGetMaxY(wangongView.frame) + jianjv4];
     [baseView addSubview:zhengjieView];
     
     // 车辆保护超级棒
@@ -222,8 +224,11 @@
     CGFloat otherLabX = jiange2;
     CGFloat otherLabY = CGRectGetMaxY(lineView2.frame) + jianjv4;
     UITextView *otherLab = [[UITextView alloc] initWithFrame:CGRectMake(otherLabX, otherLabY, otherLabW, otherLabH)];
+    otherLab.delegate = self;
     otherLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
-    otherLab.backgroundColor = [UIColor redColor];
+    otherLab.text = @"其他意见和建议";
+    otherLab.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+//    otherLab.backgroundColor = [UIColor redColor];
     [baseView addSubview:otherLab];
     
     baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(otherLab.frame) + jianjv4);
@@ -250,14 +255,66 @@
     
 }
 
+#pragma mark - textView的协议方法
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    if ([textView.text isEqualToString:@"其他意见和建议"]) {
+        textView.text = nil;
+        textView.textColor = [UIColor blackColor];
+    }
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        textView.text = @"其他意见和建议";
+        textView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    }
+}
+
+
 #pragma mark - 提交评价按钮的响应方法
 - (void)submitBtnClick{
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+    [dictionary setObject:@(_star) forKey:@"star"];
+    NSArray *array = @[@"arriveOnTime",@"completeOnTime",@"professional",@"dressNeatly",@"carProtect",@"goodAttitude",];
+    [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+        UIButton *button = _selectBtnArray[idx];
+        if (button.selected) {
+            [dictionary setObject:@"true" forKey:obj];
+        }else{
+            [dictionary setObject:@"false" forKey:obj];
+        }
+    }];
+    
+    NSLog(@"----dictionary---%@----",dictionary);
+    
     
     GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
     [self.navigationController pushViewController:shareView animated:YES];
 
 }
 
+#pragma mark - 评星按钮的响应方法
+- (void)starBtnClick:(UIButton *)button{
+    
+    _star = button.tag;
+    
+    [_starBtnArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj setBackgroundImage:[UIImage imageNamed:@"detailsStarDark"] forState:UIControlStateNormal];
+    }];
+    for (int i = 0; i < button.tag; i++) {
+        UIButton *starBtn = _starBtnArray[i];
+        [starBtn setBackgroundImage:[UIImage imageNamed:@"information"] forState:UIControlStateNormal];
+    }
+    
+    
+}
+
+- (void)selectBtnClick:(UIButton *)button{
+    button.selected = !button.selected;
+    
+}
 
 - (UIView *)messageButView:(NSString *)messageStr withSelected:(BOOL)select withX:(CGFloat)x withY:(CGFloat)y{
     
@@ -266,6 +323,8 @@
     [imgBut setImage:[UIImage imageNamed:@"over.png"] forState:UIControlStateNormal];
     [imgBut setImage:[UIImage imageNamed:@"overClick.png"] forState:UIControlStateSelected];
     imgBut.selected = select;
+    [imgBut addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_selectBtnArray addObject:imgBut];
     
     NSString *fenStr = messageStr;
     NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];

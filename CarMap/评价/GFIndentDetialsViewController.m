@@ -48,6 +48,8 @@
     [super viewDidLoad];
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
 //    _scrollView.backgroundColor = [UIColor cyanColor];
+    _scrollView.showsVerticalScrollIndicator = NO;
+    
     [self.view addSubview:_scrollView];
     
     // 基础设置
@@ -315,7 +317,11 @@
     [iconView addSubview:numLab];
     
     
-    [self secondConstruct:CGRectGetMaxY(iconView.frame)+1];
+    NSLog(@"----_model.dic----%@---",_model.commentDictionary);
+    if (![_model.secondTechDictionary isKindOfClass:[NSNull class]]) {
+        [self secondConstruct:CGRectGetMaxY(iconView.frame)+1];
+    }
+    
     
     _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 700);
     
