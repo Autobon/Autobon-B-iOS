@@ -10,4 +10,6 @@
 
 @interface GFEvaluateViewController : UIViewController
 
+@property (nonatomic ,strong) NSString *orderId;
+
 @end

@@ -110,6 +110,8 @@
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
 //        starImgView.backgroundColor = [UIColor greenColor];
+        starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
+        
         [iconView addSubview:starImgView];
     }
     // 橘色星星
@@ -122,6 +124,7 @@
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
 //        starImgView.backgroundColor = [UIColor redColor];
+        starImgView.image = [UIImage imageNamed:@"information"];
         [iconView addSubview:starImgView];
     }
     // 订单数目
@@ -145,7 +148,7 @@
         CGFloat imgViewY = CGRectGetMaxY(iconView.frame) + kHeight * 0.09375;
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
         [self.view addSubview:imgView];
-        imgView.image = [UIImage imageNamed:@"detailsStarDark.png"];
+        imgView.image = [UIImage imageNamed:@"detailsStarDark"];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
 //        imgView.backgroundColor = [UIColor redColor];
     }
@@ -158,7 +161,7 @@
         CGFloat imgViewY = CGRectGetMaxY(iconView.frame) + kHeight * 0.09375;
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
         [self.view addSubview:imgView];
-        imgView.image = [UIImage imageNamed:@"information.png"];
+        imgView.image = [UIImage imageNamed:@"information"];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
 //        imgView.backgroundColor = [UIColor greenColor];
     }

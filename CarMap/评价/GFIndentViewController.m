@@ -18,6 +18,7 @@
 #import "GFIndentModel.h"
 #import "UIImageView+WebCache.h"
 #import "GFEvaluateViewController.h"
+#import "GFTipView.h"
 
 
 
@@ -30,6 +31,9 @@
     
     NSMutableArray *_dataArray;
     BOOL _isAll;
+    
+    NSInteger _page;
+    NSInteger _pageSize;
     
 }
 
@@ -164,6 +168,8 @@
     
     NSLog(@"脑袋刷新");
     _dataArray = [[NSMutableArray alloc]init];
+    _page = 1;
+    _pageSize = 2;
     if (_isAll) {
         [self getOrder];
     }else{
@@ -177,16 +183,25 @@
 - (void)footRefresh {
     
     NSLog(@"大脚刷新");
+    _page = _page + 1;
+    if (_isAll) {
+        [self getOrder];
+    }else{
+        [self getListUncomment];
+    }
     
 }
 
 
 #pragma mark - 获取未评论订单列表
 - (void)getListUncomment{
-    [GFHttpTool postListUncommentDictionary:@{@"page":@"1",@"pageSize":@"5"} success:^(id responseObject) {
+    [GFHttpTool postListUncommentDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];
+            if (_page > 1 && listArray.count == 0) {
+                [self addAlertView:@"已加载全部"];
+            }
             NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
             NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
@@ -194,6 +209,7 @@
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 GFIndentModel *model = [[GFIndentModel alloc]init];
                 model.orderNum = obj[@"orderNum"];
+                model.orderId = obj[@"id"];
                 model.commentDictionary = obj[@"comment"];
                 model.photo = obj[@"photo"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
@@ -240,11 +256,14 @@
 #pragma mark - 获取已完成订单
 - (void)getOrder{
     
-    [GFHttpTool postListFinishedDictionary:@{@"page":@"1",@"pageSize":@"5"} success:^(id responseObject) {
+    [GFHttpTool postListFinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];
+            if (_page > 1 && listArray.count == 0) {
+                [self addAlertView:@"已加载全部"];
+            }
             NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
             NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
@@ -252,6 +271,7 @@
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 GFIndentModel *model = [[GFIndentModel alloc]init];
                 model.orderNum = obj[@"orderNum"];
+                model.orderId = obj[@"id"];
                 model.commentDictionary = obj[@"comment"];
                 model.photo = obj[@"photo"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
@@ -327,10 +347,18 @@
     return cell;
 }
 
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
+
+#pragma mark - 去评价按钮
 - (void)judgeBtnClick:(UIButton *)button{
     GFIndentModel *model = _dataArray[button.tag];
     
     GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+    evaluateView.orderId = model.orderId;
     [self.navigationController pushViewController:evaluateView animated:YES];
     
 }

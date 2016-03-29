@@ -14,6 +14,9 @@
 #import "GFWorkerViewController.h"
 #import "GFChangePwdViewController.h"
 #import "GFSignInViewController.h"
+#import "GFHttpTool.h"
+#import "GFTipView.h"
+
 
 
 @interface GFPartnersMessageViewController () {
@@ -289,10 +292,37 @@
 #pragma mark - 合作商加盟
 - (void)but2Click {
     
-    GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
-    [self.navigationController pushViewController:joinInView animated:YES];
+    [GFHttpTool GetInformationSuccess:^(id responseObject) {
+        
+        NSLog(@"---获取商户信息---%@----",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            
+            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
+            joinInView.dataForPastDictionary = dataDictionary;
+            [self.navigationController pushViewController:joinInView animated:YES];
+
+            
+        }else{
+            [self addAlertView:@"请求失败"];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"---请求失败---%@----",error);
+        
+    }];
+    
+    
     
     NSLog(@"合作商加盟");
+}
+
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
 }
 
 

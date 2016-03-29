@@ -344,6 +344,53 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
 }
 
 
+#pragma mark - 获取商户信息
++ (void)GetInformationSuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *token = [userDefaultes objectForKey:@"autoken"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+    NSString *URLString = [NSString stringWithFormat:@"%@/coop/getCoop",HOST];
+    
+    
+    [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        if(success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if(failure) {
+            failure(error);
+        }
+    }];
+    
+}
+
+#pragma mark - 订单评论
++ (void)postCommentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *token = [userDefaultes objectForKey:@"autoken"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+    NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/comment",HOST];
+    
+    
+    [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        if(success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if(failure) {
+            failure(error);
+        }
+    }];
+    
+}
+
+
 
 
 #pragma mark - 判断网络连接情况

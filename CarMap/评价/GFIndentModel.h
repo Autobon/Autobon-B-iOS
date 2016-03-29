@@ -10,7 +10,7 @@
 
 @interface GFIndentModel : NSObject
 
-
+@property (nonatomic, copy) NSString *orderId;      // 订单Id
 @property (nonatomic, copy) NSString *orderNum;     // 订单编号
 @property (nonatomic ,copy) NSString *orderType;    // 订单类型
 @property (nonatomic, copy) NSString *photo;        // 订单图片

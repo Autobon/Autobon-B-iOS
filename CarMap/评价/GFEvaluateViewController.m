@@ -12,6 +12,10 @@
 #import "GFTitleView.h"
 #import "GFEvaluateShareViewController.h"
 #import "UIImageView+WebCache.h"
+#import "CLTouchScrollView.h"
+#import "GFHttpTool.h"
+
+
 
 
 @interface GFEvaluateViewController ()<UITextViewDelegate> {
@@ -31,6 +35,8 @@
     
     NSInteger _star;
     
+    CLTouchScrollView *_scrollView;
+    UITextView *_otherTextView;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -42,6 +48,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _star = 5;
+    _scrollView = [[CLTouchScrollView alloc]initWithFrame:self.view.bounds];
+//    _scrollView.backgroundColor = [UIColor cyanColor];
+    _scrollView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_scrollView];
     // 基础设置
     [self _setBase];
     
@@ -73,7 +83,7 @@
     // 技师头像栏
     UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight * 0.15625)];
     iconView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:iconView];
+    [_scrollView addSubview:iconView];
     // 边线
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.15625, kWidth, 1)];
     lineView1.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
@@ -164,7 +174,7 @@
     CGFloat baseViewY = CGRectGetMaxY(iconView.frame) + kHeight * 0.015625;
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
     baseView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:baseView];
+    [_scrollView addSubview:baseView];
     // “评价技师”
     GFTitleView *pingjiaView = [[GFTitleView alloc] initWithY:0 Title:@"评价技师"];
     [baseView addSubview:pingjiaView];
@@ -223,21 +233,21 @@
     CGFloat otherLabH = kHeight * 0.15625;
     CGFloat otherLabX = jiange2;
     CGFloat otherLabY = CGRectGetMaxY(lineView2.frame) + jianjv4;
-    UITextView *otherLab = [[UITextView alloc] initWithFrame:CGRectMake(otherLabX, otherLabY, otherLabW, otherLabH)];
-    otherLab.delegate = self;
-    otherLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
-    otherLab.text = @"其他意见和建议";
-    otherLab.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    _otherTextView = [[UITextView alloc] initWithFrame:CGRectMake(otherLabX, otherLabY, otherLabW, otherLabH)];
+    _otherTextView.delegate = self;
+    _otherTextView.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+    _otherTextView.text = @"其他意见和建议";
+    _otherTextView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
 //    otherLab.backgroundColor = [UIColor redColor];
-    [baseView addSubview:otherLab];
+    [baseView addSubview:_otherTextView];
     
-    baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(otherLab.frame) + jianjv4);
+    baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(_otherTextView.frame) + jianjv4);
     
 //    baseView.backgroundColor = [UIColor blackColor];
     // 边线
     UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(baseView.frame) - 1, kWidth, 1)];
     lineView3.backgroundColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1];
-    [self.view addSubview:lineView3];
+    [_scrollView addSubview:lineView3];
     
     // 提交评价按钮
     // 登录按钮
@@ -251,7 +261,7 @@
     submitBut.layer.cornerRadius = 5;
     [submitBut setTitle:@"提交评价" forState:UIControlStateNormal];
     [submitBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:submitBut];
+    [_scrollView addSubview:submitBut];
     
 }
 
@@ -262,6 +272,9 @@
         textView.text = nil;
         textView.textColor = [UIColor blackColor];
     }
+    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height+300);
+    _scrollView.contentOffset = CGPointMake(0, 300);
+    
     
 }
 
@@ -270,6 +283,8 @@
         textView.text = @"其他意见和建议";
         textView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     }
+    _scrollView.contentSize = self.view.bounds.size;
+    _scrollView.contentOffset = CGPointMake(0, 0);
 }
 
 
@@ -287,7 +302,22 @@
         }
     }];
     
-    NSLog(@"----dictionary---%@----",dictionary);
+    if ([_otherTextView.text isEqualToString:@"其他意见和建议"]) {
+        [dictionary setObject:@"" forKey:@"advice"];
+    }else{
+        [dictionary setObject:_otherTextView.text forKey:@"advice"];
+    }
+    [dictionary setObject:_orderId forKey:@"orderId"];
+    
+    [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
+        
+        NSLog(@"－－评论成功－－%@---",responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"－－评论失败－－%@---",error);
+        
+    }];
     
     
     GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];

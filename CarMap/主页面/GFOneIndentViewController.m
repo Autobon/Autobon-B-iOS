@@ -406,7 +406,7 @@
 
 - (void)timeChoose{
     
-    
+    [self.view endEditing:YES];
     [self setupDateView:DateTypeOfStart];
     
     

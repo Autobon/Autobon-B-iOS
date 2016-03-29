@@ -66,8 +66,12 @@
 // 获取商户未评论订单
 + (void)postListUncommentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+// 订单评论
++ (void)postCommentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
+// 获取商户信息
++ (void)GetInformationSuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
 

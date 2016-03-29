@@ -136,10 +136,14 @@
     pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
     pingjiaBut.layer.borderWidth = 1;
     pingjiaBut.layer.cornerRadius = 5;
-    [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+    if ([_model.commentDictionary isKindOfClass:[NSNull class]]) {
+        [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+        [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        [pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+    }
     [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
     pingjiaBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
-    [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:pingjiaBut];
     
     // 边线
@@ -291,6 +295,7 @@
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
 //        starImgView.backgroundColor = [UIColor greenColor];
+        starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
         [iconView addSubview:starImgView];
     }
     // 橘色星星
@@ -303,6 +308,7 @@
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
 //        starImgView.backgroundColor = [UIColor redColor];
+        starImgView.image = [UIImage imageNamed:@"information"];
         [iconView addSubview:starImgView];
     }
     // 订单数目
@@ -388,6 +394,7 @@
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
         //        starImgView.backgroundColor = [UIColor greenColor];
+        starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
         [iconView addSubview:starImgView];
     }
     // 橘色星星
@@ -400,6 +407,7 @@
         UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
         starImgView.contentMode = UIViewContentModeScaleAspectFit;
         //        starImgView.backgroundColor = [UIColor redColor];
+        starImgView.image = [UIImage imageNamed:@"information"];
         [iconView addSubview:starImgView];
     }
     // 订单数目
