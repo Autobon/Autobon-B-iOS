@@ -142,6 +142,7 @@
             
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 CLIndentModel *model = [[CLIndentModel alloc]init];
+                model.orderId = obj[@"id"];
                 model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
 //                model.status = obj[@"status"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;

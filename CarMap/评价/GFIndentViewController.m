@@ -336,7 +336,7 @@
     GFIndentModel *model = _dataArray[indexPath.row];
     cell.numberLab.text = [NSString stringWithFormat:@"订单编号%@",model.orderNum];
     cell.timeLab.text = model.orderType;
-    [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+    [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
     if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
         [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
         cell.pingjiaBut.tag = indexPath.row;

@@ -217,20 +217,22 @@
     [self.scrollerView addSubview:nextBut];
     [nextBut addTarget:self action:@selector(nextButClick) forControlEvents:UIControlEventTouchUpInside];
 
-    
-    if (_dataForPastDictionary) {
-       
-        self.yingyeNameTxt.text = _dataForPastDictionary[@"fullname"];
-        self.zhizhaohaoTxt.text = _dataForPastDictionary[@"businessLicense"];
-        self.nameTxt.text = _dataForPastDictionary[@"corporationName"];
-        self.idCardTxt.text = _dataForPastDictionary[@"corporationIdNo"];
-        [_certificateImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
-        [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
-        [_idImageViewBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
-        [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"bussinessLicensePic"];
-        _isUpCertificate = YES;
-        _isUpidImageView = YES;
+    if (![_dataDictionary isKindOfClass:[NSNull class]]) {
+        if (_dataForPastDictionary) {
+            
+            self.yingyeNameTxt.text = _dataForPastDictionary[@"fullname"];
+            self.zhizhaohaoTxt.text = _dataForPastDictionary[@"businessLicense"];
+            self.nameTxt.text = _dataForPastDictionary[@"corporationName"];
+            self.idCardTxt.text = _dataForPastDictionary[@"corporationIdNo"];
+            [_certificateImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
+            [_idImageViewBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"bussinessLicensePic"];
+            _isUpCertificate = YES;
+            _isUpidImageView = YES;
+        }
     }
+    
     
     
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(nextBut.frame) + 50);

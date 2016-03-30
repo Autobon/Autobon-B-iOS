@@ -125,6 +125,8 @@
             
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 CLIndentModel *model = [[CLIndentModel alloc]init];
+                model.orderId = obj[@"id"];
+//                NSLog(@"-------id-----%@--",model.orderId);
                 model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
                 //                model.status = obj[@"status"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
@@ -215,9 +217,24 @@
 //    GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:dictionary[@"avatar"] name:dictionary[@"name"] mark:[dictionary[@"starRate"] floatValue] orderNumber:[dictionary[@"unpaidOrders"] integerValue] goodNumber:1.0 order:orderDetail];
 //    [alertView.okBut addTarget:self action:@selector(OrderDetailBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
-    GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:@"/uploads/technician/avatar/2.jpg" name:@"FIVE" mark:3.0 orderNumber:20];
+    CLIndentModel *model = _modelMutableArray[button.tag];
+    NSLog(@"order--%@---",model.orderId);
+    [GFHttpTool GetTechnicianParameters:@{@"orderId":model.orderId} success:^(id responseObject) {
+        
+        NSLog(@"－－－－%@----",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            NSDictionary *technicianDictionary = dataDictionary[@"technician"];
+            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:[dataDictionary[@"starRate"] integerValue] orderNumber:[dataDictionary[@"totalOrders"] integerValue]];
+            
+            [self.view addSubview:alertView];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
     
-    [self.view addSubview:alertView];
+    
     
 }
 

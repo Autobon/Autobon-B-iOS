@@ -10,6 +10,8 @@
 
 @interface CLIndentModel : NSObject
 
+
+@property (nonatomic ,strong) NSString *orderId;
 @property (nonatomic ,strong) NSString *orderNum;
 @property (nonatomic ,strong) NSString *status;
 @property (nonatomic ,strong) NSString *orderType;

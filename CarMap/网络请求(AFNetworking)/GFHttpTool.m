@@ -532,6 +532,40 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
 }
 
 
+#pragma mark - 获取技师信息
++ (void)GetTechnicianParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/technician/getTechnician",HOST];
+        
+        
+        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+            
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            if(failure) {
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+    
+}
+
+
+
+
 
 
 #pragma mark - AlertView

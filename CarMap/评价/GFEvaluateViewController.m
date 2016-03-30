@@ -97,10 +97,11 @@
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
 //    iconImgView.backgroundColor =[UIColor redColor];
-    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",@"123"]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+//    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",@"123"]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+    iconImgView.image = [UIImage imageNamed:@"userHeadImage"];
     [iconView addSubview:iconImgView];
     // 姓名
-    NSString *nameStr = @"陈光法";
+    NSString *nameStr = @"技  师";
     NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
     nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -129,42 +130,74 @@
     indentLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
 //    indentLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:indentLab];
-    // 灰色星星
-    for(int i=0; i<5; i++) {
-        
-        CGFloat starImgViewW = nameLabH;
-        CGFloat starImgViewH = nameLabH;
-        CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
-        CGFloat starImgViewY = nameLabY;
-        UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
-        starImgView.contentMode = UIViewContentModeScaleAspectFit;
-        starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
-//        starImgView.backgroundColor = [UIColor greenColor];
-        [iconView addSubview:starImgView];
-    }
-    // 橘色星星
-    for(int i=0; i<3; i++) {
-        
-        CGFloat starImgViewW = nameLabH;
-        CGFloat starImgViewH = nameLabH;
-        CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
-        CGFloat starImgViewY = nameLabY;
-        UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
-        starImgView.contentMode = UIViewContentModeScaleAspectFit;
-        starImgView.image = [UIImage imageNamed:@"information"];
-//        starImgView.backgroundColor = [UIColor redColor];
-        [iconView addSubview:starImgView];
-    }
+   
     // 订单数目
     CGFloat numLabW = 100;
     CGFloat numLabH = indentLabH;
     CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
     CGFloat numLabY = indentLabY;
     UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(numLabX, numLabY, numLabW, numLabH)];
-    numLab.text = @"200";
+//    numLab.text = @"200";
     numLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [iconView addSubview:numLab];
+    
+    
+    
+    
+    [GFHttpTool GetTechnicianParameters:@{@"orderId":_orderId} success:^(id responseObject) {
+        NSLog(@"请求成功－－－%@---",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            NSDictionary *technicianDictionary = dataDictionary[@"technician"];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            nameLab.text = technicianDictionary[@"name"];
+            numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
+            
+            
+            
+            
+            // 橘色星星
+            for(int i=0; i<[dataDictionary[@"starRate"] integerValue]; i++) {
+                
+                CGFloat starImgViewW = nameLabH;
+                CGFloat starImgViewH = nameLabH;
+                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
+                CGFloat starImgViewY = nameLabY;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
+                starImgView.contentMode = UIViewContentModeScaleAspectFit;
+                //        starImgView.backgroundColor = [UIColor redColor];
+                starImgView.image = [UIImage imageNamed:@"information"];
+                [iconView addSubview:starImgView];
+            }
+            
+            
+            
+            // 灰色星星
+            for(int i=0; i < 5-[dataDictionary[@"starRate"] integerValue]; i++) {
+                
+                CGFloat starImgViewW = nameLabH;
+                CGFloat starImgViewH = nameLabH;
+                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + [dataDictionary[@"starRate"] integerValue]);
+                CGFloat starImgViewY = nameLabY;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
+                starImgView.contentMode = UIViewContentModeScaleAspectFit;
+                //        starImgView.backgroundColor = [UIColor greenColor];
+                starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
+                [iconView addSubview:starImgView];
+            }
+            
+            
+            
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败－－－%@---",error);
+    }];
+    
+    
+    
     
     
     // 评价技师

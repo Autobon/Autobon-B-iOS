@@ -593,18 +593,7 @@
         nameLab.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
         nameLab.text = nameStr;
         [baseView addSubview:nameLab];
-        // 星星
-        for(int i=0; i<5; i++) {
-            
-            CGFloat starImgViewW = strRect.size.height;
-            CGFloat starImgViewH = starImgViewW;
-            CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + starImgViewW * i;
-            CGFloat starImgViewY = nameLabY + 3.5 / 568 * kHeight;
-            UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY+10, starImgViewW, starImgViewH)];
-            starImgView.contentMode = UIViewContentModeScaleAspectFit;
-            starImgView.image = [UIImage imageNamed:@"detailsStarDark.png"];
-            [baseView addSubview:starImgView];
-        }
+        
         for(int i=0; i < mark; i++) {
             
             CGFloat starImgViewW = strRect.size.height;
@@ -616,6 +605,22 @@
             starImgView.image = [UIImage imageNamed:@"information.png"];
             [baseView addSubview:starImgView];
         }
+        
+        // 星星
+        for(int i=0; i< 5-mark; i++) {
+            
+            CGFloat starImgViewW = strRect.size.height;
+            CGFloat starImgViewH = starImgViewW;
+            CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + starImgViewW * (i+mark);
+            CGFloat starImgViewY = nameLabY + 3.5 / 568 * kHeight;
+            UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY+10, starImgViewW, starImgViewH)];
+            starImgView.contentMode = UIViewContentModeScaleAspectFit;
+            starImgView.image = [UIImage imageNamed:@"detailsStarDark.png"];
+            [baseView addSubview:starImgView];
+        }
+        
+        
+        
         // 评分
         NSString *fenStr = [NSString stringWithFormat:@"%0.0f",mark];
         NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];

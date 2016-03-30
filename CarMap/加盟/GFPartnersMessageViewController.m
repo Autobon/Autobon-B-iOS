@@ -299,7 +299,10 @@
             NSDictionary *dataDictionary = responseObject[@"data"];
             
             GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
-            joinInView.dataForPastDictionary = dataDictionary;
+            if (![dataDictionary isKindOfClass:[NSNull class]]) {
+                joinInView.dataForPastDictionary = dataDictionary;
+            }
+            
             [self.navigationController pushViewController:joinInView animated:YES];
 
             

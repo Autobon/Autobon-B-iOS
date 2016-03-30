@@ -304,9 +304,9 @@
                                             
                                             [self tipView:kHeight * 0.8 withTipmessage:@"注册成功"];                                            
                                         } completion:^(BOOL finished) {
-                                            GFJoinInViewController_1 *joinVC_1 = [[GFJoinInViewController_1 alloc] init];
-                                            [self.navigationController pushViewController:joinVC_1 animated:YES];
-                                            
+//                                            GFJoinInViewController_1 *joinVC_1 = [[GFJoinInViewController_1 alloc] init];
+//                                            [self.navigationController pushViewController:joinVC_1 animated:YES];
+                                            [self.navigationController popToRootViewControllerAnimated:YES];
                                         }];
                                         
                                         

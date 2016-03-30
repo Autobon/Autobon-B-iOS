@@ -171,7 +171,7 @@
                 
                 [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
                     
-                    NSLog(@"------%@---",responseObject);
+                    NSLog(@"---登录返回---%@---",responseObject);
                     
                     if ([responseObject[@"result"] integerValue] == 1) {
                         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -180,10 +180,15 @@
                         [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
                         NSDictionary *dataDictionary = responseObject[@"data"];
                         
-                        if ([dataDictionary[@"address"] isKindOfClass:[NSNull class]]) {
+                        if (dataDictionary[@"address"] == nil) {
             // 没有填写认证信息
-                            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
-                            [self.navigationController pushViewController:joinInView animated:YES];
+//                            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
+//                            [self.navigationController pushViewController:joinInView animated:YES];
+                            GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+                            window.rootViewController = navigation;
+                            navigation.navigationBarHidden = YES;
                             
                         }else{
                             if ([dataDictionary[@"statusCode"] integerValue] == 2) {
