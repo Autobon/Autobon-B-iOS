@@ -22,7 +22,7 @@
 #import "CLCooperateFailViewController.h"
 #import "CLCooperatingViewController.h"
 
-
+#import "GFAlertView.h"
 
 @interface GFSignInViewController () {
     
@@ -65,6 +65,9 @@
 }
 
 - (void)_setView {
+    
+    
+
     
     
     // LOGO图片
@@ -149,7 +152,8 @@
     _phoneTxt.text = [userDefaults objectForKey:@"userPhone"];
     _passwordTxt.text = [userDefaults objectForKey:@"userPassword"];
     
-    
+    GFAlertView *aView = [[GFAlertView alloc] initWithMiao:6];
+    [self.view addSubview:aView];
     
 }
 

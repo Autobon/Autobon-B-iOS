@@ -430,23 +430,21 @@
         CGFloat timeLabH = butH;
         CGFloat timeLabX = (baseViewW - timeLabW) / 2.0;
         CGFloat timeLabY = CGRectGetMaxY(lab.frame) + 20;
-        UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
-        timeLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-        [baseView addSubview:timeLab];
+        self.timeLab.text = [NSString stringWithFormat:@"%ld", miao];
+        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
+        self.timeLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        [baseView addSubview:self.timeLab];
         
-        baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(timeLab.frame) + 40);
+        baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(self.timeLab.frame) + 40);
         
         
-        // 计时器
-//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork:) userInfo:nil repeats:YES];
-//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork) userInfo:nil repeats:YES];
 
     }
     
     return self;
 }
 
-    
+
     
 
 - (void)okButClick {

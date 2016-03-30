@@ -18,6 +18,8 @@
 #import "GFHttpTool.h"
 #import "CLIndentModel.h"
 
+#import "GFAlertView.h"
+
 
 
 
@@ -163,6 +165,9 @@
 
 
 - (void)_setView {
+    
+//    GFAlertView *aView = [[GFAlertView alloc] initWithMiao:6];
+//    [self.view addSubview:aView];
     
     
     CGFloat scrollerViewW = kWidth;

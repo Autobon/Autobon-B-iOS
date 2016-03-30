@@ -11,10 +11,12 @@
 @interface GFAlertView : UIView {
 
     NSInteger time;
-    NSTimer *timer;
+    
 }
 
 @property (nonatomic, strong) UIButton *okBut;
+@property (nonatomic, strong) NSTimer *timer;
+
 
 - (instancetype)initWithTipName:(NSString *)tipName withTipMessage:(NSString *)tipMessageStr withButtonNameArray:(NSArray *)buttonArray;
 
@@ -22,7 +24,7 @@
 
 - (instancetype)initWithCebterTipName:(NSString *)tipName withTipMessage:(NSString *)tipMessageStr withButtonNameArray:(NSArray *)buttonArray withRightUpButtonNormalImage:(UIImage *)butNorImg withRightUpButtonHightImage:(UIImage *)butHigImg;
 
-
+@property (nonatomic, strong) UILabel *timeLab;
 - (instancetype)initWithMiao:(NSInteger)miao;
 
 
