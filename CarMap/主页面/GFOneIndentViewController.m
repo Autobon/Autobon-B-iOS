@@ -17,6 +17,7 @@
 #import "GFTipView.h"
 #import "GFHttpTool.h"
 #import "CLIndentModel.h"
+#import "GFAlertView.h"
 
 #import "GFAlertView.h"
 
@@ -45,9 +46,11 @@
     
     CGFloat baseViewHH;
     
+    NSMutableDictionary *_dataDictionary;
+    
 }
 
-@property (nonatomic, strong) GFNavigationView *navView;
+//@property (nonatomic, strong) GFNavigationView *navView;
 
 
 @property (nonatomic, strong) CLTouchScrollView *scrollerView;
@@ -74,31 +77,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    kWidth = [UIScreen mainScreen].bounds.size.width;
+    kHeight = [UIScreen mainScreen].bounds.size.height;
+    jiange1 = kHeight * 0.013;
+    jiange2 = kHeight * 0.0365;
+    jiange3 = kHeight * 0.0157;
+    jianjv1 = kWidth * 0.0416;
+    _dataDictionary = [[NSMutableDictionary alloc]init];
+    // 界面搭建
+    [self _setView];
     
     // 基础设置
     [self _setBase];
     
-    // 界面搭建
-    [self _setView];
+    
 }
 
 - (void)_setBase {
     
-    kWidth = [UIScreen mainScreen].bounds.size.width;
-    kHeight = [UIScreen mainScreen].bounds.size.height;
+    
     
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
-    jiange1 = kHeight * 0.013;
-    jiange2 = kHeight * 0.0365;
-    jiange3 = kHeight * 0.0157;
     
-    jianjv1 = kWidth * 0.0416;
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"person" withLeftImgHightName:@"personClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, kWidth, 64)];
-    [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.navView];
+    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"person" withLeftImgHightName:@"personClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    [navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:navView];
+    [self.view bringSubviewToFront:navView];
     
     [self getListUnfinished];
 }
@@ -115,14 +122,19 @@
             
             NSInteger ff = [dataDictionary[@"totalElements"] integerValue];
             if(ff > 0) {
-                self.baseView.frame = CGRectMake(0, kHeight * 0.0625, kWidth, baseViewHH + kHeight * 0.0625);
-                self.scrollerView.contentSize = CGSizeMake(0, baseViewHH + kHeight * 0.0625);
+                self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH + kHeight * 0.0625);
+                self.scrollerView.contentSize = CGSizeMake(0, baseViewHH + kHeight * 0.0625*2);
+                [_tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
+                self.scrollerView.frame = CGRectMake(0, 64-20, kWidth, kHeight - 44);
+                _tipButton.hidden = NO;
             }else {
                 self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH);
+                self.scrollerView.frame = CGRectMake(0, 64-_tipButton.frame.size.height - 20, kWidth, kHeight - 44+_tipButton.frame.size.height);
                 self.scrollerView.contentSize = CGSizeMake(0, baseViewHH);
+                _tipButton.hidden = YES;
             }
             
-            [_tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
+            
             NSArray *listArray = dataDictionary[@"list"];
             NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
             
@@ -134,7 +146,7 @@
                 CLIndentModel *model = [[CLIndentModel alloc]init];
                 model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
 //                model.status = obj[@"status"];
-                NSInteger type = [obj[@"orderType"] integerValue];
+                NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
                 model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
@@ -170,15 +182,14 @@
 //    [self.view addSubview:aView];
     
     
-    CGFloat scrollerViewW = kWidth;
-    CGFloat scrollerViewH = kHeight - 64;
-    CGFloat scrollerViewX = 0;
-    CGFloat scrollerViewY = CGRectGetMaxY(self.navView.frame);
-    self.scrollerView = [[CLTouchScrollView alloc] initWithFrame:CGRectMake(scrollerViewX, scrollerViewY, scrollerViewW, scrollerViewH)];
+    
+    self.scrollerView = [[CLTouchScrollView alloc] init];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
+    self.scrollerView.frame = CGRectMake(0, 64-kHeight * 0.0625-20, kWidth, kHeight - 44+kHeight * 0.0625);
     self.scrollerView.contentSize = CGSizeMake(0, 1000);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
     self.scrollerView.showsVerticalScrollIndicator = NO;
+//    self.scrollerView.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:self.scrollerView];
     
     // 订单信息基础视图
@@ -195,15 +206,14 @@
     CGFloat tipLabH = kHeight * 0.0625;
     CGFloat tipLabX = 0;
     CGFloat tipLabY = -tipLabH;
-    self.tipButton = [[UIButton alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
+    self.tipButton = [[UIButton alloc] initWithFrame:CGRectMake(tipLabX, tipLabY+tipLabH, tipLabW, tipLabH)];
     self.tipButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-//    self.tipButton.textAlignment = NSTextAlignmentCenter;
-//    [_tipButton setTitleColor:<#(nullable UIColor *)#> forState:<#(UIControlState)#>]
 //    self.tipButton.textColor = [UIColor whiteColor];
     self.tipButton.titleLabel.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
 //    self.tipButton.text = @"有3个未完成订单";
 //    [_tipButton setTitle:@"有3个未完成订单" forState:UIControlStateNormal];
-    [self.baseView addSubview:self.tipButton];
+    [_scrollerView addSubview:self.tipButton];
+    _tipButton.hidden = YES;
     [_tipButton addTarget:self action:@selector(tipBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     // 订单信息
@@ -211,9 +221,9 @@
     [self.baseView addSubview:self.msgView];
     
     // 示例图
-    CGFloat imgViewW = kWidth - 2 * jianjv1;
+    CGFloat imgViewW = kWidth - 4 * jianjv1;
     CGFloat imgViewH = kHeight * 0.24;
-    CGFloat imgViewX = jianjv1;
+    CGFloat imgViewX = jianjv1*2;
     CGFloat imgViewY = CGRectGetMaxY(self.msgView.frame) + jiange2;
     self.imgView = [[UIButton alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
 //    self.imgView.backgroundColor = [UIColor redColor];
@@ -401,7 +411,7 @@
 
 - (void)timeChoose{
     
-    
+    [self.view endEditing:YES];
     [self setupDateView:DateTypeOfStart];
     
     
@@ -443,14 +453,53 @@
 #pragma mark - 一键下单按钮响应方法
 - (void)signInButClick {
     
+    
+    
+    
+
     if (!_isUpOrderImage) {
         [self addAlertView:@"请上传订单图片"];
     }else{
         if (_orderType == 0) {
             [self addAlertView:@"请选择订单类型"];
         }else{
-         
-            NSLog(@"一键下单--%ld--",_orderType);
+            [_dataDictionary setObject:@(_orderType) forKey:@"orderType"];
+            [_dataDictionary setObject:_timeLab.text forKey:@"orderTime"];
+            if ([_txtView.text isEqualToString:@"订单备注"]) {
+                [_dataDictionary setObject:@"" forKey:@"remark"];
+            }else{
+                [_dataDictionary setObject:_txtView.text forKey:@"remark"];
+            }
+            
+            NSLog(@"一键下单--%@--",_dataDictionary);
+            
+            [GFHttpTool postOneIndentDictionary:_dataDictionary success:^(NSDictionary *responseObject) {
+                if ([responseObject[@"result"] integerValue] == 1) {
+                    [self.imgView setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+                    _txtView.text = @"订单备注";
+                    _txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+                    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+                    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+                    _timeLab.text = dateString;
+                    _timeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
+                    [_buttonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [obj setBackgroundColor:[UIColor colorWithRed:237 / 255.0 green:238 / 255.0 blue:239 / 255.0 alpha:1]];
+                        obj.selected = NO;
+                    }];
+                    [self getListUnfinished];
+                    
+                    GFAlertView *alertView = [[GFAlertView alloc]initWithMiao:3.0];
+                    [self.view addSubview:alertView];
+                }else{
+                    [self addAlertView:responseObject[@"message"]];
+                }
+            } failure:^(NSError *error) {
+                NSLog(@"－－－下单失败---%@----",error);
+            }];
+            
+            
             
         }
     }
@@ -478,8 +527,28 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
     [self dismissViewControllerAnimated:YES completion:nil];
     
+    
+    
+    CGSize imagesize;
+    imagesize.width = image.size.width/2;
+    imagesize.height = image.size.height/2;
+    UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
+    NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
+    [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
+        NSLog(@"上传成功－－%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            _isUpOrderImage = YES;
+            [_dataDictionary setObject:responseObject[@"data"] forKey:@"photo"];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"上传失败－－%@---",error);
+    }];
+    
+    
     [self.imgView setBackgroundImage:image forState:UIControlStateNormal];
-    _isUpOrderImage = YES;
+    
 }
 
 

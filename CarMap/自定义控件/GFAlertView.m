@@ -7,8 +7,75 @@
 //
 
 #import "GFAlertView.h"
+#import "UIImageView+WebCache.h"
+
 
 @implementation GFAlertView
+
+
+#pragma mark - 进度条
++ (instancetype)initWithJinduTiaoTipName:(NSString *)tipName {
+    
+    NSMutableArray *mArr = [[NSMutableArray alloc] init];
+    
+    CGFloat kWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat kHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    
+    GFAlertView *alertView = [[GFAlertView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    alertView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25];
+    
+    
+    CGFloat baseViewW = 150 / 320.0 * kWidth;
+    CGFloat baseViewH = 90 / 568.0 * kHeight;
+    CGFloat baseViewX = (kWidth - baseViewW) / 2.0;
+    CGFloat baseViewY = (kHeight - baseViewH) / 2.0 - 50;
+    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
+    baseView.backgroundColor = [UIColor whiteColor];
+    baseView.layer.cornerRadius = 5;
+    [alertView addSubview:baseView];
+    
+    
+    
+    CGFloat imgViewW = 40 / 320.0 * kWidth;
+    CGFloat imgViewH = 40 / 320.0 * kWidth;
+    CGFloat imgViewX = (baseViewW - 50) / 2.0;
+    CGFloat imgViewY = 10;
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
+    for(int i=1; i<9; i++) {
+        
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", i]];
+        [mArr addObject:image];
+        
+    }
+    
+    imgView.animationImages = mArr;
+    
+    imgView.animationDuration = 1.2;
+    [imgView startAnimating];
+    
+    [baseView addSubview:imgView];
+    
+    
+    CGFloat labW = baseViewW;
+    CGFloat labH = 35 / 320.0 * kWidth;
+    CGFloat labX = 0;
+    CGFloat labY = CGRectGetMaxY(imgView.frame);
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(labX, labY, labW, labH)];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.textColor = [UIColor blackColor];
+    lab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
+    lab.text = tipName;
+    [baseView addSubview:lab];
+    
+    
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [window addSubview:alertView];
+    
+    
+    return alertView;
+    
+}
 
 
 - (instancetype)initWithTipName:(NSString *)tipName withTipMessage:(NSString *)tipMessageStr withButtonNameArray:(NSArray *)buttonArray {
@@ -412,7 +479,8 @@
         CGFloat butY = 20;
         UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
         but.frame = CGRectMake(butX, butY, butW, butH);
-        but.backgroundColor = [UIColor redColor];
+//        but.backgroundColor = [UIColor redColor];
+        [but setBackgroundImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
         [baseView addSubview:but];
         [but addTarget:self action:@selector(okButClick) forControlEvents:UIControlEventTouchUpInside];
         
@@ -420,8 +488,8 @@
         // 下单成功
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(but.frame) + 5, baseViewW, kHeight * 0.04)];
         lab.textAlignment = NSTextAlignmentCenter;
-        lab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
-        lab.text = @"下单成功！";
+        lab.font = [UIFont systemFontOfSize:20 / 320.0 * kWidth];
+        lab.text = @" 下单成功!";
         [baseView addSubview:lab];
         
         
@@ -430,25 +498,203 @@
         CGFloat timeLabH = butH;
         CGFloat timeLabX = (baseViewW - timeLabW) / 2.0;
         CGFloat timeLabY = CGRectGetMaxY(lab.frame) + 20;
+<<<<<<< HEAD
         self.timeLab.text = [NSString stringWithFormat:@"%ld", miao];
         self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
         self.timeLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         [baseView addSubview:self.timeLab];
+=======
+        timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
+        timeLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        timeLab.text = [NSString stringWithFormat:@"%@",@(miao)];
+        timeLab.textAlignment = NSTextAlignmentCenter;
+        timeLab.textColor = [UIColor whiteColor];
+        timeLab.layer.cornerRadius = 10;
+        timeLab.clipsToBounds = YES;
+        [baseView addSubview:timeLab];
+>>>>>>> CLAutobon-B
         
         baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(self.timeLab.frame) + 40);
         
         
+<<<<<<< HEAD
+=======
+        // 计时器
+//        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork:) userInfo:nil repeats:YES];
+        if (timer == nil) {
+            timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork) userInfo:nil repeats:YES];
+        }
+        
+//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork) userInfo:nil repeats:YES];
+>>>>>>> CLAutobon-B
 
     }
     
     return self;
 }
 
+<<<<<<< HEAD
 
     
+=======
+- (void)timeForWork{
+    NSInteger time = [timeLab.text integerValue];
+    if (time == 0) {
+        [self removeFromSuperview];
+        [timer invalidate];
+        timer = nil;
+    }else{
+        time = time - 1;
+        timeLab.text = [NSString stringWithFormat:@"%ld",time];
+    }
+}
+
+
+- (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber{
+    self = [super init];
+    if (self) {
+        
+        self.frame = [UIScreen mainScreen].bounds;
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+        
+        
+        // 基础View
+        CGFloat baseViewW = [UIScreen mainScreen].bounds.size.width - 2 * [UIScreen mainScreen].bounds.size.width * 0.1;
+        CGFloat baseViewH = 150;
+        CGFloat baseViewX = [UIScreen mainScreen].bounds.size.width * 0.1;
+        CGFloat baseViewY = 130 / 568.0 * [UIScreen mainScreen].bounds.size.height;
+        UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
+        baseView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:baseView];
+        baseView.layer.cornerRadius = 7.5;
+        baseView.clipsToBounds = YES;
+        
+        
+        
+        CGFloat msgRightButH = 40;
+        CGFloat kWidth = baseView.frame.size.width;
+        CGFloat kHeight = baseView.frame.size.height;
+        CGFloat jianjv1 = kWidth * 0.028;
+        CGFloat jianjv2 = kWidth * 0.042;
+        
+        
+        // 左边头像
+        CGFloat iconImgViewW = kWidth * 0.2;
+        CGFloat iconImgViewH = iconImgViewW;
+        CGFloat iconImgViewX = (baseViewW - iconImgViewW)/2;
+        
+        CGFloat iconImgViewY = (msgRightButH - iconImgViewH) / 2.0+30;
+        UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImgViewX, iconImgViewY, iconImgViewW, iconImgViewH)];
+        
+        iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
+        iconImgView.clipsToBounds = YES;
+        iconImgView.contentMode = UIViewContentModeScaleAspectFill;
+        //        iconImgView.image = [UIImage imageNamed:@"11.png"];
+        [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+        NSLog(@"---imageUrl---%@----",[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]);
+        [baseView addSubview:iconImgView];
+        // 姓名
+        NSString *nameStr = name;
+        NSMutableDictionary *attDic = [[NSMutableDictionary alloc] init];
+        attDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+        attDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+        CGRect strRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attDic context:nil];
+        CGFloat nameLabW = strRect.size.width + jianjv1;
+        CGFloat nameLabH = iconImgViewH / 2.0;
+        CGFloat nameLabX = jianjv2;
+        CGFloat nameLabY = CGRectGetMaxY(iconImgView.frame) + 2;
+        UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX+50, nameLabY+10, nameLabW, nameLabH)];
+        nameLab.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
+        nameLab.text = nameStr;
+        [baseView addSubview:nameLab];
+        // 星星
+        for(int i=0; i<5; i++) {
+            
+            CGFloat starImgViewW = strRect.size.height;
+            CGFloat starImgViewH = starImgViewW;
+            CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + starImgViewW * i;
+            CGFloat starImgViewY = nameLabY + 3.5 / 568 * kHeight;
+            UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY+10, starImgViewW, starImgViewH)];
+            starImgView.contentMode = UIViewContentModeScaleAspectFit;
+            starImgView.image = [UIImage imageNamed:@"detailsStarDark.png"];
+            [baseView addSubview:starImgView];
+        }
+        for(int i=0; i < mark; i++) {
+            
+            CGFloat starImgViewW = strRect.size.height;
+            CGFloat starImgViewH = starImgViewW;
+            CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + starImgViewW * i;
+            CGFloat starImgViewY = nameLabY + 3.5 / 568 * kHeight;
+            UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY+10, starImgViewW, starImgViewH)];
+            starImgView.contentMode = UIViewContentModeScaleAspectFit;
+            starImgView.image = [UIImage imageNamed:@"information.png"];
+            [baseView addSubview:starImgView];
+        }
+        // 评分
+        NSString *fenStr = [NSString stringWithFormat:@"%0.0f",mark];
+        NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];
+        fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+        fenDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+        CGRect fenRect = [fenStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:fenDic context:nil];
+        CGFloat fenLabW = fenRect.size.width + 10;
+        CGFloat fenLabH = strRect.size.height;
+        CGFloat fenLabX = CGRectGetMaxX(nameLab.frame) + strRect.size.height * 5 + jianjv1;
+        CGFloat fenLabY = nameLabY + 3.5 / 568 * kHeight;
+        UILabel *fenLab = [[UILabel alloc] initWithFrame:CGRectMake(fenLabX, fenLabY+10, fenLabW, fenLabH)];
+        fenLab.textColor = [UIColor whiteColor];
+        fenLab.textAlignment = NSTextAlignmentCenter;
+        fenLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        fenLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+        fenLab.text = fenStr;
+        fenLab.layer.cornerRadius = 7.5;
+        fenLab.clipsToBounds = YES;
+        [baseView addSubview:fenLab];
+        // 订单数
+        CGFloat indentLabW = kWidth * 0.16;
+        CGFloat indentLabH = nameLabH;
+        CGFloat indentLabX = nameLabX;
+        CGFloat indentLabY = CGRectGetMaxY(nameLab.frame);
+        UILabel *indentLab = [[UILabel alloc] initWithFrame:CGRectMake(indentLabX+50, indentLabY-5, indentLabW, indentLabH)];
+        indentLab.text = @"订单数";
+        indentLab.font = [UIFont systemFontOfSize:14.5 / 320.0 * kWidth];
+        [baseView addSubview:indentLab];
+        NSString *numStr = [NSString stringWithFormat:@"%ld",orderNumber];
+        NSMutableDictionary *numDic = [[NSMutableDictionary alloc] init];
+        numDic[NSFontAttributeName] = [UIFont systemFontOfSize:14.5 / 320.0 * kWidth];
+        numDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+        CGRect numRect = [numStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:numDic context:nil];
+        CGFloat numLabW = numRect.size.width;
+        CGFloat numLabH = indentLabH;
+        CGFloat numLabX = CGRectGetMaxX(indentLab.frame) - 3;
+        CGFloat numLabY = indentLabY;
+        UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(numLabX, numLabY-5, numLabW, numLabH)];
+        numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        numLab.font = [UIFont systemFontOfSize:14.5 / 320.0 * kWidth];
+        numLab.text = numStr;
+        [baseView addSubview:numLab];
+        
+        
+        // 右上方按钮
+        
+        UIButton *rightUpBut = [UIButton buttonWithType:UIButtonTypeCustom];
+        rightUpBut.frame = CGRectMake(baseView.frame.size.width-40, 5, 30, 30);
+        [rightUpBut setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        [rightUpBut setImage:[UIImage imageNamed:@"deleteClick"] forState:UIControlStateHighlighted];
+        rightUpBut.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [baseView addSubview:rightUpBut];
+        [rightUpBut addTarget:self action:@selector(okButClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+    }
+    
+    return self;
+}
+>>>>>>> CLAutobon-B
 
 - (void)okButClick {
 
+    [timer invalidate];
+    timer = nil;
     [self removeFromSuperview];
     
 }

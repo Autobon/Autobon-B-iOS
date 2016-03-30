@@ -94,6 +94,7 @@
 		9B9FEA0C1CA38E1000231747 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9FE1CA38E1000231747 /* UIView+WebCacheOperation.m */; };
 		9B9FEA0F1CA3BC0900231747 /* CLTouchScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FEA0E1CA3BC0900231747 /* CLTouchScrollView.m */; };
 		9B9FEA121CA3EEC000231747 /* CLIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FEA111CA3EEC000231747 /* CLIndentModel.m */; };
+		9BA71D9A1CA91B94006EA500 /* GFIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA71D991CA91B94006EA500 /* GFIndentModel.m */; };
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
@@ -289,6 +290,8 @@
 		9B9FEA0E1CA3BC0900231747 /* CLTouchScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTouchScrollView.m; sourceTree = "<group>"; };
 		9B9FEA101CA3EEC000231747 /* CLIndentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIndentModel.h; sourceTree = "<group>"; };
 		9B9FEA111CA3EEC000231747 /* CLIndentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIndentModel.m; sourceTree = "<group>"; };
+		9BA71D981CA91B94006EA500 /* GFIndentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentModel.h; sourceTree = "<group>"; };
+		9BA71D991CA91B94006EA500 /* GFIndentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentModel.m; sourceTree = "<group>"; };
 		9BDD16241C9BF27B0017E8E9 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		9BFA805A1C5F4009001651C3 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Base.framework"; sourceTree = "<group>"; };
 		9BFA805B1C5F4009001651C3 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Cloud.framework"; sourceTree = "<group>"; };
@@ -612,6 +615,8 @@
 				9B6B6EC41C9A4BAC00449259 /* GFIndentDetialsViewController.m */,
 				9B6B6EC51C9A4BAC00449259 /* GFIndentTableViewCell.h */,
 				9B6B6EC61C9A4BAC00449259 /* GFIndentTableViewCell.m */,
+				9BA71D981CA91B94006EA500 /* GFIndentModel.h */,
+				9BA71D991CA91B94006EA500 /* GFIndentModel.m */,
 				9B6B6EC71C9A4BAC00449259 /* GFIndentViewController.h */,
 				9B6B6EC81C9A4BAC00449259 /* GFIndentViewController.m */,
 			);
@@ -931,6 +936,7 @@
 				9B6B6E971C9A485B00449259 /* CLCooperatingViewController.m in Sources */,
 				9B9FEA021CA38E1000231747 /* SDWebImageDecoder.m in Sources */,
 				9B6B6E461C9A466D00449259 /* GFNoIndentTableViewCell.m in Sources */,
+				9BA71D9A1CA91B94006EA500 /* GFIndentModel.m in Sources */,
 				9B6B6E9A1C9A485B00449259 /* GFJoinInViewController_2.m in Sources */,
 				9B9FEA081CA38E1000231747 /* UIImage+GIF.m in Sources */,
 				9B6757341C97CAC70001C478 /* UIScrollView+MJExtension.m in Sources */,

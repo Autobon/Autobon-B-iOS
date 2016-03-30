@@ -10,8 +10,14 @@
 
 @interface GFAlertView : UIView {
 
+<<<<<<< HEAD
     NSInteger time;
     
+=======
+//    NSInteger time;
+    NSTimer *timer;
+    UILabel *timeLab;
+>>>>>>> CLAutobon-B
 }
 
 @property (nonatomic, strong) UIButton *okBut;
@@ -24,8 +30,16 @@
 
 - (instancetype)initWithCebterTipName:(NSString *)tipName withTipMessage:(NSString *)tipMessageStr withButtonNameArray:(NSArray *)buttonArray withRightUpButtonNormalImage:(UIImage *)butNorImg withRightUpButtonHightImage:(UIImage *)butHigImg;
 
+<<<<<<< HEAD
 @property (nonatomic, strong) UILabel *timeLab;
+=======
+>>>>>>> CLAutobon-B
 - (instancetype)initWithMiao:(NSInteger)miao;
+
+- (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber;
+
+// 进度条
++ (instancetype)initWithJinduTiaoTipName:(NSString *)tipName;
 
 
 @end

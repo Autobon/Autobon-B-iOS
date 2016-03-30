@@ -276,9 +276,13 @@
     [_chooseView removeFromSuperview];
 //    _scrollView.userInteractionEnabled = YES;
     if (button.tag == 1) {
+        
+        
+        
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
         imagePickerController.delegate =self;
+
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }else{
         NSLog(@"打开相机");

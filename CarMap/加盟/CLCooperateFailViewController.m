@@ -35,6 +35,7 @@
     UIScrollView *scrollView = [[UIScrollView alloc]init];
     scrollView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
 //    scrollView.backgroundColor = [UIColor cyanColor];
+    scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
 //加盟状态

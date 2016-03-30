@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GFIndentModel.h"
+
+
 
 @interface GFIndentDetialsViewController : UIViewController
+
+@property (nonatomic ,strong) GFIndentModel *model;
+
 
 @end
