@@ -461,6 +461,8 @@
 #pragma mark - 去评价按钮的响应方法
 - (void)judgeBtnClick{
     GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+    
+    evaluateView.orderId = _model.orderId;
     [self.navigationController pushViewController:evaluateView animated:YES];
     
     

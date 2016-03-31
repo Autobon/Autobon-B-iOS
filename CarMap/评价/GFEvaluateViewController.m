@@ -14,7 +14,7 @@
 #import "UIImageView+WebCache.h"
 #import "CLTouchScrollView.h"
 #import "GFHttpTool.h"
-
+#import "GFTipView.h"
 
 
 
@@ -342,21 +342,38 @@
     }
     [dictionary setObject:_orderId forKey:@"orderId"];
     
-    [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
-        
-        NSLog(@"－－评论成功－－%@---",responseObject);
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"－－评论失败－－%@---",error);
-        
-    }];
-    
+//    [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
+//        
+//        NSLog(@"－－评论成功－－%@---",responseObject);
+//        if ([responseObject[@"result"] integerValue] == 1) {
+//            GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+//            shareView.orderId = _orderId;
+//            [self.navigationController pushViewController:shareView animated:YES];
+//        }else{
+//            [self addAlertView:responseObject[@"message"]];
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        
+//        NSLog(@"－－评论失败－－%@---",error);
+//        
+//    }];
     
     GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+    shareView.orderId = @"4";
+    shareView.star = _star;
     [self.navigationController pushViewController:shareView animated:YES];
 
+    
+
 }
+
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
+
 
 #pragma mark - 评星按钮的响应方法
 - (void)starBtnClick:(UIButton *)button{

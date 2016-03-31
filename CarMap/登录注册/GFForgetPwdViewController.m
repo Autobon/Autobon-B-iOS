@@ -102,7 +102,7 @@
     [self.view addSubview:self.passwordTxt];
     
     UIButton *eyeButton = [[UIButton alloc]init];
-    eyeButton.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
     eyeButton.center = CGPointMake(_getVerifyBut.center.x, _passwordTxt.center.y);
     [eyeButton setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
     [eyeButton addTarget:self action:@selector(eyeBtnClick:) forControlEvents:UIControlEventTouchUpInside];

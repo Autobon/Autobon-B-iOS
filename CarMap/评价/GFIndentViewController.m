@@ -214,12 +214,13 @@
                 model.photo = obj[@"photo"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"startTime"] floatValue]/1000];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
                 model.workTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
                 model.remark = obj[@"remark"];
                 
-                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"signinTime"] floatValue]/1000];
+                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
                 model.signinTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
                 
@@ -269,6 +270,7 @@
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                NSLog(@"---obj-－－%@---",obj);
                 GFIndentModel *model = [[GFIndentModel alloc]init];
                 model.orderNum = obj[@"orderNum"];
                 model.orderId = obj[@"id"];
@@ -276,12 +278,13 @@
                 model.photo = obj[@"photo"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"startTime"] floatValue]/1000];
-                model.workTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
+                model.workTime = [formatter stringFromDate:date];
                 model.remark = obj[@"remark"];
                 
-                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"signinTime"] floatValue]/1000];
-                model.signinTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
+                model.signinTime = [formatter stringFromDate:date];
+//                NSLog(@"---time-%@---signin--%@---",obj[@"addTime"],model.signinTime);
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
                 [_dataArray addObject:model];
@@ -343,6 +346,7 @@
         [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }else{
         [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+//        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
 }

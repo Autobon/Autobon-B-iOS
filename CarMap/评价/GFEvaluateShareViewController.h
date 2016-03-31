@@ -10,4 +10,8 @@
 
 @interface GFEvaluateShareViewController : UIViewController
 
+@property (nonatomic ,strong) NSString *orderId;
+@property (nonatomic ) NSInteger star;
+
+
 @end

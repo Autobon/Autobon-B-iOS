@@ -69,7 +69,7 @@
     [self.view addSubview:self.oldPwdTxt];
     
     UIButton *eyeButton = [[UIButton alloc]init];
-    eyeButton.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
     eyeButton.center = CGPointMake(self.view.frame.size.width - 50, _oldPwdTxt.center.y);
     [eyeButton setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
     eyeButton.tag = 1;
@@ -88,7 +88,7 @@
     
     
     UIButton *eyeButton2 = [[UIButton alloc]init];
-    eyeButton2.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton2.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
     eyeButton2.center = CGPointMake(self.view.frame.size.width - 50, _xinPwdtxt.center.y);
     [eyeButton2 setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
     eyeButton2.tag = 2;

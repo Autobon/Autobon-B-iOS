@@ -94,7 +94,7 @@
     
     
     UIButton *eyeButton = [[UIButton alloc]init];
-    eyeButton.frame = CGRectMake(0, 0, 30, 20);
+    eyeButton.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
     eyeButton.center = CGPointMake(self.view.frame.size.width - 50, _passwordTxt.center.y);
     [eyeButton setBackgroundImage:[UIImage imageNamed:@"eyeClose"] forState:UIControlStateNormal];
     eyeButton.tag = 1;
