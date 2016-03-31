@@ -101,6 +101,14 @@
     
      _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 150 + 60, self.view.frame.size.width , self.view.frame.size.width*7/10)];
     _mapView.delegate = self;
+//    [_mapView.subviews[0] removeFromSuperview];
+    UIView *mapView = _mapView.subviews[0];
+    [mapView.subviews[mapView.subviews.count-1] removeFromSuperview];
+    
+//    _mapView.logoPosition = 
+    
+//    _mapView.removeViewAt(1);
+//    [_mapView remove]
     
     [self.view addSubview:_mapView];
 	_poisearch = [[BMKPoiSearch alloc]init];

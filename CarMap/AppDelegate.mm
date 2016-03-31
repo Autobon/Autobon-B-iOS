@@ -6,6 +6,7 @@
 //  Copyright © 2016年 mll. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
 #import "GeTuiSdk.h"
 #import "UMSocial.h"
@@ -32,6 +33,7 @@
     BMKMapManager *_mapManager;
 //    ViewController *_firstView;
     UINavigationController *_navigation;
+    NSDate *_pushDate;
 }
 @end
 
@@ -197,6 +199,10 @@
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     // [4-EXT-1]: 个推SDK已注册，返回clientId
     NSLog(@"\n>>>[GeTuiSdk RegisterClient]:%@\n\n", clientId);
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:clientId forKey:@"clientId"];
+    
 }
 /** SDK遇到错误回调 */
 - (void)GeTuiSdkDidOccurError:(NSError *)error {
@@ -215,35 +221,31 @@
         }
     NSString *msg = [NSString stringWithFormat:@" payloadId=%@,taskId=%@,messageId:%@,payloadMsg:%@%@",payloadId,taskId,aMsgId,payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
-    /**
-     *汇报个推自定义事件
-     *actionId：用户自定义的actionid，int类型，取值90001-90999。
-     *taskId：下发任务的任务ID。
-     
-     *msgId： 下发任务的消息ID。
-     *返回值：BOOL，YES表示该命令已经提交，NO表示该命令未提交成功。注：该结果不代表服务器收到该条命令
-     **/
     [GeTuiSdk sendFeedbackMessage:90001 taskId:taskId msgId:aMsgId];
-//    NSLog(@"接受消息");
-//    UILocalNotification* ln = [[UILocalNotification alloc] init];
-//    ln.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-//    ln.alertBody = @"category";
-//    [[UIApplication sharedApplication] scheduleLocalNotification:ln];
 
-//    FirstViewController *first = [[FirstViewController alloc]init];
-//    first.labelTitle = @"地图";
-//    UIWindow *window = [UIApplication sharedApplication].delegate.window;
-//    [window addSubview:first.view];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
-//    FirstViewController *first = [[FirstViewController alloc]init];
-//    [_navigation pushViewController:first animated:NO];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     
-// 收到的推送消息还是要存储起来的，用来查看历史订单不用存储到数据库中吧
     
+    
+    
+    NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+    
+    
+    if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
+        UILocalNotification*notification = [[UILocalNotification alloc] init];
+        if (nil != notification)
+        {
+            notification.fireDate = [NSDate date];
+            _pushDate = [NSDate date];
+            notification.alertTitle = @"车邻邦";
+            notification.alertBody = responseJSON[@"title"];
+            notification.userInfo = @{@"dictionary":payloadMsg};
+            AudioServicesPlaySystemSound(1307);
+            [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+        }
+        
+    }
 }
 
 /** APP已经接收到“远程”通知(推送) - 透传推送消息  */
@@ -270,26 +272,30 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     //系统提供给我们用来处理收到推送后操作的方法。
     NSLog(@"消息来了a－－%@",notification.alertBody);
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, 300, 120, 120)];
-//    view.backgroundColor = [UIColor cyanColor];
     
-//    first.labelTitle = @"地图";
-//    SecondViewController *second = [[SecondViewController alloc]init];
-//    GFMapViewController *test = [[GFMapViewController alloc]init];
-//    FirstViewController *first = [[FirstViewController alloc]init];
-//    [_navigation pushViewController:first animated:NO];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 1;
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
-//    UIWindow *window = [UIApplication sharedApplication].delegate.window;
-//    [window addSubview:test.view];
-//    [_window presentViewController:vc animated:YES completion:nil];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    [userDefaults setObject:@"tongzhi" forKey:@"title"];
-//    [window addChildViewController:first];
-//    [first didMoveToParentViewController:window];
-//    [_firstView addMap];
+    long time = (long)[[NSDate date] timeIntervalSince1970] - [_pushDate timeIntervalSince1970];
+    //    NSLog(@"---time--%@----",notification.userInfo);
+
+    if (0 < time && notification.userInfo) {
+        NSLog(@"消息来了a－－%@",notification.userInfo);
+        NSData *JSONData = [notification.userInfo[@"dictionary"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+        
+        if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"]){
+            NSLog(@"认证消息");
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            GFSignInViewController *signin = [[GFSignInViewController alloc]init];
+            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:signin];
+            navigation.navigationBarHidden = YES;
+            window.rootViewController = navigation;
+            
+            
+        }
+        
+    }
+    
+    
     
     
 }

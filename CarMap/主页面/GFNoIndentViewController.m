@@ -77,6 +77,7 @@
     
     _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
     _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    [_tableView.header beginRefreshing];
     _page = 1;
     _pageSize = 2;
     

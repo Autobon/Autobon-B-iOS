@@ -112,7 +112,7 @@
     // scrollerView
     self.scrollerView = [[CLTouchScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
-    self.scrollerView.contentSize = CGSizeMake(0, 1000);
+    
     self.scrollerView.showsHorizontalScrollIndicator = NO;
     self.scrollerView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.scrollerView];
@@ -290,6 +290,8 @@
     [agreeLab addSubview:agreeBut];
     [agreeBut addTarget:self action:@selector(agreeButClick) forControlEvents:UIControlEventTouchUpInside];
     
+    self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(agreeLab.frame)+30);
+    
     
     NSLog(@"---_dataForPast---%@---",_dataForPastDictionary);
     if (_dataForPastDictionary) {
@@ -408,6 +410,9 @@
         textView.text = nil;
         textView.textColor = [UIColor blackColor];
     }
+    _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height+300);
+//    _scrollerView.contentOffset = CGPointMake(0, 300);
+    
     
 }
 - (void)textViewDidEndEditing:(UITextView *)textView{
@@ -415,6 +420,10 @@
         textView.text = @"请填写发票邮寄地址";
         textView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     }
+    _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height-300);
+//    _scrollerView.contentSize = self.view.bounds.size;
+//    _scrollerView.contentOffset = CGPointMake(0, 0);
+    
 }
 #pragma mark - AlertView
 - (void)addAlertView:(NSString *)title{

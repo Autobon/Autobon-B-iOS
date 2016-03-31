@@ -182,13 +182,17 @@
     
     UILabel *addressLabel = [[UILabel alloc]init];
     addressLabel.text = [NSString stringWithFormat:@"邮寄地址：%@%@%@%@",_dataDictionary[@"province"],_dataDictionary[@"city"],_dataDictionary[@"district"],_dataDictionary[@"address"]];
-    addressLabel.frame = CGRectMake(15, lineView5.frame.origin.y + 11 , self.view.frame.size.width-30, 30);
+    CGSize detailSize = [addressLabel.text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(self.view.frame.size.width-30, MAXFLOAT)];
+    addressLabel.numberOfLines = 0;
+    addressLabel.frame = CGRectMake(15, lineView5.frame.origin.y + 11 , self.view.frame.size.width-30, detailSize.height);
     [scrollView addSubview:addressLabel];
     
     
     UILabel *placeLabel = [[UILabel alloc]init];
     placeLabel.text = [NSString stringWithFormat:@"商户位置：%@%@%@%@",_dataDictionary[@"province"],_dataDictionary[@"city"],_dataDictionary[@"district"],_dataDictionary[@"address"]];
-    placeLabel.frame = CGRectMake(15, addressLabel.frame.origin.y + 35 , self.view.frame.size.width-30, 30);
+    placeLabel.numberOfLines = 0;
+    detailSize = [placeLabel.text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(self.view.frame.size.width-30, MAXFLOAT)];
+    placeLabel.frame = CGRectMake(15, CGRectGetMaxY(addressLabel.frame) + 5 , self.view.frame.size.width-30, detailSize.height);
     [scrollView addSubview:placeLabel];
     
     

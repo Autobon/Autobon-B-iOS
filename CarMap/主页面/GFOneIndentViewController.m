@@ -39,7 +39,7 @@
     UWDatePickerView *_pickerView;
     BOOL _isUpOrderImage;
     NSInteger _orderType;
-    NSMutableArray *_modelArray;
+//    NSMutableArray *_modelArray;
     
     
     CGFloat baseViewHH;
@@ -111,9 +111,9 @@
 #pragma mark - 获取商户未完成订单
 - (void)getListUnfinished{
     
-    _modelArray = [[NSMutableArray alloc]init];
+//    _modelArray = [[NSMutableArray alloc]init];
     
-    [GFHttpTool postListUnfinishedDictionary:@{@"page":@"1",@"pageSize":@"2"} success:^(id responseObject) {
+    [GFHttpTool postListUnfinishedDictionary:@{@"page":@"1",@"pageSize":@"1"} success:^(id responseObject) {
         NSLog(@"－－请求成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
@@ -133,40 +133,40 @@
             }
             
             
-            NSArray *listArray = dataDictionary[@"list"];
-            NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
-            
-            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-            [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
-            
-            [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-                CLIndentModel *model = [[CLIndentModel alloc]init];
-                model.orderId = obj[@"id"];
-                model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
-//                model.status = obj[@"status"];
-                NSInteger type = [obj[@"orderType"] integerValue] - 1;
-                model.orderType = typeArray[type];
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
-                model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
-                
-                model.photo = obj[@"photo"];
-                model.remark = obj[@"remark"];
-            
-                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
-                model.addTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
-                [_modelArray addObject:model];
-                if ([obj[@"mainTech"] isKindOfClass:[NSNull class]]) {
-                    model.workName = @"";
-                    model.status = @"未接单";
-                }else{
-                    NSDictionary *mainDictionary = obj[@"mainTech"];
-                    model.workName = mainDictionary[@"name"];
-                    model.status = @"已接单";
-                }
-                
-                
-            }];
+//            NSArray *listArray = dataDictionary[@"list"];
+//            NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
+//            
+//            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//            [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+//            
+//            [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+//                CLIndentModel *model = [[CLIndentModel alloc]init];
+//                model.orderId = obj[@"id"];
+//                model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
+////                model.status = obj[@"status"];
+//                NSInteger type = [obj[@"orderType"] integerValue] - 1;
+//                model.orderType = typeArray[type];
+//                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
+//                model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+//                
+//                model.photo = obj[@"photo"];
+//                model.remark = obj[@"remark"];
+//            
+//                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
+//                model.addTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+//                [_modelArray addObject:model];
+//                if ([obj[@"mainTech"] isKindOfClass:[NSNull class]]) {
+//                    model.workName = @"";
+//                    model.status = @"未接单";
+//                }else{
+//                    NSDictionary *mainDictionary = obj[@"mainTech"];
+//                    model.workName = mainDictionary[@"name"];
+//                    model.status = @"已接单";
+//                }
+//            
+//
+//            }];
         }
         
     } failure:^(NSError *error) {
@@ -440,7 +440,7 @@
 - (void)tipBtnClick{
     
     GFNoIndentViewController *noIndent = [[GFNoIndentViewController alloc]init];
-    noIndent.modelMutableArray = _modelArray;
+//    noIndent.modelMutableArray = _modelArray;
     [self.navigationController pushViewController:noIndent animated:YES];
     
 }

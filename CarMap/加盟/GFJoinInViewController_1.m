@@ -227,7 +227,7 @@
             [_certificateImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
             [_idImageViewBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
-            [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"bussinessLicensePic"];
+            [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"corporationIdPicA"];
             _isUpCertificate = YES;
             _isUpidImageView = YES;
         }
@@ -243,6 +243,7 @@
 #pragma mark - 相机按钮的响应方法
 - (void)cameraBtnClick:(UIButton *)button{
     NSLog(@"--请选择照片－－");
+    [self.view endEditing:YES];
     if (button.tag == 1) {
         _isCertificate = YES;
     }else{

@@ -342,27 +342,28 @@
     }
     [dictionary setObject:_orderId forKey:@"orderId"];
     
-//    [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
-//        
-//        NSLog(@"－－评论成功－－%@---",responseObject);
-//        if ([responseObject[@"result"] integerValue] == 1) {
-//            GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
-//            shareView.orderId = _orderId;
-//            [self.navigationController pushViewController:shareView animated:YES];
-//        }else{
-//            [self addAlertView:responseObject[@"message"]];
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        
-//        NSLog(@"－－评论失败－－%@---",error);
-//        
-//    }];
+    [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
+        
+        NSLog(@"－－评论成功－－%@---",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+            shareView.orderId = _orderId;
+            shareView.star = _star;
+            [self.navigationController pushViewController:shareView animated:YES];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"－－评论失败－－%@---",error);
+        
+    }];
     
-    GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
-    shareView.orderId = @"4";
-    shareView.star = _star;
-    [self.navigationController pushViewController:shareView animated:YES];
+//    GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+//    shareView.orderId = @"4";
+//    shareView.star = _star;
+//    [self.navigationController pushViewController:shareView animated:YES];
 
     
 
