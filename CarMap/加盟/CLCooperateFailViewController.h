@@ -11,5 +11,7 @@
 @interface CLCooperateFailViewController : UIViewController
 
 @property (nonatomic ,strong) NSDictionary *dataDictionary;
+@property (nonatomic ,strong) NSString *failRemark;
+
 
 @end

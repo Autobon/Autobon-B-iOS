@@ -215,7 +215,7 @@
         
         
         
-        NSLog(@"看看字典－222－_dataDictionary--%@-",_dataDictionary);       
+//        NSLog(@"看看字典－222－_dataDictionary--%@-",result.addressDetail.city);
         
 //        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
 //        [myAlertView show];
@@ -229,7 +229,7 @@
     
     CLLocationCoordinate2D pt = (CLLocationCoordinate2D){0, 0};
     
-    pt = (CLLocationCoordinate2D){30.481154,114.409389};
+    pt = (CLLocationCoordinate2D){30.481069601885,114.40935018074};
     
     BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
     reverseGeocodeSearchOption.reverseGeoPoint = pt;

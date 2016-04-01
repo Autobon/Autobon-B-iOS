@@ -54,7 +54,7 @@
         
         
         // 订单编号
-        indentView = [[GFTitleView alloc] initWithY:0];
+        indentView = [[GFTitleView alloc] initWithY:5];
         [self.baseView addSubview:indentView];
         
         
@@ -159,6 +159,7 @@
 
 
 
+
 - (void)setMessage {
     CGFloat kWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat kHeight = [UIScreen mainScreen].bounds.size.height;
@@ -193,7 +194,6 @@
     self.lab3.frame = CGRectMake(lab3X, lab3Y, lab3W, lab3H);
     self.baseView2.frame = CGRectMake(0, CGRectGetMaxY(self.lab3.frame) + jiange4, kWidth, kHeight * 0.0573);
     self.baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(self.baseView2.frame));
-    
     self.cellHeight = self.baseView.frame.size.height;
     
 }

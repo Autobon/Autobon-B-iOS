@@ -156,7 +156,7 @@
             
             
             // 橘色星星
-            for(int i=0; i<[dataDictionary[@"starRate"] integerValue]; i++) {
+            for(int i=0; i<round([dataDictionary[@"starRate"] floatValue]); i++) {
                 
                 CGFloat starImgViewW = nameLabH;
                 CGFloat starImgViewH = nameLabH;
@@ -172,11 +172,11 @@
             
             
             // 灰色星星
-            for(int i=0; i < 5-[dataDictionary[@"starRate"] integerValue]; i++) {
+            for(int i=0; i < 5-round([dataDictionary[@"starRate"] floatValue]); i++) {
                 
                 CGFloat starImgViewW = nameLabH;
                 CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + [dataDictionary[@"starRate"] integerValue]);
+                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
                 CGFloat starImgViewY = nameLabY;
                 UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -195,7 +195,7 @@
     }];
     
     
-    // 感谢您，，，
+    // 感谢您
     CGFloat thankLabW = 0.717 * kWidth;
     CGFloat thankLabH = kHeight * 0.073;
     CGFloat thankLabX = (kWidth - thankLabW) / 2.0;

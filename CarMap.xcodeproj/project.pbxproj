@@ -14,6 +14,7 @@
 		8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC71C99459200666634 /* AFURLResponseSerialization.m */; };
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
 		9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */; };
+		9B5FBC261CAE582E00A0BF96 /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B5FBC241CAE582E00A0BF96 /* PoiSearchDemoViewController.mm */; };
 		9B6757241C97CAC70001C478 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */; };
 		9B6757251C97CAC70001C478 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FC1C97CAC70001C478 /* MJRefreshBackFooter.m */; };
 		9B6757261C97CAC70001C478 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FE1C97CAC70001C478 /* MJRefreshComponent.m */; };
@@ -48,7 +49,6 @@
 		9B6B6E991C9A485B00449259 /* GFJoinInViewController_1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E8F1C9A485B00449259 /* GFJoinInViewController_1.m */; };
 		9B6B6E9A1C9A485B00449259 /* GFJoinInViewController_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */; };
 		9B6B6E9B1C9A485B00449259 /* GFPartnersMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */; };
-		9B6B6E9C1C9A485B00449259 /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6E951C9A485B00449259 /* PoiSearchDemoViewController.mm */; };
 		9B6B6EAE1C9A4B1400449259 /* GFAddWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EA91C9A4B1400449259 /* GFAddWorkerViewController.m */; };
 		9B6B6EAF1C9A4B1400449259 /* GFWorkerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EAB1C9A4B1400449259 /* GFWorkerTableViewCell.m */; };
 		9B6B6EB01C9A4B1400449259 /* GFWorkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6EAD1C9A4B1400449259 /* GFWorkerViewController.m */; };
@@ -139,6 +139,8 @@
 		86D4FB031C96A08F004E26AC /* GFTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTitleView.m; sourceTree = "<group>"; };
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		9B5FBC241CAE582E00A0BF96 /* PoiSearchDemoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PoiSearchDemoViewController.mm; sourceTree = "<group>"; };
+		9B5FBC251CAE582E00A0BF96 /* PoiSearchDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchDemoViewController.h; sourceTree = "<group>"; };
 		9B6756F91C97CAC70001C478 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		9B6756FB1C97CAC70001C478 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -203,8 +205,6 @@
 		9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFJoinInViewController_2.m; sourceTree = "<group>"; };
 		9B6B6E921C9A485B00449259 /* GFPartnersMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFPartnersMessageViewController.h; sourceTree = "<group>"; };
 		9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFPartnersMessageViewController.m; sourceTree = "<group>"; };
-		9B6B6E941C9A485B00449259 /* PoiSearchDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchDemoViewController.h; sourceTree = "<group>"; };
-		9B6B6E951C9A485B00449259 /* PoiSearchDemoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PoiSearchDemoViewController.mm; sourceTree = "<group>"; };
 		9B6B6EA81C9A4B1400449259 /* GFAddWorkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddWorkerViewController.h; sourceTree = "<group>"; };
 		9B6B6EA91C9A4B1400449259 /* GFAddWorkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddWorkerViewController.m; sourceTree = "<group>"; };
 		9B6B6EAA1C9A4B1400449259 /* GFWorkerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFWorkerTableViewCell.h; sourceTree = "<group>"; };
@@ -572,8 +572,8 @@
 				9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */,
 				9B6B6E921C9A485B00449259 /* GFPartnersMessageViewController.h */,
 				9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */,
-				9B6B6E941C9A485B00449259 /* PoiSearchDemoViewController.h */,
-				9B6B6E951C9A485B00449259 /* PoiSearchDemoViewController.mm */,
+				9B5FBC251CAE582E00A0BF96 /* PoiSearchDemoViewController.h */,
+				9B5FBC241CAE582E00A0BF96 /* PoiSearchDemoViewController.mm */,
 			);
 			path = "加盟";
 			sourceTree = "<group>";
@@ -926,6 +926,7 @@
 				9B67572E1C97CAC70001C478 /* MJRefreshBackStateFooter.m in Sources */,
 				9B6757361C97CAC70001C478 /* UIView+MJExtension.m in Sources */,
 				9B6757271C97CAC70001C478 /* MJRefreshFooter.m in Sources */,
+				9B5FBC261CAE582E00A0BF96 /* PoiSearchDemoViewController.mm in Sources */,
 				9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */,
 				8673FDCF1C99459200666634 /* AFURLRequestSerialization.m in Sources */,
 				9B6B6E9B1C9A485B00449259 /* GFPartnersMessageViewController.m in Sources */,
@@ -936,7 +937,6 @@
 				9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */,
 				9B9FEA091CA38E1000231747 /* UIImage+MultiFormat.m in Sources */,
 				9B6B6ECB1C9A4BAC00449259 /* GFIndentDetialsViewController.m in Sources */,
-				9B6B6E9C1C9A485B00449259 /* PoiSearchDemoViewController.mm in Sources */,
 				9B6B6E971C9A485B00449259 /* CLCooperatingViewController.m in Sources */,
 				9B9FEA021CA38E1000231747 /* SDWebImageDecoder.m in Sources */,
 				9B6B6E461C9A466D00449259 /* GFNoIndentTableViewCell.m in Sources */,

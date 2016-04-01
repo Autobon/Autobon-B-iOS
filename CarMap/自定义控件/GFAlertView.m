@@ -594,7 +594,9 @@
         nameLab.text = nameStr;
         [baseView addSubview:nameLab];
         
-        for(int i=0; i < mark; i++) {
+        
+        
+        for(int i=0; i < round(mark); i++) {
             
             CGFloat starImgViewW = strRect.size.height;
             CGFloat starImgViewH = starImgViewW;
@@ -607,11 +609,11 @@
         }
         
         // 星星
-        for(int i=0; i< 5-mark; i++) {
+        for(int i=0; i< 5-round(mark); i++) {
             
             CGFloat starImgViewW = strRect.size.height;
             CGFloat starImgViewH = starImgViewW;
-            CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + starImgViewW * (i+mark);
+            CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + starImgViewW * (i+round(mark));
             CGFloat starImgViewY = nameLabY + 3.5 / 568 * kHeight;
             UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY+10, starImgViewW, starImgViewH)];
             starImgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -622,7 +624,9 @@
         
         
         // 评分
-        NSString *fenStr = [NSString stringWithFormat:@"%0.0f",mark];
+        NSString *fenStr = [NSString stringWithFormat:@"%0.1f",mark];
+//        NSLog(@"----mark---%@----",fenStr);
+        
         NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];
         fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
         fenDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -680,6 +684,11 @@
     
     return self;
 }
+
+- (void)remove{
+    [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.5];
+}
+
 
 - (void)okButClick {
 

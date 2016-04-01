@@ -79,7 +79,8 @@
     
 //失败原因
     UILabel *failLabel = [[UILabel alloc]init];
-    failLabel.text = @"失败原因：失败原因失败原因失败原因失败原因失败原因失败原因";
+//    failLabel.text = @"失败原因：失败原因失败原因失败原因失败原因失败原因失败原因";
+    failLabel.text = [NSString stringWithFormat:@"失败原因：%@",_failRemark];
     failLabel.numberOfLines = 0;
     failLabel.frame = CGRectMake(15, 50, self.view.frame.size.width-30, 60);
     [scrollView addSubview:failLabel];
@@ -145,7 +146,7 @@
     UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];
     licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
 //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
-    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:licenceDuplicateImage];
     
 // 法人身份证正面照
@@ -168,7 +169,7 @@
     UIImageView *legalEntityIdImage = [[UIImageView alloc]init];
     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
     legalEntityIdImage.backgroundColor = [UIColor darkGrayColor];
-    [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:legalEntityIdImage];
     
     

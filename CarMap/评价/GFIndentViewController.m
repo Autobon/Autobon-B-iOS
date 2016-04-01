@@ -195,6 +195,7 @@
 
 #pragma mark - 获取未评论订单列表
 - (void)getListUncomment{
+    _tableview.userInteractionEnabled = YES;
     [GFHttpTool postListUncommentDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
@@ -241,15 +242,27 @@
             }];
             
             [_tableview reloadData];
+            _tableview.userInteractionEnabled = YES;
+            [self.tableview.header endRefreshing];
+            [self.tableview.footer endRefreshing];
+        }else{
+            
+            [self addAlertView:responseObject[@"message"]];
+            [_tableview reloadData];
+            _tableview.userInteractionEnabled = YES;
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
         }
         
-        NSLog(@"--请求成功－－%@--",responseObject);
+//        NSLog(@"--请求成功－－%@--",responseObject);
         
     } failure:^(NSError *error) {
         
-        NSLog(@"请求失败---%@--",error);
+//        NSLog(@"请求失败---%@--",error);
+        [_tableview reloadData];
+        _tableview.userInteractionEnabled = YES;
+        [self.tableview.header endRefreshing];
+        [self.tableview.footer endRefreshing];
         
     }];
 }
@@ -257,6 +270,7 @@
 #pragma mark - 获取已完成订单
 - (void)getOrder{
     
+    _tableview.userInteractionEnabled = NO;
     [GFHttpTool postListFinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         
         if ([responseObject[@"result"] integerValue] == 1) {
@@ -304,6 +318,13 @@
             }];
             
             [_tableview reloadData];
+            _tableview.userInteractionEnabled = YES;
+            [self.tableview.header endRefreshing];
+            [self.tableview.footer endRefreshing];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+            [_tableview reloadData];
+            _tableview.userInteractionEnabled = YES;
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
         }
@@ -311,7 +332,11 @@
         NSLog(@"--请求成功－－%@--",responseObject);
         
     } failure:^(NSError *error) {
-        
+        [_tableview reloadData];
+        _tableview.userInteractionEnabled = YES;
+        [self.tableview.header endRefreshing];
+        [self.tableview.footer endRefreshing];
+        [self addAlertView:@"请求失败"];
         NSLog(@"请求失败---%@--",error);
         
     }];

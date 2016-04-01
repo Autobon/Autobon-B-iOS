@@ -164,8 +164,6 @@
 //                    model.workName = mainDictionary[@"name"];
 //                    model.status = @"已接单";
 //                }
-//            
-//
 //            }];
         }
         
@@ -173,6 +171,7 @@
         NSLog(@"----shibaile---%@---",error);
     }];
 }
+
 
 
 - (void)_setView {
@@ -426,6 +425,8 @@
         textView.textColor = [UIColor blackColor];
     }
     
+    _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height+300);
+    
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
@@ -433,6 +434,9 @@
         textView.text = @"订单备注";
         textView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     }
+    
+    _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height-300);
+    
 }
 
 

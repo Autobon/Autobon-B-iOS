@@ -226,7 +226,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:[dataDictionary[@"starRate"] integerValue] orderNumber:[dataDictionary[@"totalOrders"] integerValue]];
+            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:3.6 orderNumber:[dataDictionary[@"totalOrders"] integerValue]];
             
             [self.view addSubview:alertView];
         }

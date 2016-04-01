@@ -481,12 +481,12 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
         
         
         [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
-            [alertView removeFromSuperview];
+            [alertView remove];
             if(success) {
                 success(responseObject);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [alertView removeFromSuperview];
+            [alertView remove];
             if(failure) {
                 failure(error);
             }

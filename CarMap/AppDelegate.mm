@@ -133,7 +133,7 @@
         [UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         NSLog(@"zounaqule--");
         // 定义用户通知类型(Remote.远程 - Badge.标记 Alert.提示 Sound.声音)
-        UIUserNotificationType types = UIUserNotificationTypeAlert;
+        UIUserNotificationType types = UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge;
         // 定义用户通知设置
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
         // 注册用户通知 - 根据用户通知设置
@@ -182,6 +182,7 @@
 
 
 
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 //Background Fetch 恢复SDK 运行
     NSLog(@"后台运行");
@@ -224,28 +225,32 @@
     [GeTuiSdk sendFeedbackMessage:90001 taskId:taskId msgId:aMsgId];
 
     
-    
-    
-    
-    
-    NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-    
-    
-    if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
-        UILocalNotification*notification = [[UILocalNotification alloc] init];
-        if (nil != notification)
-        {
-            notification.fireDate = [NSDate date];
-            _pushDate = [NSDate date];
-            notification.alertTitle = @"车邻邦";
-            notification.alertBody = responseJSON[@"title"];
-            notification.userInfo = @{@"dictionary":payloadMsg};
-            AudioServicesPlaySystemSound(1307);
-            [[UIApplication sharedApplication]scheduleLocalNotification:notification];
-        }
+    if (!offLine) {
+        NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
         
+        
+        if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
+            UILocalNotification*notification = [[UILocalNotification alloc] init];
+            if (nil != notification)
+            {
+                notification.fireDate = [NSDate date];
+                _pushDate = [NSDate date];
+                notification.alertTitle = @"车邻邦";
+                notification.alertBody = responseJSON[@"title"];
+                notification.userInfo = @{@"dictionary":payloadMsg};
+                AudioServicesPlaySystemSound(1307);
+                [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+            }
+            
+        }
+    }else{
+        NSLog(@"离线消息不接受");
     }
+    
+    
+    
+    
 }
 
 /** APP已经接收到“远程”通知(推送) - 透传推送消息  */

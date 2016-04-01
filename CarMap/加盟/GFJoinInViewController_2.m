@@ -18,7 +18,7 @@
 
 
 
-@interface GFJoinInViewController_2 () {
+@interface GFJoinInViewController_2 ()<UITextFieldDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -244,11 +244,13 @@
     
     // 联系人姓名
     self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(baseView2.frame) + jiange2 withPlaceholder:@"联系人姓名"];
+    self.nameTxt.delegate = self;
     [self.scrollerView addSubview:self.nameTxt];
     
     
     // 联系人电话
     self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.nameTxt.frame) + jiange2 withPlaceholder:@"联系人电话"];
+    self.phoneTxt.delegate = self;
     self.phoneTxt.keyboardType = UIKeyboardTypeNumberPad;
     [self.scrollerView addSubview:self.phoneTxt];
     
@@ -359,7 +361,12 @@
                                         
                                         [GFHttpTool postCheckForUser:_dataDictionary success:^(id responseObject) {
                                             if ([responseObject[@"result"] integerValue] == 1) {
-                                                [self.navigationController popToRootViewControllerAnimated:YES];
+                                                
+                                                if ([responseObject[@"data"] isKindOfClass:[NSNull class]]) {
+                                                    [self addAlertView:responseObject[@"message"]];
+                                                }else{
+                                                    [self.navigationController popToRootViewControllerAnimated:YES];
+                                                }
                                             }else{
                                                 [self addAlertView:responseObject[@"message"]];
                                             }
@@ -411,7 +418,7 @@
         textView.textColor = [UIColor blackColor];
     }
     _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height+300);
-//    _scrollerView.contentOffset = CGPointMake(0, 300);
+    _scrollerView.contentOffset = CGPointMake(0, 300);
     
     
 }
@@ -425,6 +432,20 @@
 //    _scrollerView.contentOffset = CGPointMake(0, 0);
     
 }
+
+- (void)textFieldDidBeginEditing:(UITextView *)textView{
+    _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height+300);
+    _scrollerView.contentOffset = CGPointMake(0, 300);
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height-300);
+}
+
+
+
+
+
 #pragma mark - AlertView
 - (void)addAlertView:(NSString *)title{
     GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];

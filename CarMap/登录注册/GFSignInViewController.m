@@ -212,6 +212,10 @@
                 // 审核失败
                                 CLCooperateFailViewController *cooperateFail = [[CLCooperateFailViewController alloc]init];
                                 cooperateFail.dataDictionary = dataDictionary[@"cooperator"];
+                                NSDictionary *reviewCooperDictionary = dataDictionary[@"reviewCooper"];
+                                cooperateFail.failRemark = reviewCooperDictionary[@"remark"];
+                                
+                                
                                 [self.navigationController pushViewController:cooperateFail animated:YES];
                             }else if ([cooperatorDictionary[@"statusCode"] integerValue] == 1){
                                 GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
@@ -229,10 +233,6 @@
                     }else{
                         [self addAlertView:responseObject[@"message"]];
                     }
-                    
-                    
-                    
-                    
                 } failure:^(NSError *error) {
                     NSLog(@"登录失败---%@----",error);
                 }];
