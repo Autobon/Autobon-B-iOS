@@ -453,7 +453,9 @@
 #pragma mark - 一键下单按钮响应方法
 - (void)signInButClick {
     
-    
+//    GFAlertView *alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价" withButtonNameArray:@[@"立即评价"]];
+//    [alertView.okBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:alertView];
     
     
 
@@ -505,6 +507,13 @@
     }
     
 }
+
+
+#pragma mark - 立即评价
+- (void)judgeBtnClick{
+    
+}
+
 
 #pragma mark - 相机按钮的响应方法
 - (void)cameraBtnClick{

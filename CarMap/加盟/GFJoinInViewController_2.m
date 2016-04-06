@@ -365,12 +365,16 @@
                                                 if ([responseObject[@"data"] isKindOfClass:[NSNull class]]) {
                                                     [self addAlertView:responseObject[@"message"]];
                                                 }else{
-                                                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                                                    [self.navigationController popToRootViewControllerAnimated:YES];
+                                                    GFAlertView *alertView = [[GFAlertView alloc] initWithTipName:@"提交成功" withTipMessage:@"恭喜您资料提交成功，我们将会在一个工作日内审核信息并以短信的形式告知结果，请注意查收" withButtonNameArray:@[@"OK"]];
+                                                    [alertView.okBut addTarget:self action:@selector(OKBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                                                    [self.view addSubview:alertView];
+                                                    
                                                 }
                                             }else{
                                                 [self addAlertView:responseObject[@"message"]];
                                             }
-                                            NSLog(@"－－－请求成功－－%@---",responseObject);
+                                            
                                             
                                         } failure:^(NSError *error) {
                                             
@@ -391,9 +395,7 @@
     }
     
     
-//    GFAlertView *alertView = [[GFAlertView alloc] initWithTipName:@"提交成功" withTipMessage:@"恭喜您资料提交成功，我们将会在一个工作日内审核信息并以短信的形式告知结果，请注意查收" withButtonNameArray:@[@"OK"]];
-//    [alertView.okBut addTarget:self action:@selector(OKBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:alertView];
+    
     
 }
 

@@ -19,6 +19,7 @@
 #import "UIImageView+WebCache.h"
 #import "GFEvaluateViewController.h"
 #import "GFTipView.h"
+#import "GFNothingView.h"
 
 
 
@@ -43,6 +44,8 @@
 
 @property (nonatomic, strong) UIView *lineView;
 
+@property (nonatomic, strong) GFNothingView *nothingView;
+
 @end
 
 @implementation GFIndentViewController
@@ -50,11 +53,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isAll = YES;
+    
     // 基础设置
     [self _setBase];
     
     // 界面搭建
     [self _setView];
+    
+    // 无数据提示页
+    self.nothingView = [[GFNothingView alloc] initWithImageName:@"NoOrder" withTipString:@"暂无数据" withSubtipString:nil];
+    [self.view addSubview:self.nothingView];
 }
 
 - (void)_setBase {
@@ -254,6 +262,12 @@
             [self.tableview.footer endRefreshing];
         }
         
+        if (_dataArray.count == 0) {
+            _nothingView.hidden = NO;
+        }else{
+            _nothingView.hidden = YES;
+        }
+        
 //        NSLog(@"--请求成功－－%@--",responseObject);
         
     } failure:^(NSError *error) {
@@ -317,16 +331,24 @@
                 
             }];
             
+            
             [_tableview reloadData];
-            _tableview.userInteractionEnabled = YES;
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
+            _tableview.userInteractionEnabled = YES;
         }else{
             [self addAlertView:responseObject[@"message"]];
             [_tableview reloadData];
-            _tableview.userInteractionEnabled = YES;
+            
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
+            _tableview.userInteractionEnabled = YES;
+        }
+        
+        if (_dataArray.count == 0) {
+            _nothingView.hidden = NO;
+        }else{
+            _nothingView.hidden = YES;
         }
         
         NSLog(@"--请求成功－－%@--",responseObject);
@@ -361,18 +383,21 @@
         
         cell = [[GFIndentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
-    GFIndentModel *model = _dataArray[indexPath.row];
-    cell.numberLab.text = [NSString stringWithFormat:@"订单编号%@",model.orderNum];
-    cell.timeLab.text = model.orderType;
-    [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
-    if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
-        [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
-        cell.pingjiaBut.tag = indexPath.row;
-        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    }else{
-        [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
-//        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    if (_dataArray.count > indexPath.row) {
+        GFIndentModel *model = _dataArray[indexPath.row];
+        cell.numberLab.text = [NSString stringWithFormat:@"订单编号%@",model.orderNum];
+        cell.timeLab.text = model.orderType;
+        [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+        if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
+            [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+            cell.pingjiaBut.tag = indexPath.row;
+            [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+            //        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
+    
     return cell;
 }
 

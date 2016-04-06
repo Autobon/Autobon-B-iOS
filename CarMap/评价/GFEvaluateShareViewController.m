@@ -31,6 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _star = 0;
+    _orderId = @"1";
+    
+    
+    
     // 基础设置
     [self _setBase];
     
@@ -250,12 +255,13 @@
 #pragma mark - 分享按钮响应方法
 - (void)shareBtnClick{
     NSLog(@"分享");
-    [UMSocialSnsService presentSnsIconSheetView:self
-                                         appKey:@"564d41b4e0f55a596d003fe4"
-                                      shareText:@"车邻邦测试分享消息"
-                                     shareImage:nil
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil]
-                                       delegate:self];
+    
+//    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦测试分享消息" shareImage:nil shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
+    
+    
+    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦测试分享消息" shareImage:[UIImage imageNamed:@"Icon"] shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
+    
+    
 }
 
 

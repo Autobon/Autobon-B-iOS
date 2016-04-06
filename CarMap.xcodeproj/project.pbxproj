@@ -15,6 +15,7 @@
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
 		9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */; };
 		9B5FBC261CAE582E00A0BF96 /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B5FBC241CAE582E00A0BF96 /* PoiSearchDemoViewController.mm */; };
+		9B5FBC5D1CAE70F800A0BF96 /* GFNothingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5FBC5C1CAE70F800A0BF96 /* GFNothingView.m */; };
 		9B6757241C97CAC70001C478 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */; };
 		9B6757251C97CAC70001C478 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FC1C97CAC70001C478 /* MJRefreshBackFooter.m */; };
 		9B6757261C97CAC70001C478 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6756FE1C97CAC70001C478 /* MJRefreshComponent.m */; };
@@ -141,6 +142,8 @@
 		9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9B5FBC241CAE582E00A0BF96 /* PoiSearchDemoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PoiSearchDemoViewController.mm; sourceTree = "<group>"; };
 		9B5FBC251CAE582E00A0BF96 /* PoiSearchDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiSearchDemoViewController.h; sourceTree = "<group>"; };
+		9B5FBC5B1CAE70F800A0BF96 /* GFNothingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFNothingView.h; sourceTree = "<group>"; };
+		9B5FBC5C1CAE70F800A0BF96 /* GFNothingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFNothingView.m; sourceTree = "<group>"; };
 		9B6756F91C97CAC70001C478 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		9B6756FA1C97CAC70001C478 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		9B6756FB1C97CAC70001C478 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -391,6 +394,8 @@
 				9B9FE9DE1CA37A1300231747 /* UWDatePickerView.xib */,
 				9B9FEA0D1CA3BC0900231747 /* CLTouchScrollView.h */,
 				9B9FEA0E1CA3BC0900231747 /* CLTouchScrollView.m */,
+				9B5FBC5B1CAE70F800A0BF96 /* GFNothingView.h */,
+				9B5FBC5C1CAE70F800A0BF96 /* GFNothingView.m */,
 			);
 			path = "自定义控件";
 			sourceTree = "<group>";
@@ -981,6 +986,7 @@
 				9B9FE9FF1CA38E1000231747 /* NSData+ImageContentType.m in Sources */,
 				9B9FEA051CA38E1000231747 /* SDWebImageManager.m in Sources */,
 				9B6B6E3D1C9A452C00449259 /* TestViewController.m in Sources */,
+				9B5FBC5D1CAE70F800A0BF96 /* GFNothingView.m in Sources */,
 				9B6757311C97CAC70001C478 /* MJRefreshStateHeader.m in Sources */,
 				9B9FEA071CA38E1000231747 /* UIButton+WebCache.m in Sources */,
 				9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */,

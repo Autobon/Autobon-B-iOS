@@ -20,6 +20,7 @@
 #import "GFSignInViewController.h"
 #import "GFAddWorkerViewController.h"
 #import "GFOneIndentViewController.h"
+#import "GFEvaluateShareViewController.h"
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
@@ -56,9 +57,9 @@
     [UMSocialData setAppKey:@"564d41b4e0f55a596d003fe4"];
     
     
-    [UMSocialWechatHandler setWXAppId:@"wxccc42b939e04a75a" appSecret:@"d4624c36b6795d1d99dcf0547af5443d" url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:@"http://www.incardata.com.cn"];
     
-    [UMSocialQQHandler setQQWithAppId:@"1105028016" appKey:@"9xBu4r8AcljNU4bS" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://www.incardata.com.cn"];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
 //    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"439118116" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
@@ -76,6 +77,7 @@
 //    CLAutobonViewController *firstView = [[CLAutobonViewController alloc]init];
 //    CLCertifyViewController *firstView = [[CLCertifyViewController alloc]init];
 //    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
+//    GFEvaluateShareViewController *firstView = [[GFEvaluateShareViewController alloc]init];
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
@@ -243,7 +245,10 @@
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
             
+        }else if ([responseJSON[@"action"] isEqualToString:@"FINISHED"]){
+            
         }
+        
     }else{
         NSLog(@"离线消息不接受");
     }
