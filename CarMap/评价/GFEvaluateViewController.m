@@ -344,11 +344,13 @@
     
     [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
         
-        NSLog(@"－－评论成功－－%@---",responseObject);
+        
         if ([responseObject[@"result"] integerValue] == 1) {
             GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
             shareView.orderId = _orderId;
             shareView.star = _star;
+            NSLog(@"－－评论成功－－%ld---",(long)_star);
+            shareView.isPush = _isPush;
             [self.navigationController pushViewController:shareView animated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];
@@ -433,8 +435,12 @@
 }
 
 - (void)leftButClick {
+    if (_isPush) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     
-    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

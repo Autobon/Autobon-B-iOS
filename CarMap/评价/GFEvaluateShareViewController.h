@@ -12,6 +12,6 @@
 
 @property (nonatomic ,strong) NSString *orderId;
 @property (nonatomic ) NSInteger star;
-
+@property (nonatomic) BOOL isPush;
 
 @end

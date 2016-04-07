@@ -16,6 +16,7 @@
 #import "GFSignInViewController.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
+#import "CLCooperatingViewController.h"
 
 
 
@@ -298,12 +299,14 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             
-            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
+            CLCooperatingViewController *cooperatingView = [[CLCooperatingViewController alloc]init];
+            
             if (![dataDictionary isKindOfClass:[NSNull class]]) {
-                joinInView.dataForPastDictionary = dataDictionary;
+                cooperatingView.dataDictionary = dataDictionary;
+                cooperatingView.setLabel.text = @"审核成功";
             }
             
-            [self.navigationController pushViewController:joinInView animated:YES];
+            [self.navigationController pushViewController:cooperatingView animated:YES];
 
             
         }else{

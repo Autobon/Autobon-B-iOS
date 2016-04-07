@@ -97,6 +97,7 @@
 		9B9FEA0F1CA3BC0900231747 /* CLTouchScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FEA0E1CA3BC0900231747 /* CLTouchScrollView.m */; };
 		9B9FEA121CA3EEC000231747 /* CLIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FEA111CA3EEC000231747 /* CLIndentModel.m */; };
 		9BA71D9A1CA91B94006EA500 /* GFIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA71D991CA91B94006EA500 /* GFIndentModel.m */; };
+		9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B02AF661C5A22CB0044FB71 /* StoreKit.framework */; };
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
@@ -327,6 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */,
 				9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */,
 				9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */,
 			);

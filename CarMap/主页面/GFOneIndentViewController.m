@@ -73,6 +73,12 @@
 
 @implementation GFOneIndentViewController
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     kWidth = [UIScreen mainScreen].bounds.size.width;
@@ -88,7 +94,12 @@
     // 基础设置
     [self _setBase];
     
-    
+    [self NSNotificationCenter];
+}
+
+#pragma mark - 注册通知中心
+- (void)NSNotificationCenter{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getListUnfinished) name:@"FINISHED" object:nil];
 }
 
 - (void)_setBase {

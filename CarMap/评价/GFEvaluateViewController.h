@@ -11,5 +11,5 @@
 @interface GFEvaluateViewController : UIViewController
 
 @property (nonatomic ,strong) NSString *orderId;
-
+@property (nonatomic) BOOL isPush;
 @end

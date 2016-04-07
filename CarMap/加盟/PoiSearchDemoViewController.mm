@@ -39,18 +39,6 @@
 @implementation PoiSearchDemoViewController
 
 
-//- (NSDictionary *)dataDictionary{
-//    if (_dataDictionary == nil) {
-//        _dataDictionary = [[NSDictionary alloc]init];
-//    }
-//    return _dataDictionary;
-//}
-
-
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -87,20 +75,9 @@
     [searchButton addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:searchButton];
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
      _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 150 + 60, self.view.frame.size.width , self.view.frame.size.width*7/10)];
     _mapView.delegate = self;
+    
 //    [_mapView.subviews[0] removeFromSuperview];
     UIView *mapView = _mapView.subviews[0];
     [mapView.subviews[mapView.subviews.count-1] removeFromSuperview];
@@ -112,7 +89,7 @@
     
     [self.view addSubview:_mapView];
 	_poisearch = [[BMKPoiSearch alloc]init];
-
+    _poisearch.delegate = self;
     // 设置地图级别
     [_mapView setZoomLevel:13];
     _nextPageButton.enabled = false;
@@ -351,68 +328,82 @@
 -(void)searchBtnClick
 {
     [self.view endEditing:YES];
-    BMKNearbySearchOption *option = [[BMKNearbySearchOption alloc]init];
+//    BMKNearbySearchOption *option = [[BMKNearbySearchOption alloc]init];
+//    
+//    option.location = CLLocationCoordinate2DMake(_workerPointAnno.coordinate.latitude, _workerPointAnno.coordinate.longitude);
+//    option.keyword = _searchbar.text;
+//    BOOL flag2 = [_poisearch poiSearchNearBy:option];
+//    
+//    if(flag2)
+//    {
+//        NSLog(@"周边检索发送成功");
+//    }
+//    else
+//    {
+//        NSLog(@"周边检索发送失败");
+//    }
+
     
-    option.location = CLLocationCoordinate2DMake(_workerPointAnno.coordinate.latitude, _workerPointAnno.coordinate.longitude);
-    option.keyword = @"小吃";
-    BOOL flag2 = [_poisearch poiSearchNearBy:option];
     
-    if(flag2)
+    BMKCitySearchOption *citySearchOption = [[BMKCitySearchOption alloc]init];
+    citySearchOption.city= @"武汉";
+    citySearchOption.keyword = _searchbar.text;
+    BOOL flag = [_poisearch poiSearchInCity:citySearchOption];
+    if(flag)
     {
-        NSLog(@"周边检索发送成功");
+        NSLog(@"城市内检索发送成功");
     }
     else
     {
-        NSLog(@"周边检索发送失败");
+        NSLog(@"城市内检索发送失败");
     }
-
     
     
 }
 
 
-- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
-    NSLog(@"看一看");
-    if([annotation isKindOfClass:[GFAnnotation class]]) {
-        GFAnnotationView *annView = [GFAnnotationView annotationWithMapView:mapView];
-        
-        annView.annotation = annotation;
-        return annView;
-    }
-    
-    
-    return nil;
-}
+//- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
+//    NSLog(@"看一看");
+//    if([annotation isKindOfClass:[GFAnnotation class]]) {
+//        GFAnnotationView *annView = [GFAnnotationView annotationWithMapView:mapView];
+//        
+//        annView.annotation = annotation;
+//        return annView;
+//    }
+//    
+//    
+//    return nil;
+//}
 
 
 //#pragma mark -
-//#pragma mark implement BMKMapViewDelegate
-//- (BMKAnnotationView *)mapView:(BMKMapView *)view viewForAnnotation:(id <BMKAnnotation>)annotation
-//{
-//    // 生成重用标示identifier
-//    NSString *AnnotationViewID = @"xidanMark";
-//	
-//    // 检查是否有重用的缓存
-//    BMKAnnotationView* annotationView = [view dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
-//    
-//    // 缓存没有命中，自己构造一个，一般首次添加annotation代码会运行到此处
-//    if (annotationView == nil) {
-//        annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
-//		((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorRed;
-//		// 设置重天上掉下的效果(annotation)
-//        ((BMKPinAnnotationView*)annotationView).animatesDrop = YES;
-//    }
-//	
-//    // 设置位置
-//	annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.5));
-//    annotationView.annotation = annotation;
-//    // 单击弹出泡泡，弹出泡泡前提annotation必须实现title属性
-//	annotationView.canShowCallout = YES;
-//    // 设置是否可以拖拽
-//    annotationView.draggable = NO;
-//    
-//    return annotationView;
-//}
+#pragma mark implement BMKMapViewDelegate
+- (BMKAnnotationView *)mapView:(BMKMapView *)view viewForAnnotation:(id <BMKAnnotation>)annotation
+{
+    // 生成重用标示identifier
+    NSString *AnnotationViewID = @"xidanMark";
+	
+    // 检查是否有重用的缓存
+    BMKAnnotationView* annotationView = [view dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+    
+    // 缓存没有命中，自己构造一个，一般首次添加annotation代码会运行到此处
+    if (annotationView == nil) {
+        annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+		((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorRed;
+		// 设置重天上掉下的效果(annotation)
+        ((BMKPinAnnotationView*)annotationView).animatesDrop = YES;
+    }
+	
+    // 设置位置
+	annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.5));
+    annotationView.annotation = annotation;
+    // 单击弹出泡泡，弹出泡泡前提annotation必须实现title属性
+	annotationView.canShowCallout = YES;
+    // 设置是否可以拖拽
+    annotationView.draggable = NO;
+    
+    return annotationView;
+}
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
 {
     NSLog(@"----选中大头针--%f--",view.annotation.coordinate.latitude);

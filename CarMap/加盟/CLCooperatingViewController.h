@@ -11,6 +11,6 @@
 @interface CLCooperatingViewController : UIViewController
 
 @property (nonatomic ,strong) NSDictionary *dataDictionary;
-
+@property (nonatomic ,strong) UILabel *setLabel;
 
 @end

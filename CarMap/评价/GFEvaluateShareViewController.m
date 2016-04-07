@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "UMSocial.h"
 #import "GFHttpTool.h"
+#import "GFEvaluateViewController.h"
 
 
 
@@ -31,8 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _star = 0;
-    _orderId = @"1";
+//    _star = 0;
+//    _orderId = @"1";
     
     
     
@@ -267,7 +268,14 @@
 
 #pragma mark - 首页按钮响应方法
 - (void)homeBtnClick{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (_isPush) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }else{
+//        [self.navigationController popToRootViewControllerAnimated:NO];
+        GFEvaluateViewController *evaluateView = self.navigationController.viewControllers[0];
+        [evaluateView dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
 

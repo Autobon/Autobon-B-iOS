@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "GFAlertView.h"
 #import "GFTipView.h"
+#import "GFOneIndentViewController.h"
 
 
 
@@ -226,7 +227,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:3.6 orderNumber:[dataDictionary[@"totalOrders"] integerValue]];
+            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:[dataDictionary[@"starRate"] floatValue] orderNumber:[dataDictionary[@"totalOrders"] integerValue]];
             
             [self.view addSubview:alertView];
         }
@@ -248,6 +249,8 @@
 
 
 - (void)leftButClick {
+//    GFOneIndentViewController *oneIndent = self.navigationController.viewControllers[0];
+//    [oneIndent getListUnfinished];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -20,7 +20,9 @@
 #import "GFSignInViewController.h"
 #import "GFAddWorkerViewController.h"
 #import "GFOneIndentViewController.h"
-#import "GFEvaluateShareViewController.h"
+#import "GFEvaluateViewController.h"
+#import "GFAlertView.h"
+#import "SecondViewController.h"
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
@@ -78,6 +80,7 @@
 //    CLCertifyViewController *firstView = [[CLCertifyViewController alloc]init];
 //    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
 //    GFEvaluateShareViewController *firstView = [[GFEvaluateShareViewController alloc]init];
+//    SecondViewController *firstView = [[SecondViewController alloc]init];
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
@@ -244,18 +247,56 @@
                 AudioServicesPlaySystemSound(1307);
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
-            
-        }else if ([responseJSON[@"action"] isEqualToString:@"FINISHED"]){
-            
         }
+//        }else if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+//            GFAlertView *alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价" withButtonNameArray:@[@"立即评价"]];
+//            [alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//            alertView.okBut.tag = [responseJSON[@"id"] integerValue];
+//            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+//            [window addSubview:alertView];
+//            
+//            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+//        }
         
     }else{
         NSLog(@"离线消息不接受");
     }
     
-    
-    
-    
+    NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+    NSLog(@"----responseJSON----%@--",responseJSON);
+    if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+        AudioServicesPlaySystemSound(1307);
+        GFAlertView *alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
+        [alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        alertView.okBut.tag = [responseJSON[@"id"] integerValue];
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        [window addSubview:alertView];
+     
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+    }
+}
+
+- (void)judgeBtnClick:(UIButton *)button{
+    NSLog(@"立即评价按钮");
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+//    [window.rootViewController push]
+    GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+    evaluateView.orderId = [NSString stringWithFormat:@"%ld",(long)button.tag];
+    UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:evaluateView];
+    navigation.navigationBarHidden = YES;
+    evaluateView.isPush = NO;
+    [window.rootViewController presentViewController:navigation animated:YES completion:nil];
+//    for (UIView* next = [[button superview]superview]; next; next =
+//         next.superview) {
+//        UIResponder* nextResponder = [next nextResponder];
+//        if ([nextResponder isKindOfClass:[UIViewController
+//                                          class]]) {
+//            UIViewController *view = (UIViewController *)nextResponder;
+//            [view.navigationController pushViewController:[[CLMoreViewController alloc]init] animated:NO];
+//            
+//        }
+//    }
 }
 
 /** APP已经接收到“远程”通知(推送) - 透传推送消息  */
