@@ -10,4 +10,8 @@
 
 @interface GFPartnersMessageViewController : UIViewController
 
+@property (nonatomic ,strong) UILabel *muLab;
+
+
+
 @end

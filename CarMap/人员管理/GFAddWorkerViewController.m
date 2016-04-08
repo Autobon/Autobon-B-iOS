@@ -10,6 +10,11 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFButton.h"
+#import "GFTipView.h"
+#import "GFHttpTool.h"
+#import "CLWorkerModel.h"
+#import "GFWorkerViewController.h"
+
 
 
 @interface GFAddWorkerViewController () {
@@ -19,6 +24,7 @@
     
     CGFloat jiange1;
     CGFloat jiange2;
+    NSInteger _sex;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -115,7 +121,7 @@
     
     // 点击“提交”
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(signInBut.frame) + 15, kWidth, kHeight * 0.021)];
-    lab.text = @"点击“提交”后会以短信的方式邀请该用户开通账号";
+    lab.text = @"业务员初始密码为123456";
     lab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     lab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     lab.textAlignment = NSTextAlignmentCenter;
@@ -125,7 +131,45 @@
 
 #pragma mark - 确认按钮的响应方法
 - (void)submitBtnClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.view endEditing:YES];
+    
+    if ([self isPhoneNumber:_phoneTxt.text]) {
+        if (_nameTxt.text.length > 0) {
+//            NSLog(@"----responseObject---%@---",@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)});
+            [GFHttpTool postAddAccountDictionary:@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)} success:^(id responseObject) {
+//                NSLog(@"----responseObject---%@---",responseObject);
+                if ([responseObject[@"result"] integerValue] == 1) {
+                    NSDictionary *dataDictionary = responseObject[@"data"];
+                    CLWorkerModel *model = [[CLWorkerModel alloc]init];
+                    model.workerId = dataDictionary[@"id"];
+                    model.name = dataDictionary[@"name"];
+                    model.mainString = @"业务员";
+                    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
+                    [workerView.workerArray addObject:model];
+                    [workerView.tableView reloadData];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [self addAlertView:responseObject[@"message"]];
+                }
+            } failure:^(NSError *error) {
+                [self addAlertView:@"请求失败"];
+            }];
+            
+            
+//            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self addAlertView:@"请输入业务员名称"];
+        }
+    }else{
+        [self addAlertView:@"请输入正确手机号"];
+    }
+    
+    
+    
+    
+    
+    
+    
 }
 
 
@@ -173,9 +217,34 @@
     if (button.tag == 1) {
         UIButton *otherBtn = (UIButton *)[self.view viewWithTag:2];
         otherBtn.selected = NO;
+        _sex = 1;
     }else{
         UIButton *otherBtn = (UIButton *)[self.view viewWithTag:1];
         otherBtn.selected = NO;
+        _sex = 0;
+    }
+    
+}
+
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
+
+
+#pragma mark - 判断输入字符串是否是手机号
+- (BOOL)isPhoneNumber:(NSString *)number{
+    
+    number =  [number stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,0-9]))\\d{8}$";
+    
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    if ([phoneTest evaluateWithObject:number])
+    {
+        return YES;
+    }else{
+        return NO;
     }
     
 }
@@ -186,6 +255,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

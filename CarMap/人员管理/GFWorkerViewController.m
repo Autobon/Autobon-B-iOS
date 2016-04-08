@@ -11,6 +11,9 @@
 #import "GFTextField.h"
 #import "GFWorkerTableViewCell.h"
 #import "GFAddWorkerViewController.h"
+#import "GFHttpTool.h"
+#import "GFTipView.h"
+#import "CLWorkerModel.h"
 
 
 
@@ -23,15 +26,25 @@
     CGFloat jiange2;
     
     CGFloat jianjv1;
+    
+    
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
-@property (nonatomic, strong) UITableView *tableView;
+
 
 @end
 
 @implementation GFWorkerViewController
+
+- (NSMutableArray *)workerArray{
+    if (_workerArray == nil) {
+        _workerArray = [[NSMutableArray alloc]init];
+    }
+    return _workerArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,6 +95,7 @@
 
 - (void)_setView {
     
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + jiange1, kWidth, kHeight - 64 - jiange1) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -100,18 +114,26 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     
-    return 3;
+    return _workerArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     static NSString *ID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    GFWorkerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if(cell == nil) {
         
         cell = [[GFWorkerTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
-    
+    CLWorkerModel *worker = _workerArray[indexPath.row];
+    cell.leftLab.text = worker.name;
+    cell.centerLab.text = worker.mainString;
+    if (indexPath.row == 0) {
+        cell.rightBut.hidden = YES;
+    }else{
+        cell.rightBut.tag = indexPath.row;
+        [cell.rightBut addTarget:self action:@selector(moveWorker:) forControlEvents:UIControlEventTouchUpInside];
+    }
     return cell;
 
 }
@@ -122,7 +144,9 @@
     return kHeight * 0.078 + jiange2;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 - (void)setGFViewWithY:(CGFloat)y withLeftText:(NSString *)leftStr withCenterText:(NSString *)centerStr withRightBut:(UIButton *)righntBut {
 
@@ -142,6 +166,31 @@
     
 }
 
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
+
+
+#pragma mark - 移除业务员按钮
+- (void)moveWorker:(UIButton *)button{
+    NSLog(@"移除业务员");
+    CLWorkerModel *worker = _workerArray[button.tag];
+    [GFHttpTool postSaleFiredDictionary:@{@"coopAccountId":worker.workerId} success:^(id responseObject) {
+        NSLog(@"----responseObject---%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            [_workerArray removeObject:worker];
+            [_tableView reloadData];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [self addAlertView:@"请求失败"];
+    }];
+    
+}
 
 - (void)leftButClick {
     

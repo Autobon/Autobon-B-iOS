@@ -502,7 +502,8 @@
                         obj.selected = NO;
                     }];
                     [self getListUnfinished];
-                    
+                    _isUpOrderImage = NO;
+                    _orderType = 0;
                     GFAlertView *alertView = [[GFAlertView alloc]initWithMiao:3.0];
                     [self.view addSubview:alertView];
                 }else{
@@ -550,10 +551,17 @@
     
     
     CGSize imagesize;
-    imagesize.width = image.size.width/2;
-    imagesize.height = image.size.height/2;
+    if (image.size.width > image.size.height) {
+        imagesize.width = 800;
+        imagesize.height = image.size.height*800/image.size.width;
+    }else{
+        imagesize.height = 800;
+        imagesize.width = image.size.width*800/image.size.height;
+    }
+//    imagesize.width = image.size.width/2;
+//    imagesize.height = image.size.height/2;
     UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
-    NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
+    NSData *imageData = UIImageJPEGRepresentation(imageNew,0.8);
     [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
         NSLog(@"上传成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
@@ -686,8 +694,23 @@
 
 - (void)leftButClick {
     
-    GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
-    [self.navigationController pushViewController:partnerView animated:YES];
+    [GFHttpTool postOrderCountsuccess:^(id responseObject) {
+        
+        if ([responseObject[@"result"] integerValue] == 1) {
+            GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
+            partnerView.muLab = [[UILabel alloc]init];
+            partnerView.muLab.text = [NSString stringWithFormat:@"%@",responseObject[@"data"]];
+            NSLog(@"--获取商户订单信息－－%@--",partnerView.muLab.text);
+            [self.navigationController pushViewController:partnerView animated:YES];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self addAlertView:@"请求失败"];
+    }];
+    
+    
+    
     
     
 //    [self.navigationController popViewControllerAnimated:YES];

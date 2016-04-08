@@ -206,6 +206,7 @@
                             if ([cooperatorDictionary[@"statusCode"] integerValue] == 0) {
                 // 正在审核中
                                 CLCooperatingViewController *cooperating = [[CLCooperatingViewController alloc]init];
+                                cooperating.setLabel.text = @"正在审核";
                                 cooperating.dataDictionary = dataDictionary[@"cooperator"];
                                 [self.navigationController pushViewController:cooperating animated:YES];
                             }else if ([cooperatorDictionary[@"statusCode"] integerValue] == 2){
@@ -218,6 +219,8 @@
                                 
                                 [self.navigationController pushViewController:cooperateFail animated:YES];
                             }else if ([cooperatorDictionary[@"statusCode"] integerValue] == 1){
+                                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                                [userDefaults setObject:cooperatorDictionary[@"fullname"] forKey:@"userFullname"];
                                 GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
                                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                                 UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];

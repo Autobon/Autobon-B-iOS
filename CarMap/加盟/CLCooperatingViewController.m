@@ -18,6 +18,14 @@
 
 @implementation CLCooperatingViewController
 
+- (UILabel *)setLabel{
+    if (_setLabel == nil) {
+        _setLabel = [[UILabel alloc]init];
+    }
+    return _setLabel;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -44,8 +52,8 @@
     settingLabel.text = @"加盟状态：";
     [scrollView addSubview:settingLabel];
     
-    _setLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 20, 100, 30)];
-    _setLabel.text = @"正在审核";
+    _setLabel.frame = CGRectMake(100, 20, 100, 30);
+//    _setLabel.text = @"正在审核";
     _setLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     _setLabel.textAlignment = NSTextAlignmentLeft;
     [scrollView addSubview:_setLabel];

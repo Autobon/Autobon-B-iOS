@@ -590,9 +590,121 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
 }
 
 
+#pragma mark - 获取商户订单数
++ (void)postOrderCountsuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"获取中..."];
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/orderCount",HOST];
+        
+        
+        [manager POST:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+            [alertView remove];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [alertView remove];
+            if(failure) {
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+    
+    
+}
 
 
+#pragma mark - 查询所有业务员
++ (void)postGetSaleListSuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    if ([GFHttpTool isConnectionAvailable]) {
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"获取中..."];
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/getSaleList",HOST];
+        
+        
+        [manager POST:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+            [alertView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [alertView removeFromSuperview];
+            if(failure) {
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
 
+#pragma mark - 移除业务员
++ (void)postSaleFiredDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    if ([GFHttpTool isConnectionAvailable]) {
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"移除中..."];
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/saleFired",HOST];
+        
+        
+        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+            [alertView remove];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [alertView remove];
+            if(failure) {
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 增加业务员
++ (void)postAddAccountDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    if ([GFHttpTool isConnectionAvailable]) {
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"提交中..."];
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/addAccount",HOST];
+        
+        
+        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+            [alertView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [alertView removeFromSuperview];
+            if(failure) {
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
 
 
 

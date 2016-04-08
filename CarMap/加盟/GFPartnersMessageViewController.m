@@ -17,6 +17,7 @@
 #import "GFHttpTool.h"
 #import "GFTipView.h"
 #import "CLCooperatingViewController.h"
+#import "CLWorkerModel.h"
 
 
 
@@ -76,7 +77,8 @@
     CGFloat msgLabX = kWidth * 0.083;
     CGFloat msgLabY = 0.0365 * kHeight;
     UILabel *msgLab = [[UILabel alloc] initWithFrame:CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH)];
-    msgLab.text = @"武汉英卡科技有限公司";
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    msgLab.text = [userDefaults objectForKey:@"userFullname"];
     msgLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     [baseView1 addSubview:msgLab];
     
@@ -95,11 +97,11 @@
     CGFloat muLabH = shuLabH;
     CGFloat muLabX = CGRectGetMaxX(shuLab.frame);
     CGFloat muLabY = shuLabY;
-    UILabel *muLab = [[UILabel alloc] initWithFrame:CGRectMake(muLabX, muLabY, muLabW, muLabH)];
-    muLab.text = @"200";
-    muLab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
-    muLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-    [baseView1 addSubview:muLab];
+    _muLab.frame = CGRectMake(muLabX, muLabY, muLabW, muLabH);
+//    _muLab.text = @"200";
+    _muLab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    _muLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    [baseView1 addSubview:_muLab];
     
     // 边线
     UIView *lineView4 = [[UIView alloc] initWithFrame:CGRectMake(0, baseView1H, kWidth, 1)];
@@ -299,11 +301,14 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             
-            CLCooperatingViewController *cooperatingView = [[CLCooperatingViewController alloc]init];
+            GFJoinInViewController_1 *cooperatingView = [[GFJoinInViewController_1 alloc]init];
+            
+//            CLCooperatingViewController *cooperatingView = [[CLCooperatingViewController alloc]init];
             
             if (![dataDictionary isKindOfClass:[NSNull class]]) {
-                cooperatingView.dataDictionary = dataDictionary;
-                cooperatingView.setLabel.text = @"审核成功";
+                cooperatingView.dataForPastDictionary = dataDictionary;
+//                cooperatingView.setLabel.text = @"审核成功";
+                
             }
             
             [self.navigationController pushViewController:cooperatingView animated:YES];
@@ -335,8 +340,37 @@
 #pragma mark - 业务员管理
 - (void)but3Click {
     
-    GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
-    [self.navigationController pushViewController:workerView animated:YES];
+    
+    [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
+//        NSLog(@"---查询业务员－－%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
+            NSArray *array = responseObject[@"data"];
+            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
+                worker.name = obj[@"name"];
+                worker.workerId = obj[@"id"];
+                
+                if ([obj[@"main"] integerValue] == 0) {
+                    worker.mainString = @"业务员";
+                }else{
+                    worker.mainString = @"管理员";
+                    worker.name = obj[@"shortname"];
+                }
+                [workerView.workerArray addObject:worker];
+            }];
+//            [_tableView reloadData];
+            
+            [self.navigationController pushViewController:workerView animated:YES];
+            
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self addAlertView:@"请求失败"];
+    }];
+    
+    
     
     NSLog(@"业务员管理");
 }
