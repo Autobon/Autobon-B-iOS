@@ -132,7 +132,7 @@
     [iconView addSubview:indentLab];
    
     // 订单数目
-    CGFloat numLabW = 100;
+    CGFloat numLabW = 30;
     CGFloat numLabH = indentLabH;
     CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
     CGFloat numLabY = indentLabY;
@@ -162,9 +162,9 @@
                 
                 CGFloat starImgViewW = nameLabH;
                 CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
-                CGFloat starImgViewY = nameLabY;
-                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * i;
+                //                CGFloat starImgViewY = nameLabY;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, numLabY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor redColor];
                 starImgView.image = [UIImage imageNamed:@"information"];
@@ -174,13 +174,13 @@
             
             
             // 灰色星星
-            for(int i=0; i < 5- round([dataDictionary[@"starRate"] floatValue]); i++) {
+            for(int i=0; i < 5-round([dataDictionary[@"starRate"] floatValue]); i++) {
                 
                 CGFloat starImgViewW = nameLabH;
                 CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
-                CGFloat starImgViewY = nameLabY;
-                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
+                //                CGFloat starImgViewY = nameLabY;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, numLabY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor greenColor];
                 starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
@@ -435,6 +435,7 @@
 }
 
 - (void)leftButClick {
+    
     if (_isPush) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{

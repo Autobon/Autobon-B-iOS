@@ -131,8 +131,16 @@
     if (indexPath.row == 0) {
         cell.rightBut.hidden = YES;
     }else{
-        cell.rightBut.tag = indexPath.row;
-        [cell.rightBut addTarget:self action:@selector(moveWorker:) forControlEvents:UIControlEventTouchUpInside];
+        if (worker.fired) {
+            cell.rightBut.userInteractionEnabled = NO;
+            cell.rightBut.alpha = 0.3;
+        }else{
+            
+            cell.rightBut.tag = indexPath.row;
+            cell.rightBut.userInteractionEnabled = YES;
+            [cell.rightBut addTarget:self action:@selector(moveWorker:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
     }
     return cell;
 
@@ -180,7 +188,8 @@
     [GFHttpTool postSaleFiredDictionary:@{@"coopAccountId":worker.workerId} success:^(id responseObject) {
         NSLog(@"----responseObject---%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
-            [_workerArray removeObject:worker];
+//            [_workerArray removeObject:worker];
+            worker.fired = YES;
             [_tableView reloadData];
         }else{
             [self addAlertView:responseObject[@"message"]];

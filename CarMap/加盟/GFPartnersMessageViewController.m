@@ -301,13 +301,14 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             
-            GFJoinInViewController_1 *cooperatingView = [[GFJoinInViewController_1 alloc]init];
+//            GFJoinInViewController_1 *cooperatingView = [[GFJoinInViewController_1 alloc]init];
             
-//            CLCooperatingViewController *cooperatingView = [[CLCooperatingViewController alloc]init];
+            CLCooperatingViewController *cooperatingView = [[CLCooperatingViewController alloc]init];
             
             if (![dataDictionary isKindOfClass:[NSNull class]]) {
-                cooperatingView.dataForPastDictionary = dataDictionary;
-//                cooperatingView.setLabel.text = @"审核成功";
+//                cooperatingView.dataForPastDictionary = dataDictionary;
+                cooperatingView.dataDictionary = dataDictionary;
+                cooperatingView.setLabel.text = @"审核成功";
                 
             }
             
@@ -342,7 +343,7 @@
     
     
     [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-//        NSLog(@"---查询业务员－－%@--",responseObject);
+        NSLog(@"---查询业务员－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
             NSArray *array = responseObject[@"data"];
@@ -350,7 +351,7 @@
                 CLWorkerModel *worker = [[CLWorkerModel alloc]init];
                 worker.name = obj[@"name"];
                 worker.workerId = obj[@"id"];
-                
+                worker.fired = [obj[@"fired"] integerValue];
                 if ([obj[@"main"] integerValue] == 0) {
                     worker.mainString = @"业务员";
                 }else{

@@ -413,6 +413,7 @@
     
     GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
     evaluateView.orderId = model.orderId;
+    evaluateView.isPush = YES;
     [self.navigationController pushViewController:evaluateView animated:YES];
     
 }

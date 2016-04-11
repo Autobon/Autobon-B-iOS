@@ -76,7 +76,6 @@
 		9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
 		9B9C9B551CA50EA800F5255B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C9B541CA50EA800F5255B /* Icon.png */; };
-		9B9FE9D81CA378C600231747 /* servicedelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = 9B9FE9D71CA378C600231747 /* servicedelegate.html */; };
 		9B9FE9DB1CA378D500231747 /* CLDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */; };
 		9B9FE9DF1CA37A1300231747 /* UWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DD1CA37A1300231747 /* UWDatePickerView.m */; };
 		9B9FE9E01CA37A1300231747 /* UWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DE1CA37A1300231747 /* UWDatePickerView.xib */; };
@@ -98,6 +97,7 @@
 		9B9FEA121CA3EEC000231747 /* CLIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FEA111CA3EEC000231747 /* CLIndentModel.m */; };
 		9BA71D9A1CA91B94006EA500 /* GFIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA71D991CA91B94006EA500 /* GFIndentModel.m */; };
 		9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B02AF661C5A22CB0044FB71 /* StoreKit.framework */; };
+		9BBA2BCE1CBB70D100543004 /* servicedelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = 9BBA2BCD1CBB70D100543004 /* servicedelegate.html */; };
 		9BD218D21CB74F130093621A /* CLWorkerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD218D11CB74F130093621A /* CLWorkerModel.m */; };
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
@@ -258,7 +258,6 @@
 		9B9754561C5765B3004BDC7C /* CarMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarMapUITests.m; sourceTree = "<group>"; };
 		9B9754581C5765B3004BDC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B9C9B541CA50EA800F5255B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		9B9FE9D71CA378C600231747 /* servicedelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = servicedelegate.html; sourceTree = "<group>"; };
 		9B9FE9D91CA378D500231747 /* CLDelegateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLDelegateViewController.h; sourceTree = "<group>"; };
 		9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDelegateViewController.m; sourceTree = "<group>"; };
 		9B9FE9DC1CA37A1300231747 /* UWDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWDatePickerView.h; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 		9B9FEA111CA3EEC000231747 /* CLIndentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIndentModel.m; sourceTree = "<group>"; };
 		9BA71D981CA91B94006EA500 /* GFIndentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFIndentModel.h; sourceTree = "<group>"; };
 		9BA71D991CA91B94006EA500 /* GFIndentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentModel.m; sourceTree = "<group>"; };
+		9BBA2BCD1CBB70D100543004 /* servicedelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = servicedelegate.html; sourceTree = "<group>"; };
 		9BD218D01CB74F130093621A /* CLWorkerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLWorkerModel.h; sourceTree = "<group>"; };
 		9BD218D11CB74F130093621A /* CLWorkerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLWorkerModel.m; sourceTree = "<group>"; };
 		9BDD16241C9BF27B0017E8E9 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
@@ -690,9 +690,9 @@
 				9B9FE9E11CA38E1000231747 /* SDWebImage */,
 				9B9754451C5765B3004BDC7C /* Main.storyboard */,
 				9B9515441C6089A200445F93 /* PrefixHeader.pch */,
+				9BBA2BCD1CBB70D100543004 /* servicedelegate.html */,
 				9B9754481C5765B3004BDC7C /* Assets.xcassets */,
 				9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */,
-				9B9FE9D71CA378C600231747 /* servicedelegate.html */,
 				9B9C9B541CA50EA800F5255B /* Icon.png */,
 				9BDD16241C9BF27B0017E8E9 /* address.plist */,
 				9B97544D1C5765B3004BDC7C /* Info.plist */,
@@ -852,11 +852,11 @@
 				9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */,
 				9B9FE9E01CA37A1300231747 /* UWDatePickerView.xib in Resources */,
 				9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */,
+				9BBA2BCE1CBB70D100543004 /* servicedelegate.html in Resources */,
 				9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */,
 				9B9C9B551CA50EA800F5255B /* Icon.png in Resources */,
 				9B6757321C97CAC70001C478 /* MJRefresh.bundle in Resources */,
 				9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */,
-				9B9FE9D81CA378C600231747 /* servicedelegate.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -293,7 +293,7 @@
     [iconView addSubview:indentLab];
     
     // 订单数目
-    CGFloat numLabW = 100;
+    CGFloat numLabW = 30;
     CGFloat numLabH = indentLabH;
     CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
     CGFloat numLabY = indentLabY;
@@ -312,8 +312,8 @@
             [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             nameLab.text = technicianDictionary[@"name"];
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
-            
-            
+//            numLab.text = @"999";
+//            numLab.backgroundColor = [UIColor redColor];
             
             
             // 橘色星星
@@ -321,9 +321,9 @@
                 
                 CGFloat starImgViewW = nameLabH;
                 CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
-                CGFloat starImgViewY = nameLabY;
-                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * i;
+//                CGFloat starImgViewY = nameLabY;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, numLabY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor redColor];
                 starImgView.image = [UIImage imageNamed:@"information"];
@@ -337,9 +337,9 @@
                 
                 CGFloat starImgViewW = nameLabH;
                 CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
-                CGFloat starImgViewY = nameLabY;
-                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
+//                CGFloat starImgViewY = nameLabY;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, numLabY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor greenColor];
                 starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
@@ -463,6 +463,7 @@
     GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
     
     evaluateView.orderId = _model.orderId;
+    evaluateView.isPush = YES;
     [self.navigationController pushViewController:evaluateView animated:YES];
     
     

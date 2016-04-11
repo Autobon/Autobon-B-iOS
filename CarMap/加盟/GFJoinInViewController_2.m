@@ -327,8 +327,8 @@
         if (self.payNumTxt.text.length == 0) {
             [self addAlertView:@"请填写纳税识别号"];
         }else{
-            if (self.postNumTxt.text.length == 0) {
-                [self addAlertView:@"邮政编码"];
+            if (self.postNumTxt.text.length != 6) {
+                [self addAlertView:@"请输入邮政编码"];
             }else{
                 if (!_shengString) {
                     [self addAlertView:@"请选择省份"];

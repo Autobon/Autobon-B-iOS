@@ -114,7 +114,7 @@
     _geocodesearch = [[BMKGeoCodeSearch alloc]init];
     _geocodesearch.delegate = self;
     
-    [self onClickReverseGeocode];
+    
 //    [self onClickGeocode];
 }
 
@@ -144,9 +144,9 @@
     
     // 技师大头针
     self.workerPointAnno = [[GFAnnotation alloc] init];
-    self.workerPointAnno.title = @"我是技师";
-    self.workerPointAnno.subtitle = @"天赐我一个单吧";
-    self.workerPointAnno.iconImgName = @"me-1";
+//    self.workerPointAnno.title = @"我是技师";
+//    self.workerPointAnno.subtitle = @"天赐我一个单吧";
+//    self.workerPointAnno.iconImgName = @"me-1";
     [_mapView addAnnotation:self.workerPointAnno];
     
     
@@ -163,27 +163,27 @@
     [self.locationService startUserLocationService];
     self.locationService.allowsBackgroundLocationUpdates = NO;
     self.locationService.pausesLocationUpdatesAutomatically = YES;
-    [self.locationService stopUserLocationService];
+    
 }
 
 
 
 -(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-    [_mapView removeAnnotations:array];
-    array = [NSArray arrayWithArray:_mapView.overlays];
-    [_mapView removeOverlays:array];
+//    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+//    [_mapView removeAnnotations:array];
+//    array = [NSArray arrayWithArray:_mapView.overlays];
+//    [_mapView removeOverlays:array];
     if (error == 0) {
-        BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-        item.coordinate = result.location;
-        item.title = result.address;
-        [_mapView addAnnotation:item];
+//        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
+        _workerPointAnno.coordinate = result.location;
+        _workerPointAnno.title = result.address;
+//        [_mapView addAnnotation:_workerPointAnno];
         _mapView.centerCoordinate = result.location;
         NSString* titleStr;
         NSString* showmeg;
         titleStr = @"反向地理编码";
-        showmeg = [NSString stringWithFormat:@"%@",item.title];
+        showmeg = [NSString stringWithFormat:@"%@",_workerPointAnno.title];
         
         NSLog(@"看看字典－－_dataDictionary--%@-",_dataDictionary);
         
@@ -201,12 +201,12 @@
 
 
 
--(void)onClickReverseGeocode
+-(void)onClickReverseGeocode:(CLLocationCoordinate2D )location
 {
     
-    CLLocationCoordinate2D pt = (CLLocationCoordinate2D){0, 0};
+    CLLocationCoordinate2D pt = location;
     
-    pt = (CLLocationCoordinate2D){30.481069601885,114.40935018074};
+//    pt = (CLLocationCoordinate2D){30.481069601885,114.40935018074};
     
     BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
     reverseGeocodeSearchOption.reverseGeoPoint = pt;
@@ -231,16 +231,16 @@
     array = [NSArray arrayWithArray:_mapView.overlays];
     [_mapView removeOverlays:array];
     if (error == 0) {
-        BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
-        item.coordinate = result.location;
-        item.title = result.address;
-        [_mapView addAnnotation:item];
+//        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
+        _workerPointAnno.coordinate = result.location;
+        _workerPointAnno.title = result.address;
+        [_mapView addAnnotation:_workerPointAnno];
         _mapView.centerCoordinate = result.location;
         NSString* titleStr;
         NSString* showmeg;
         
         titleStr = @"正向地理编码";
-        showmeg = [NSString stringWithFormat:@"经度:%f,纬度:%f",item.coordinate.latitude,item.coordinate.longitude];
+        showmeg = [NSString stringWithFormat:@"经度:%f,纬度:%f",_workerPointAnno.coordinate.latitude,_workerPointAnno.coordinate.longitude];
         
         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
         [myAlertView show];
@@ -276,6 +276,9 @@
 
     _mapView.centerCoordinate = userLocation.location.coordinate;
     self.workerPointAnno.coordinate = userLocation.location.coordinate;
+    [self onClickReverseGeocode:self.workerPointAnno.coordinate];
+    NSLog(@"更新用户位置");
+    [self.locationService stopUserLocationService];
 //    [_mapView updateLocationData:userLocation];
 }
 
@@ -374,6 +377,36 @@
 //    
 //    return nil;
 //}
+#pragma mark 底图手势操作
+/**
+ *点中底图标注后会回调此接口
+ *@param mapview 地图View
+ *@param mapPoi 标注点信息
+ */
+//- (void)mapView:(BMKMapView *)mapView onClickedMapPoi:(BMKMapPoi*)mapPoi
+//{
+//    NSLog(@"onClickedMapPoi-%@",mapPoi.text);
+//    NSString* showmeg = [NSString stringWithFormat:@"您点击了底图标注:%@,\r\n当前经度:%f,当前纬度:%f,\r\nZoomLevel=%d;RotateAngle=%d;OverlookAngle=%d", mapPoi.text,mapPoi.pt.longitude,mapPoi.pt.latitude, (int)_mapView.zoomLevel,_mapView.rotation,_mapView.overlooking];
+//    NSLog(@"---showmeg----%@---",showmeg);
+//    _showMsgLabel.text = showmeg;
+//}
+/**
+ *点中底图空白处会回调此接口
+ *@param mapview 地图View
+ *@param coordinate 空白处坐标点的经纬度
+ */
+#pragma mark - 单机地图调用的接口
+- (void)mapView:(BMKMapView *)mapView onClickedMapBlank:(CLLocationCoordinate2D)coordinate
+{
+    NSLog(@"onClickedMapBlank-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+    NSString* showmeg = [NSString stringWithFormat:@"您点击了地图空白处(blank click).\r\n当前经度:%f,当前纬度:%f,\r\nZoomLevel=%d;RotateAngle=%d;OverlookAngle=%d", coordinate.longitude,coordinate.latitude,
+                         (int)_mapView.zoomLevel,_mapView.rotation,_mapView.overlooking];
+    NSLog(@"---showmeg-点击空白处---%@---",showmeg);
+    _mapView.centerCoordinate = coordinate;
+    self.workerPointAnno.coordinate = coordinate;
+    
+    [self onClickReverseGeocode:self.workerPointAnno.coordinate];
+}
 
 
 //#pragma mark -

@@ -17,7 +17,7 @@
 #import "CLTouchScrollView.h"
 
 
-@interface GFJoinInViewController_1 ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+@interface GFJoinInViewController_1 ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -117,14 +117,20 @@
     
     // 营业执照号
     self.zhizhaohaoTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.yingyeNameTxt.frame) + jiange2 withPlaceholder:@"营业执照号"];
+    self.zhizhaohaoTxt.delegate = self;
+    self.zhizhaohaoTxt.tag = 2;
+    self.zhizhaohaoTxt.keyboardType = UIKeyboardTypeNumberPad;
     [self.scrollerView addSubview:self.zhizhaohaoTxt];
     
     // 法人姓名
     self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.zhizhaohaoTxt.frame) + jiange2 withPlaceholder:@"法人姓名"];
+    self.nameTxt.delegate = self;
+    self.nameTxt.tag = 3;
     [self.scrollerView addSubview:self.nameTxt];
     
     // 法人身份证号
     self.idCardTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.nameTxt.frame) + jiange2 withPlaceholder:@"法人身份证号"];
+    self.idCardTxt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     [self.scrollerView addSubview:self.idCardTxt];
     
     // 上传营业执照副本
@@ -384,6 +390,43 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSLog(@"---%@--",@(range.length));
+    
+    if (textField.tag == 2) {
+        
+        
+        
+        if (textField.text.length>14 && range.length==0) {
+            return NO;
+            
+        }else{
+            return [self isNumber:string];
+        }
+    }else if (textField.tag == 3){
+        if (textField.text.length>9 && range.length==0) {
+            return NO;
+            
+        }
+    }
+    
+    return YES;
+}
+- (BOOL)isNumber:(NSString *)string{
+    
+    BOOL flag;
+    if (string.length <= 0) {
+        flag = YES;
+        return flag;
+    }
+    NSString *regex2 = @"^[0-9]*$";
+    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex2];
+    return [identityCardPredicate evaluateWithObject:string];
+    
+    
+    return YES;
+}
 
 #pragma mark - 下一步
 - (void)nextButClick {
@@ -395,14 +438,14 @@
     if (_yingyeNameTxt.text.length == 0) {
         [self addAlertView:@"请填写营业执照的工商注册名称"];
     }else{
-        if (_zhizhaohaoTxt.text.length == 0) {
-            [self addAlertView:@"请输入营业执照号"];
+        if (_zhizhaohaoTxt.text.length != 15) {
+            [self addAlertView:@"请输入正确的营业执照号"];
         }else{
             if (_nameTxt.text.length == 0) {
                 [self addAlertView:@"请输入法人姓名"];
             }else{
                 if (![self validateIdentityCard:_idCardTxt.text]) {
-                    [self addAlertView:@"请输入法人身份证号"];
+                    [self addAlertView:@"请输入正确的身份证号"];
                 }else{
                     if (_isUpCertificate) {
                         if (_isUpidImageView) {

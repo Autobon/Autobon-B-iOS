@@ -81,7 +81,7 @@
         [self.baseView addSubview:self.lab2];
         
         // 技师按钮
-        CGFloat workerButW = kWidth * 0.185;
+        CGFloat workerButW = kWidth * 0.285;
         CGFloat workerButH = kHeight * 0.042;
         CGFloat workerButX = kWidth - jianjv1 - workerButW;
         CGFloat workerButY = kHeight * 0.026 + CGRectGetMaxY(indentView.frame);

@@ -13,5 +13,5 @@
 @property (nonatomic ,strong) NSString *name;
 @property (nonatomic ,strong) NSString *mainString;
 @property (nonatomic ,strong) NSString *workerId;
-
+@property (nonatomic) BOOL fired;
 @end

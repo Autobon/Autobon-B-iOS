@@ -129,7 +129,7 @@
     if (self.oldPwdTxt.text.length == 0) {
         [self addAlertView:@"请输入旧密码"];
     }else{
-        if ([self isPassword:self.oldPwdTxt.text]) {
+        if ([self isPassword:self.oldPwdTxt.text] ||[self.oldPwdTxt.text isEqualToString:@"123456"]) {
             if (self.xinPwdtxt.text.length == 0) {
                 [self addAlertView:@"请输入新密码"];
             }else{
