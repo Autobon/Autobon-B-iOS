@@ -705,6 +705,7 @@
         CGFloat nameLabX = jianjv2;
         CGFloat nameLabY = CGRectGetMaxY(iconImgView.frame) + 2;
         UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX+50, nameLabY+10, nameLabW, nameLabH)];
+        nameLab.center = CGPointMake(iconImgView.center.x, nameLab.center.y);
         nameLab.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
         nameLab.text = nameStr;
         [baseView addSubview:nameLab];

@@ -55,7 +55,6 @@
     [self registerUserNotification];
     
     
-    
     [UMSocialData setAppKey:@"564d41b4e0f55a596d003fe4"];
     
     

@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     NSLog(@"----———_data POI---%@--",_dataForPastDictionary);
     
     // 导航栏

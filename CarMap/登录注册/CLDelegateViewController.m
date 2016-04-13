@@ -31,7 +31,7 @@
     
     
     
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(-20, 44, self.view.frame.size.width+40, self.view.frame.size.height- 44)];
+    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height- 44)];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"servicedelegate" ofType:@"html"];
     NSURL* url = [NSURL fileURLWithPath:path];
     NSURLRequest* request = [NSURLRequest requestWithURL:url] ;

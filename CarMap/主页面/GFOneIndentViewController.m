@@ -235,6 +235,7 @@
 //    self.imgView.backgroundColor = [UIColor redColor];
 //    self.imgView.image = [UIImage imageNamed:@"orderImage"];
     [self.imgView setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+    self.imgView.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.baseView addSubview:self.imgView];
     
     UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -488,7 +489,7 @@
             
             [GFHttpTool postOneIndentDictionary:_dataDictionary success:^(NSDictionary *responseObject) {
                 if ([responseObject[@"result"] integerValue] == 1) {
-                    [self.imgView setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+                    [self.imgView setImage:nil forState:UIControlStateNormal];
                     _txtView.text = @"订单备注";
                     _txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
                     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -575,7 +576,7 @@
     }];
     
     
-    [self.imgView setBackgroundImage:image forState:UIControlStateNormal];
+    [self.imgView setImage:image forState:UIControlStateNormal];
     
 }
 

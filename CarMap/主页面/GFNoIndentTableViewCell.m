@@ -108,6 +108,7 @@
         CGFloat imageViewY = CGRectGetMaxY(lineView1.frame) + jiange3;
         self.indentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
 //        self.indentImgView.backgroundColor = [UIColor redColor];
+        _indentImgView.contentMode = UIViewContentModeScaleAspectFit;
         self.indentImgView.image = [UIImage imageNamed:@"orderImage"];
         [self.baseView addSubview:self.indentImgView];
         

@@ -78,6 +78,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
 //    NSDictionary *addressDictionary = []
     
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"address" ofType:@"plist"];
