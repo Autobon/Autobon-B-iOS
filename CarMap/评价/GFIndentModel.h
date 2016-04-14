@@ -20,6 +20,6 @@
 @property (nonatomic, strong) NSDictionary *commentDictionary;     // 评论字典
 @property (nonatomic ,strong) NSDictionary *mainTechDictionary;    // 主技师字典
 @property (nonatomic ,strong) NSDictionary *secondTechDictionary;  // 次技师字典
-
+@property (nonatomic ,strong) NSString *status;
 
 @end

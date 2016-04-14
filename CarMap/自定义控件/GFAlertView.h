@@ -36,6 +36,7 @@
 // 延迟移除进度条
 - (void)remove;
 
-
+// 商户平台通知
+- (instancetype)initWithTitleString:(NSString *)title withTipMessage:(NSString *)tipMessageStr withButtonNameArray:(NSArray *)buttonArray;
 
 @end

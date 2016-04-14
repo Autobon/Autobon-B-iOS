@@ -105,9 +105,9 @@
     NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
     nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
-    CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
-    CGFloat nameLabW = nameRect.size.width;
-    CGFloat nameLabH = nameRect.size.height;
+//    CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
+    CGFloat nameLabW = 200;
+    CGFloat nameLabH = 20;
     CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
     CGFloat nameLabY = kHeight * 0.04;
     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];

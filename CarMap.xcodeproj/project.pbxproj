@@ -77,6 +77,9 @@
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
+		9B9B45A51CBF700400D0F507 /* GFTransformTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45A21CBF700400D0F507 /* GFTransformTableViewCell.m */; };
+		9B9B45A91CBF70B300D0F507 /* CLNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */; };
+		9B9B45AC1CBF78B400D0F507 /* GFTransformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */; };
 		9B9C9B551CA50EA800F5255B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C9B541CA50EA800F5255B /* Icon.png */; };
 		9B9FE9DB1CA378D500231747 /* CLDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */; };
 		9B9FE9DF1CA37A1300231747 /* UWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DD1CA37A1300231747 /* UWDatePickerView.m */; };
@@ -261,6 +264,12 @@
 		9B9754521C5765B3004BDC7C /* CarMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B9754561C5765B3004BDC7C /* CarMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarMapUITests.m; sourceTree = "<group>"; };
 		9B9754581C5765B3004BDC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B9B45A11CBF700400D0F507 /* GFTransformTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTransformTableViewCell.h; sourceTree = "<group>"; };
+		9B9B45A21CBF700400D0F507 /* GFTransformTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTransformTableViewCell.m; sourceTree = "<group>"; };
+		9B9B45A71CBF70B300D0F507 /* CLNotificationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLNotificationModel.h; sourceTree = "<group>"; };
+		9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLNotificationModel.m; sourceTree = "<group>"; };
+		9B9B45AA1CBF78B400D0F507 /* GFTransformViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTransformViewController.h; sourceTree = "<group>"; };
+		9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTransformViewController.m; sourceTree = "<group>"; };
 		9B9C9B541CA50EA800F5255B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		9B9FE9D91CA378D500231747 /* CLDelegateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLDelegateViewController.h; sourceTree = "<group>"; };
 		9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDelegateViewController.m; sourceTree = "<group>"; };
@@ -585,6 +594,12 @@
 				9B6B6E911C9A485B00449259 /* GFJoinInViewController_2.m */,
 				9B6B6E921C9A485B00449259 /* GFPartnersMessageViewController.h */,
 				9B6B6E931C9A485B00449259 /* GFPartnersMessageViewController.m */,
+				9B9B45AA1CBF78B400D0F507 /* GFTransformViewController.h */,
+				9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */,
+				9B9B45A11CBF700400D0F507 /* GFTransformTableViewCell.h */,
+				9B9B45A21CBF700400D0F507 /* GFTransformTableViewCell.m */,
+				9B9B45A71CBF70B300D0F507 /* CLNotificationModel.h */,
+				9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */,
 				9B5EBEE61CBDEE3B00E753BF /* ACETelPrompt.h */,
 				9B5EBEE71CBDEE3B00E753BF /* ACETelPrompt.m */,
 				9B5FBC251CAE582E00A0BF96 /* PoiSearchDemoViewController.h */,
@@ -933,6 +948,7 @@
 				9B6B6E3B1C9A452C00449259 /* FirstViewController.m in Sources */,
 				9B6757371C97CAFE0001C478 /* GFAlertView.m in Sources */,
 				9B6757291C97CAC70001C478 /* MJRefreshAutoGifFooter.m in Sources */,
+				9B9B45A91CBF70B300D0F507 /* CLNotificationModel.m in Sources */,
 				9B6B6E981C9A485B00449259 /* GFIWillAddViewController.m in Sources */,
 				9B9FEA001CA38E1000231747 /* SDImageCache.m in Sources */,
 				9B6B6E471C9A466D00449259 /* GFNoIndentViewController.m in Sources */,
@@ -942,6 +958,7 @@
 				9B6B6EBA1C9A4B6400449259 /* GFChangePwdViewController.m in Sources */,
 				9BD218D21CB74F130093621A /* CLWorkerModel.m in Sources */,
 				9B67572E1C97CAC70001C478 /* MJRefreshBackStateFooter.m in Sources */,
+				9B9B45AC1CBF78B400D0F507 /* GFTransformViewController.m in Sources */,
 				9B6757361C97CAC70001C478 /* UIView+MJExtension.m in Sources */,
 				9B6757271C97CAC70001C478 /* MJRefreshFooter.m in Sources */,
 				9B5FBC261CAE582E00A0BF96 /* PoiSearchDemoViewController.mm in Sources */,
@@ -974,6 +991,7 @@
 				9B6B6ECC1C9A4BAC00449259 /* GFIndentTableViewCell.m in Sources */,
 				9B6757351C97CAC70001C478 /* UIScrollView+MJRefresh.m in Sources */,
 				9B67572D1C97CAC70001C478 /* MJRefreshBackNormalFooter.m in Sources */,
+				9B9B45A51CBF700400D0F507 /* GFTransformTableViewCell.m in Sources */,
 				9B6757251C97CAC70001C478 /* MJRefreshBackFooter.m in Sources */,
 				9B67572F1C97CAC70001C478 /* MJRefreshGifHeader.m in Sources */,
 				9B6B6EAF1C9A4B1400449259 /* GFWorkerTableViewCell.m in Sources */,

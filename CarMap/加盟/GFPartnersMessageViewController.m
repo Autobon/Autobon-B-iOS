@@ -19,7 +19,7 @@
 #import "CLCooperatingViewController.h"
 #import "CLWorkerModel.h"
 #import "ACETelPrompt.h"
-
+#import "GFTransformViewController.h"
 
 
 
@@ -129,20 +129,25 @@
     [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 3 + kHeight * 0.078 * 2 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:but3];
     
     
+    //通知列表
+    UIButton *notificationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    notificationBtn.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [notificationBtn addTarget:self action:@selector(notificationBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
     
     
-    // 车邻班专职客服电话
+    // 修改密码
     UIButton *but4 = [UIButton buttonWithType:UIButtonTypeCustom];
     but4.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [but4 addTarget:self action:@selector(but4Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:but4];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:but4];
     
     
     // 车邻班专职客服电话
     UIButton *but5 = [UIButton buttonWithType:UIButtonTypeCustom];
     but5.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [but5 addTarget:self action:@selector(but5Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"person-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:but5];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"person-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:but5];
     
     // 退出登录
     CGFloat exitViewW = kWidth;
@@ -376,6 +381,15 @@
     
     
     NSLog(@"业务员管理");
+}
+
+
+#pragma mark - 消息中心
+- (void)notificationBtnClick{
+    
+    GFTransformViewController *transformView = [[GFTransformViewController alloc]init];
+    [self.navigationController pushViewController:transformView animated:YES];
+    
 }
 
 

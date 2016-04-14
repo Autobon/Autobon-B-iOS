@@ -23,6 +23,7 @@
 #import "GFEvaluateViewController.h"
 #import "GFAlertView.h"
 #import "SecondViewController.h"
+#import "GFOneIndentViewController.h"
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
@@ -37,6 +38,7 @@
 //    ViewController *_firstView;
     UINavigationController *_navigation;
     NSDate *_pushDate;
+    GFAlertView *_alertView;
 }
 @end
 
@@ -232,7 +234,7 @@
     if (!offLine) {
         NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-        
+        NSLog(@"responseJSON----%@--",responseJSON);
         
         if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
             UILocalNotification*notification = [[UILocalNotification alloc] init];
@@ -246,35 +248,31 @@
                 AudioServicesPlaySystemSound(1307);
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
+        }else if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+            _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
+            [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            _alertView.okBut.tag = [responseJSON[@"id"] integerValue];
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            [window addSubview:_alertView];
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+        }else if ([responseJSON[@"action"]isEqualToString:@"NEW_MESSAGE"]){
+            NSDictionary *messageDictionary = responseJSON[@"message"];
+            
+            _alertView = [[GFAlertView alloc]initWithTitleString:messageDictionary[@"title"] withTipMessage:messageDictionary[@"content"] withButtonNameArray:@[@"确定"]];
+
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            [window addSubview:_alertView];
+            
         }
-//        }else if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
-//            GFAlertView *alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价" withButtonNameArray:@[@"立即评价"]];
-//            [alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//            alertView.okBut.tag = [responseJSON[@"id"] integerValue];
-//            UIWindow *window = [UIApplication sharedApplication].delegate.window;
-//            [window addSubview:alertView];
-//            
-//            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
-//        }
-        
+    
     }else{
         NSLog(@"离线消息不接受");
     }
     
-    NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-    NSLog(@"----responseJSON----%@--",responseJSON);
-    if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
-        AudioServicesPlaySystemSound(1307);
-        GFAlertView *alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
-        [alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        alertView.okBut.tag = [responseJSON[@"id"] integerValue];
-        UIWindow *window = [UIApplication sharedApplication].delegate.window;
-        [window addSubview:alertView];
-     
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
-    }
 }
+
+
 
 - (void)judgeBtnClick:(UIButton *)button{
     NSLog(@"立即评价按钮");
@@ -306,11 +304,36 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"通知消息" forKey:@"title"];
     completionHandler(UIBackgroundFetchResultNewData);
-//    [UIApplication sharedApplication].scheduledLocalNotifications = ln;
-//    UILocalNotification* ln = [[UILocalNotification alloc] init];
-//    ln.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
-//    [[UIApplication sharedApplication] scheduleLocalNotification:ln];
-//    NSLog(@"方法运行了");
+    NSData *JSONData = [userInfo[@"json"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+    NSLog(@"----responseJSON----%@--",responseJSON);
+    if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+//        AudioServicesPlaySystemSound(1307);
+        
+        GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+        navigation.navigationBarHidden = YES;
+        window.rootViewController = navigation;
+        _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
+        [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _alertView.okBut.tag = [responseJSON[@"id"] integerValue];
+        
+        [window addSubview:_alertView];
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+    }else if ([responseJSON[@"action"]isEqualToString:@"NEW_MESSAGE"]){
+        NSDictionary *messageDictionary = responseJSON[@"message"];
+        
+        _alertView = [[GFAlertView alloc]initWithTitleString:messageDictionary[@"title"] withTipMessage:messageDictionary[@"content"] withButtonNameArray:@[@"确定"]];
+        
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        [window addSubview:_alertView];
+        
+    }
+    
+    
+    
 
 }
 

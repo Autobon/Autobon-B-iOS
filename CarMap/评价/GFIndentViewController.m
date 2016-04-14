@@ -232,7 +232,7 @@
                 
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
-                
+                model.status = obj[@"status"];
                 [_dataArray addObject:model];
                 
                 //                if ([obj[@"secondConstruct"]isKindOfClass:[NSNull class]]) {
@@ -315,6 +315,7 @@
 //                NSLog(@"---time-%@---signin--%@---",obj[@"addTime"],model.signinTime);
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
+                model.status = obj[@"status"];
                 [_dataArray addObject:model];
                 
 //                if ([obj[@"secondConstruct"]isKindOfClass:[NSNull class]]) {
@@ -410,11 +411,16 @@
 #pragma mark - 去评价按钮
 - (void)judgeBtnClick:(UIButton *)button{
     GFIndentModel *model = _dataArray[button.tag];
+    if ([model.status isEqualToString:@"EXPIRED"]) {
+        [self addAlertView:@"订单已超时"];
+    }else{
+        GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+        evaluateView.orderId = model.orderId;
+        evaluateView.isPush = YES;
+        [self.navigationController pushViewController:evaluateView animated:YES];
+    }
     
-    GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
-    evaluateView.orderId = model.orderId;
-    evaluateView.isPush = YES;
-    [self.navigationController pushViewController:evaluateView animated:YES];
+    
     
 }
 
@@ -430,11 +436,16 @@
     
 //    [GFTipView tipViewWithHeight:2 withTipViewMessage:@"gsag"];
 
-    GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
-    
-    indentDeVC.model = _dataArray[indexPath.row];
-    
-    [self.navigationController pushViewController:indentDeVC animated:YES];
+    GFIndentModel *model = _dataArray[indexPath.row];
+    if ([model.status isEqualToString:@"EXPIRED"]) {
+        [self addAlertView:@"订单已超时"];
+    }else{
+        GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
+        
+        indentDeVC.model = model;
+        [self.navigationController pushViewController:indentDeVC animated:YES];
+    }
+   
 }
 
 - (void)leftButClick {

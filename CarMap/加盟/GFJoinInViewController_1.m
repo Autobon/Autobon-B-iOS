@@ -95,6 +95,7 @@
     self.scrollerView.contentSize = CGSizeMake(0, 1000);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
     self.scrollerView.showsVerticalScrollIndicator = NO;
+//    self.scrollerView.delegate = self;
     [self.view addSubview:self.scrollerView];
     
     
@@ -163,6 +164,7 @@
     UIButton *certificateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     certificateBtn.frame = CGRectMake(CGRectGetMaxX(_certificateImage.frame)-15, CGRectGetMaxY(_certificateImage.frame)-15, 30, 30);
     [certificateBtn setBackgroundImage:[UIImage imageNamed:@"cameraUser"] forState:UIControlStateNormal];
+    _certificateImage.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [baseView1 addSubview:certificateBtn];
     _certificateImage.tag =1;
     certificateBtn.tag = 1;
@@ -205,7 +207,7 @@
     
     _idImageViewBtn.tag = 2;
     idImageBtn.tag = 2;
-    
+    _idImageViewBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [_idImageViewBtn addTarget:self action:@selector(cameraBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [idImageBtn addTarget:self action:@selector(cameraBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -230,9 +232,9 @@
             self.zhizhaohaoTxt.text = _dataForPastDictionary[@"businessLicense"];
             self.nameTxt.text = _dataForPastDictionary[@"corporationName"];
             self.idCardTxt.text = _dataForPastDictionary[@"corporationIdNo"];
-            [_certificateImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_certificateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
-            [_idImageViewBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_idImageViewBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"corporationIdPicA"];
             _isUpCertificate = YES;
             _isUpidImageView = YES;
@@ -255,7 +257,7 @@
     }else{
         _isCertificate = NO;
     }
-    
+    _scrollerView.userInteractionEnabled = NO;
     _chooseView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-100, 80)];
     _chooseView.center = self.view.center;
     _chooseView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -283,6 +285,7 @@
 #pragma mark - 选择照片
 - (void)imageChoose:(UIButton *)button{
     [_chooseView removeFromSuperview];
+    _scrollerView.userInteractionEnabled = YES;
 //    _scrollView.userInteractionEnabled = YES;
     if (button.tag == 1) {
         
@@ -316,7 +319,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
     [self dismissViewControllerAnimated:YES completion:nil];
     if (_isCertificate) {
-        [_certificateImage setBackgroundImage:image forState:UIControlStateNormal];
+        [_certificateImage setImage:image forState:UIControlStateNormal];
         CGSize imagesize;
         if (image.size.width > image.size.height) {
             imagesize.width = 800;
@@ -339,7 +342,7 @@
         }];
         
     }else{
-        [_idImageViewBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [_idImageViewBtn setImage:image forState:UIControlStateNormal];
         //        _haveIdentityImage = YES;
 //        _identityButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
@@ -504,6 +507,10 @@
     NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex2];
     return [identityCardPredicate evaluateWithObject:identityCard];
 }
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    [_chooseView removeFromSuperview];
+//}
 
 - (void)leftButClick {
     
