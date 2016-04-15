@@ -387,22 +387,20 @@
 
 - (void)getSelectDate:(NSString *)date type:(DateType)type {
     
-//    self.laterSetterTimeButton.selected =NO;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:MM"];
+//    NSDate *chooseDate = [formatter dateFromString:date];
+    NSInteger time = (NSInteger)[[formatter dateFromString:date] timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970] ;
+    if (time > 0) {
+        self.timeLab.text = date;
+        self.timeLab.textColor = [UIColor blackColor];
+    }else{
+        [self addAlertView:@"所选时间不合法"];
+    }
+
     
-    //即那个获取的时间复制给该全局变量，根据该全局变量或者选择时间按钮的标题来进行判断
-    self.timeLab.text = date;
-    self.timeLab.textColor = [UIColor blackColor];
-//    [self.setterTimeButton setTitle:date forState:UIControlStateNormal];
-    NSLog(@"----选择的时间－－－－%@---",date);
+    NSLog(@"----选择的时间－－－－%@--time---%@-",date,[formatter dateFromString:date]);
     
-//    switch (type) {
-//        case DateTypeOfStart:// TODO 日期确定选择
-//            break;
-//        case DateTypeOfEnd:// TODO 日期取消选择
-//            break;
-//        default:
-//            break;
-//    }
 }
 
 ////设置显示在按钮上的时间的格式

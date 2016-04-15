@@ -159,6 +159,7 @@
     CGFloat imgViewY = CGRectGetMaxY(self.timeLab.frame) + jiange1 + jiange2;
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
 //    imgView.backgroundColor = [UIColor redColor];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
     [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
     
     [baseView addSubview:imgView];

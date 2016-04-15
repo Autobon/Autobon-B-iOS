@@ -208,16 +208,16 @@
         // 提示标题
         CGFloat tipLabW = baseViewW;
         CGFloat tipLabH = 40 / 568.0 * kHeight;
-        CGFloat tipLabX = 25;
-        CGFloat tipLabY = 0;
-        CGRect tipRect = [title boundingRectWithSize:CGSizeMake(baseViewW-50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17 / 320.0 * kWidth]} context:nil];
+        CGFloat tipLabX = 0;
+        CGFloat tipLabY = 10;
+        CGRect tipRect = [title boundingRectWithSize:CGSizeMake(baseViewW-50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15 / 320.0 * kWidth]} context:nil];
         
-        UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW-50, tipRect.size.height)];
+        UILabel *tipLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX+25, tipLabY, tipLabW-50, tipRect.size.height)];
         tipLab.backgroundColor = [UIColor whiteColor];
         tipLab.numberOfLines = 0;
         tipLab.text = title;
         tipLab.textAlignment = NSTextAlignmentCenter;
-        tipLab.font = [UIFont systemFontOfSize:17 / 320.0 * kWidth];
+        tipLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
         [baseView addSubview:tipLab];
         tipLab.layer.cornerRadius = 7.5;
         //        tipLab.clipsToBounds = YES;
@@ -229,7 +229,7 @@
         CGFloat lineViewW = baseViewW;
         CGFloat lineViewH = 1;
         CGFloat lineViewX = 0;
-        CGFloat lineViewY = CGRectGetMaxY(tipLab.frame);
+        CGFloat lineViewY = CGRectGetMaxY(tipLab.frame)+10;
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(lineViewX, lineViewY, lineViewW, lineViewH)];
         lineView.backgroundColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
         [baseView addSubview:lineView];
@@ -238,7 +238,7 @@
         // 提示文本
         NSString *fenStr = tipMessageStr;
         NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];
-        fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+        fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         fenDic[NSForegroundColorAttributeName] = [UIColor blackColor];
         CGRect fenRect = [fenStr boundingRectWithSize:CGSizeMake(baseViewW - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:fenDic context:nil];
         CGFloat msgLabW = baseViewW - 40;
@@ -247,15 +247,15 @@
         CGFloat msgLabY = CGRectGetMaxY(tipLab.frame) + 20;
         UILabel *msgLab = [[UILabel alloc] initWithFrame:CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH)];
         msgLab.numberOfLines = 0;
-        msgLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+        msgLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         msgLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
-//        msgLab.textAlignment = NSTextAlignmentCenter;
-//        // 设置行距
-//        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:tipMessageStr];
-//        NSMutableParagraphStyle *paStyle = [[NSMutableParagraphStyle alloc] init];
-//        paStyle.lineSpacing = 2;
-//        [attStr addAttribute:NSParagraphStyleAttributeName value:paStyle range:NSMakeRange(0, [tipMessageStr length])];
-//        msgLab.attributedText = attStr;
+        //        msgLab.textAlignment = NSTextAlignmentCenter;
+        //        // 设置行距
+        //        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:tipMessageStr];
+        //        NSMutableParagraphStyle *paStyle = [[NSMutableParagraphStyle alloc] init];
+        //        paStyle.lineSpacing = 2;
+        //        [attStr addAttribute:NSParagraphStyleAttributeName value:paStyle range:NSMakeRange(0, [tipMessageStr length])];
+        //        msgLab.attributedText = attStr;
         //        [msgLab sizeToFit]; // 这个是自适应
         msgLab.text = fenStr;
         [baseView addSubview:msgLab];
@@ -288,12 +288,12 @@
         baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH2);
         baseView.center = [UIApplication sharedApplication].delegate.window.center;
         
-//        UIButton *deleteBtn = [[UIButton alloc]init];
-//        deleteBtn.frame = CGRectMake(baseViewW-50, 10, 30, 30);
-//        [deleteBtn setBackgroundImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-//        //        deleteBtn.backgroundColor = [UIColor redColor];
-//        [deleteBtn addTarget:self action:@selector(okButClick) forControlEvents:UIControlEventTouchUpInside];
-//        [baseView addSubview:deleteBtn];
+        //        UIButton *deleteBtn = [[UIButton alloc]init];
+        //        deleteBtn.frame = CGRectMake(baseViewW-50, 10, 30, 30);
+        //        [deleteBtn setBackgroundImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        //        //        deleteBtn.backgroundColor = [UIColor redColor];
+        //        [deleteBtn addTarget:self action:@selector(okButClick) forControlEvents:UIControlEventTouchUpInside];
+        //        [baseView addSubview:deleteBtn];
         
     }
     

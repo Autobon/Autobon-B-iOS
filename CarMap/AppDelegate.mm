@@ -21,6 +21,7 @@
 #import "GFAddWorkerViewController.h"
 #import "GFOneIndentViewController.h"
 #import "GFEvaluateViewController.h"
+#import "GFEvaluateShareViewController.h"
 #import "GFAlertView.h"
 #import "SecondViewController.h"
 #import "GFOneIndentViewController.h"
@@ -60,10 +61,10 @@
     [UMSocialData setAppKey:@"564d41b4e0f55a596d003fe4"];
     
     
-    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:@"http://www.incardata.com.cn"];
+    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:@"http://hpecar.com:12345/shareB.html"];
     
-    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://www.incardata.com.cn"];
-    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://hpecar.com:12345/shareB.html"];
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
     
 //    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"439118116" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 

@@ -14,6 +14,7 @@
 		8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC71C99459200666634 /* AFURLResponseSerialization.m */; };
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
 		9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */; };
+		9B42F0761CBF980900F08C4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */; };
 		9B5EBEE51CBDD80E00E753BF /* servicedelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = 9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */; };
 		9B5EBEE81CBDEE3B00E753BF /* ACETelPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EBEE71CBDEE3B00E753BF /* ACETelPrompt.m */; };
 		9B5FBC261CAE582E00A0BF96 /* PoiSearchDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B5FBC241CAE582E00A0BF96 /* PoiSearchDemoViewController.mm */; };
@@ -75,12 +76,11 @@
 		9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754401C5765B3004BDC7C /* AppDelegate.mm */; };
 		9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754451C5765B3004BDC7C /* Main.storyboard */; };
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
-		9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
 		9B9B45A51CBF700400D0F507 /* GFTransformTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45A21CBF700400D0F507 /* GFTransformTableViewCell.m */; };
 		9B9B45A91CBF70B300D0F507 /* CLNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */; };
 		9B9B45AC1CBF78B400D0F507 /* GFTransformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */; };
-		9B9C9B551CA50EA800F5255B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C9B541CA50EA800F5255B /* Icon.png */; };
+		9B9F93191CBF95C90082A7BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9F93181CBF95C90082A7BA /* Images.xcassets */; };
 		9B9FE9DB1CA378D500231747 /* CLDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */; };
 		9B9FE9DF1CA37A1300231747 /* UWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DD1CA37A1300231747 /* UWDatePickerView.m */; };
 		9B9FE9E01CA37A1300231747 /* UWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DE1CA37A1300231747 /* UWDatePickerView.xib */; };
@@ -146,6 +146,7 @@
 		86D4FB031C96A08F004E26AC /* GFTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTitleView.m; sourceTree = "<group>"; };
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = servicedelegate.html; sourceTree = "<group>"; };
 		9B5EBEE61CBDEE3B00E753BF /* ACETelPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACETelPrompt.h; path = ../ACETelPrompt.h; sourceTree = "<group>"; };
 		9B5EBEE71CBDEE3B00E753BF /* ACETelPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACETelPrompt.m; path = ../ACETelPrompt.m; sourceTree = "<group>"; };
@@ -259,7 +260,6 @@
 		9B9754401C5765B3004BDC7C /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		9B9754461C5765B3004BDC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B9754481C5765B3004BDC7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9B97544B1C5765B3004BDC7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B97544D1C5765B3004BDC7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B9754521C5765B3004BDC7C /* CarMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B9754561C5765B3004BDC7C /* CarMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarMapUITests.m; sourceTree = "<group>"; };
@@ -270,7 +270,7 @@
 		9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLNotificationModel.m; sourceTree = "<group>"; };
 		9B9B45AA1CBF78B400D0F507 /* GFTransformViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTransformViewController.h; sourceTree = "<group>"; };
 		9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTransformViewController.m; sourceTree = "<group>"; };
-		9B9C9B541CA50EA800F5255B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		9B9F93181CBF95C90082A7BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B9FE9D91CA378D500231747 /* CLDelegateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLDelegateViewController.h; sourceTree = "<group>"; };
 		9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDelegateViewController.m; sourceTree = "<group>"; };
 		9B9FE9DC1CA37A1300231747 /* UWDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWDatePickerView.h; sourceTree = "<group>"; };
@@ -709,13 +709,13 @@
 				9B95153A1C60503800445F93 /* 百度地图 */,
 				9B9FE9E11CA38E1000231747 /* SDWebImage */,
 				9B9754451C5765B3004BDC7C /* Main.storyboard */,
+				9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */,
 				9B9515441C6089A200445F93 /* PrefixHeader.pch */,
 				9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */,
 				9B9754481C5765B3004BDC7C /* Assets.xcassets */,
-				9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */,
-				9B9C9B541CA50EA800F5255B /* Icon.png */,
 				9BDD16241C9BF27B0017E8E9 /* address.plist */,
 				9B97544D1C5765B3004BDC7C /* Info.plist */,
+				9B9F93181CBF95C90082A7BA /* Images.xcassets */,
 				9B97543C1C5765B3004BDC7C /* Supporting Files */,
 			);
 			path = CarMap;
@@ -869,11 +869,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B97544C1C5765B3004BDC7C /* LaunchScreen.storyboard in Resources */,
+				9B42F0761CBF980900F08C4E /* LaunchScreen.storyboard in Resources */,
+				9B9F93191CBF95C90082A7BA /* Images.xcassets in Resources */,
 				9B9FE9E01CA37A1300231747 /* UWDatePickerView.xib in Resources */,
 				9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */,
 				9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */,
-				9B9C9B551CA50EA800F5255B /* Icon.png in Resources */,
 				9B6757321C97CAC70001C478 /* MJRefresh.bundle in Resources */,
 				9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */,
 				9B5EBEE51CBDD80E00E753BF /* servicedelegate.html in Resources */,
@@ -1059,14 +1059,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		9B97544A1C5765B3004BDC7C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9B97544B1C5765B3004BDC7C /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1165,6 +1157,7 @@
 			baseConfigurationReference = F99A50507FF60FC41E844D9D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1188,6 +1181,7 @@
 			baseConfigurationReference = C95997697E5E85C90BAF73FD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

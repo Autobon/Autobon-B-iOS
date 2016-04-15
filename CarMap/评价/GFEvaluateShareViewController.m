@@ -33,7 +33,7 @@
     [super viewDidLoad];
     
 //    _star = 0;
-//    _orderId = @"1";
+//    _orderId = @"100";
     
     
     
@@ -258,9 +258,10 @@
     NSLog(@"分享");
     
 //    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦测试分享消息" shareImage:nil shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
-    
-    
-    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦测试分享消息" shareImage:[UIImage imageNamed:@"Icon"] shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"车邻邦商户端";
+    [UMSocialData defaultData].extConfig.qqData.title = @"车邻邦商户端";
+    [UMSocialData defaultData].extConfig.qzoneData.title = @"车邻邦商户端";
+    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦专业的汽车保养团队" shareImage:[UIImage imageNamed:@"logoImage"] shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
     
     
 }
@@ -283,8 +284,15 @@
 
 - (void)leftButClick {
     
-    UIViewController *view = self.navigationController.viewControllers[2];
-    [self.navigationController popToViewController:view animated:YES];
+    if (_isPush) {
+        GFEvaluateViewController *evaluateView = self.navigationController.viewControllers[2];
+        [self.navigationController popToViewController:evaluateView animated:YES];
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+    }else{
+        //        [self.navigationController popToRootViewControllerAnimated:NO];
+        GFEvaluateViewController *evaluateView = self.navigationController.viewControllers[0];
+        [evaluateView dismissViewControllerAnimated:YES completion:nil];
+    }
 //    [self.navigationController popViewControllerAnimated:YES];
 }
 
