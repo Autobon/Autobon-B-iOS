@@ -250,7 +250,7 @@
 
 #pragma mark - 相机按钮的响应方法
 - (void)cameraBtnClick:(UIButton *)button{
-    NSLog(@"--请选择照片－－");
+//    NSLog(@"--请选择照片－－");
     [self.view endEditing:YES];
     if (button.tag == 1) {
         _isCertificate = YES;
@@ -297,17 +297,17 @@
 
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }else{
-        NSLog(@"打开相机");
+//        NSLog(@"打开相机");
         BOOL result = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
         if (result) {
-            NSLog(@"---支持使用相机---");
+//            NSLog(@"---支持使用相机---");
             UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
             imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
             imagePicker.delegate = self;
             [self  presentViewController:imagePicker animated:YES completion:^{
             }];
         }else{
-            NSLog(@"----不支持使用相机----");
+//            NSLog(@"----不支持使用相机----");
         }
         
     }
@@ -330,7 +330,7 @@
         UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
         NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.8);
         [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
-            NSLog(@"上传成功－－%@--",responseObject);
+//            NSLog(@"上传成功－－%@--",responseObject);
             if ([responseObject[@"result"] integerValue] == 1) {
                 _isUpCertificate = YES;
                 [_dataDictionary setObject:responseObject[@"data"] forKey:@"bussinessLicensePic"];
@@ -338,7 +338,7 @@
                 [self addAlertView:responseObject[@"message"]];
             }
         } failure:^(NSError *error) {
-            NSLog(@"上传失败－－%@---",error);
+//            NSLog(@"上传失败－－%@---",error);
         }];
         
     }else{
@@ -353,7 +353,7 @@
         NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
         [GFHttpTool postIdImageViewImage:imageData success:^(id responseObject) {
             
-            NSLog(@"－－－－上传成功－－－%@--",responseObject);
+//            NSLog(@"－－－－上传成功－－－%@--",responseObject);
             if ([responseObject[@"result"] integerValue] == 1) {
                 _isUpidImageView = YES;
                 [_dataDictionary setObject:responseObject[@"data"] forKey:@"corporationIdPicA"];
@@ -363,7 +363,7 @@
             
         } failure:^(NSError *error) {
             
-            NSLog(@"---请求失败－－－error---%@---",error);
+//            NSLog(@"---请求失败－－－error---%@---",error);
             
         }];
         
@@ -399,7 +399,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    NSLog(@"---%@--",@(range.length));
+//    NSLog(@"---%@--",@(range.length));
     
     if (textField.tag == 2) {
         
@@ -464,7 +464,7 @@
                             
                             PoiSearchDemoViewController *poiSearchView = [[PoiSearchDemoViewController alloc]init];
                             poiSearchView.dataDictionary = _dataDictionary;
-                             NSLog(@"---——dataForPast--%@-",_dataForPastDictionary);
+//                             NSLog(@"---——dataForPast--%@-",_dataForPastDictionary);
                             poiSearchView.dataForPastDictionary = _dataForPastDictionary;
                             
                             [self.navigationController pushViewController:poiSearchView animated:YES];
@@ -485,7 +485,7 @@
     
     
     
-    NSLog(@"下一步");
+//    NSLog(@"下一步");
 
 }
 

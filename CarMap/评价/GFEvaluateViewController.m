@@ -146,7 +146,7 @@
     
     
     [GFHttpTool GetTechnicianParameters:@{@"orderId":_orderId} success:^(id responseObject) {
-        NSLog(@"请求成功－－－%@---",responseObject);
+//        NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
@@ -193,7 +193,7 @@
         }
         
     } failure:^(NSError *error) {
-        NSLog(@"请求失败－－－%@---",error);
+//        NSLog(@"请求失败－－－%@---",error);
     }];
     
     
@@ -349,7 +349,7 @@
             GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
             shareView.orderId = _orderId;
             shareView.star = _star;
-            NSLog(@"－－评论成功－－%ld---",(long)_star);
+//            NSLog(@"－－评论成功－－%ld---",(long)_star);
             shareView.isPush = _isPush;
             [self.navigationController pushViewController:shareView animated:YES];
         }else{
@@ -358,7 +358,7 @@
         
     } failure:^(NSError *error) {
         
-        NSLog(@"－－评论失败－－%@---",error);
+//        NSLog(@"－－评论失败－－%@---",error);
         
     }];
     

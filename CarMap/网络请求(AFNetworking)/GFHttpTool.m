@@ -78,18 +78,18 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/login",HOST];
-        NSLog(@"-----%@----%@---",URLString,parameters);
+//        NSLog(@"-----%@----%@---",URLString,parameters);
         [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             
             // 获取token 针对个人的操作要加
             NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage]; // 获得响应头
-            NSLog(@"####################################\n---%@--",[cookieJar cookies]); // 获取响应头的数组
+//            NSLog(@"####################################\n---%@--",[cookieJar cookies]); // 获取响应头的数组
             NSUserDefaults *autokenValue = [NSUserDefaults standardUserDefaults];
             for (int i = 0; i < [cookieJar cookies].count; i++) {
                 NSHTTPCookie *cookie = [cookieJar cookies][i]; // 实例化响应头数组对象
                 if ([cookie.name isEqualToString:@"autoken"]) { // 获取响应头数组对象里地名字为autoken的对象
-                    NSLog(@"############%@", [NSString stringWithFormat:@"%@=%@",[cookie name],[cookie value]]); //获取响应头数组对象里地名字为autoken的对象的数据，这个数据是用来验证用户身份相当于“key”
+//                    NSLog(@"############%@", [NSString stringWithFormat:@"%@=%@",[cookie name],[cookie value]]); //获取响应头数组对象里地名字为autoken的对象的数据，这个数据是用来验证用户身份相当于“key”
                     [autokenValue setObject:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forKey:@"autoken"];
                     break;
                 }
@@ -295,13 +295,13 @@ NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
     
     
     if ([GFHttpTool isConnectionAvailable]) {
-        NSLog(@"－－－－－－dictionary--%@---",dictionary);
+//        NSLog(@"－－－－－－dictionary--%@---",dictionary);
         GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"下单中..."];
         NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         NSString *token = [userDefaultes objectForKey:@"autoken"];
         
-        NSLog(@"token---%@--",token);
+//        NSLog(@"token---%@--",token);
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/createOrder",HOST];

@@ -16,7 +16,7 @@
     CGFloat kWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat kHeight = [UIScreen mainScreen].bounds.size.height;
     CGFloat jiange = kWidth * 0.033;
-    CGFloat jiange1 = kWidth * 0.056;
+//    CGFloat jiange1 = kWidth * 0.056;
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     

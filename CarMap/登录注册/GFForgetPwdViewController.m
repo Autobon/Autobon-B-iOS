@@ -141,7 +141,7 @@
             if ([self isPassword:_passwordTxt.text]) {
                 NSDictionary *dictionary = @{@"phone":_phoneTxt.text,@"password":_passwordTxt.text,@"verifySms":_verifyTxt.text};
                 [GFHttpTool postForgetPwdParameters:dictionary success:^(id responseObject) {
-                    NSLog(@"－－－－请求成功－－%@",responseObject);
+//                    NSLog(@"－－－－请求成功－－%@",responseObject);
                     
                     if ([responseObject[@"result"] integerValue] == 1) {
                         [UIView animateWithDuration:2 animations:^{
@@ -162,7 +162,7 @@
                     
                     
                 } failure:^(NSError *error) {
-                    NSLog(@"----error--%@--",error);
+//                    NSLog(@"----error--%@--",error);
                 }];
                   
             }else{
@@ -228,13 +228,13 @@
 #pragma mark - 获取验证码按钮响应方法
 - (void)getVerifyButClick:(UIButton *)button{
     
-    NSLog(@"----------");
+//    NSLog(@"----------");
     [self.view endEditing:YES];
     if ([self isPhoneNumber:_phoneTxt.text]) {
         button.userInteractionEnabled = NO;
         [GFHttpTool codeGetParameters:@{@"phone":_phoneTxt.text} success:^(id responseObject) {
             
-            NSLog(@"－－－请求成功－－%@-",responseObject);
+//            NSLog(@"－－－请求成功－－%@-",responseObject);
             if ([responseObject[@"result"] integerValue] == 1) {
                 
                 //                [button setTitle:@"60" forState:UIControlStateNormal];

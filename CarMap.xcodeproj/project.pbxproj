@@ -80,7 +80,6 @@
 		9B9B45A51CBF700400D0F507 /* GFTransformTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45A21CBF700400D0F507 /* GFTransformTableViewCell.m */; };
 		9B9B45A91CBF70B300D0F507 /* CLNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */; };
 		9B9B45AC1CBF78B400D0F507 /* GFTransformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */; };
-		9B9F93191CBF95C90082A7BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9F93181CBF95C90082A7BA /* Images.xcassets */; };
 		9B9FE9DB1CA378D500231747 /* CLDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */; };
 		9B9FE9DF1CA37A1300231747 /* UWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DD1CA37A1300231747 /* UWDatePickerView.m */; };
 		9B9FE9E01CA37A1300231747 /* UWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9FE9DE1CA37A1300231747 /* UWDatePickerView.xib */; };
@@ -270,7 +269,6 @@
 		9B9B45A81CBF70B300D0F507 /* CLNotificationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLNotificationModel.m; sourceTree = "<group>"; };
 		9B9B45AA1CBF78B400D0F507 /* GFTransformViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTransformViewController.h; sourceTree = "<group>"; };
 		9B9B45AB1CBF78B400D0F507 /* GFTransformViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTransformViewController.m; sourceTree = "<group>"; };
-		9B9F93181CBF95C90082A7BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B9FE9D91CA378D500231747 /* CLDelegateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLDelegateViewController.h; sourceTree = "<group>"; };
 		9B9FE9DA1CA378D500231747 /* CLDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLDelegateViewController.m; sourceTree = "<group>"; };
 		9B9FE9DC1CA37A1300231747 /* UWDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWDatePickerView.h; sourceTree = "<group>"; };
@@ -715,7 +713,6 @@
 				9B9754481C5765B3004BDC7C /* Assets.xcassets */,
 				9BDD16241C9BF27B0017E8E9 /* address.plist */,
 				9B97544D1C5765B3004BDC7C /* Info.plist */,
-				9B9F93181CBF95C90082A7BA /* Images.xcassets */,
 				9B97543C1C5765B3004BDC7C /* Supporting Files */,
 			);
 			path = CarMap;
@@ -870,7 +867,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B42F0761CBF980900F08C4E /* LaunchScreen.storyboard in Resources */,
-				9B9F93191CBF95C90082A7BA /* Images.xcassets in Resources */,
 				9B9FE9E01CA37A1300231747 /* UWDatePickerView.xib in Resources */,
 				9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */,
 				9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */,

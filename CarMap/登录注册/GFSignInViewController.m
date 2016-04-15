@@ -171,15 +171,15 @@
                 
                 [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
                     
-                    NSLog(@"---登录返回---%@---",responseObject);
+//                    NSLog(@"---登录返回---%@---",responseObject);
                     
                     if ([responseObject[@"result"] integerValue] == 1) {
                         
                 // 更新pushid
                         [GFHttpTool postPushIdDictionary:@{@"pushId":[userDefaults objectForKey:@"clientId"]} success:^(id responseObject) {
-                            NSLog(@"－－－更新个推ID成功－－%@--",responseObject);
+//                            NSLog(@"－－－更新个推ID成功－－%@--",responseObject);
                         } failure:^(NSError *error) {
-                            NSLog(@"－－－请求失败---%@---",error);
+//                            NSLog(@"－－－请求失败---%@---",error);
                         }];
                         
                         
@@ -237,7 +237,7 @@
                         [self addAlertView:responseObject[@"message"]];
                     }
                 } failure:^(NSError *error) {
-                    NSLog(@"登录失败---%@----",error);
+//                    NSLog(@"登录失败---%@----",error);
                 }];
             }
         }else{

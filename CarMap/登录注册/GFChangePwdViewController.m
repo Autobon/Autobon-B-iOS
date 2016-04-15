@@ -124,7 +124,7 @@
 
 - (void)submitBtnClick{
 
-    NSLog(@"修改密码");
+//    NSLog(@"修改密码");
     [self.view endEditing:YES];
     if (self.oldPwdTxt.text.length == 0) {
         [self addAlertView:@"请输入旧密码"];
@@ -137,7 +137,7 @@
                     
                     [GFHttpTool postChangePasswordParameters:@{@"oldPassword":self.oldPwdTxt.text,@"newPassword":self.xinPwdtxt.text} success:^(id responseObject) {
                         
-                        NSLog(@"修改成功－－%@--",responseObject);
+//                        NSLog(@"修改成功－－%@--",responseObject);
                         if ([responseObject[@"result"] integerValue] == 1) {
                             
                             [UIView animateWithDuration:2 animations:^{
@@ -155,7 +155,7 @@
                         }
                         
                     } failure:^(NSError *error) {
-                        NSLog(@"请求失败--%@--",error);
+//                        NSLog(@"请求失败--%@--",error);
                     }];
 
                     

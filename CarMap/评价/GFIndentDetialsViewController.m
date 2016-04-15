@@ -306,7 +306,7 @@
     
     
     [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderId} success:^(id responseObject) {
-        NSLog(@"请求成功－－－%@---",responseObject[@"message"]);
+//        NSLog(@"请求成功－－－%@---",responseObject[@"message"]);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
@@ -353,7 +353,7 @@
         }
         
     } failure:^(NSError *error) {
-        NSLog(@"请求失败－－－%@---",error);
+//        NSLog(@"请求失败－－－%@---",error);
     }];
     
     

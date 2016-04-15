@@ -102,7 +102,7 @@
     
     [self getListUnfinished];
     
-    NSLog(@"-------");
+//    NSLog(@"-------");
 }
 
 #pragma mark - 获取商户未完成订单
@@ -111,7 +111,7 @@
     _tableView.userInteractionEnabled = NO;
     
     [GFHttpTool postListUnfinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
-        NSLog(@"－－请求成功－－%@--",responseObject);
+//        NSLog(@"－－请求成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];
@@ -124,6 +124,10 @@
             if (listArray.count == 0) {
                 [self addAlertView:@"已加载全部"];
             }
+            
+            GFOneIndentViewController *oneIndentView = self.navigationController.viewControllers[0];
+            [oneIndentView.tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
+            
             
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 CLIndentModel *model = [[CLIndentModel alloc]init];
@@ -161,7 +165,7 @@
         
     } failure:^(NSError *error) {
         _tableView.userInteractionEnabled = YES;
-        NSLog(@"----shibaile---%@---",error);
+//        NSLog(@"----shibaile---%@---",error);
     }];
 }
 
@@ -187,7 +191,7 @@
     CLIndentModel *model = _modelMutableArray[indexPath.row];
     
     
-    NSLog(@"---num--%@--",model.orderNum);
+//    NSLog(@"---num--%@--",model.orderNum);
     
     cell.orderNum = model.orderNum;
     cell.orderType = model.status;
@@ -210,8 +214,8 @@
 
 - (void)workerBtnClick:(UIButton *)button{
     
-    NSLog(@"查看技师信息");
-    NSLog(@"有人邀请");
+//    NSLog(@"查看技师信息");
+//    NSLog(@"有人邀请");
 //    NSDictionary *dictionary = Notification.userInfo[@"owner"];
 //    NSDictionary *orderDictionary = Notification.userInfo[@"order"];
 //    NSArray *skillArray = @[@"隔热膜",@"隐形车衣",@"车身改色",@"美容清洁"];
@@ -220,10 +224,10 @@
 //    [alertView.okBut addTarget:self action:@selector(OrderDetailBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     CLIndentModel *model = _modelMutableArray[button.tag];
-    NSLog(@"order--%@---",model.orderId);
+//    NSLog(@"order--%@---",model.orderId);
     [GFHttpTool GetTechnicianParameters:@{@"orderId":model.orderId} success:^(id responseObject) {
         
-        NSLog(@"－－－－%@----",responseObject);
+//        NSLog(@"－－－－%@----",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];

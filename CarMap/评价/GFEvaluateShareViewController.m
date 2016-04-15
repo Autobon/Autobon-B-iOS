@@ -150,7 +150,7 @@
     }
 
     [GFHttpTool GetTechnicianParameters:@{@"orderId":_orderId} success:^(id responseObject) {
-        NSLog(@"请求成功－－－%@---",responseObject);
+//        NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
@@ -197,7 +197,7 @@
         }
         
     } failure:^(NSError *error) {
-        NSLog(@"请求失败－－－%@---",error);
+//        NSLog(@"请求失败－－－%@---",error);
     }];
     
     
@@ -255,7 +255,7 @@
 
 #pragma mark - 分享按钮响应方法
 - (void)shareBtnClick{
-    NSLog(@"分享");
+//    NSLog(@"分享");
     
 //    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦测试分享消息" shareImage:nil shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
     [UMSocialData defaultData].extConfig.wechatSessionData.title = @"车邻邦商户端";

@@ -25,6 +25,8 @@
 #import "GFAlertView.h"
 #import "SecondViewController.h"
 #import "GFOneIndentViewController.h"
+#import "GFJoinInViewController_1.h"
+
 
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
@@ -71,7 +73,7 @@
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"er5ppSPS6vxnd5BtvWDsgthy" generalDelegate:self];
     if (!ret) {
-        NSLog(@"manager start failed!");
+//        NSLog(@"manager start failed!");
     }
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -83,6 +85,8 @@
 //    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
 //    GFEvaluateShareViewController *firstView = [[GFEvaluateShareViewController alloc]init];
 //    SecondViewController *firstView = [[SecondViewController alloc]init];
+//    GFJoinInViewController_1 *firstView = [[GFJoinInViewController_1 alloc]init];
+    
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
@@ -93,10 +97,10 @@
 - (void)onGetNetworkState:(int)iError
 {
     if (0 == iError) {
-        NSLog(@"联网成功");
+//        NSLog(@"联网成功");
     }
     else{
-        NSLog(@"onGetNetworkState %d",iError);
+//        NSLog(@"onGetNetworkState %d",iError);
     }
     
 }
@@ -104,10 +108,10 @@
 - (void)onGetPermissionState:(int)iError
 {
     if (0 == iError) {
-        NSLog(@"授权成功");
+//        NSLog(@"授权成功");
     }
     else {
-        NSLog(@"onGetPermissionState %d",iError);
+//        NSLog(@"onGetPermissionState %d",iError);
     }
 }
 
@@ -138,7 +142,7 @@
     // 判读系统版本是否是“iOS 8.0”以上
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ||
         [UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        NSLog(@"zounaqule--");
+//        NSLog(@"zounaqule--");
         // 定义用户通知类型(Remote.远程 - Badge.标记 Alert.提示 Sound.声音)
         UIUserNotificationType types = UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge;
         // 定义用户通知设置
@@ -146,9 +150,9 @@
         // 注册用户通知 - 根据用户通知设置
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
-        NSLog(@"注册APNs");
+//        NSLog(@"注册APNs");
     } else {
-        NSLog(@"zounaquleaaaaa");
+//        NSLog(@"zounaquleaaaaa");
         // iOS8.0 以前远程推送设置方式
         // 定义远程通知类型(Remote.远程 - Badge.标记 Alert.提示 Sound.声音)
         // 注册远程通知 -根据远程通知类型
@@ -169,7 +173,7 @@
      */
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (userInfo) {
-        NSLog(@"\n>---->>[Launching RemoteNotification]:%@", userInfo);
+//        NSLog(@"\n>---->>[Launching RemoteNotification]:%@", userInfo);
     }
 }
 
@@ -178,13 +182,13 @@
     NSString *myToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     myToken = [myToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     [GeTuiSdk registerDeviceToken:myToken];    /// 向个推服务器注册deviceToken
-    NSLog(@"\n>>>[DeviceToken Success]:%@\n\n",myToken);
+//    NSLog(@"\n>>>[DeviceToken Success]:%@\n\n",myToken);
 }
 
 /** 远程通知注册失败委托 */
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     [GeTuiSdk registerDeviceToken:@""];     /// 如果APNS注册失败，通知个推服务器
-    NSLog(@"\n>>>[DeviceToken Error]:%@\n\n",error.description);
+//    NSLog(@"\n>>>[DeviceToken Error]:%@\n\n",error.description);
 }
 
 
@@ -192,7 +196,7 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 //Background Fetch 恢复SDK 运行
-    NSLog(@"后台运行");
+//    NSLog(@"后台运行");
     [GeTuiSdk resume];
     completionHandler(UIBackgroundFetchResultNewData);
 //    UILocalNotification* ln = [[UILocalNotification alloc] init];
@@ -206,7 +210,7 @@
 /** SDK启动成功返回cid */
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     // [4-EXT-1]: 个推SDK已注册，返回clientId
-    NSLog(@"\n>>>[GeTuiSdk RegisterClient]:%@\n\n", clientId);
+//    NSLog(@"\n>>>[GeTuiSdk RegisterClient]:%@\n\n", clientId);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:clientId forKey:@"clientId"];
@@ -215,7 +219,7 @@
 /** SDK遇到错误回调 */
 - (void)GeTuiSdkDidOccurError:(NSError *)error {
     // [EXT]:个推错误报告，集成步骤发生的任何错误都在这里通知，如果集成后，无法正常收到消息，查看这里的通知。
-    NSLog(@"\n>>>[GexinSdk error]:%@\n\n", [error localizedDescription]);
+//    NSLog(@"\n>>>[GexinSdk error]:%@\n\n", [error localizedDescription]);
 }
 
 
@@ -227,15 +231,15 @@
     if (payload) {
         payloadMsg = [[NSString alloc] initWithBytes:payload.bytes length:payload.length encoding:NSUTF8StringEncoding];
         }
-    NSString *msg = [NSString stringWithFormat:@" payloadId=%@,taskId=%@,messageId:%@,payloadMsg:%@%@",payloadId,taskId,aMsgId,payloadMsg,offLine ? @"<离线消息>" : @""];
-    NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+//    NSString *msg = [NSString stringWithFormat:@" payloadId=%@,taskId=%@,messageId:%@,payloadMsg:%@%@",payloadId,taskId,aMsgId,payloadMsg,offLine ? @"<离线消息>" : @""];
+//    NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
     [GeTuiSdk sendFeedbackMessage:90001 taskId:taskId msgId:aMsgId];
 
     
     if (!offLine) {
         NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"responseJSON----%@--",responseJSON);
+//        NSLog(@"responseJSON----%@--",responseJSON);
         
         if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
             UILocalNotification*notification = [[UILocalNotification alloc] init];
@@ -268,7 +272,7 @@
         }
     
     }else{
-        NSLog(@"离线消息不接受");
+//        NSLog(@"离线消息不接受");
     }
     
 }
@@ -276,7 +280,7 @@
 
 
 - (void)judgeBtnClick:(UIButton *)button{
-    NSLog(@"立即评价按钮");
+//    NSLog(@"立即评价按钮");
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
 //    [window.rootViewController push]
     GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
@@ -301,13 +305,13 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     // 处理APNs代码，通过userInfo可以取到推送的信息（包括内容，角标，自定义参数等）。如果需要弹窗等其他操作，则需要自行编码。
 #pragma mark - 后台运行调用的方法
-    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
+//    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"通知消息" forKey:@"title"];
     completionHandler(UIBackgroundFetchResultNewData);
     NSData *JSONData = [userInfo[@"json"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-    NSLog(@"----responseJSON----%@--",responseJSON);
+//    NSLog(@"----responseJSON----%@--",responseJSON);
     if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
 //        AudioServicesPlaySystemSound(1307);
         
@@ -345,19 +349,19 @@
 //如果应用程序没有存活，会产生提示，但是无论通过那种方式启动应用程序，都不会调用这个方法。如果我们需要处理收到的通知消息，我们需要使用上面的方法。
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     //系统提供给我们用来处理收到推送后操作的方法。
-    NSLog(@"消息来了a－－%@",notification.alertBody);
+//    NSLog(@"消息来了a－－%@",notification.alertBody);
     
     
     long time = (long)[[NSDate date] timeIntervalSince1970] - [_pushDate timeIntervalSince1970];
     //    NSLog(@"---time--%@----",notification.userInfo);
 
     if (0 < time && notification.userInfo) {
-        NSLog(@"消息来了a－－%@",notification.userInfo);
+//        NSLog(@"消息来了a－－%@",notification.userInfo);
         NSData *JSONData = [notification.userInfo[@"dictionary"] dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
         
         if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"]){
-            NSLog(@"认证消息");
+//            NSLog(@"认证消息");
             UIWindow *window = [UIApplication sharedApplication].delegate.window;
             GFSignInViewController *signin = [[GFSignInViewController alloc]init];
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:signin];
@@ -376,7 +380,7 @@
 
 -(void)btnClick:(UIButton *)button{
     [[button superview] removeFromSuperview];
-    NSLog(@"移走view");
+//    NSLog(@"移走view");
 }
 
 @end

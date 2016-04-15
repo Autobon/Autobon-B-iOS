@@ -211,7 +211,7 @@
         button.userInteractionEnabled = NO;
         [GFHttpTool codeGetParameters:@{@"phone":_phoneTxt.text} success:^(id responseObject) {
             
-            NSLog(@"－－－请求成功－－%@-",responseObject);
+//            NSLog(@"－－－请求成功－－%@-",responseObject);
             if ([responseObject[@"result"] integerValue] == 1) {
                 
 //                [button setTitle:@"60" forState:UIControlStateNormal];
@@ -297,7 +297,7 @@
                                 NSDictionary *dictionary = @{@"shortname":_enterpriseNameTxt.text,@"phone":_phoneTxt.text,@"password":_passwordTxt.text,@"verifySms":_verifyTxt.text};
 //                                NSLog(@"-----dictionary---%@---",dictionary);
                                 [GFHttpTool postRegisterParameters:dictionary success:^(id responseObject) {
-                                    NSLog(@"－－－请求成功－－%@-",responseObject[@"message"]);
+//                                    NSLog(@"－－－请求成功－－%@-",responseObject[@"message"]);
                                     if ([responseObject[@"result"] integerValue] == 1) {
                                         
                                         [UIView animateWithDuration:2 animations:^{
@@ -316,7 +316,7 @@
                                     }
     
                                 } failure:^(NSError *error) {
-                                    NSLog(@"----请求失败--%@----",error);
+//                                    NSLog(@"----请求失败--%@----",error);
                                 }];
                                 
                             }else{

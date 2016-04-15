@@ -13,4 +13,8 @@
 
 //- (void)getListUnfinished;
 
+// 灰色提示条
+@property (nonatomic, strong) UIButton *tipButton;
+
+
 @end

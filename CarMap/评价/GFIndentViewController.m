@@ -174,7 +174,7 @@
 
 - (void)headRefresh {
     
-    NSLog(@"脑袋刷新");
+//    NSLog(@"脑袋刷新");
     _dataArray = [[NSMutableArray alloc]init];
     _page = 1;
     _pageSize = 2;
@@ -190,7 +190,7 @@
 
 - (void)footRefresh {
     
-    NSLog(@"大脚刷新");
+//    NSLog(@"大脚刷新");
     _page = _page + 1;
     if (_isAll) {
         [self getOrder];
@@ -298,7 +298,7 @@
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-                NSLog(@"---obj-－－%@---",obj);
+//                NSLog(@"---obj-－－%@---",obj);
                 GFIndentModel *model = [[GFIndentModel alloc]init];
                 model.orderNum = obj[@"orderNum"];
                 model.orderId = obj[@"id"];
@@ -352,7 +352,7 @@
             _nothingView.hidden = YES;
         }
         
-        NSLog(@"--请求成功－－%@--",responseObject);
+//        NSLog(@"--请求成功－－%@--",responseObject);
         
     } failure:^(NSError *error) {
         [_tableview reloadData];
@@ -360,7 +360,7 @@
         [self.tableview.header endRefreshing];
         [self.tableview.footer endRefreshing];
         [self addAlertView:@"请求失败"];
-        NSLog(@"请求失败---%@--",error);
+//        NSLog(@"请求失败---%@--",error);
         
     }];
     

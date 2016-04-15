@@ -295,7 +295,7 @@
     GFIndentViewController *indentView = [[GFIndentViewController alloc]init];
     [self.navigationController pushViewController:indentView animated:YES];
     
-    NSLog(@"我的订单");
+//    NSLog(@"我的订单");
 }
 
 
@@ -304,7 +304,7 @@
     
     [GFHttpTool GetInformationSuccess:^(id responseObject) {
         
-        NSLog(@"---获取商户信息---%@----",responseObject);
+//        NSLog(@"---获取商户信息---%@----",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             
@@ -329,13 +329,13 @@
         
     } failure:^(NSError *error) {
         
-        NSLog(@"---请求失败---%@----",error);
+//        NSLog(@"---请求失败---%@----",error);
         
     }];
     
     
     
-    NSLog(@"合作商加盟");
+//    NSLog(@"合作商加盟");
 }
 
 #pragma mark - AlertView
@@ -350,7 +350,7 @@
     
     
     [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-        NSLog(@"---查询业务员－－%@--",responseObject);
+//        NSLog(@"---查询业务员－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
             NSArray *array = responseObject[@"data"];
@@ -380,7 +380,7 @@
     
     
     
-    NSLog(@"业务员管理");
+//    NSLog(@"业务员管理");
 }
 
 
@@ -398,7 +398,7 @@
     
     GFChangePwdViewController *changePwd = [[GFChangePwdViewController alloc]init];
     [self.navigationController pushViewController:changePwd animated:YES];
-    NSLog(@"修改密码");
+//    NSLog(@"修改密码");
 }
 
 
@@ -411,7 +411,7 @@
 //          NSLog(@"User cancelled the call");
     }];
     
-    NSLog(@"车邻邦专职客服电话");
+//    NSLog(@"车邻邦专职客服电话");
 }
 
 

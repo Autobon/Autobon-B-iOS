@@ -183,10 +183,10 @@
 
 #pragma mark - 移除业务员按钮
 - (void)moveWorker:(UIButton *)button{
-    NSLog(@"移除业务员");
+//    NSLog(@"移除业务员");
     CLWorkerModel *worker = _workerArray[button.tag];
     [GFHttpTool postSaleFiredDictionary:@{@"coopAccountId":worker.workerId} success:^(id responseObject) {
-        NSLog(@"----responseObject---%@--",responseObject);
+//        NSLog(@"----responseObject---%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
 //            [_workerArray removeObject:worker];
             worker.fired = YES;

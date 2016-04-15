@@ -791,7 +791,7 @@
         
         CGFloat msgRightButH = 40;
         CGFloat kWidth = baseView.frame.size.width;
-        CGFloat kHeight = baseView.frame.size.height;
+//        CGFloat kHeight = baseView.frame.size.height;
         CGFloat jianjv1 = kWidth * 0.028;
         CGFloat jianjv2 = kWidth * 0.042;
         
@@ -809,7 +809,7 @@
         iconImgView.contentMode = UIViewContentModeScaleAspectFill;
         //        iconImgView.image = [UIImage imageNamed:@"11.png"];
         [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
-        NSLog(@"---imageUrl---%@----",[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]);
+//        NSLog(@"---imageUrl---%@----",[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]);
         [baseView addSubview:iconImgView];
         // 姓名
         NSString *nameStr = name;

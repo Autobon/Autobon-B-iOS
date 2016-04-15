@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    NSLog(@"----———_data POI---%@--",_dataForPastDictionary);
+//    NSLog(@"----———_data POI---%@--",_dataForPastDictionary);
     
     // 导航栏
     GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
@@ -63,7 +63,7 @@
     _searchbar.layer.borderWidth = 1.0;
     _searchbar.layer.borderColor = [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]CGColor];
     
-    [self.view addSubview:_searchbar];
+//    [self.view addSubview:_searchbar];
     _searchbar.delegate = self;
     _searchbar.clipsToBounds = YES;
     
@@ -73,7 +73,7 @@
     [searchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [searchButton addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:searchButton];
+//    [self.view addSubview:searchButton];
     
      _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 150 + 60, self.view.frame.size.width , self.view.frame.size.width*7/10)];
     _mapView.delegate = self;
@@ -185,10 +185,14 @@
         titleStr = @"反向地理编码";
         showmeg = [NSString stringWithFormat:@"%@",_workerPointAnno.title];
         
-        NSLog(@"看看字典－－_dataDictionary--%@-",_dataDictionary);
+//        NSLog(@"看看字典－－_dataDictionary--%@-",_dataDictionary);
         
         [_dataDictionary setObject:@(result.location.longitude) forKey:@"longitude"];
         [_dataDictionary setObject:@(result.location.latitude) forKey:@"latitude"];
+        [_dataDictionary setObject:result.addressDetail.province forKey:@"province"];
+        [_dataDictionary setObject:result.addressDetail.city forKey:@"city"];
+        [_dataDictionary setObject:result.addressDetail.district forKey:@"district"];
+        
         
         
         
@@ -213,11 +217,11 @@
     BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
     if(flag)
     {
-        NSLog(@"反geo检索发送成功");
+//        NSLog(@"反geo检索发送成功");
     }
     else
     {
-        NSLog(@"反geo检索发送失败");
+//        NSLog(@"反geo检索发送失败");
     }
     
 }
@@ -259,11 +263,11 @@
     BOOL flag = [_geocodesearch geoCode:geocodeSearchOption];
     if(flag)
     {
-        NSLog(@"geo检索发送成功");
+//        NSLog(@"geo检索发送成功");
     }
     else
     {
-        NSLog(@"geo检索发送失败");
+//        NSLog(@"geo检索发送失败");
     }
     
 }
@@ -277,7 +281,7 @@
     _mapView.centerCoordinate = userLocation.location.coordinate;
     self.workerPointAnno.coordinate = userLocation.location.coordinate;
     [self onClickReverseGeocode:self.workerPointAnno.coordinate];
-    NSLog(@"更新用户位置");
+//    NSLog(@"更新用户位置");
     [self.locationService stopUserLocationService];
 //    [_mapView updateLocationData:userLocation];
 }
@@ -285,7 +289,7 @@
 
 - (void)didFailToLocateUserWithError:(NSError *)error {
     
-    NSLog(@"获取当前位置失败，请检查您的网络－－%@",error);
+//    NSLog(@"获取当前位置失败，请检查您的网络－－%@",error);
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -297,7 +301,7 @@
 
 
 -(void)backClick{
-    NSLog(@"出栈啦");
+//    NSLog(@"出栈啦");
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -354,11 +358,11 @@
     BOOL flag = [_poisearch poiSearchInCity:citySearchOption];
     if(flag)
     {
-        NSLog(@"城市内检索发送成功");
+//        NSLog(@"城市内检索发送成功");
     }
     else
     {
-        NSLog(@"城市内检索发送失败");
+//        NSLog(@"城市内检索发送失败");
     }
     
     
@@ -398,10 +402,9 @@
 #pragma mark - 单机地图调用的接口
 - (void)mapView:(BMKMapView *)mapView onClickedMapBlank:(CLLocationCoordinate2D)coordinate
 {
-    NSLog(@"onClickedMapBlank-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
-    NSString* showmeg = [NSString stringWithFormat:@"您点击了地图空白处(blank click).\r\n当前经度:%f,当前纬度:%f,\r\nZoomLevel=%d;RotateAngle=%d;OverlookAngle=%d", coordinate.longitude,coordinate.latitude,
-                         (int)_mapView.zoomLevel,_mapView.rotation,_mapView.overlooking];
-    NSLog(@"---showmeg-点击空白处---%@---",showmeg);
+//    NSLog(@"onClickedMapBlank-latitude==%f,longitude==%f",coordinate.latitude,coordinate.longitude);
+//    NSString* showmeg = [NSString stringWithFormat:@"您点击了地图空白处(blank click).\r\n当前经度:%f,当前纬度:%f,\r\nZoomLevel=%d;RotateAngle=%d;OverlookAngle=%d", coordinate.longitude,coordinate.latitude,(int)_mapView.zoomLevel,_mapView.rotation,_mapView.overlooking];
+//    NSLog(@"---showmeg-点击空白处---%@---",showmeg);
     _mapView.centerCoordinate = coordinate;
     self.workerPointAnno.coordinate = coordinate;
     
@@ -439,13 +442,13 @@
 }
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
 {
-    NSLog(@"----选中大头针--%f--",view.annotation.coordinate.latitude);
+//    NSLog(@"----选中大头针--%f--",view.annotation.coordinate.latitude);
     [mapView bringSubviewToFront:view];
     [mapView setNeedsDisplay];
 }
 - (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-    NSLog(@"didAddAnnotationViews");
+//    NSLog(@"didAddAnnotationViews");
 }
 
 #pragma mark -
@@ -469,7 +472,7 @@
         [_mapView addAnnotations:annotations];
         [_mapView showAnnotations:annotations animated:YES];
 	} else if (error == BMK_SEARCH_AMBIGUOUS_ROURE_ADDR){
-        NSLog(@"起始点有歧义");
+//        NSLog(@"起始点有歧义");
     } else {
         // 各种情况的判断。。。
     }

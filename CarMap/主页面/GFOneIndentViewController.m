@@ -53,8 +53,7 @@
 
 @property (nonatomic, strong) CLTouchScrollView *scrollerView;
 
-// 灰色提示条
-@property (nonatomic, strong) UIButton *tipButton;
+
 // 订单信息
 @property (nonatomic, strong) GFTitleView *msgView;
 // 示例图
@@ -125,7 +124,7 @@
 //    _modelArray = [[NSMutableArray alloc]init];
     
     [GFHttpTool postListUnfinishedDictionary:@{@"page":@"1",@"pageSize":@"1"} success:^(id responseObject) {
-        NSLog(@"－－请求成功－－%@--",responseObject);
+//        NSLog(@"－－请求成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             
@@ -179,7 +178,7 @@
         }
         
     } failure:^(NSError *error) {
-        NSLog(@"----shibaile---%@---",error);
+//        NSLog(@"----shibaile---%@---",error);
     }];
 }
 
@@ -388,9 +387,9 @@
 - (void)getSelectDate:(NSString *)date type:(DateType)type {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:MM"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //    NSDate *chooseDate = [formatter dateFromString:date];
-    NSInteger time = (NSInteger)[[formatter dateFromString:date] timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970] ;
+    NSInteger time = (NSInteger)[[formatter dateFromString:date] timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
     if (time > 0) {
         self.timeLab.text = date;
         self.timeLab.textColor = [UIColor blackColor];
@@ -399,7 +398,7 @@
     }
 
     
-    NSLog(@"----选择的时间－－－－%@--time---%@-",date,[formatter dateFromString:date]);
+//    NSLog(@"----选择的时间－－－－%@--time---%@-",date,[formatter dateFromString:date]);
     
 }
 
@@ -483,7 +482,7 @@
                 [_dataDictionary setObject:_txtView.text forKey:@"remark"];
             }
             
-            NSLog(@"一键下单--%@--",_dataDictionary);
+//            NSLog(@"一键下单--%@--",_dataDictionary);
             
             [GFHttpTool postOneIndentDictionary:_dataDictionary success:^(NSDictionary *responseObject) {
                 if ([responseObject[@"result"] integerValue] == 1) {
@@ -509,7 +508,7 @@
                     [self addAlertView:responseObject[@"message"]];
                 }
             } failure:^(NSError *error) {
-                NSLog(@"－－－下单失败---%@----",error);
+//                NSLog(@"－－－下单失败---%@----",error);
             }];
             
             
@@ -531,14 +530,14 @@
     
     BOOL result = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (result) {
-        NSLog(@"---支持使用相机---");
+//        NSLog(@"---支持使用相机---");
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.delegate = self;
         [self  presentViewController:imagePicker animated:YES completion:^{
         }];
     }else{
-        NSLog(@"----不支持使用相机----");
+//        NSLog(@"----不支持使用相机----");
     }
     
 }
@@ -562,7 +561,7 @@
     UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
     NSData *imageData = UIImageJPEGRepresentation(imageNew,0.8);
     [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
-        NSLog(@"上传成功－－%@--",responseObject);
+//        NSLog(@"上传成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             _isUpOrderImage = YES;
             [_dataDictionary setObject:responseObject[@"data"] forKey:@"photo"];
@@ -570,7 +569,7 @@
             [self addAlertView:responseObject[@"message"]];
         }
     } failure:^(NSError *error) {
-        NSLog(@"上传失败－－%@---",error);
+//        NSLog(@"上传失败－－%@---",error);
     }];
     
     
@@ -623,7 +622,7 @@
     }
     
     
-    NSLog(@"按钮被点击了");
+//    NSLog(@"按钮被点击了");
 }
 
 
@@ -699,7 +698,7 @@
             GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
             partnerView.muLab = [[UILabel alloc]init];
             partnerView.muLab.text = [NSString stringWithFormat:@"%@",responseObject[@"data"]];
-            NSLog(@"--获取商户订单信息－－%@--",partnerView.muLab.text);
+//            NSLog(@"--获取商户订单信息－－%@--",partnerView.muLab.text);
             [self.navigationController pushViewController:partnerView animated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];

@@ -174,14 +174,15 @@
     CGFloat shengButY = jiange3;
     self.shengBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shengBut.frame = CGRectMake(shengButX, shengButY, shengButW, shengButH);
-    [self.shengBut setTitle:@"请选省份" forState:UIControlStateNormal];
+    [self.shengBut setTitle:_dataDictionary[@"province"] forState:UIControlStateNormal];
     [self.shengBut setTitleEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 10)];
-    [self.shengBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
+    [self.shengBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.shengBut.titleLabel.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:self.shengBut];
-    [self.shengBut addTarget:self action:@selector(shengButClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.shengBut addTarget:self action:@selector(shengButClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.shengBut setBackgroundImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
 //    self.shengBut.layer.borderWidth = 1;
+    self.shengBut.userInteractionEnabled = NO;
     // 请选择市
     CGFloat shiButW = shengButW;
     CGFloat shiButH = shengButH;
@@ -189,14 +190,15 @@
     CGFloat shiButY = shengButY;
     self.shiBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shiBut.frame = CGRectMake(shiButX, shiButY, shiButW, shiButH);
-    [self.shiBut setTitle:@"请选择市" forState:UIControlStateNormal];
+    [self.shiBut setTitle:_dataDictionary[@"city"] forState:UIControlStateNormal];
     [self.shiBut setTitleEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 10)];
-    [self.shiBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
+    [self.shiBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.shiBut.titleLabel.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:self.shiBut];
-    [self.shiBut addTarget:self action:@selector(shiButClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.shiBut addTarget:self action:@selector(shiButClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.shiBut setBackgroundImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
 //    self.shiBut.layer.borderWidth = 1;
+    self.shiBut.userInteractionEnabled = NO;
     // 请选择区
     CGFloat quButW = shengButW;
     CGFloat quButH = shengButH;
@@ -204,14 +206,15 @@
     CGFloat quButY = shengButY;
     self.quBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.quBut.frame = CGRectMake(quButX, quButY, quButW, quButH);
-    [self.quBut setTitle:@"请选择区" forState:UIControlStateNormal];
+    [self.quBut setTitle:_dataDictionary[@"district"] forState:UIControlStateNormal];
     [self.quBut setTitleEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 10)];
-    [self.quBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
+    [self.quBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.quBut.titleLabel.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:self.quBut];
-    [self.quBut addTarget:self action:@selector(quButClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.quBut addTarget:self action:@selector(quButClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.quBut setBackgroundImage:[UIImage imageNamed:@"choose"] forState:UIControlStateNormal];
 //    self.quBut.layer.borderWidth = 1;
+    self.quBut.userInteractionEnabled = NO;
     // tableView
     tableViewW = shengButW;
     tableViewH = 100;
@@ -296,7 +299,7 @@
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(agreeLab.frame)+30);
     
     
-    NSLog(@"---_dataForPast---%@---",_dataForPastDictionary);
+//    NSLog(@"---_dataForPast---%@---",_dataForPastDictionary);
     if (_dataForPastDictionary) {
         self.invoiceHeadTxt.text = _dataForPastDictionary[@"invoiceHeader"];
         self.payNumTxt.text = _dataForPastDictionary[@"taxIdNo"];
@@ -331,15 +334,6 @@
             if (self.postNumTxt.text.length != 6) {
                 [self addAlertView:@"请输入邮政编码"];
             }else{
-                if (!_shengString) {
-                    [self addAlertView:@"请选择省份"];
-                }else{
-                    if (!_shiString) {
-                        [self addAlertView:@"请选择城市"];
-                    }else{
-                        if (!_quString) {
-                            [self addAlertView:@"请选择地区"];
-                        }else{
                             if ([_txtView.text isEqualToString:@"请填写发票邮寄地址"]) {
                                 [self addAlertView:@"请填写发票邮寄地址"];
                             }else{
@@ -351,14 +345,14 @@
                                         [_dataDictionary setObject:_invoiceHeadTxt.text forKey:@"invoiceHeader"];
                                         [_dataDictionary setObject:_payNumTxt.text forKey:@"taxIdNo"];
                                         [_dataDictionary setObject:_postNumTxt.text forKey:@"postcode"];
-                                        [_dataDictionary setObject:_shengString forKey:@"province"];
-                                        [_dataDictionary setObject:_shiString forKey:@"city"];
-                                        [_dataDictionary setObject:_quString forKey:@"district"];
+//                                        [_dataDictionary setObject:_shengString forKey:@"province"];
+//                                        [_dataDictionary setObject:_shiString forKey:@"city"];
+//                                        [_dataDictionary setObject:_quString forKey:@"district"];
                                         [_dataDictionary setObject:_txtView.text forKey:@"address"];
                                         [_dataDictionary setObject:_nameTxt.text forKey:@"contact"];
                                         [_dataDictionary setObject:_phoneTxt.text forKey:@"contactPhone"];
                                         
-                                        NSLog(@"---_dataDictionary--%@---",_dataDictionary);
+//                                        NSLog(@"---_dataDictionary--%@---",_dataDictionary);
                                         
                                         [GFHttpTool postCheckForUser:_dataDictionary success:^(id responseObject) {
                                             if ([responseObject[@"result"] integerValue] == 1) {
@@ -379,7 +373,7 @@
                                             
                                         } failure:^(NSError *error) {
                                             
-                                            NSLog(@"失败原因--%@--",error);
+//                                            NSLog(@"失败原因--%@--",error);
                                             
                                         }];
                                         
@@ -388,9 +382,7 @@
                                     }
                                 }
                             }
-                        }
-                    }
-                }
+                
             }
         }
     }
@@ -487,7 +479,7 @@
         self.tableView.hidden = YES;
     }
     
-    NSLog(@"省－－－%@-",_tableViewArray);
+//    NSLog(@"省－－－%@-",_tableViewArray);
     
     
 }
@@ -533,7 +525,7 @@
         
         NSDictionary *dictionary = _addressArray[_provinceNumber];
         NSArray *cityArray = dictionary[@"sub"];
-        NSLog(@"-----cityArray----%@----_cityNumber---%ld--",cityArray,(long)_cityNumber);
+//        NSLog(@"-----cityArray----%@----_cityNumber---%ld--",cityArray,(long)_cityNumber);
         NSDictionary *areaDictionary = cityArray[_cityNumber];
         _tableViewArray = areaDictionary[@"sub"];
         
