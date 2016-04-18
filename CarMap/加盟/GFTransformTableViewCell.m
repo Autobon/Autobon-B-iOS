@@ -54,7 +54,7 @@
 //        lab2.text = _contentString;
         _contentLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
         [_baseView addSubview:_contentLabel];
-        
+        _contentLabel.alpha = 0.6;
         
         // 虚线
         

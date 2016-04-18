@@ -9,11 +9,8 @@
 #import "GFSignUpViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
-//#import "GFHttpTool.h"
 #import "GFTipView.h"
 #import "GFHttpTool.h"
-
-
 #import "GFJoinInViewController_1.h"
 #import "CLDelegateViewController.h"
 

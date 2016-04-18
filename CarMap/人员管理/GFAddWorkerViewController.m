@@ -144,8 +144,9 @@
                     model.workerId = dataDictionary[@"id"];
                     model.name = dataDictionary[@"name"];
                     model.mainString = @"业务员";
+                    model.fired = NO;
                     GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
-                    [workerView.workerArray addObject:model];
+                    [workerView.workerArray insertObject:model atIndex:1];
                     [workerView.tableView reloadData];
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{

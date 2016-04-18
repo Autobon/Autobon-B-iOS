@@ -8,7 +8,7 @@
 
 #import "CLCooperateFailViewController.h"
 #import "GFNavigationView.h"
-#include "GFJoinInViewController_1.h"
+#import "GFJoinInViewController_1.h"
 #import "UIImageView+WebCache.h"
 #import "GFHttpTool.h"
 

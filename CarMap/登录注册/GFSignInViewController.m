@@ -9,12 +9,8 @@
 #import "GFSignInViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
-//#import "GFHttpTool.h"
 #import "GFSignUpViewController.h"
-
 #import "GFForgetPwdViewController.h"
-#import "CLCooperateFailViewController.h"
-#import "CLCooperatingViewController.h"
 #import "GFOneIndentViewController.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"

@@ -18,14 +18,9 @@
 
 
 #import "GFSignInViewController.h"
-#import "GFAddWorkerViewController.h"
-#import "GFOneIndentViewController.h"
 #import "GFEvaluateViewController.h"
-#import "GFEvaluateShareViewController.h"
 #import "GFAlertView.h"
-#import "SecondViewController.h"
 #import "GFOneIndentViewController.h"
-#import "GFJoinInViewController_1.h"
 
 
 
@@ -305,7 +300,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     // 处理APNs代码，通过userInfo可以取到推送的信息（包括内容，角标，自定义参数等）。如果需要弹窗等其他操作，则需要自行编码。
 #pragma mark - 后台运行调用的方法
-//    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
+    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"通知消息" forKey:@"title"];
     completionHandler(UIBackgroundFetchResultNewData);

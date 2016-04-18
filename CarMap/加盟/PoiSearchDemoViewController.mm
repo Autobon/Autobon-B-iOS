@@ -182,8 +182,8 @@
         _mapView.centerCoordinate = result.location;
         NSString* titleStr;
         NSString* showmeg;
-        titleStr = @"反向地理编码";
-        showmeg = [NSString stringWithFormat:@"%@",_workerPointAnno.title];
+//        titleStr = @"反向地理编码";
+//        showmeg = [NSString stringWithFormat:@"%@",_workerPointAnno.title];
         
 //        NSLog(@"看看字典－－_dataDictionary--%@-",_dataDictionary);
         

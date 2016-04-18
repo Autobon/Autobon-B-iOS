@@ -135,7 +135,7 @@
             cell.rightBut.userInteractionEnabled = NO;
             cell.rightBut.alpha = 0.3;
         }else{
-            
+            cell.rightBut.alpha = 1.0;
             cell.rightBut.tag = indexPath.row;
             cell.rightBut.userInteractionEnabled = YES;
             [cell.rightBut addTarget:self action:@selector(moveWorker:) forControlEvents:UIControlEventTouchUpInside];

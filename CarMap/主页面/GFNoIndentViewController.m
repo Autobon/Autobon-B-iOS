@@ -9,7 +9,6 @@
 #import "GFNoIndentViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
-
 #import "GFNoIndentTableViewCell.h"
 #import "CLIndentModel.h"
 #import "MJRefresh.h"
@@ -132,7 +131,7 @@
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 CLIndentModel *model = [[CLIndentModel alloc]init];
                 model.orderId = obj[@"id"];
-//                NSLog(@"-------id-----%@--",model.orderId);
+                NSLog(@"-------id-----%@--",model.orderId);
                 model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
                 //                model.status = obj[@"status"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;

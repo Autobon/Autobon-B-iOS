@@ -10,10 +10,8 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFHttpTool.h"
-
 #import "GFIndentTableViewCell.h"
 #import "GFIndentDetialsViewController.h"
-
 #import "MJRefresh.h"
 #import "GFIndentModel.h"
 #import "UIImageView+WebCache.h"
