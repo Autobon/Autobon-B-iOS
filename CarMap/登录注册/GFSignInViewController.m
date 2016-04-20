@@ -176,6 +176,7 @@
 //                            NSLog(@"－－－更新个推ID成功－－%@--",responseObject);
                         } failure:^(NSError *error) {
 //                            NSLog(@"－－－请求失败---%@---",error);
+                             [self addAlertView:@"请求失败"];
                         }];
                         
                         
@@ -234,6 +235,7 @@
                     }
                 } failure:^(NSError *error) {
 //                    NSLog(@"登录失败---%@----",error);
+                     [self addAlertView:@"请求失败"];
                 }];
             }
         }else{

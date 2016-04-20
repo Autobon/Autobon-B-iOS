@@ -179,6 +179,7 @@
         
     } failure:^(NSError *error) {
 //        NSLog(@"----shibaile---%@---",error);
+         [self addAlertView:@"请求失败"];
     }];
 }
 
@@ -447,7 +448,13 @@
     _scrollerView.contentSize = CGSizeMake(_scrollerView.contentSize.width, _scrollerView.contentSize.height-300);
     
 }
-
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if (textView.text.length > 200 && range.length==0) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
 
 #pragma mark - 未完成订单的响应方法
 - (void)tipBtnClick{
@@ -508,7 +515,8 @@
                     [self addAlertView:responseObject[@"message"]];
                 }
             } failure:^(NSError *error) {
-//                NSLog(@"－－－下单失败---%@----",error);
+                NSLog(@"－－－下单失败---%@----",error);
+                [self addAlertView:@"下单失败"];
             }];
             
             
@@ -560,7 +568,7 @@
 //    imagesize.height = image.size.height/2;
     UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
     NSData *imageData = UIImageJPEGRepresentation(imageNew,0.8);
-    [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
+    [GFHttpTool postOrderImage:imageData success:^(id responseObject) {
 //        NSLog(@"上传成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             _isUpOrderImage = YES;
@@ -570,6 +578,7 @@
         }
     } failure:^(NSError *error) {
 //        NSLog(@"上传失败－－%@---",error);
+        [self addAlertView:@"图片上传失败"];
     }];
     
     

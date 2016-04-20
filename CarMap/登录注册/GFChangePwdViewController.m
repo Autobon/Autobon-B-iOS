@@ -156,6 +156,7 @@
                         
                     } failure:^(NSError *error) {
 //                        NSLog(@"请求失败--%@--",error);
+                        [self addAlertView:@"请求失败"];
                     }];
 
                     

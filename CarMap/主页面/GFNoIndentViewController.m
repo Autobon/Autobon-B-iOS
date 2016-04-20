@@ -164,6 +164,7 @@
         
     } failure:^(NSError *error) {
         _tableView.userInteractionEnabled = YES;
+         [self addAlertView:@"请求失败"];
 //        NSLog(@"----shibaile---%@---",error);
     }];
 }
@@ -236,7 +237,7 @@
         }
         
     } failure:^(NSError *error) {
-        
+         [self addAlertView:@"请求失败"];
     }];
     
     

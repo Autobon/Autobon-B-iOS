@@ -269,7 +269,7 @@
 //        NSLog(@"--请求成功－－%@--",responseObject);
         
     } failure:^(NSError *error) {
-        
+         [self addAlertView:@"请求失败"];
 //        NSLog(@"请求失败---%@--",error);
         [_tableview reloadData];
         _tableview.userInteractionEnabled = YES;
@@ -353,6 +353,7 @@
 //        NSLog(@"--请求成功－－%@--",responseObject);
         
     } failure:^(NSError *error) {
+         [self addAlertView:@"请求失败"];
         [_tableview reloadData];
         _tableview.userInteractionEnabled = YES;
         [self.tableview.header endRefreshing];

@@ -13,6 +13,7 @@
 #import "GFEvaluateViewController.h"
 #import "UIImageView+WebCache.h"
 #import "GFHttpTool.h"
+#import "GFTipView.h"
 
 
 
@@ -354,6 +355,7 @@
         
     } failure:^(NSError *error) {
 //        NSLog(@"请求失败－－－%@---",error);
+        [self addAlertView:@"请求失败"];
     }];
     
     
@@ -366,6 +368,12 @@
     
 //    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 700);
     
+}
+
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
 }
 
 - (void)secondConstruct:(float)MaxY{

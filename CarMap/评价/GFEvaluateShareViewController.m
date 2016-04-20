@@ -13,6 +13,7 @@
 #import "UMSocial.h"
 #import "GFHttpTool.h"
 #import "GFEvaluateViewController.h"
+#import "GFTipView.h"
 
 
 
@@ -198,6 +199,7 @@
         
     } failure:^(NSError *error) {
 //        NSLog(@"请求失败－－－%@---",error);
+        [self addAlertView:@"请求失败"];
     }];
     
     
@@ -251,7 +253,11 @@
     
     
 }
-
+#pragma mark - AlertView
+- (void)addAlertView:(NSString *)title{
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
+    [tipView tipViewShow];
+}
 
 #pragma mark - 分享按钮响应方法
 - (void)shareBtnClick{

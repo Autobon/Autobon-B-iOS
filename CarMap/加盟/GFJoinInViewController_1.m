@@ -339,6 +339,7 @@
             }
         } failure:^(NSError *error) {
 //            NSLog(@"上传失败－－%@---",error);
+             [self addAlertView:@"请求失败"];
         }];
         
     }else{
@@ -362,7 +363,7 @@
             }
             
         } failure:^(NSError *error) {
-            
+             [self addAlertView:@"请求失败"];
 //            NSLog(@"---请求失败－－－error---%@---",error);
             
         }];
