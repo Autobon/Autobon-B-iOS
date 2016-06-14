@@ -68,7 +68,6 @@
 		9B6B6ECE1C9A594E00449259 /* GFTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FB011C96A08F004E26AC /* GFTipView.m */; };
 		9B6B6ED11C9A59EA00449259 /* GFHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6ED01C9A59EA00449259 /* GFHttpTool.m */; };
 		9B6B6ED41C9A5A1A00449259 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6ED31C9A5A1A00449259 /* Reachability.m */; };
-		9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8513D81C965E2800BB9CF5 /* libPods.a */; };
 		9B9515411C60503800445F93 /* GFAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153C1C60503800445F93 /* GFAnnotation.m */; };
 		9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153E1C60503800445F93 /* GFAnnotationView.m */; };
 		9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9515401C60503800445F93 /* GFMapViewController.mm */; };
@@ -105,6 +104,7 @@
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
+		F792BAD1E0D53C5F4B1EB205 /* libPods-CarMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7926195CADE657847964FDD7 /* libPods-CarMap.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +118,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D3BBD79C2331AFAE13C582D /* Pods-CarMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarMap/Pods-CarMap.debug.xcconfig"; sourceTree = "<group>"; };
+		7926195CADE657847964FDD7 /* libPods-CarMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8673FDBD1C99459200666634 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		8673FDBE1C99459200666634 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		8673FDBF1C99459200666634 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		86D4FB011C96A08F004E26AC /* GFTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTipView.m; sourceTree = "<group>"; };
 		86D4FB021C96A08F004E26AC /* GFTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTitleView.h; sourceTree = "<group>"; };
 		86D4FB031C96A08F004E26AC /* GFTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTitleView.m; sourceTree = "<group>"; };
+		9A144A3E7ACA2C6E9DAF8FD2 /* Pods-CarMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarMap/Pods-CarMap.release.xcconfig"; sourceTree = "<group>"; };
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -332,8 +335,6 @@
 		9BFA807F1C5F4596001651C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BFA80811C5F4744001651C3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9BFA80841C5F475B001651C3 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		C95997697E5E85C90BAF73FD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		F99A50507FF60FC41E844D9D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,7 +344,7 @@
 			files = (
 				9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */,
 				9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */,
-				9B8513D91C965E2800BB9CF5 /* libPods.a in Frameworks */,
+				F792BAD1E0D53C5F4B1EB205 /* libPods-CarMap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +358,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5775FC00085956C607A6F9E6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3D3BBD79C2331AFAE13C582D /* Pods-CarMap.debug.xcconfig */,
+				9A144A3E7ACA2C6E9DAF8FD2 /* Pods-CarMap.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8673FDBB1C99459200666634 /* 网络请求(AFNetworking) */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,15 +425,6 @@
 			path = "自定义控件";
 			sourceTree = "<group>";
 		};
-		8C8F7DDB3387FA41E0656EC2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F99A50507FF60FC41E844D9D /* Pods.debug.xcconfig */,
-				C95997697E5E85C90BAF73FD /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		909B27CA6FA162B8934C9008 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +451,7 @@
 				9BFA805F1C5F4009001651C3 /* BaiduMapAPI_Search.framework */,
 				9BFA80601C5F4009001651C3 /* BaiduMapAPI_Utils.framework */,
 				9B02AF661C5A22CB0044FB71 /* StoreKit.framework */,
+				7926195CADE657847964FDD7 /* libPods-CarMap.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -676,8 +678,8 @@
 				9B97543B1C5765B3004BDC7C /* CarMap */,
 				9B9754551C5765B3004BDC7C /* CarMapUITests */,
 				9B97543A1C5765B3004BDC7C /* Products */,
-				8C8F7DDB3387FA41E0656EC2 /* Pods */,
 				909B27CA6FA162B8934C9008 /* Frameworks */,
+				5775FC00085956C607A6F9E6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -778,12 +780,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B97545B1C5765B3004BDC7C /* Build configuration list for PBXNativeTarget "CarMap" */;
 			buildPhases = (
-				9A6F8586F12EDF1D1F04913B /* Check Pods Manifest.lock */,
+				310F5C6C9120687F6276A991 /* 📦 Check Pods Manifest.lock */,
 				9B9754351C5765B3004BDC7C /* Sources */,
 				9B9754361C5765B3004BDC7C /* Frameworks */,
 				9B9754371C5765B3004BDC7C /* Resources */,
-				2AC1DED63E650A694F9D5E8F /* Embed Pods Frameworks */,
-				77BA4C96A19C72A331A3ADBE /* Copy Pods Resources */,
+				18F1A40002D45A4202AC079B /* 📦 Embed Pods Frameworks */,
+				B644591308DA64AD12F0ECCA /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -886,49 +888,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2AC1DED63E650A694F9D5E8F /* Embed Pods Frameworks */ = {
+		18F1A40002D45A4202AC079B /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarMap/Pods-CarMap-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		77BA4C96A19C72A331A3ADBE /* Copy Pods Resources */ = {
+		310F5C6C9120687F6276A991 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A6F8586F12EDF1D1F04913B /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B644591308DA64AD12F0ECCA /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarMap/Pods-CarMap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1150,7 +1152,7 @@
 		};
 		9B97545C1C5765B3004BDC7C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F99A50507FF60FC41E844D9D /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3D3BBD79C2331AFAE13C582D /* Pods-CarMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1175,7 +1177,7 @@
 		};
 		9B97545D1C5765B3004BDC7C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C95997697E5E85C90BAF73FD /* Pods.release.xcconfig */;
+			baseConfigurationReference = 9A144A3E7ACA2C6E9DAF8FD2 /* Pods-CarMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

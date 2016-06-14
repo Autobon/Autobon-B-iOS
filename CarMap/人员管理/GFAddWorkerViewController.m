@@ -31,6 +31,8 @@
 
 @property (nonatomic, strong) GFTextField *phoneTxt;
 @property (nonatomic, strong) GFTextField *nameTxt;
+@property (nonatomic, strong) UIButton *signInBut;
+@property (nonatomic, strong) UILabel *lab;
 
 
 @end
@@ -68,10 +70,12 @@
     // 请输入手机号
     self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入手机号"];
     [self.view addSubview:self.phoneTxt];
+    self.phoneTxt.delegate = self;
     
     // 请输入姓名
     self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"请输入姓名"];
     [self.view addSubview:self.nameTxt];
+    self.nameTxt.delegate = self;
     
     // 男、、女
     UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.nameTxt.frame) + jiange2, kWidth, kHeight * 0.078)];
@@ -111,22 +115,32 @@
     CGFloat signInButH = kHeight * 0.07;
     CGFloat signInButX = kWidth * 0.116;
     CGFloat signInButY = CGRectGetMaxY(baseView1.frame) + kHeight * 0.165;
-    UIButton *signInBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    signInBut.frame = CGRectMake(signInButX, signInButY, signInButW, signInButH);
-    signInBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-    signInBut.layer.cornerRadius = 5;
-    [signInBut setTitle:@"确认" forState:UIControlStateNormal];
-    [signInBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:signInBut];
+    self.signInBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.signInBut.frame = CGRectMake(signInButX, signInButY, signInButW, signInButH);
+    self.signInBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    self.signInBut.layer.cornerRadius = 5;
+    [self.signInBut setTitle:@"确认" forState:UIControlStateNormal];
+    [self.signInBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.signInBut];
     
     // 点击“提交”
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(signInBut.frame) + 15, kWidth, kHeight * 0.021)];
-    lab.text = @"业务员初始密码为123456";
-    lab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
-    lab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
-    lab.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:lab];
+    self.lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021)];
+    self.lab.text = @"业务员初始密码为123456";
+    self.lab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
+    self.lab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
+    self.lab.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.lab];
     
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+
+    [UIView animateWithDuration:0.5 animations:^{
+        self.signInBut.frame = CGRectMake(kWidth * 0.116, CGRectGetMaxY(self.nameTxt.frame) + jiange2 + kHeight * 0.078 + kHeight * 0.165 - 80, kWidth - (kWidth * 0.116) * 2, kHeight * 0.07);
+        self.lab.frame = CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021);
+    }];
+
+   
 }
 
 #pragma mark - 确认按钮的响应方法
@@ -257,6 +271,15 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        self.signInBut.frame = CGRectMake(kWidth * 0.116, CGRectGetMaxY(self.nameTxt.frame) + jiange2 + kHeight * 0.078 + kHeight * 0.165, kWidth - (kWidth * 0.116) * 2, kHeight * 0.07);
+        self.lab.frame = CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021);
+    }];
+    
+    
+    
     [self.view endEditing:YES];
 }
 

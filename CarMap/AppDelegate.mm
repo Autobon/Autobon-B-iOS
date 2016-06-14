@@ -22,7 +22,9 @@
 #import "GFAlertView.h"
 #import "GFOneIndentViewController.h"
 
-
+// 调试界面
+#import "GFJoinInViewController_1.h"
+#import "GFJoinInViewController_2.h"
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
 #define kGtAppId      @"IED5iJnuVu8dklsGy35E54"
@@ -83,6 +85,7 @@
 //    GFJoinInViewController_1 *firstView = [[GFJoinInViewController_1 alloc]init];
     
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
+//    _navigation = [[UINavigationController alloc]initWithRootViewController:[[GFJoinInViewController_2 alloc] init]];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
     [_window makeKeyAndVisible];

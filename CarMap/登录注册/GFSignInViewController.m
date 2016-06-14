@@ -76,17 +76,21 @@
     // 企业简称
     self.enterpriseTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(logoImgView.frame) + kHeight * 0.091 withPlaceholder:@"企业简称"];
     [self.view addSubview:self.enterpriseTxt];
+    self.enterpriseTxt.delegate = self;
+
     
     // 手机号
     self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.enterpriseTxt.frame) + jiange1 withPlaceholder:@"请输入您的手机号"];
-    self.phoneTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
+    self.phoneTxt.delegate = self;
     
     // 密码
     self.passwordTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange1 withPlaceholder:@"请输入您的密码"];
     self.passwordTxt.secureTextEntry = YES;
     self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
+    self.phoneTxt.delegate = self;
     
     
     UIButton *eyeButton = [[UIButton alloc]init];
@@ -149,9 +153,16 @@
     
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+
+    self.view.frame = CGRectMake(0, -80, kWidth, kHeight);
+}
+
 
 #pragma mark - 登录按钮的响应的响应方法
 - (void)signInButClick {
+    
+    self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
     
     [self.view endEditing:YES];
     
@@ -304,6 +315,8 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
 
     [self.view endEditing:YES];
 }

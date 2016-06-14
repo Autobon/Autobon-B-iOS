@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GFAddWorkerViewController : UIViewController
+@interface GFAddWorkerViewController : UIViewController <UITextFieldDelegate>
 
 @end

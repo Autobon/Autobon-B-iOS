@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GFSignInViewController : UIViewController
+@interface GFSignInViewController : UIViewController <UITextFieldDelegate>
 
 @end

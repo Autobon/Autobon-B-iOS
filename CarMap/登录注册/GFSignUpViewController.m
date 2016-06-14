@@ -112,6 +112,7 @@
     self.passwordTxt.secureTextEntry = YES;
     self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
+    self.passwordTxt.delegate = self;
     
     UIButton *eyeButton = [[UIButton alloc]init];
     eyeButton.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
@@ -128,6 +129,7 @@
     self.againPwdTxt.secureTextEntry = YES;
     self.againPwdTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.againPwdTxt];
+    self.againPwdTxt.delegate = self;
     
     
     UIButton *eyeButton2 = [[UIButton alloc]init];
@@ -176,6 +178,13 @@
     [agreeLab addSubview:agreeBut];
     [agreeBut addTarget:self action:@selector(agreeButClick) forControlEvents:UIControlEventTouchUpInside];
     
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+
+    self.view.frame = CGRectMake(0, -140, kWidth, kHeight);
+    self.navView.frame = CGRectMake(0, 140, kWidth, 64);
+    [self.view bringSubviewToFront:self.navView];
 }
 
 
@@ -271,7 +280,10 @@
     
 //    [self addAlertView:@"注册按钮点击了"];
     
-    
+    self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
+    self.navView.frame = CGRectMake(0, 0, kWidth, 64);
+    [self.view bringSubviewToFront:self.navView];
+    [self.view endEditing:YES];
     
     if (_enterpriseNameTxt.text.length == 0) {
         [self addAlertView:@"请输入企业简称"];
@@ -397,6 +409,11 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
+    self.navView.frame = CGRectMake(0, 0, kWidth, 64);
+    [self.view bringSubviewToFront:self.navView];
+    
     
     [self.view endEditing:YES];
 }
