@@ -109,7 +109,7 @@
     
     
     // 英卡科技
-    GFTitleView *kejiView = [[GFTitleView alloc] initWithY:46 + jiange1 Title:@"英卡科技"];
+    GFTitleView *kejiView = [[GFTitleView alloc] initWithY:46 + jiange1 Title:@"公司信息"];
     [self.scrollerView addSubview:kejiView];
     
     // 营业执照的工商注册名称
@@ -232,9 +232,10 @@
             self.zhizhaohaoTxt.text = _dataForPastDictionary[@"businessLicense"];
             self.nameTxt.text = _dataForPastDictionary[@"corporationName"];
             self.idCardTxt.text = _dataForPastDictionary[@"corporationIdNo"];
-            [_certificateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            extern NSString* const URLHOST;
+            [_certificateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
-            [_idImageViewBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_idImageViewBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"corporationIdPicA"];
             _isUpCertificate = YES;
             _isUpidImageView = YES;
@@ -326,6 +327,7 @@
             imagesize.height = image.size.height*800/image.size.width;
         }else{
             imagesize.height = 800;
+            imagesize.width = image.size.width*800/image.size.height;
         }
         UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
         NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.8);
@@ -348,8 +350,13 @@
 //        _identityButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         CGSize imagesize;
-        imagesize.width = image.size.width/2;
-        imagesize.height = image.size.height/2;
+        if (image.size.width > image.size.height) {
+            imagesize.width = 800;
+            imagesize.height = image.size.height*800/image.size.width;
+        }else{
+            imagesize.height = 800;
+            imagesize.width = image.size.width*800/image.size.height;
+        }
         UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
         NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.3);
         [GFHttpTool postIdImageViewImage:imageData success:^(id responseObject) {

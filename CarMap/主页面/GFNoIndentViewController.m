@@ -126,12 +126,23 @@
             
             GFOneIndentViewController *oneIndentView = self.navigationController.viewControllers[0];
             [oneIndentView.tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
-            
+            if ([dataDictionary[@"totalElements"] integerValue] == 0) {
+//                oneIndentView.tipButton.hidden = YES;
+//                NSLog(@"共有11个订单");
+                
+                oneIndentView.baseView.frame = CGRectMake(0, 0, kWidth, oneIndentView.baseView.frame.size.height - self.view.frame.size.height * 0.0625);
+                oneIndentView.scrollerView.frame = CGRectMake(0, 64-oneIndentView.tipButton.frame.size.height - 20, kWidth, kHeight - 44+oneIndentView.tipButton.frame.size.height);
+                oneIndentView.scrollerView.contentSize = CGSizeMake(0, oneIndentView.baseView.frame.size.height);
+                oneIndentView.tipButton.hidden = YES;
+                
+                
+                
+            }
             
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 CLIndentModel *model = [[CLIndentModel alloc]init];
                 model.orderId = obj[@"id"];
-                NSLog(@"-------id-----%@--",model.orderId);
+//                NSLog(@"-------id-----%@--",model.orderId);
                 model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
                 //                model.status = obj[@"status"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
@@ -165,6 +176,8 @@
     } failure:^(NSError *error) {
         _tableView.userInteractionEnabled = YES;
          [self addAlertView:@"请求失败"];
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
 //        NSLog(@"----shibaile---%@---",error);
     }];
 }
@@ -199,7 +212,8 @@
     cell.workCon = model.orderType;
     cell.workTime = model.orderTime;
     cell.xiadanTime = model.addTime;
-    [cell.indentImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+    extern NSString* const URLHOST;
+    [cell.indentImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
     [cell.workerBut setTitle:model.workName forState:UIControlStateNormal];
     [cell.workerBut addTarget:self action:@selector(workerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     cell.workerBut.tag = indexPath.row;

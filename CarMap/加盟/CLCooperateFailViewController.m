@@ -148,7 +148,8 @@
     licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
 //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
     licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
-    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+    extern NSString* const URLHOST;
+    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:licenceDuplicateImage];
     
 // 法人身份证正面照
@@ -172,7 +173,7 @@
     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
     legalEntityIdImage.backgroundColor = [UIColor darkGrayColor];
     legalEntityIdImage.contentMode = UIViewContentModeScaleAspectFit;
-    [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:legalEntityIdImage];
     
     

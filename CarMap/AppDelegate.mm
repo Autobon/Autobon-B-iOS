@@ -178,6 +178,7 @@
     myToken = [myToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     [GeTuiSdk registerDeviceToken:myToken];    /// 向个推服务器注册deviceToken
 //    NSLog(@"\n>>>[DeviceToken Success]:%@\n\n",myToken);
+//    16bfbdbc38a20858b6193bd86a7aa4bc3f5a834abb4a8575085bd95a4c681f38
 }
 
 /** 远程通知注册失败委托 */
@@ -249,6 +250,7 @@
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
         }else if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+            AudioServicesPlaySystemSound(1307);
             _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
             [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             _alertView.okBut.tag = [responseJSON[@"id"] integerValue];
@@ -258,7 +260,7 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
         }else if ([responseJSON[@"action"]isEqualToString:@"NEW_MESSAGE"]){
             NSDictionary *messageDictionary = responseJSON[@"message"];
-            
+            AudioServicesPlaySystemSound(1307);
             _alertView = [[GFAlertView alloc]initWithTitleString:messageDictionary[@"title"] withTipMessage:messageDictionary[@"content"] withButtonNameArray:@[@"确定"]];
 
             UIWindow *window = [UIApplication sharedApplication].delegate.window;
@@ -300,11 +302,13 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     // 处理APNs代码，通过userInfo可以取到推送的信息（包括内容，角标，自定义参数等）。如果需要弹窗等其他操作，则需要自行编码。
 #pragma mark - 后台运行调用的方法
-//    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
+    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"通知消息" forKey:@"title"];
     completionHandler(UIBackgroundFetchResultNewData);
-    NSData *JSONData = [userInfo[@"json"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *apsDictionary = userInfo[@"aps"];
+    NSDictionary *alertDictionary = apsDictionary[@"alert"];
+    NSData *JSONData = [alertDictionary[@"payload"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
 //    NSLog(@"----responseJSON----%@--",responseJSON);
     if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
@@ -372,6 +376,18 @@
     
     
 }
+
+
+
+//- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+//{
+//    NSLog(@"禁用横屏");
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+
+
+
+
 
 -(void)btnClick:(UIButton *)button{
     [[button superview] removeFromSuperview];

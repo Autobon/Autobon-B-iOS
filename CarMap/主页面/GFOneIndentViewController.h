@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CLTouchScrollView.h"
 
 @interface GFOneIndentViewController : UIViewController
 
@@ -15,6 +16,7 @@
 
 // 灰色提示条
 @property (nonatomic, strong) UIButton *tipButton;
-
+@property (nonatomic, strong) UIView *baseView;
+@property (nonatomic, strong) CLTouchScrollView *scrollerView;
 
 @end

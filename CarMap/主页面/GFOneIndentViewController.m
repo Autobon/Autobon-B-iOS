@@ -13,7 +13,6 @@
 #import "GFPartnersMessageViewController.h"
 #import "GFNoIndentViewController.h"
 #import "UWDatePickerView.h"
-#import "CLTouchScrollView.h"
 #import "GFTipView.h"
 #import "GFHttpTool.h"
 #import "CLIndentModel.h"
@@ -51,7 +50,6 @@
 //@property (nonatomic, strong) GFNavigationView *navView;
 
 
-@property (nonatomic, strong) CLTouchScrollView *scrollerView;
 
 
 // 订单信息
@@ -63,7 +61,7 @@
 // 施工时间Lab
 @property (nonatomic, strong) UILabel *timeLab;
 
-@property (nonatomic, strong) UIView *baseView;
+
 
 @property (nonatomic, strong) UILabel *timeLab1;
 
