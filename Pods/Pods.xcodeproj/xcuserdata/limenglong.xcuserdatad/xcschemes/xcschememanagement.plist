@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods.xcscheme</key>
+		<key>Pods-CarMap.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -12,22 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>122BC0DDFA2D0FAD098E79F9FF495B56</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1469924FC52F60B0068FA24EEFCB3EFC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1469924FC52F60B0068FA24EEFCB3EFC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CAEA868BA328BE96EDD68B17F7660DB0</key>
+		<key>ADE8674EB11F315C9B20FAB6D4E3D5C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

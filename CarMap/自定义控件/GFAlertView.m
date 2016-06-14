@@ -13,7 +13,7 @@
 @implementation GFAlertView
 
 
-#pragma mark - 进度条
+#pragma mark - 进度条#import "CLTouchImageView.h"
 + (instancetype)initWithJinduTiaoTipName:(NSString *)tipName {
     
     NSMutableArray *mArr = [[NSMutableArray alloc] init];
@@ -498,12 +498,8 @@
         CGFloat timeLabH = butH;
         CGFloat timeLabX = (baseViewW - timeLabW) / 2.0;
         CGFloat timeLabY = CGRectGetMaxY(lab.frame) + 20;
-<<<<<<< HEAD
-        self.timeLab.text = [NSString stringWithFormat:@"%ld", miao];
-        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
-        self.timeLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-        [baseView addSubview:self.timeLab];
-=======
+
+
         timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
         timeLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         timeLab.text = [NSString stringWithFormat:@"%@",@(miao)];
@@ -512,13 +508,12 @@
         timeLab.layer.cornerRadius = 10;
         timeLab.clipsToBounds = YES;
         [baseView addSubview:timeLab];
->>>>>>> CLAutobon-B
+
+        
         
         baseView.frame = CGRectMake(baseViewX, baseViewY, baseViewW, CGRectGetMaxY(self.timeLab.frame) + 40);
         
-        
-<<<<<<< HEAD
-=======
+
         // 计时器
 //        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork:) userInfo:nil repeats:YES];
         if (timer == nil) {
@@ -526,17 +521,14 @@
         }
         
 //        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeForWork) userInfo:nil repeats:YES];
->>>>>>> CLAutobon-B
+
 
     }
     
     return self;
 }
 
-<<<<<<< HEAD
 
-    
-=======
 - (void)timeForWork{
     NSInteger time = [timeLab.text integerValue];
     if (time == 0) {
@@ -689,7 +681,7 @@
     
     return self;
 }
->>>>>>> CLAutobon-B
+
 
 - (void)okButClick {
 
