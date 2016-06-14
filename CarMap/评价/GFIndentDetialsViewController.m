@@ -100,8 +100,7 @@
     CGFloat bianhaoLabW = 0.7 * kWidth;
     CGFloat bianhaoLabH = kHeight * 0.026;
     CGFloat bianhaoLabX = jianjv1;
-    CGFloat bianhaoLabY = jiange2;
-    self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, bianhaoLabY, bianhaoLabW, bianhaoLabH)];
+    self.bianhaoLab = [[UILabel alloc] init];
     self.bianhaoLab.text = [NSString stringWithFormat:@"订单编号%@",_model.orderNum];
     self.bianhaoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.bianhaoLab];
@@ -110,18 +109,24 @@
     CGFloat tiemoLabW = bianhaoLabW;
     CGFloat tiemoLabH = bianhaoLabH;
     CGFloat tiemoLabX = bianhaoLabX;
-    CGFloat tiemoLabY = CGRectGetMaxY(self.bianhaoLab.frame) + jiange3;
+    CGFloat tiemoLabY =  jiange2;
     self.tiemoLab = [[UILabel alloc] initWithFrame:CGRectMake(tiemoLabX, tiemoLabY, tiemoLabW, tiemoLabH)];
     self.tiemoLab.text = _model.orderType;
     self.tiemoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     self.tiemoLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [baseView addSubview:self.tiemoLab];
     
+    
+    
+    self.bianhaoLab.frame = CGRectMake(bianhaoLabX, CGRectGetMaxY(self.tiemoLab.frame) + jiange3, bianhaoLabW, bianhaoLabH);
+    
+    
+    
     // 预约时间
     CGFloat timeLabW = bianhaoLabW;
     CGFloat timeLabH = bianhaoLabH;
     CGFloat timeLabX = bianhaoLabX;
-    CGFloat timeLabY = CGRectGetMaxY(self.tiemoLab.frame) + jiange3;
+    CGFloat timeLabY = CGRectGetMaxY(self.bianhaoLab.frame) + jiange3;
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
     self.timeLab.text = [NSString stringWithFormat:@"预约时间：%@",_model.workTime];
     self.timeLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
@@ -132,7 +137,7 @@
     CGFloat pingjiaButW = kWidth * 0.185;
     CGFloat pingjiaButH = kHeight * 0.042;
     CGFloat pingjiaButX = kWidth - jianjv1 - pingjiaButW;
-    CGFloat pingjiaButY = bianhaoLabY + 3 / 568.0 * kHeight;
+    CGFloat pingjiaButY = CGRectGetMaxY(self.tiemoLab.frame) + jiange3 + 3 / 568.0 * kHeight;
     UIButton *pingjiaBut = [UIButton buttonWithType:UIButtonTypeCustom];
     pingjiaBut.frame = CGRectMake(pingjiaButX, pingjiaButY, pingjiaButW, pingjiaButH);
     pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
@@ -161,7 +166,8 @@
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
 //    imgView.backgroundColor = [UIColor redColor];
     imgView.contentMode = UIViewContentModeScaleAspectFit;
-    [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",_model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+    extern NSString* const URLHOST;
+    [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
     
     [baseView addSubview:imgView];
     
@@ -311,7 +317,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             nameLab.text = technicianDictionary[@"name"];
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
 //            numLab.text = @"999";

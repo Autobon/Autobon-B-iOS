@@ -294,7 +294,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
     [self onClickGeocode];
 //    [self searchBtnClick];
 }
@@ -410,6 +409,16 @@
     
     [self onClickReverseGeocode:self.workerPointAnno.coordinate];
 }
+- (void)mapView:(BMKMapView *)mapView onClickedMapPoi:(BMKMapPoi*)mapPoi
+{
+    _mapView.centerCoordinate = mapPoi.pt;
+    self.workerPointAnno.coordinate = mapPoi.pt;
+    
+    [self onClickReverseGeocode:self.workerPointAnno.coordinate];
+}
+
+
+
 
 
 //#pragma mark -

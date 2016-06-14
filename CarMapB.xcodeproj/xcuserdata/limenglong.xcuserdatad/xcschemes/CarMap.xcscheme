@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B9754381C5765B3004BDC7C"
-               BuildableName = "CarMap.app"
-               BlueprintName = "CarMap"
-               ReferencedContainer = "container:CarMap.xcodeproj">
+               BuildableName = "CarMapB.app"
+               BlueprintName = "CarMapB"
+               ReferencedContainer = "container:CarMapB.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B9754511C5765B3004BDC7C"
-               BuildableName = "CarMapUITests.xctest"
-               BlueprintName = "CarMapUITests"
-               ReferencedContainer = "container:CarMap.xcodeproj">
+               BuildableName = "CarMapB.xctest"
+               BlueprintName = "CarMapBUITests"
+               ReferencedContainer = "container:CarMapB.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B9754381C5765B3004BDC7C"
-            BuildableName = "CarMap.app"
-            BlueprintName = "CarMap"
-            ReferencedContainer = "container:CarMap.xcodeproj">
+            BuildableName = "CarMapB.app"
+            BlueprintName = "CarMapB"
+            ReferencedContainer = "container:CarMapB.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B9754381C5765B3004BDC7C"
-            BuildableName = "CarMap.app"
-            BlueprintName = "CarMap"
-            ReferencedContainer = "container:CarMap.xcodeproj">
+            BuildableName = "CarMapB.app"
+            BlueprintName = "CarMapB"
+            ReferencedContainer = "container:CarMapB.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B9754381C5765B3004BDC7C"
-            BuildableName = "CarMap.app"
-            BlueprintName = "CarMap"
-            ReferencedContainer = "container:CarMap.xcodeproj">
+            BuildableName = "CarMapB.app"
+            BlueprintName = "CarMapB"
+            ReferencedContainer = "container:CarMapB.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -10,4 +10,8 @@
 
 @interface GFIndentViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+
+@property (nonatomic ,strong) UIButton *indentViewButton;
+
+
 @end

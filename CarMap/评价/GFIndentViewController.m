@@ -175,7 +175,7 @@
 //    NSLog(@"脑袋刷新");
     _dataArray = [[NSMutableArray alloc]init];
     _page = 1;
-    _pageSize = 2;
+    _pageSize = 8;
     if (_isAll) {
         [self getOrder];
     }else{
@@ -222,11 +222,11 @@
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
-                model.workTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+                model.workTime = [formatter stringFromDate:date];
                 model.remark = obj[@"remark"];
                 
                 date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
-                model.signinTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                model.signinTime = [formatter stringFromDate:date];
                 
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
@@ -387,15 +387,25 @@
         GFIndentModel *model = _dataArray[indexPath.row];
         cell.numberLab.text = [NSString stringWithFormat:@"订单编号%@",model.orderNum];
         cell.timeLab.text = model.orderType;
-        [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
-        if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
-            [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
-            cell.pingjiaBut.tag = indexPath.row;
-            [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        extern NSString* const URLHOST;
+        [cell.photoImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+        if ([model.status isEqualToString:@"EXPIRED"]) {
+            [cell.pingjiaBut setTitle:@"已超时" forState:UIControlStateNormal];
+            cell.pingjiaBut.userInteractionEnabled = NO;
         }else{
-            [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
-            //        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
+                [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+                cell.pingjiaBut.tag = indexPath.row;
+                cell.pingjiaBut.userInteractionEnabled = YES;
+                [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+                cell.pingjiaBut.userInteractionEnabled = NO;
+                //        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            }
         }
+        
+        
     }
     
     return cell;
@@ -414,6 +424,7 @@
         [self addAlertView:@"订单已超时"];
     }else{
         GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+        _indentViewButton = button;
         evaluateView.orderId = model.orderId;
         evaluateView.isPush = YES;
         [self.navigationController pushViewController:evaluateView animated:YES];

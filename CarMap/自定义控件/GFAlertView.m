@@ -403,7 +403,7 @@
         
         
         UIButton *deleteBtn = [[UIButton alloc]init];
-        deleteBtn.frame = CGRectMake(baseViewW-50, 10, 30, 30);
+        deleteBtn.frame = CGRectMake(baseViewW-40, 5, 30, 30);
         [deleteBtn setBackgroundImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
 //        deleteBtn.backgroundColor = [UIColor redColor];
         [deleteBtn addTarget:self action:@selector(okButClick) forControlEvents:UIControlEventTouchUpInside];
@@ -808,7 +808,8 @@
         iconImgView.clipsToBounds = YES;
         iconImgView.contentMode = UIViewContentModeScaleAspectFill;
         //        iconImgView.image = [UIImage imageNamed:@"11.png"];
-        [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+        extern NSString* const URLHOST;
+        [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,imageURL]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
 //        NSLog(@"---imageUrl---%@----",[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]);
         [baseView addSubview:iconImgView];
         // 姓名
@@ -895,13 +896,21 @@
         UILabel *fenLab = [[UILabel alloc] initWithFrame:CGRectMake(fenLabX, numLabY, fenLabW, fenLabH)];
         fenLab.textColor = [UIColor whiteColor];
         fenLab.textAlignment = NSTextAlignmentCenter;
-        fenLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+//        fenLab.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        fenLab.backgroundColor = [UIColor clearColor];
         fenLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
         fenLab.text = fenStr;
-        fenLab.layer.cornerRadius = 7.5;
-        fenLab.clipsToBounds = YES;
-        [baseView addSubview:fenLab];
+//        fenLab.layer.cornerRadius = 7;
+//        fenLab.layer.backgroundColor = [[UIColor whiteColor] CGColor];
+//        fenLab.clipsToBounds = YES;
         
+        
+        UIView *labelView = [[UIView alloc]initWithFrame:fenLab.bounds];
+        labelView.center = fenLab.center;
+        labelView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        labelView.layer.cornerRadius = 7;
+        [baseView addSubview:labelView];
+        [baseView addSubview:fenLab];
         
         
         // 右上方按钮

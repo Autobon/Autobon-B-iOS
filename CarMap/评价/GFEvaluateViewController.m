@@ -15,7 +15,7 @@
 #import "CLTouchScrollView.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
-
+#import "GFIndentViewController.h"
 
 
 @interface GFEvaluateViewController ()<UITextViewDelegate> {
@@ -150,7 +150,8 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.157.200:12345%@",technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            extern NSString* const URLHOST;
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             nameLab.text = technicianDictionary[@"name"];
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
             
@@ -352,6 +353,14 @@
             shareView.star = _star;
 //            NSLog(@"－－评论成功－－%ld---",(long)_star);
             shareView.isPush = _isPush;
+            if (self.navigationController.viewControllers.count == 4) {
+                GFIndentViewController *indentView = self.navigationController.viewControllers[2];
+                [indentView.indentViewButton setTitle:@"已评价" forState:UIControlStateNormal];
+                indentView.indentViewButton.userInteractionEnabled = NO;
+                
+            }
+            
+            
             [self.navigationController pushViewController:shareView animated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];
