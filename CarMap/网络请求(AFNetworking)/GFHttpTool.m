@@ -15,8 +15,11 @@
 
 
 
-NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
-NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
+//NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
+//NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
+
+NSString* const HOST = @"http://hpecar.com:8012/api/mobile";
+NSString* const PUBHOST = @"http://hpecar.com:8012/api";
 
 @implementation GFHttpTool
 
