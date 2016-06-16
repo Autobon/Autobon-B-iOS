@@ -90,7 +90,7 @@
     self.passwordTxt.secureTextEntry = YES;
     self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
-    self.phoneTxt.delegate = self;
+    self.passwordTxt.delegate = self;
     
     
     UIButton *eyeButton = [[UIButton alloc]init];
