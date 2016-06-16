@@ -494,8 +494,10 @@
     
     if (_appointButton.selected) {
         NSLog(@"指定技师");
+        [_dataDictionary setObject:@"false" forKey:@"pushToAll"];
     }else{
         NSLog(@"创建订单");
+        [_dataDictionary setObject:@"true" forKey:@"pushToAll"];
     }
     
     
@@ -515,7 +517,7 @@
                 [_dataDictionary setObject:_txtView.text forKey:@"remark"];
             }
             
-//            NSLog(@"一键下单--%@--",_dataDictionary);
+            NSLog(@"一键下单--%@--",_dataDictionary);
             
             [GFHttpTool postOneIndentDictionary:_dataDictionary success:^(NSDictionary *responseObject) {
                 if ([responseObject[@"result"] integerValue] == 1) {
@@ -532,6 +534,14 @@
                         [obj setBackgroundColor:[UIColor colorWithRed:237 / 255.0 green:238 / 255.0 blue:239 / 255.0 alpha:1]];
                         obj.selected = NO;
                     }];
+                    
+                    
+                    if (_appointButton.selected) {
+                        NSLog(@"指定技师");
+                        
+                    }
+                    
+                    
                     [self getListUnfinished];
                     _isUpOrderImage = NO;
                     _orderType = 0;
