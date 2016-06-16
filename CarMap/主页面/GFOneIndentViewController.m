@@ -45,6 +45,8 @@
     
     NSMutableDictionary *_dataDictionary;
     
+    UIButton *_appointButton;
+    
 }
 
 //@property (nonatomic, strong) GFNavigationView *navView;
@@ -361,12 +363,13 @@
     [signInBut addTarget:self action:@selector(signInButClick) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIButton *appointButton = [[UIButton alloc]initWithFrame:CGRectMake(50, CGRectGetMaxY(signInBut.frame)+5, self.view.frame.size.width-100, 20)];
-    [appointButton setTitle:@"不群推订单，稍后指定技师" forState:UIControlStateNormal];
-    [appointButton setTitleColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0] forState:UIControlStateNormal];
-    appointButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [appointButton addTarget:self action:@selector(appointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.baseView addSubview:appointButton];
+    _appointButton = [[UIButton alloc]initWithFrame:CGRectMake(50, CGRectGetMaxY(signInBut.frame)+5, self.view.frame.size.width-100, 20)];
+    [_appointButton setTitle:@"不群推订单，稍后指定技师" forState:UIControlStateNormal];
+    [_appointButton setTitleColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [_appointButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    _appointButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [_appointButton addTarget:self action:@selector(appointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.baseView addSubview:_appointButton];
     
     
     
@@ -382,6 +385,9 @@
 
 - (void)appointBtnClick:(UIButton *)button{
     NSLog(@"指定技师按钮");
+    
+    button.selected = !button.selected;
+    
 }
 
 #pragma mark =======  PickerView ========
@@ -484,6 +490,14 @@
 //    GFAlertView *alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价" withButtonNameArray:@[@"立即评价"]];
 //    [alertView.okBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:alertView];
+    
+    
+    if (_appointButton.selected) {
+        NSLog(@"指定技师");
+    }else{
+        NSLog(@"创建订单");
+    }
+    
     
     
 
