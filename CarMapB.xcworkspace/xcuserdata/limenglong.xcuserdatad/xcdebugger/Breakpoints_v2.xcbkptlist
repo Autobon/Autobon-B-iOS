@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/GFOneIndentViewController.m"
-            timestampString = "487739311.358194"
+            timestampString = "487748669.301407"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
             landmarkName = "-signInButClick"
             landmarkType = "5">
          </BreakpointContent>

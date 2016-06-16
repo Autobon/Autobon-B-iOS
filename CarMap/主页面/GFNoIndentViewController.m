@@ -110,7 +110,7 @@
     _tableView.userInteractionEnabled = NO;
     
     [GFHttpTool postListUnfinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
-//        NSLog(@"－－请求成功－－%@--",responseObject);
+        NSLog(@"－－请求成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];

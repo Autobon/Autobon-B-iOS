@@ -104,6 +104,9 @@
 		9BA71D9A1CA91B94006EA500 /* GFIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA71D991CA91B94006EA500 /* GFIndentModel.m */; };
 		9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B02AF661C5A22CB0044FB71 /* StoreKit.framework */; };
 		9BD218D21CB74F130093621A /* CLWorkerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD218D11CB74F130093621A /* CLWorkerModel.m */; };
+		9BD474161D1259DF008EB28C /* CLAddPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD474151D1259DF008EB28C /* CLAddPersonViewController.m */; };
+		9BD474191D125A53008EB28C /* CLPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD474181D125A53008EB28C /* CLPersonTableViewCell.m */; };
+		9BD4741C1D125A66008EB28C /* CLAddPersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4741B1D125A66008EB28C /* CLAddPersonModel.m */; };
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
@@ -319,6 +322,12 @@
 		9BA71D991CA91B94006EA500 /* GFIndentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFIndentModel.m; sourceTree = "<group>"; };
 		9BD218D01CB74F130093621A /* CLWorkerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLWorkerModel.h; sourceTree = "<group>"; };
 		9BD218D11CB74F130093621A /* CLWorkerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLWorkerModel.m; sourceTree = "<group>"; };
+		9BD474141D1259DF008EB28C /* CLAddPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLAddPersonViewController.h; sourceTree = "<group>"; };
+		9BD474151D1259DF008EB28C /* CLAddPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLAddPersonViewController.m; sourceTree = "<group>"; };
+		9BD474171D125A53008EB28C /* CLPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLPersonTableViewCell.h; sourceTree = "<group>"; };
+		9BD474181D125A53008EB28C /* CLPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLPersonTableViewCell.m; sourceTree = "<group>"; };
+		9BD4741A1D125A66008EB28C /* CLAddPersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLAddPersonModel.h; sourceTree = "<group>"; };
+		9BD4741B1D125A66008EB28C /* CLAddPersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLAddPersonModel.m; sourceTree = "<group>"; };
 		9BDD16241C9BF27B0017E8E9 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		9BFA805A1C5F4009001651C3 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Base.framework"; sourceTree = "<group>"; };
 		9BFA805B1C5F4009001651C3 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Cloud.framework"; sourceTree = "<group>"; };
@@ -576,6 +585,12 @@
 				9B6B6E431C9A466D00449259 /* GFNoIndentViewController.m */,
 				9B6B6E441C9A466D00449259 /* GFOneIndentViewController.h */,
 				9B6B6E451C9A466D00449259 /* GFOneIndentViewController.m */,
+				9BD474141D1259DF008EB28C /* CLAddPersonViewController.h */,
+				9BD474151D1259DF008EB28C /* CLAddPersonViewController.m */,
+				9BD474171D125A53008EB28C /* CLPersonTableViewCell.h */,
+				9BD474181D125A53008EB28C /* CLPersonTableViewCell.m */,
+				9BD4741A1D125A66008EB28C /* CLAddPersonModel.h */,
+				9BD4741B1D125A66008EB28C /* CLAddPersonModel.m */,
 			);
 			path = "主页面";
 			sourceTree = "<group>";
@@ -963,6 +978,7 @@
 				9B6B6E471C9A466D00449259 /* GFNoIndentViewController.m in Sources */,
 				9B9FEA061CA38E1000231747 /* SDWebImagePrefetcher.m in Sources */,
 				9B6B6E3C1C9A452C00449259 /* SecondViewController.m in Sources */,
+				9BD474191D125A53008EB28C /* CLPersonTableViewCell.m in Sources */,
 				9B9FEA0B1CA38E1000231747 /* UIImageView+WebCache.m in Sources */,
 				9B6B6EBA1C9A4B6400449259 /* GFChangePwdViewController.m in Sources */,
 				9BD218D21CB74F130093621A /* CLWorkerModel.m in Sources */,
@@ -1010,6 +1026,7 @@
 				9B67572A1C97CAC70001C478 /* MJRefreshAutoNormalFooter.m in Sources */,
 				9B9FEA041CA38E1000231747 /* SDWebImageDownloaderOperation.m in Sources */,
 				9B9FEA031CA38E1000231747 /* SDWebImageDownloader.m in Sources */,
+				9BD4741C1D125A66008EB28C /* CLAddPersonModel.m in Sources */,
 				9B6B6ED41C9A5A1A00449259 /* Reachability.m in Sources */,
 				9B6B6E991C9A485B00449259 /* GFJoinInViewController_1.m in Sources */,
 				9B8ED8D21D10EE0100001A86 /* CLTouchImageView.m in Sources */,
@@ -1022,6 +1039,7 @@
 				9B6B6EB01C9A4B1400449259 /* GFWorkerViewController.m in Sources */,
 				9B6B6ED11C9A59EA00449259 /* GFHttpTool.m in Sources */,
 				8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */,
+				9BD474161D1259DF008EB28C /* CLAddPersonViewController.m in Sources */,
 				9B97543E1C5765B3004BDC7C /* main.m in Sources */,
 				9B6B6EBD1C9A4B6400449259 /* GFSignUpViewController.m in Sources */,
 				9B9FE9FF1CA38E1000231747 /* NSData+ImageContentType.m in Sources */,

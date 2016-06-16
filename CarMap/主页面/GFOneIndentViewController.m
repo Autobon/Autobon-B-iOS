@@ -17,6 +17,7 @@
 #import "GFHttpTool.h"
 #import "CLIndentModel.h"
 #import "GFAlertView.h"
+#import "CLAddPersonViewController.h"
 
 
 
@@ -366,7 +367,10 @@
     _appointButton = [[UIButton alloc]initWithFrame:CGRectMake(50, CGRectGetMaxY(signInBut.frame)+5, self.view.frame.size.width-100, 20)];
     [_appointButton setTitle:@"不群推订单，稍后指定技师" forState:UIControlStateNormal];
     [_appointButton setTitleColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [_appointButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+//    [_appointButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    [_appointButton setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];
+    [_appointButton setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
+    
     _appointButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [_appointButton addTarget:self action:@selector(appointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.baseView addSubview:_appointButton];
@@ -495,6 +499,9 @@
     if (_appointButton.selected) {
         NSLog(@"指定技师");
         [_dataDictionary setObject:@"false" forKey:@"pushToAll"];
+        CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
+        [self.navigationController pushViewController:addPerson animated:YES];
+        
     }else{
         NSLog(@"创建订单");
         [_dataDictionary setObject:@"true" forKey:@"pushToAll"];
