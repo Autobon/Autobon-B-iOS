@@ -9,6 +9,7 @@
 #import "CLCooperatingViewController.h"
 #import "GFNavigationView.h"
 #import "UIImageView+WebCache.h"
+#import "CLImageView.h"
 
 
 
@@ -115,7 +116,7 @@
     [scrollView addSubview:licenceDuplicate];
     
     
-    UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];
+    UIImageView *licenceDuplicateImage = [[CLImageView alloc]init];
     licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
     licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
 //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
@@ -143,7 +144,7 @@
     [scrollView addSubview:legalEntityIdLabel];
     
     
-    UIImageView *legalEntityIdImage = [[UIImageView alloc]init];
+    UIImageView *legalEntityIdImage = [[CLImageView alloc]init];
     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
 //    legalEntityIdImage.backgroundColor = [UIColor darkGrayColor];
     legalEntityIdImage.contentMode = UIViewContentModeScaleAspectFit;

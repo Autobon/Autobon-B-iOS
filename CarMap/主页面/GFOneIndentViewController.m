@@ -360,6 +360,17 @@
     [self.baseView addSubview:signInBut];
     [signInBut addTarget:self action:@selector(signInButClick) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    UIButton *appointButton = [[UIButton alloc]initWithFrame:CGRectMake(50, CGRectGetMaxY(signInBut.frame)+5, self.view.frame.size.width-100, 20)];
+    [appointButton setTitle:@"不群推订单，稍后指定技师" forState:UIControlStateNormal];
+    [appointButton setTitleColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0] forState:UIControlStateNormal];
+    appointButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [appointButton addTarget:self action:@selector(appointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.baseView addSubview:appointButton];
+    
+    
+    
+    
     baseViewHH = CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443;
     self.baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
     self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
@@ -369,6 +380,9 @@
     
 }
 
+- (void)appointBtnClick:(UIButton *)button{
+    NSLog(@"指定技师按钮");
+}
 
 #pragma mark =======  PickerView ========
 //选择时间的代码，时间选择器

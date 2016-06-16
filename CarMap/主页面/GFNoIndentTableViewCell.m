@@ -8,6 +8,9 @@
 
 #import "GFNoIndentTableViewCell.h"
 #import "GFTitleView.h"
+#import "CLImageView.h"
+
+
 
 @interface GFNoIndentTableViewCell()
 
@@ -106,7 +109,7 @@
         CGFloat imageViewH = kHeight * 0.237;
         CGFloat imageViewX = jianjv1 - 2;
         CGFloat imageViewY = CGRectGetMaxY(lineView1.frame) + jiange3;
-        self.indentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
+        self.indentImgView = [[CLImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
 //        self.indentImgView.backgroundColor = [UIColor redColor];
         _indentImgView.contentMode = UIViewContentModeScaleAspectFit;
         self.indentImgView.image = [UIImage imageNamed:@"orderImage"];

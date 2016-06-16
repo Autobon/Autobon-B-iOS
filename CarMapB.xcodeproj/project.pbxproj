@@ -69,6 +69,8 @@
 		9B6B6ECE1C9A594E00449259 /* GFTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FB011C96A08F004E26AC /* GFTipView.m */; };
 		9B6B6ED11C9A59EA00449259 /* GFHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6ED01C9A59EA00449259 /* GFHttpTool.m */; };
 		9B6B6ED41C9A5A1A00449259 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B6ED31C9A5A1A00449259 /* Reachability.m */; };
+		9B8ED8D11D10EE0100001A86 /* CLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8ED8CE1D10EE0100001A86 /* CLImageView.m */; };
+		9B8ED8D21D10EE0100001A86 /* CLTouchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8ED8D01D10EE0100001A86 /* CLTouchImageView.m */; };
 		9B9515411C60503800445F93 /* GFAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153C1C60503800445F93 /* GFAnnotation.m */; };
 		9B9515421C60503800445F93 /* GFAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B95153E1C60503800445F93 /* GFAnnotationView.m */; };
 		9B9515431C60503800445F93 /* GFMapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9515401C60503800445F93 /* GFMapViewController.mm */; };
@@ -248,6 +250,10 @@
 		9B6B6ED21C9A5A1A00449259 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9B6B6ED31C9A5A1A00449259 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9B8513D81C965E2800BB9CF5 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		9B8ED8CD1D10EE0100001A86 /* CLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLImageView.h; sourceTree = "<group>"; };
+		9B8ED8CE1D10EE0100001A86 /* CLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLImageView.m; sourceTree = "<group>"; };
+		9B8ED8CF1D10EE0100001A86 /* CLTouchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTouchImageView.h; sourceTree = "<group>"; };
+		9B8ED8D01D10EE0100001A86 /* CLTouchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTouchImageView.m; sourceTree = "<group>"; };
 		9B95153B1C60503800445F93 /* GFAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotation.h; sourceTree = "<group>"; };
 		9B95153C1C60503800445F93 /* GFAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAnnotation.m; sourceTree = "<group>"; };
 		9B95153D1C60503800445F93 /* GFAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAnnotationView.h; sourceTree = "<group>"; };
@@ -412,6 +418,10 @@
 				9B9FEA0E1CA3BC0900231747 /* CLTouchScrollView.m */,
 				9B5FBC5B1CAE70F800A0BF96 /* GFNothingView.h */,
 				9B5FBC5C1CAE70F800A0BF96 /* GFNothingView.m */,
+				9B8ED8CD1D10EE0100001A86 /* CLImageView.h */,
+				9B8ED8CE1D10EE0100001A86 /* CLImageView.m */,
+				9B8ED8CF1D10EE0100001A86 /* CLTouchImageView.h */,
+				9B8ED8D01D10EE0100001A86 /* CLTouchImageView.m */,
 			);
 			path = "自定义控件";
 			sourceTree = "<group>";
@@ -945,6 +955,7 @@
 				9B6757381C97CB770001C478 /* GFTitleView.m in Sources */,
 				9B6B6E3B1C9A452C00449259 /* FirstViewController.m in Sources */,
 				9B6757371C97CAFE0001C478 /* GFAlertView.m in Sources */,
+				9B8ED8D11D10EE0100001A86 /* CLImageView.m in Sources */,
 				9B6757291C97CAC70001C478 /* MJRefreshAutoGifFooter.m in Sources */,
 				9B9B45A91CBF70B300D0F507 /* CLNotificationModel.m in Sources */,
 				9B6B6E981C9A485B00449259 /* GFIWillAddViewController.m in Sources */,
@@ -1001,6 +1012,7 @@
 				9B9FEA031CA38E1000231747 /* SDWebImageDownloader.m in Sources */,
 				9B6B6ED41C9A5A1A00449259 /* Reachability.m in Sources */,
 				9B6B6E991C9A485B00449259 /* GFJoinInViewController_1.m in Sources */,
+				9B8ED8D21D10EE0100001A86 /* CLTouchImageView.m in Sources */,
 				9B67572C1C97CAC70001C478 /* MJRefreshBackGifFooter.m in Sources */,
 				8673FDCD1C99459200666634 /* AFNetworkReachabilityManager.m in Sources */,
 				9B6B6EC91C9A4BAC00449259 /* GFEvaluateShareViewController.m in Sources */,
