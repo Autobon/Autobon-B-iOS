@@ -103,6 +103,8 @@
 + (void)getSearch:(NSString *)string Success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
+//给订单指定技师
++ (void)postAppintTechForOrder:(NSDictionary *)dictionary Success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
 

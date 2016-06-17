@@ -14,6 +14,7 @@
 @property (nonatomic ,strong) NSString *orderId;
 @property (nonatomic ,strong) NSString *orderNum;
 @property (nonatomic ,strong) NSString *status;
+@property (nonatomic ,strong) NSString *orderStatus;
 @property (nonatomic ,strong) NSString *orderType;
 @property (nonatomic ,strong) NSString *orderTime;
 @property (nonatomic ,strong) NSString *photo;

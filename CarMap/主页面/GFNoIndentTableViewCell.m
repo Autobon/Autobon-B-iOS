@@ -7,7 +7,7 @@
 //
 
 #import "GFNoIndentTableViewCell.h"
-#import "GFTitleView.h"
+
 #import "CLImageView.h"
 
 
@@ -18,7 +18,7 @@
 
 
 {
-    GFTitleView *indentView;
+    
     
     CGFloat hh;
     
@@ -57,20 +57,50 @@
         
         
         // 订单编号
-        indentView = [[GFTitleView alloc] initWithY:5];
-        [self.baseView addSubview:indentView];
+        _indentView = [[GFTitleView alloc] initWithY:5];
+        _indentView.titleLab.font = [UIFont systemFontOfSize:12];
+        _indentView.rightLab.font = [UIFont systemFontOfSize:14];
+        _indentView.rightLab.frame = CGRectMake(_indentView.rightLab.frame.origin.x-50, _indentView.rightLab.frame.origin.y, _indentView.rightLab.frame.size.width, _indentView.rightLab.frame.size.height);
+        [self.baseView addSubview:_indentView];
         
         
         // 汽车贴膜
         CGFloat lab1W = kWidth - jianjv1 * 2.0;
         CGFloat lab1H = kHeight * 0.0261;
         CGFloat lab1X = jianjv1;
-        CGFloat lab1Y = CGRectGetMaxY(indentView.frame) + jiange1;
+        CGFloat lab1Y = CGRectGetMaxY(_indentView.frame) + jiange1;
         self.lab1 = [[UILabel alloc] initWithFrame:CGRectMake(lab1X, lab1Y, lab1W, lab1H)];
         self.lab1.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         self.lab1.text = @"汽车贴膜";
         self.lab1.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
         [self.baseView addSubview:self.lab1];
+        
+// 撤单
+        UIButton *removeOrderButton = [[UIButton alloc]init];
+        removeOrderButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, CGRectGetMidY(_indentView.frame)-kHeight * 0.016, 50, kHeight * 0.032);
+        [removeOrderButton setTitle:@"撤单" forState:UIControlStateNormal];
+        [removeOrderButton setTitleColor:[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0] forState:UIControlStateNormal];
+        removeOrderButton.layer.cornerRadius = 5;
+        removeOrderButton.layer.borderWidth = 1.0;
+        removeOrderButton.layer.borderColor = [[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0]CGColor];
+        removeOrderButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [removeOrderButton addTarget:self action:@selector(removeOrder) forControlEvents:UIControlEventTouchUpInside];
+        [self.baseView addSubview:removeOrderButton];
+        
+        
+// 指定技师
+        _appointButton = [[UIButton alloc]init];
+        _appointButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60-80, CGRectGetMidY(_indentView.frame)-kHeight * 0.016, 70, kHeight * 0.032);
+        [_appointButton setTitle:@"指定技师" forState:UIControlStateNormal];
+        [_appointButton setTitleColor:[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0] forState:UIControlStateNormal];
+        _appointButton.layer.cornerRadius = 5;
+        _appointButton.layer.borderWidth = 1.0;
+        _appointButton.layer.borderColor = [[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0]CGColor];
+        _appointButton.titleLabel.font = [UIFont systemFontOfSize:13];
+
+        [self.baseView addSubview:_appointButton];
+        
+        
         
         
         // 预约时间
@@ -87,7 +117,7 @@
         CGFloat workerButW = kWidth * 0.285;
         CGFloat workerButH = kHeight * 0.042;
         CGFloat workerButX = kWidth - jianjv1 - workerButW;
-        CGFloat workerButY = kHeight * 0.026 + CGRectGetMaxY(indentView.frame);
+        CGFloat workerButY = kHeight * 0.026 + CGRectGetMaxY(_indentView.frame);
         self.workerBut = [UIButton buttonWithType:UIButtonTypeCustom];
         self.workerBut.frame = CGRectMake(workerButX, workerButY, workerButW, workerButH);
         self.workerBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -162,6 +192,14 @@
 }
 
 
+- (void)removeOrder{
+    NSLog(@"撤单按钮被点击了，订单id为－－%@",_orderId);
+    
+}
+
+
+
+
 
 
 - (void)setMessage {
@@ -173,14 +211,15 @@
 
     if([self.orderType isEqualToString:@"未接单"]) {
         self.workerBut.hidden = YES;
-        indentView.rightLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
+        _indentView.rightLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     }else {
         self.workerBut.hidden = NO;
+        _indentView.rightLab.hidden = YES;
         self.workerBut.userInteractionEnabled = YES;
     }
     
-    indentView.titleLab.text = self.orderNum;
-    indentView.rightLab.text = self.orderType;
+    _indentView.titleLab.text = self.orderNum;
+    _indentView.rightLab.text = self.orderType;
     self.lab1.text = self.workCon;
     self.lab2.text = self.workTime;
     self.lab3.text = self.beizhu;

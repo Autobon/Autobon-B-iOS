@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GFTitleView.h"
 
 @interface GFNoIndentTableViewCell : UITableViewCell
 
@@ -21,11 +22,14 @@
 @property (nonatomic, strong) UIView *baseView2;
 @property (nonatomic, strong) UIButton *workerBut;
 
+@property (nonatomic ,strong) GFTitleView *indentView;
+@property (nonatomic ,strong) UIButton *appointButton;
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
 - (void)setMessage;
 @property (nonatomic, copy) NSString *orderNum;
+@property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, copy) NSString *orderType;
 @property (nonatomic, copy) NSString *workCon;
 @property (nonatomic, copy) NSString *workTime;

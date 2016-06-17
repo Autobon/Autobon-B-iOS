@@ -255,7 +255,7 @@
     [self.baseView addSubview:lineView1];
     
     // 请填写备注
-    CGFloat txtViewW = imgViewW;
+    CGFloat txtViewW = kWidth - jianjv1*2;
     CGFloat txtViewH = kHeight * 0.21;
     CGFloat txtViewX = jianjv1;
     CGFloat txtViewY = CGRectGetMaxY(lineView1.frame) + kHeight * 0.024;
@@ -499,8 +499,7 @@
     if (_appointButton.selected) {
         NSLog(@"指定技师");
         [_dataDictionary setObject:@"false" forKey:@"pushToAll"];
-        CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
-        [self.navigationController pushViewController:addPerson animated:YES];
+        
         
     }else{
         NSLog(@"创建订单");
@@ -510,12 +509,13 @@
     
     
 
-    if (!_isUpOrderImage) {
+    if (NO) {
         [self addAlertView:@"请上传订单图片"];
     }else{
         if (_orderType == 0) {
             [self addAlertView:@"请选择订单类型"];
         }else{
+            [_dataDictionary setObject:@"12354654" forKey:@"photo"];
             [_dataDictionary setObject:@(_orderType) forKey:@"orderType"];
             [_dataDictionary setObject:_timeLab.text forKey:@"orderTime"];
             if ([_txtView.text isEqualToString:@"订单备注"]) {
@@ -527,6 +527,7 @@
             NSLog(@"一键下单--%@--",_dataDictionary);
             
             [GFHttpTool postOneIndentDictionary:_dataDictionary success:^(NSDictionary *responseObject) {
+                NSLog(@"下单返回数据-----%@---",responseObject);
                 if ([responseObject[@"result"] integerValue] == 1) {
                     [self.imgView setImage:nil forState:UIControlStateNormal];
                     _txtView.text = @"订单备注";
@@ -545,7 +546,11 @@
                     
                     if (_appointButton.selected) {
                         NSLog(@"指定技师");
-                        
+                        CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
+                        NSDictionary *dataDictionary = responseObject[@"data"];
+                        addPerson.orderId = dataDictionary[@"id"];
+                        NSLog(@"---addPerson.orderId---%@--",addPerson.orderId);
+                        [self.navigationController pushViewController:addPerson animated:YES];
                     }
                     
                     

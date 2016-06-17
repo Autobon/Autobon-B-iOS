@@ -156,17 +156,20 @@
     
 }
 
-#pragma mark - 添加合伙人按钮
+#pragma mark - 指定技师按钮
 - (void)addPersonBtnClick:(UIButton *)button{
-//    NSLog(@"添加合伙技师");
+
     CLAddPersonModel *person = _addPersonArray[button.tag];
-    NSDictionary *dic = @{@"orderId":_orderId,@"partnerId":person.personId};
+    NSLog(@"---指定技师---dictionary----%@------%@-",_orderId,person.personId);
+    
+    NSDictionary *dic = @{@"orderId":_orderId,@"techId":person.personId};
    
-    /*
-    [GFHttpTool postAddPerson:dic Success:^(NSDictionary *responseObject) {
-//         NSLog(@"－－－%@--",responseObject);
+    NSLog(@"---指定技师---dictionary----%@--",dic);
+    
+    [GFHttpTool postAppintTechForOrder:dic Success:^(NSDictionary *responseObject) {
+         NSLog(@"－－－%@--",responseObject);
         if ([responseObject[@"result"]integerValue]==1) {
-            [self addAlertView:@"邀请已发送"];
+            [self addAlertView:@"指派已完成"];
             _isAdd = YES;
         }else{
             [self addAlertView:responseObject[@"message"]];
@@ -174,7 +177,7 @@
     } failure:^(NSError *error) {
        [self addAlertView:@"请求失败"];
     }];
-     */
+    
      
 }
 

@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/GFOneIndentViewController.m"
-            timestampString = "487748669.301407"
+            filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/GFNoIndentViewController.m"
+            timestampString = "487826759.573158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
-            landmarkName = "-signInButClick"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-appointBtnClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/GFNoIndentViewController.m"
+            timestampString = "487826759.573158"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "-appointBtnClick:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
