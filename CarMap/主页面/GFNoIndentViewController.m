@@ -262,11 +262,11 @@
 //    NSLog(@"order--%@---",model.orderId);
     [GFHttpTool GetTechnicianParameters:@{@"orderId":model.orderId} success:^(id responseObject) {
         
-//        NSLog(@"－－－－%@----",responseObject);
+        NSLog(@"－－－－%@----",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:[dataDictionary[@"starRate"] floatValue] orderNumber:[dataDictionary[@"totalOrders"] integerValue]];
+            GFAlertView *alertView = [[GFAlertView alloc]initWithHeadImageURL:technicianDictionary[@"avatar"] name:technicianDictionary[@"name"] mark:[dataDictionary[@"starRate"] floatValue] orderNumber:[dataDictionary[@"totalOrders"] integerValue] withPhone:technicianDictionary[@"phone"]];
             
             [self.view addSubview:alertView];
         }

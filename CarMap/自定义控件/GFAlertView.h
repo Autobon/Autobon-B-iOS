@@ -28,7 +28,7 @@
 
 - (instancetype)initWithMiao:(NSInteger)miao;
 
-- (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber;
+- (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber withPhone:(NSString *)phone;
 
 // 进度条
 + (instancetype)initWithJinduTiaoTipName:(NSString *)tipName;
