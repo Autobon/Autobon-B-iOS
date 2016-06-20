@@ -15,5 +15,6 @@
 
 @property (nonatomic ,strong) GFIndentModel *model;
 
+@property (nonatomic, copy) NSString *itemStr;
 
 @end

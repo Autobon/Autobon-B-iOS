@@ -14,6 +14,7 @@
 		8673FDCF1C99459200666634 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC51C99459200666634 /* AFURLRequestSerialization.m */; };
 		8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC71C99459200666634 /* AFURLResponseSerialization.m */; };
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
+		867E6D871D179BC9009F4938 /* WorkItemDic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 867E6D861D179BC9009F4938 /* WorkItemDic.plist */; };
 		9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */; };
 		9B42F0761CBF980900F08C4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */; };
 		9B5EBEE51CBDD80E00E753BF /* servicedelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = 9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */; };
@@ -138,6 +139,7 @@
 		8673FDC71C99459200666634 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		8673FDC81C99459200666634 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		8673FDC91C99459200666634 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		867E6D861D179BC9009F4938 /* WorkItemDic.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WorkItemDic.plist; sourceTree = "<group>"; };
 		86D4FAF81C96A08F004E26AC /* GFAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAlertView.h; sourceTree = "<group>"; };
 		86D4FAF91C96A08F004E26AC /* GFAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAlertView.m; sourceTree = "<group>"; };
 		86D4FAFA1C96A08F004E26AC /* GFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFButton.h; sourceTree = "<group>"; };
@@ -730,6 +732,7 @@
 				9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */,
 				9B9754481C5765B3004BDC7C /* Assets.xcassets */,
 				9BDD16241C9BF27B0017E8E9 /* address.plist */,
+				867E6D861D179BC9009F4938 /* WorkItemDic.plist */,
 				9B97544D1C5765B3004BDC7C /* Info.plist */,
 				9B97543C1C5765B3004BDC7C /* Supporting Files */,
 			);
@@ -898,6 +901,7 @@
 				9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */,
 				9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */,
 				9B6757321C97CAC70001C478 /* MJRefresh.bundle in Resources */,
+				867E6D871D179BC9009F4938 /* WorkItemDic.plist in Resources */,
 				9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */,
 				9B5EBEE51CBDD80E00E753BF /* servicedelegate.html in Resources */,
 			);

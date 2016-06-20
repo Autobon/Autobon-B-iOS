@@ -768,7 +768,7 @@
 }
 
 
-- (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber{
+- (instancetype)initWithHeadImageURL:(NSString *)imageURL name:(NSString *)name mark:(float )mark orderNumber:(NSInteger )orderNumber withPhone:(NSString *)phone{
     self = [super init];
     if (self) {
         
@@ -801,19 +801,20 @@
         CGFloat iconImgViewH = iconImgViewW;
         CGFloat iconImgViewX = (baseViewW - iconImgViewW)/2;
         
-        CGFloat iconImgViewY = (msgRightButH - iconImgViewH) / 2.0+30;
+        CGFloat iconImgViewY = (msgRightButH - iconImgViewH) / 2.0 + 30;
         UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImgViewX, iconImgViewY, iconImgViewW, iconImgViewH)];
         
         iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
         iconImgView.clipsToBounds = YES;
         iconImgView.contentMode = UIViewContentModeScaleAspectFill;
-        //        iconImgView.image = [UIImage imageNamed:@"11.png"];
+//        iconImgView.image = [UIImage imageNamed:@"11.png"];
         extern NSString* const URLHOST;
         [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,imageURL]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
 //        NSLog(@"---imageUrl---%@----",[NSString stringWithFormat:@"http://121.40.157.200:12345%@",imageURL]);
         [baseView addSubview:iconImgView];
+        
         // 姓名
-        NSString *nameStr = name;
+        NSString *nameStr = [NSString stringWithFormat:@"%@:", name];
         NSMutableDictionary *attDic = [[NSMutableDictionary alloc] init];
         attDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
         attDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -822,11 +823,29 @@
         CGFloat nameLabH = iconImgViewH / 2.0;
         CGFloat nameLabX = jianjv2;
         CGFloat nameLabY = CGRectGetMaxY(iconImgView.frame) + 2;
-        UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX+50, nameLabY+10, nameLabW, nameLabH)];
-        nameLab.center = CGPointMake(iconImgView.center.x, nameLab.center.y);
+        UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX + 50, nameLabY+10, nameLabW, nameLabH)];
+//        nameLab.center = CGPointMake(iconImgView.center.x, nameLab.center.y);
         nameLab.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
         nameLab.text = nameStr;
         [baseView addSubview:nameLab];
+//        nameLab.backgroundColor = [UIColor redColor];
+        
+        // 电话号码
+        NSString *phoneStr = phone;
+        NSMutableDictionary *attDic1 = [[NSMutableDictionary alloc] init];
+        attDic1[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+        attDic1[NSForegroundColorAttributeName] = [UIColor blackColor];
+        CGRect strRect1 = [phoneStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attDic1 context:nil];
+        CGFloat phoneLabW = strRect1.size.width + jianjv1;
+        CGFloat phoneLabH = iconImgViewH / 2.0;
+        CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
+        CGFloat phoneLabY = CGRectGetMaxY(iconImgView.frame) + 2;
+        UILabel *phoneLab = [[UILabel alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY+10, phoneLabW, phoneLabH)];
+//        nameLab.center = CGPointMake(iconImgView.center.x, nameLab.center.y);
+        phoneLab.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
+        phoneLab.text = phone;
+        [baseView addSubview:phoneLab];
+//        phoneLab.backgroundColor = [UIColor greenColor];
         
         
         // 订单数
