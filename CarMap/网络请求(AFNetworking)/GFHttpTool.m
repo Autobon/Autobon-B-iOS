@@ -743,6 +743,81 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
 }
 
 
+#pragma mark - 查找合伙人
++ (void)getSearch:(NSString *)string Success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        
+        GFAlertView *aView = [GFAlertView initWithJinduTiaoTipName:@"查找中..."];
+        
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        NSLog(@"token--%@--",token);
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/technician/search",HOST];
+        NSLog(@"------URLString----%@",URLString);
+        
+        [manager GET:URLString parameters:@{@"query":string} progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            //            NSLog(@"----responseObject--%@--",responseObject);
+            if(success) {
+                
+                [aView removeFromSuperview];
+                
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                [aView removeFromSuperview];
+                
+                failure(error);
+            }
+        }];
+        
+        
+        
+    }else{
+        
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+    
+}
+
+#pragma mark - 为订单指定技师
++ (void)postAppintTechForOrder:(NSDictionary *)dictionary Success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"请求中..."];
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/appoint",HOST];
+        
+        
+        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+            [alertView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [alertView removeFromSuperview];
+            if(failure) {
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+    
+}
+
+
+
+
 #pragma mark - AlertView
 + (void)addAlertView:(NSString *)title{
     GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withShowTimw:1.0];

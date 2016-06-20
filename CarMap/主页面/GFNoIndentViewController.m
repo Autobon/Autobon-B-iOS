@@ -18,6 +18,7 @@
 #import "GFAlertView.h"
 #import "GFTipView.h"
 #import "GFOneIndentViewController.h"
+#import "CLAddPersonViewController.h"
 
 
 
@@ -110,7 +111,7 @@
     _tableView.userInteractionEnabled = NO;
     
     [GFHttpTool postListUnfinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
-//        NSLog(@"－－请求成功－－%@--",responseObject);
+        NSLog(@"－-获取商户未完成订单列表--－请求成功－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];
@@ -143,17 +144,17 @@
                 CLIndentModel *model = [[CLIndentModel alloc]init];
                 model.orderId = obj[@"id"];
 //                NSLog(@"-------id-----%@--",model.orderId);
-                model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
-                //                model.status = obj[@"status"];
+                model.orderNum = [NSString stringWithFormat:@"订单编号%@",obj[@"orderNum"]];
+                model.orderStatus = obj[@"status"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
-                model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
+                model.orderTime = [NSString stringWithFormat:@"预约时间 %@",[formatter stringFromDate:date]];
                 model.photo = obj[@"photo"];
                 model.remark = obj[@"remark"];
                 
                 date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
-                model.addTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
+                model.addTime = [NSString stringWithFormat:@"下单时间 %@",[formatter stringFromDate:date]];
                 [_modelMutableArray addObject:model];
                 
                 if ([obj[@"mainTech"] isKindOfClass:[NSNull class]]) {
@@ -205,8 +206,19 @@
     
     
 //    NSLog(@"---num--%@--",model.orderNum);
-    
+    if ([model.orderStatus isEqualToString:@"CREATED_TO_APPOINT"]) {
+        cell.appointButton.hidden = NO;
+        cell.appointButton.tag = indexPath.row;
+        [cell.appointButton addTarget:self action:@selector(appointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.indentView.rightLab.hidden = YES;
+    }else{
+        cell.appointButton.hidden = YES;
+        
+        cell.indentView.rightLab.hidden = NO;
+//        cell.ind
+    }
     cell.orderNum = model.orderNum;
+    cell.orderId = model.orderId;
     cell.orderType = model.status;
     cell.beizhu = model.remark;
     cell.workCon = model.orderType;
@@ -224,6 +236,15 @@
     
     return cell;
 
+}
+
+
+- (void)appointBtnClick:(UIButton *)button{
+    CLIndentModel *model = _modelMutableArray[button.tag];
+    CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
+    addPerson.orderId = model.orderId;
+    NSLog(@"---addPerson.orderId---%@--",addPerson.orderId);
+    [self.navigationController pushViewController:addPerson animated:YES];
 }
 
 - (void)workerBtnClick:(UIButton *)button{
