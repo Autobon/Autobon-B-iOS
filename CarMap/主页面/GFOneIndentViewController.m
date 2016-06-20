@@ -509,13 +509,13 @@
     
     
 
-    if (NO) {
+    if (_isUpOrderImage == NO) {
         [self addAlertView:@"请上传订单图片"];
     }else{
         if (_orderType == 0) {
             [self addAlertView:@"请选择订单类型"];
         }else{
-            [_dataDictionary setObject:@"12354654" forKey:@"photo"];
+//            [_dataDictionary setObject:@"12354654" forKey:@"photo"];
             [_dataDictionary setObject:@(_orderType) forKey:@"orderType"];
             [_dataDictionary setObject:_timeLab.text forKey:@"orderTime"];
             if ([_txtView.text isEqualToString:@"订单备注"]) {
