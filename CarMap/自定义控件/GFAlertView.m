@@ -8,6 +8,8 @@
 
 #import "GFAlertView.h"
 #import "UIImageView+WebCache.h"
+#import "ACETelPrompt.h"
+
 
 
 @implementation GFAlertView
@@ -831,20 +833,22 @@
 //        nameLab.backgroundColor = [UIColor redColor];
         
         // 电话号码
-        NSString *phoneStr = phone;
+        _phoneString = phone;
         NSMutableDictionary *attDic1 = [[NSMutableDictionary alloc] init];
         attDic1[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
         attDic1[NSForegroundColorAttributeName] = [UIColor blackColor];
-        CGRect strRect1 = [phoneStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attDic1 context:nil];
+        CGRect strRect1 = [_phoneString boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attDic1 context:nil];
         CGFloat phoneLabW = strRect1.size.width + jianjv1;
         CGFloat phoneLabH = iconImgViewH / 2.0;
         CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
         CGFloat phoneLabY = CGRectGetMaxY(iconImgView.frame) + 2;
-        UILabel *phoneLab = [[UILabel alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY+10, phoneLabW, phoneLabH)];
+        UIButton *phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY+10, phoneLabW, phoneLabH)];
 //        nameLab.center = CGPointMake(iconImgView.center.x, nameLab.center.y);
-        phoneLab.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
-        phoneLab.text = phone;
-        [baseView addSubview:phoneLab];
+        phoneBtn.titleLabel.font = [UIFont systemFontOfSize:16.5 / 320.0 * kWidth];
+        [phoneBtn setTitle:phone forState:UIControlStateNormal];
+        [phoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [baseView addSubview:phoneBtn];
+        [phoneBtn addTarget:self action:@selector(cellTech) forControlEvents:UIControlEventTouchUpInside];
 //        phoneLab.backgroundColor = [UIColor greenColor];
         
         
@@ -946,6 +950,14 @@
     }
     
     return self;
+}
+
+- (void)cellTech{
+    [ACETelPrompt callPhoneNumber:_phoneString call:^(NSTimeInterval duration) {
+        //         NSLog(@"User made a call of %.1f seconds", duration);
+    } cancel:^{
+        //          NSLog(@"User cancelled the call");
+    }];
 }
 
 - (void)remove{

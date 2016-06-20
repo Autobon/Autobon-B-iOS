@@ -13,6 +13,7 @@
 //    NSInteger time;
     NSTimer *timer;
     UILabel *timeLab;
+    NSString *_phoneString;
 }
 
 @property (nonatomic, strong) UIButton *okBut;

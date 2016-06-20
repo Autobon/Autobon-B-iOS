@@ -81,7 +81,7 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/login",HOST];
-//        NSLog(@"-----%@----%@---",URLString,parameters);
+        NSLog(@"-----%@----%@---",URLString,parameters);
         [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             
