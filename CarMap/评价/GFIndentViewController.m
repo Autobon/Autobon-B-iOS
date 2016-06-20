@@ -34,7 +34,10 @@
     NSInteger _page;
     NSInteger _pageSize;
     
+    
+    NSMutableArray *_workNameArr;
 }
+@property (nonatomic, strong) NSMutableArray *workItemArr;
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
@@ -176,7 +179,10 @@
     _dataArray = [[NSMutableArray alloc]init];
     _page = 1;
     _pageSize = 8;
+    
+    self.workItemArr = [[NSMutableArray alloc] init];
     if (_isAll) {
+        
         [self getOrder];
     }else{
         [self getListUncomment];
@@ -231,6 +237,93 @@
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
                 model.status = obj[@"status"];
+                
+                
+                
+                // 员工姓名添加
+                _workNameArr = [[NSMutableArray alloc] init];
+                NSDictionary *tech = obj[@"mainTech"];
+                NSDictionary *seTech = obj[@"secondTech"];
+                if(![tech isKindOfClass:[NSNull class]]) {
+                    
+                    [_workNameArr addObject:tech[@"name"]];
+                }
+                if(![seTech isKindOfClass:[NSNull class]]) {
+                    
+                    [_workNameArr addObject:seTech[@"name"]];
+                }
+                model.workerArr = _workNameArr;
+                
+                // 添加照片
+                if(![obj[@"mainConstruct"] isKindOfClass:[NSNull class]]) {
+                    
+                    NSDictionary *mainConstruct = obj[@"mainConstruct"];
+                    model.beforePhotos = mainConstruct[@"beforePhotos"];
+                    model.afterPhotos = mainConstruct[@"afterPhotos"];
+                }else {
+                    
+                    model.beforePhotos = @"1";
+                    model.afterPhotos = @"1";
+                }
+                
+                // 施工部位
+                if(![obj[@"mainConstruct"] isKindOfClass:[NSNull class]]) {
+                    
+                    NSDictionary *mainConstruct = obj[@"mainConstruct"];
+                    model.workItems = mainConstruct[@"workItems"];
+                    if(![obj[@"secondConstruct"] isKindOfClass:[NSNull class]]) {
+                        
+                        NSDictionary *secondConstruct = obj[@"secondConstruct"];
+                        model.workItems = [NSString stringWithFormat:@"%@,%@",model.workItems, secondConstruct[@"workItems"]];
+                    }
+                    
+                    NSString *path = [[NSBundle mainBundle] pathForResource:@"WorkItemDic" ofType:@"plist"];
+                    NSDictionary *itemDic = [NSDictionary dictionaryWithContentsOfFile:path];
+                    NSString *workItemsStr = [[NSString alloc] init];
+                    //                NSLog(@"订单类型%@", dic[@"orderType"]);
+                    
+                    if ([obj[@"orderType"] integerValue] == 4) {
+                        workItemsStr = @"美容清洁";
+                        
+                        [self.workItemArr addObject:workItemsStr];
+                        
+                    }else{
+                        if([model.workItems isKindOfClass:[NSNull class]]) {
+                            
+                            workItemsStr = @"无";
+                            
+                            
+                            [self.workItemArr addObject:workItemsStr];
+                            
+                            
+                        }else if (model.workItems == NULL){
+                            workItemsStr = @"无";
+                            
+                            [self.workItemArr addObject:workItemsStr];
+                        }else {
+                            
+                            NSArray *strArr = [model.workItems componentsSeparatedByString:@","];
+                            for(NSString *str in strArr) {
+                                if(workItemsStr.length == 0) {
+                                    workItemsStr = [NSString stringWithFormat:@"%@", itemDic[str]];
+                                }else {
+                                    workItemsStr = [NSString stringWithFormat:@"%@,%@", workItemsStr, itemDic[str]];
+                                }
+                            }
+                            
+                            [self.workItemArr addObject:workItemsStr];
+                            
+                        }
+                    }
+                }else {
+                    
+                    [self.workItemArr addObject:@"0"];
+                }
+                
+                
+                
+                
+                
                 [_dataArray addObject:model];
                 
                 //                if ([obj[@"secondConstruct"]isKindOfClass:[NSNull class]]) {
@@ -286,6 +379,11 @@
     [GFHttpTool postListFinishedDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         
         if ([responseObject[@"result"] integerValue] == 1) {
+            
+            
+            
+            NSLog(@"订单数据＝＝＝＝＝＝＝%@", responseObject);
+            
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];
             if (_page > 1 && listArray.count == 0) {
@@ -297,6 +395,8 @@
             [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
 //                NSLog(@"---obj-－－%@---",obj);
+                _workNameArr = [[NSMutableArray alloc] init];
+                
                 GFIndentModel *model = [[GFIndentModel alloc]init];
                 model.orderNum = obj[@"orderNum"];
                 model.orderId = obj[@"id"];
@@ -314,6 +414,134 @@
                 model.mainTechDictionary = obj[@"mainTech"];
                 model.secondTechDictionary = obj[@"secondTech"];
                 model.status = obj[@"status"];
+                // 员工姓名添加
+                NSDictionary *tech = obj[@"mainTech"];
+                NSDictionary *seTech = obj[@"secondTech"];
+                if(![tech isKindOfClass:[NSNull class]]) {
+                    
+                    [_workNameArr addObject:tech[@"name"]];
+                }
+                if(![seTech isKindOfClass:[NSNull class]]) {
+                    
+                    [_workNameArr addObject:seTech[@"name"]];
+                }
+                model.workerArr = _workNameArr;
+                
+                // 添加照片
+                if(![obj[@"mainConstruct"] isKindOfClass:[NSNull class]]) {
+                
+                    NSDictionary *mainConstruct = obj[@"mainConstruct"];
+                    model.beforePhotos = mainConstruct[@"beforePhotos"];
+                    model.afterPhotos = mainConstruct[@"afterPhotos"];
+                }else {
+                    
+                    model.beforePhotos = @"1";
+                    model.afterPhotos = @"1";
+                }
+                
+                // 施工部位
+                if(![obj[@"mainConstruct"] isKindOfClass:[NSNull class]]) {
+                
+                    NSDictionary *mainConstruct = obj[@"mainConstruct"];
+                    model.workItems = mainConstruct[@"workItems"];
+                    if(![obj[@"secondConstruct"] isKindOfClass:[NSNull class]]) {
+                    
+                        NSDictionary *secondConstruct = obj[@"secondConstruct"];
+                        model.workItems = [NSString stringWithFormat:@"%@,%@",model.workItems, secondConstruct[@"workItems"]];
+                    }
+                    
+                    NSString *path = [[NSBundle mainBundle] pathForResource:@"WorkItemDic" ofType:@"plist"];
+                    NSDictionary *itemDic = [NSDictionary dictionaryWithContentsOfFile:path];
+                    NSString *workItemsStr = [[NSString alloc] init];
+                    //                NSLog(@"订单类型%@", dic[@"orderType"]);
+                    
+                    if ([obj[@"orderType"] integerValue] == 4) {
+                        workItemsStr = @"美容清洁";
+                        
+                        [self.workItemArr addObject:workItemsStr];
+                        
+                    }else{
+                        if([model.workItems isKindOfClass:[NSNull class]]) {
+                            
+                            workItemsStr = @"无";
+                            
+                            
+                            [self.workItemArr addObject:workItemsStr];
+                            
+                            
+                        }else if (model.workItems == NULL){
+                            workItemsStr = @"无";
+                            
+                            [self.workItemArr addObject:workItemsStr];
+                        }else {
+                            
+                            NSArray *strArr = [model.workItems componentsSeparatedByString:@","];
+                            for(NSString *str in strArr) {
+                                if(workItemsStr.length == 0) {
+                                    workItemsStr = [NSString stringWithFormat:@"%@", itemDic[str]];
+                                }else {
+                                    workItemsStr = [NSString stringWithFormat:@"%@,%@", workItemsStr, itemDic[str]];
+                                }
+                            }
+                            
+                            [self.workItemArr addObject:workItemsStr];
+  
+                        }
+                    }
+                }else {
+                
+                    [self.workItemArr addObject:@"0"];
+                }
+                
+//                if(![obj[@"secondConstruct"] isKindOfClass:[NSNull class]]) {
+//                    
+//                    NSString *path = [[NSBundle mainBundle] pathForResource:@"WorkItemDic" ofType:@"plist"];
+//                    NSDictionary *itemDic = [NSDictionary dictionaryWithContentsOfFile:path];
+//                    NSString *workItemsStr = [[NSString alloc] init];
+//                    //                NSLog(@"订单类型%@", dic[@"orderType"]);
+//                    
+//                    if ([obj[@"orderType"] integerValue] == 4) {
+//                        workItemsStr = @"美容清洁";
+//                        
+//                        
+//                        [self.workItemArr addObject:workItemsStr];
+//                        
+//                    }else{
+//                        if([model.workItems isKindOfClass:[NSNull class]]) {
+//                            
+//                            workItemsStr = @"无";
+//                            
+//                            
+//                            [self.workItemArr addObject:workItemsStr];
+//                            
+//                            
+//                        }else if (model.workItems == NULL){
+//                            workItemsStr = @"无";
+//                            
+//                            [self.workItemArr addObject:workItemsStr];
+//                        }else {
+//                            
+//                            NSArray *strArr = [model.workItems componentsSeparatedByString:@","];
+//                            for(NSString *str in strArr) {
+//                                if(workItemsStr.length == 0) {
+//                                    workItemsStr = [NSString stringWithFormat:@"%@", itemDic[str]];
+//                                }else {
+//                                    workItemsStr = [NSString stringWithFormat:@"%@,%@", workItemsStr, itemDic[str]];
+//                                }
+//                            }
+//                            
+//                            
+//                            
+//                            
+//                        }
+//                    }
+//                }
+                
+                
+                
+                
+                
+                
                 [_dataArray addObject:model];
                 
 //                if ([obj[@"secondConstruct"]isKindOfClass:[NSNull class]]) {
@@ -326,11 +554,20 @@
 //                    model.payment = [NSString stringWithFormat:@"%ld",pay];
 //                }
 //                model.payment = obj[@""]
-//                model.payStatus = 
+//                model.payStatus =
+                
+//                // 施工部位
+//                NSString *path = [[NSBundle mainBundle] pathForResource:@"WorkItemDic" ofType:@"plist"];
+//                NSDictionary *itemDic = [NSDictionary dictionaryWithContentsOfFile:path];
+//                NSString *workItemsStr = [[NSString alloc] init];
+//                //                NSLog(@"订单类型%@", dic[@"orderType"]);
+                
+                
+                
                 
             }];
             
-            
+            NSLog(@"+++++++++++++++++++++++%@", self.workItemArr);
             [_tableview reloadData];
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
@@ -446,6 +683,8 @@
     
 //    [GFTipView tipViewWithHeight:2 withTipViewMessage:@"gsag"];
 
+    NSLog(@"------------------%@", self.workItemArr);
+    
     GFIndentModel *model = _dataArray[indexPath.row];
     if ([model.status isEqualToString:@"EXPIRED"]) {
         [self addAlertView:@"订单已超时"];
@@ -453,6 +692,8 @@
         GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
         
         indentDeVC.model = model;
+        indentDeVC.itemStr = self.workItemArr[indexPath.row];
+        NSLog(@"=====================%@", indentDeVC.itemStr);
         [self.navigationController pushViewController:indentDeVC animated:YES];
     }
    

@@ -15,7 +15,7 @@
 #import "GFHttpTool.h"
 #import "GFTipView.h"
 
-
+#import "CLImageView.h"
 
 
 @interface GFIndentDetialsViewController () {
@@ -31,7 +31,11 @@
     CGFloat jianjv1;
     CGFloat jianjv2;
     
-//    UIScrollView *_scrollView;
+    UIScrollView *_scrollView;
+    
+    
+    CGFloat beMaxY;
+    CGFloat afMaxY;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -48,11 +52,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    _scrollView.backgroundColor = [UIColor cyanColor];
-//    _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height)];
+    _scrollView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
+    _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView.contentSize = CGSizeMake(0, 1000);
     
-//    [self.view addSubview:_scrollView];
+    [self.view addSubview:_scrollView];
     
     // 基础设置
     [self _setBase];
@@ -91,16 +96,18 @@
     CGFloat baseViewW = kWidth;
     CGFloat baseViewH = 500;
     CGFloat baseViewX = 0;
-    CGFloat baseViewY = 64 + jiange1;
+//    CGFloat baseViewY = jiange1;
+    CGFloat baseViewY = 0;
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
     baseView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:baseView];
+    [_scrollView addSubview:baseView];
     
     // 订单编号
     CGFloat bianhaoLabW = 0.7 * kWidth;
     CGFloat bianhaoLabH = kHeight * 0.026;
     CGFloat bianhaoLabX = jianjv1;
-    self.bianhaoLab = [[UILabel alloc] init];
+    CGFloat bianhaoLabY = jiange2;
+    self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, bianhaoLabY, bianhaoLabW, bianhaoLabH)];
     self.bianhaoLab.text = [NSString stringWithFormat:@"订单编号%@",_model.orderNum];
     self.bianhaoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.bianhaoLab];
@@ -109,7 +116,7 @@
     CGFloat tiemoLabW = bianhaoLabW;
     CGFloat tiemoLabH = bianhaoLabH;
     CGFloat tiemoLabX = bianhaoLabX;
-    CGFloat tiemoLabY =  jiange2;
+    CGFloat tiemoLabY = CGRectGetMaxY(self.bianhaoLab.frame);
     self.tiemoLab = [[UILabel alloc] initWithFrame:CGRectMake(tiemoLabX, tiemoLabY, tiemoLabW, tiemoLabH)];
     self.tiemoLab.text = _model.orderType;
     self.tiemoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
@@ -118,7 +125,7 @@
     
     
     
-    self.bianhaoLab.frame = CGRectMake(bianhaoLabX, CGRectGetMaxY(self.tiemoLab.frame) + jiange3, bianhaoLabW, bianhaoLabH);
+//    self.bianhaoLab.frame = CGRectMake(bianhaoLabX, CGRectGetMaxY(self.tiemoLab.frame) + jiange3, bianhaoLabW, bianhaoLabH);
     
     
     
@@ -126,7 +133,7 @@
     CGFloat timeLabW = bianhaoLabW;
     CGFloat timeLabH = bianhaoLabH;
     CGFloat timeLabX = bianhaoLabX;
-    CGFloat timeLabY = CGRectGetMaxY(self.bianhaoLab.frame) + jiange3;
+    CGFloat timeLabY = CGRectGetMaxY(self.tiemoLab.frame);
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
     self.timeLab.text = [NSString stringWithFormat:@"预约时间：%@",_model.workTime];
     self.timeLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
@@ -137,7 +144,7 @@
     CGFloat pingjiaButW = kWidth * 0.185;
     CGFloat pingjiaButH = kHeight * 0.042;
     CGFloat pingjiaButX = kWidth - jianjv1 - pingjiaButW;
-    CGFloat pingjiaButY = CGRectGetMaxY(self.tiemoLab.frame) + jiange3 + 3 / 568.0 * kHeight;
+    CGFloat pingjiaButY = CGRectGetMinY(self.bianhaoLab.frame) + jiange3 + 3 / 568.0 * kHeight;
     UIButton *pingjiaBut = [UIButton buttonWithType:UIButtonTypeCustom];
     pingjiaBut.frame = CGRectMake(pingjiaButX, pingjiaButY, pingjiaButW, pingjiaButH);
     pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
@@ -163,7 +170,8 @@
     CGFloat imgViewH = kHeight * 0.237;
     CGFloat imgViewX = jianjv2;
     CGFloat imgViewY = CGRectGetMaxY(self.timeLab.frame) + jiange1 + jiange2;
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH)];
+    CLImageView *imgView = [[CLImageView alloc] init];
+    imgView.frame = CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH);
 //    imgView.backgroundColor = [UIColor redColor];
     imgView.contentMode = UIViewContentModeScaleAspectFit;
     extern NSString* const URLHOST;
@@ -176,7 +184,7 @@
     lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView2];
     
-    // 备注
+    // 下单备注
     CGFloat lab4W = kWidth * 0.2;
     CGFloat lab4H = kHeight * 0.026;
     CGFloat lab4X = jianjv2;
@@ -185,7 +193,7 @@
 //    lab4.backgroundColor = [UIColor redColor];
     [baseView addSubview:lab4];
     lab4.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
-    lab4.text = @"备注: ";
+    lab4.text = @"下单备注: ";
     NSString *lab4Str = _model.remark;
     NSMutableDictionary *lab4Dic = [[NSMutableDictionary alloc] init];
     lab4Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -238,7 +246,150 @@
     lineView4.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView4];
     
-    baseView.frame = CGRectMake(0, 64, kWidth, CGRectGetMaxY(lineView4.frame));
+    
+    // 施工项目
+    CGFloat lab6W = kWidth * 0.2;
+    CGFloat lab6H = kHeight * 0.026;
+    CGFloat lab6X = jianjv2;
+    CGFloat lab6Y = CGRectGetMaxY(lineView4.frame) + jiange4;
+    UILabel *lab6 = [[UILabel alloc] initWithFrame:CGRectMake(lab6X, lab6Y, lab6W, lab6H)];
+    [baseView addSubview:lab6];
+    lab6.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    // 获取项目
+    lab6.text = @"施工项目:";
+    NSString *lab6Str = self.itemStr;
+    NSMutableDictionary *lab6Dic = [[NSMutableDictionary alloc] init];
+    lab6Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab6Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
+    CGRect fenRect6 = [lab6Str boundingRectWithSize:CGSizeMake(kWidth - lab6W - lab6X * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:lab6Dic context:nil];
+    CGFloat contLab6W = kWidth - lab6W - lab6X * 2;
+    CGFloat contLab6H = fenRect6.size.height;
+    CGFloat contLab6X = CGRectGetMaxX(lab6.frame);
+    CGFloat contLab6Y = lab6Y;
+    UILabel *contLab6 = [[UILabel alloc] initWithFrame:CGRectMake(contLab6X, contLab6Y, contLab6W, contLab6H)];
+    contLab6.numberOfLines = 0;
+    contLab6.text = lab6Str;
+    contLab6.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [baseView addSubview:contLab6];
+    
+    // 边线
+    UIView *lineView10 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(contLab6.frame) + jiange4, kWidth - jianjv2 * 2.0, 1)];
+    lineView10.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [baseView addSubview:lineView10];
+    
+    // 施工人员
+    CGFloat lab7W = kWidth * 0.2;
+    CGFloat lab7H = kHeight * 0.026;
+    CGFloat lab7X = jianjv2;
+    CGFloat lab7Y = CGRectGetMaxY(lineView10.frame) + jiange4;
+    UILabel *lab7 = [[UILabel alloc] initWithFrame:CGRectMake(lab7X, lab7Y, lab7W, lab7H)];
+    [baseView addSubview:lab7];
+    lab7.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab7.text = @"施工人员: ";
+    NSString *workers = @"";
+    for(NSString *str in self.model.workerArr) {
+        
+        if([workers isEqualToString:@""]) {
+            
+            workers = [NSString stringWithFormat:@"%@", str];
+        }else {
+            
+            workers = [NSString stringWithFormat:@"%@,%@", workers, str];
+        }
+        
+    }
+    NSString *lab7Str = workers;
+    NSMutableDictionary *lab7Dic = [[NSMutableDictionary alloc] init];
+    lab7Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab7Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
+    CGRect fenRect7 = [lab7Str boundingRectWithSize:CGSizeMake(kWidth - lab7W - lab7X * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:lab7Dic context:nil];
+    CGFloat contLab7W = kWidth - lab7W - lab7X * 2;
+    CGFloat contLab7H = fenRect7.size.height;
+    CGFloat contLab7X = CGRectGetMaxX(lab7.frame);
+    CGFloat contLab7Y = lab7Y;
+    UILabel *contLab7 = [[UILabel alloc] initWithFrame:CGRectMake(contLab7X, contLab7Y, contLab7W, contLab7H)];
+    contLab7.numberOfLines = 0;
+    contLab7.text = lab7Str;
+    contLab7.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [baseView addSubview:contLab7];
+    
+    // 边线
+    UIView *lineView11 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(contLab7.frame) + jiange4, kWidth - jianjv2 * 2.0, 1)];
+    lineView11.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [baseView addSubview:lineView11];
+    
+    // 施工前照片
+    CGFloat beforeLabW = kWidth - jianjv2 * 2.0;
+    CGFloat beforeLabH = kHeight * 0.026;
+    CGFloat beforeLabX = jianjv2;
+    CGFloat beforeLabY = CGRectGetMaxY(lineView11.frame) + jiange4;
+    UILabel *beforeLab = [[UILabel alloc] initWithFrame:CGRectMake(beforeLabX, beforeLabY, beforeLabW, beforeLabH)];
+    beforeLab.text = @"施工前照片";
+    beforeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
+    [baseView addSubview:beforeLab];
+    // 照片
+    NSString *bePhotoStr = self.model.beforePhotos;
+    
+    if([bePhotoStr integerValue] == 1) {
+        
+        beMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
+        beforeLab.text = @"施工前照片：该订单未完成，暂无照片";
+    }else {
+        
+        NSArray *bePhotoArr = [bePhotoStr componentsSeparatedByString:@","];
+        NSInteger num = bePhotoArr.count;
+        for(int i=0; i<num; i++) {
+            
+            [self addBeforImgView:[NSString stringWithFormat:@"http://hpecar.com:8012%@", bePhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(beforeLab.frame) + jiange4 showInView:baseView];
+        }
+    }
+    
+    
+    
+    // 边线
+    UIView *lineView12 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, beMaxY + jiange4, kWidth - jianjv2 * 2.0, 1)];
+    lineView12.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [baseView addSubview:lineView12];
+    
+    
+    // 施工后照片
+    CGFloat afPhotoLabW = beforeLabW;
+    CGFloat afPhotoLabH = beforeLabH;
+    CGFloat afPhotoLabX = beforeLabX;
+    CGFloat afPhotoLabY = CGRectGetMaxY(lineView12.frame) + jiange4;
+    UILabel *afPhotoLab = [[UILabel alloc] initWithFrame:CGRectMake(afPhotoLabX, afPhotoLabY, afPhotoLabW, afPhotoLabH)];
+    afPhotoLab.text = @"施工后照片";
+    afPhotoLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
+    [baseView addSubview:afPhotoLab];
+    //照片
+    NSString *afPhotoStr = self.model.afterPhotos;
+    if([afPhotoStr integerValue] == 1) {
+    
+        afMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
+        afPhotoLab.text = @"施工前照片：该订单未完成，暂无照片";
+    }else {
+    
+        NSArray *afPhotoArr = [afPhotoStr componentsSeparatedByString:@","];
+        NSInteger sum = afPhotoArr.count;
+        for(int i=0; i<sum; i++) {
+            
+            [self addAfterImgView:[NSString stringWithFormat:@"http://hpecar.com:8012%@", afPhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(afPhotoLab.frame) + jiange4 showInView:baseView];
+        }
+    }
+    
+    
+   
+    
+    NSLog(@"=======%f======%f", afMaxY, beMaxY);
+    
+    
+    // 边线
+    UIView *lineView13 = [[UIView alloc] initWithFrame:CGRectMake(0, afMaxY + jiange4, kWidth, 1)];
+    lineView13.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [baseView addSubview:lineView13];
+    
+    
+    baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(lineView13.frame));
     
     
     
@@ -246,13 +397,13 @@
     
     // 技师信息
     GFTitleView *jishiView = [[GFTitleView alloc] initWithY:CGRectGetMaxY(baseView.frame) + jiange1 Title:@"技师信息"];
-    [self.view addSubview:jishiView];
+    [baseView addSubview:jishiView];
     
     
     // 技师头像栏
     UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(jishiView.frame), kWidth, kHeight * 0.15625)];
     iconView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:iconView];
+    [baseView addSubview:iconView];
     // 边线
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.15625, kWidth, 1)];
     lineView.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
@@ -318,7 +469,15 @@
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
             [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
-            nameLab.text = technicianDictionary[@"name"];
+            
+            NSString *nameStr = technicianDictionary[@"name"];;
+            NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
+            nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+            nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+            CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
+            nameLab.text = nameStr;
+            nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
+            
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
 //            numLab.text = @"999";
 //            numLab.backgroundColor = [UIColor redColor];
@@ -327,11 +486,11 @@
             // 橘色星星
             for(int i=0; i<round([dataDictionary[@"starRate"] floatValue]); i++) {
                 
-                CGFloat starImgViewW = nameLabH;
-                CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * i;
-//                CGFloat starImgViewY = nameLabY;
-                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, numLabY, starImgViewW, starImgViewH)];
+                CGFloat starImgViewW = nameLabH - 2;
+                CGFloat starImgViewH = nameLabH - 2;
+                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
+                CGFloat starImgViewY = nameLabY + 1;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor redColor];
                 starImgView.image = [UIImage imageNamed:@"information"];
@@ -343,11 +502,11 @@
             // 灰色星星
             for(int i=0; i < 5-round([dataDictionary[@"starRate"] floatValue]); i++) {
                 
-                CGFloat starImgViewW = nameLabH;
-                CGFloat starImgViewH = nameLabH;
-                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
-//                CGFloat starImgViewY = nameLabY;
-                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, numLabY, starImgViewW, starImgViewH)];
+                CGFloat starImgViewW = nameLabH - 2;
+                CGFloat starImgViewH = nameLabH - 2;
+                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
+                CGFloat starImgViewY = nameLabY + 1;
+                UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor greenColor];
                 starImgView.image = [UIImage imageNamed:@"detailsStarDark"];
@@ -355,7 +514,7 @@
             }
             
             
-            
+            _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
             
         }
         
@@ -376,6 +535,64 @@
     
 }
 
+// 添加前照片
+- (void)addBeforImgView:(NSString *)imgUrl withPhotoIndex:(NSInteger)index withFirstY:(CGFloat)Y showInView:(UIView *)showView{
+    
+    NSInteger hang = (index - 1) / 3;
+    NSInteger lie = index % 3;
+    
+    if(lie == 0) {
+        lie = 3;
+    }
+    
+    CGFloat beforImgViewW = (kWidth - jianjv1 * 4) / 3.0;
+    CGFloat beforImgViewH = beforImgViewW;
+    CGFloat beforImgViewX = jianjv1 * lie + beforImgViewW * (lie - 1);
+    CGFloat beforImgViewY = Y + beforImgViewH * hang + jianjv1 * hang;
+    CLImageView *beforImgView = [[CLImageView alloc] init];
+    beforImgView.frame = CGRectMake(beforImgViewX, beforImgViewY, beforImgViewW, beforImgViewH);
+    
+    //    beforImgView.backgroundColor = [UIColor redColor];
+    [showView addSubview:beforImgView];
+    
+    NSURL *imgURL = [NSURL URLWithString:imgUrl];
+    [beforImgView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"orderImage.png"]];
+    
+    beMaxY = CGRectGetMaxY(beforImgView.frame);
+    
+    beforImgView.contentMode = UIViewContentModeScaleAspectFill;
+    beforImgView.clipsToBounds = YES;
+}
+// 添加后照片
+- (void)addAfterImgView:(NSString *)imgUrl withPhotoIndex:(NSInteger)index withFirstY:(CGFloat)Y showInView:(UIView *)showView{
+    
+    NSInteger hang = (index - 1) / 3;
+    NSInteger lie = index % 3;
+    
+    if(lie == 0) {
+        lie = 3;
+    }
+    
+    CGFloat beforImgViewW = (kWidth - jianjv1 * 4) / 3.0;
+    CGFloat beforImgViewH = beforImgViewW;
+    CGFloat beforImgViewX = jianjv1 * lie + beforImgViewW * (lie - 1);
+    CGFloat beforImgViewY = Y + beforImgViewH * hang + jianjv1 * hang;
+    CLImageView *beforImgView = [[CLImageView alloc] init];
+    beforImgView.frame = CGRectMake(beforImgViewX, beforImgViewY, beforImgViewW, beforImgViewH);
+    
+    
+    //    beforImgView.backgroundColor = [UIColor redColor];
+    [showView addSubview:beforImgView];
+    
+    NSURL *imgURL = [NSURL URLWithString:imgUrl];
+    [beforImgView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"orderImage.png"]];
+    
+    afMaxY = CGRectGetMaxY(beforImgView.frame);
+    
+    beforImgView.contentMode = UIViewContentModeScaleAspectFill;
+    beforImgView.clipsToBounds = YES;
+}
+
 #pragma mark - AlertView
 - (void)addAlertView:(NSString *)title{
     GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
@@ -387,7 +604,7 @@
     // 技师头像栏
     UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, MaxY, kWidth, kHeight * 0.15625)];
     iconView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:iconView];
+    [_scrollView addSubview:iconView];
     // 边线
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.15625, kWidth, 1)];
     lineView.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
