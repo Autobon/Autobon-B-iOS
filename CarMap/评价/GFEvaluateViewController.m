@@ -115,6 +115,15 @@
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
 //    nameLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:nameLab];
+    // 电话号码
+    CGFloat phoneLabW = 150;
+    CGFloat phoneLabH = nameLabH;
+    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
+    CGFloat phoneLabY = nameLabY;
+    UILabel *phoneLab = [[UILabel alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY, phoneLabW, phoneLabH)];
+    phoneLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+    phoneLab.text = @"99999999999";
+    [iconView addSubview:phoneLab];
     // 订单数
     NSString *indentStr = @"订单数";
     NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
@@ -152,7 +161,20 @@
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
             extern NSString* const URLHOST;
             [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
-            nameLab.text = technicianDictionary[@"name"];
+//            nameLab.text = technicianDictionary[@"name"];
+            
+            NSString *nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
+            NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
+            nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+            nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+            CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
+            nameLab.text = nameStr;
+            nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
+            
+            // 电话号码
+            phoneLab.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY, phoneLabW, phoneLabH);
+            phoneLab.text = technicianDictionary[@"phone"];
+            
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
             
             

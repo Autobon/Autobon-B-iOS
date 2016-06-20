@@ -426,7 +426,7 @@
     nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
 //    CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
-    CGFloat nameLabW =200;
+    CGFloat nameLabW =100;
     CGFloat nameLabH = 20;
     CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
     CGFloat nameLabY = kHeight * 0.04;
@@ -435,6 +435,15 @@
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
 //    nameLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:nameLab];
+    // 电话号码
+    CGFloat phoneLabW = 150;
+    CGFloat phoneLabH = nameLabH;
+    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
+    CGFloat phoneLabY = nameLabY;
+    UILabel *phoneLab = [[UILabel alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY, phoneLabW, phoneLabH)];
+    phoneLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+    phoneLab.text = @"99999999999";
+    [iconView addSubview:phoneLab];
     // 订单数
     NSString *indentStr = @"订单数";
     NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
@@ -464,19 +473,23 @@
     
     
     [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderId} success:^(id responseObject) {
-//        NSLog(@"请求成功－－－%@---",responseObject[@"message"]);
+        NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
             [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             
-            NSString *nameStr = technicianDictionary[@"name"];;
+            NSString *nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
             NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
             nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
             nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
             CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
             nameLab.text = nameStr;
             nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
+            
+            // 电话号码
+            phoneLab.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY, phoneLabW, phoneLabH);
+            phoneLab.text = technicianDictionary[@"phone"];
             
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
 //            numLab.text = @"999";
@@ -488,8 +501,8 @@
                 
                 CGFloat starImgViewW = nameLabH - 2;
                 CGFloat starImgViewH = nameLabH - 2;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * i;
-                CGFloat starImgViewY = nameLabY + 1;
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * i;
+                CGFloat starImgViewY = numLabY + 1;
                 UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor redColor];
@@ -504,8 +517,8 @@
                 
                 CGFloat starImgViewW = nameLabH - 2;
                 CGFloat starImgViewH = nameLabH - 2;
-                CGFloat starImgViewX = CGRectGetMaxX(nameLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
-                CGFloat starImgViewY = nameLabY + 1;
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
+                CGFloat starImgViewY = numLabY + 1;
                 UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor greenColor];
