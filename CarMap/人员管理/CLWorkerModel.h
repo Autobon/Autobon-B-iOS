@@ -10,8 +10,14 @@
 
 @interface CLWorkerModel : NSObject
 
-@property (nonatomic ,strong) NSString *name;
-@property (nonatomic ,strong) NSString *mainString;
-@property (nonatomic ,strong) NSString *workerId;
-@property (nonatomic) BOOL fired;
+@property (nonatomic ,strong) NSString *name;       // 姓名
+@property (nonatomic ,strong) NSString *mainString; // 管理员
+@property (nonatomic ,strong) NSString *workerId;   // 员工账户ID
+@property (nonatomic) BOOL fired;                   // 是否离职
+
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *sex;
+
+
+
 @end

@@ -68,7 +68,20 @@
         [self.rightBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
         [baseView addSubview:self.rightBut];
         
-        
+        // 编辑按钮
+        CGFloat bianjiButW = rightButW;
+        CGFloat bianjiButH = rightButH;
+        CGFloat bianjiButX = CGRectGetMinX(self.rightBut.frame) - bianjiButW - 5;
+        CGFloat bianjiButY = rightButY;
+        self.bianjiBut = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.bianjiBut.frame = CGRectMake(bianjiButX, bianjiButY, bianjiButW, bianjiButH);
+        self.bianjiBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
+        self.bianjiBut.layer.borderWidth = 1;
+        self.bianjiBut.layer.cornerRadius = 5;
+        [self.bianjiBut setTitle:@"编辑" forState:UIControlStateNormal];
+        self.bianjiBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kwidth];
+        [self.bianjiBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
+        [baseView addSubview:self.bianjiBut];
         
     }
     

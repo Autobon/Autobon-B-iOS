@@ -15,7 +15,7 @@
 #import "GFTipView.h"
 #import "CLWorkerModel.h"
 
-
+#import "GFBianjiViewController.h"
 
 @interface GFWorkerViewController () {
     
@@ -89,6 +89,7 @@
 - (void)addWorker{
     
     GFAddWorkerViewController *addWorker = [[GFAddWorkerViewController alloc]init];
+
     [self.navigationController pushViewController:addWorker animated:YES];
     
 }
@@ -130,15 +131,23 @@
     cell.centerLab.text = worker.mainString;
     if (indexPath.row == 0) {
         cell.rightBut.hidden = YES;
+        cell.bianjiBut.hidden = YES;
     }else{
         if (worker.fired) {
             cell.rightBut.userInteractionEnabled = NO;
             cell.rightBut.alpha = 0.3;
+            cell.bianjiBut.userInteractionEnabled = NO;
+            cell.bianjiBut.alpha = 0.3;
         }else{
             cell.rightBut.alpha = 1.0;
             cell.rightBut.tag = indexPath.row;
             cell.rightBut.userInteractionEnabled = YES;
             [cell.rightBut addTarget:self action:@selector(moveWorker:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.bianjiBut.alpha = 1.0;
+            cell.bianjiBut.tag = indexPath.row + 100000;
+            cell.bianjiBut.userInteractionEnabled = YES;
+            [cell.bianjiBut addTarget:self action:@selector(bianjiButClick:) forControlEvents:UIControlEventTouchUpInside];
         }
         
     }
@@ -180,6 +189,16 @@
     [tipView tipViewShow];
 }
 
+#pragma mark - 编辑按钮
+- (void)bianjiButClick:(UIButton *)sender {
+
+    CLWorkerModel *worker = _workerArray[sender.tag - 100000];
+    GFBianjiViewController *bianjiVC = [[GFBianjiViewController alloc] init];
+    bianjiVC.model = worker;
+    [self.navigationController pushViewController:bianjiVC animated:YES];
+    
+    NSLog(@"编辑员工信息====%ld", sender.tag);
+}
 
 #pragma mark - 移除业务员按钮
 - (void)moveWorker:(UIButton *)button{

@@ -15,6 +15,7 @@
 		8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC71C99459200666634 /* AFURLResponseSerialization.m */; };
 		8673FDD11C99459200666634 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673FDC91C99459200666634 /* AFURLSessionManager.m */; };
 		867E6D871D179BC9009F4938 /* WorkItemDic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 867E6D861D179BC9009F4938 /* WorkItemDic.plist */; };
+		86F917571D18EFF900C09835 /* GFBianjiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F917561D18EFF900C09835 /* GFBianjiViewController.m */; };
 		9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */; };
 		9B42F0761CBF980900F08C4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */; };
 		9B5EBEE51CBDD80E00E753BF /* servicedelegate.html in Resources */ = {isa = PBXBuildFile; fileRef = 9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */; };
@@ -153,6 +154,8 @@
 		86D4FB011C96A08F004E26AC /* GFTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTipView.m; sourceTree = "<group>"; };
 		86D4FB021C96A08F004E26AC /* GFTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFTitleView.h; sourceTree = "<group>"; };
 		86D4FB031C96A08F004E26AC /* GFTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFTitleView.m; sourceTree = "<group>"; };
+		86F917551D18EFF900C09835 /* GFBianjiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBianjiViewController.h; sourceTree = "<group>"; };
+		86F917561D18EFF900C09835 /* GFBianjiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFBianjiViewController.m; sourceTree = "<group>"; };
 		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -642,6 +645,8 @@
 				9BD218D11CB74F130093621A /* CLWorkerModel.m */,
 				9B6B6EAC1C9A4B1400449259 /* GFWorkerViewController.h */,
 				9B6B6EAD1C9A4B1400449259 /* GFWorkerViewController.m */,
+				86F917551D18EFF900C09835 /* GFBianjiViewController.h */,
+				86F917561D18EFF900C09835 /* GFBianjiViewController.m */,
 			);
 			path = "人员管理";
 			sourceTree = "<group>";
@@ -991,6 +996,7 @@
 				9B9FEA0B1CA38E1000231747 /* UIImageView+WebCache.m in Sources */,
 				9B6B6EBA1C9A4B6400449259 /* GFChangePwdViewController.m in Sources */,
 				9BD218D21CB74F130093621A /* CLWorkerModel.m in Sources */,
+				86F917571D18EFF900C09835 /* GFBianjiViewController.m in Sources */,
 				9B67572E1C97CAC70001C478 /* MJRefreshBackStateFooter.m in Sources */,
 				9B9B45AC1CBF78B400D0F507 /* GFTransformViewController.m in Sources */,
 				9B6757361C97CAC70001C478 /* UIView+MJExtension.m in Sources */,

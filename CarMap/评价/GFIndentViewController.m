@@ -247,10 +247,16 @@
                 if(![tech isKindOfClass:[NSNull class]]) {
                     
                     [_workNameArr addObject:tech[@"name"]];
+                }else {
+                    
+                    [_workItemArr addObject:@"无"];
                 }
                 if(![seTech isKindOfClass:[NSNull class]]) {
                     
                     [_workNameArr addObject:seTech[@"name"]];
+                }else {
+                    
+                    [_workItemArr addObject:@"无"];
                 }
                 model.workerArr = _workNameArr;
                 
@@ -420,10 +426,16 @@
                 if(![tech isKindOfClass:[NSNull class]]) {
                     
                     [_workNameArr addObject:tech[@"name"]];
+                }else {
+                    
+                    [_workItemArr addObject:@"无"];
                 }
                 if(![seTech isKindOfClass:[NSNull class]]) {
                     
                     [_workNameArr addObject:seTech[@"name"]];
+                }else {
+                    
+                    [_workItemArr addObject:@"无"];
                 }
                 model.workerArr = _workNameArr;
                 
@@ -693,7 +705,13 @@
     
     GFIndentModel *model = _dataArray[indexPath.row];
     if ([model.status isEqualToString:@"EXPIRED"]) {
-        [self addAlertView:@"订单已超时"];
+//        [self addAlertView:@"订单已超时"];
+        GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
+        model.workTime = @"无";
+        indentDeVC.model = model;
+        indentDeVC.itemStr = @"无";
+        NSLog(@"=====================%@", indentDeVC.itemStr);
+        [self.navigationController pushViewController:indentDeVC animated:YES];
     }else{
         GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
         
