@@ -815,6 +815,41 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
     
 }
 
+#pragma mark - 修改员工账户
++ (void)postChangeWorkMsgParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
+
+    if ([GFHttpTool isConnectionAvailable]) {
+        
+        NSString *workId = parameters[@"workID"];
+        
+        NSString *suffixURL = [NSString stringWithFormat:@"/coop/account/%@", workId];
+        NSString *url = [NSString stringWithFormat:@"%@%@", HOST, suffixURL];
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+
+
+
+            if(failure) {
+                failure(error);
+            }
+        }];
+
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+
+
+
+
 
 #pragma mark - 商户撤单
 + (void)postCanceledOrder:(NSString *)orderId Success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -830,18 +865,29 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
         
         [manager POST:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
+
             if(success) {
                 success(responseObject);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
             [alertView removeFromSuperview];
+            
             if(failure) {
                 failure(error);
             }
         }];
-    }else{
-        [GFHttpTool addAlertView:@"无网络连接"];
+
+
+
+
+        
+    }else {
+        
+        [GFHttpTool addAlertView:@"网络无链接，请检查网络"];
     }
+        
+
 }
 
 

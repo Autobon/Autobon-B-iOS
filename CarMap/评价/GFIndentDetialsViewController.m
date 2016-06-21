@@ -358,7 +358,7 @@
     
     
     // 边线
-    UIView *lineView12 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, beMaxY + jiange4, kWidth - jianjv2 * 2.0, 1)];
+    UIView *lineView12 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, beMaxY, kWidth - jianjv2 * 2.0, 1)];
     lineView12.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView12];
     
@@ -376,8 +376,10 @@
     NSString *afPhotoStr = self.model.afterPhotos;
     if([afPhotoStr integerValue] == 1) {
     
+
         afMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
         afPhotoLab.text = @"施工后照片：该订单未完成，暂无照片";
+
     }else {
     
         NSArray *afPhotoArr = [afPhotoStr componentsSeparatedByString:@","];
@@ -397,7 +399,7 @@
     
     
     // 边线
-    UIView *lineView13 = [[UIView alloc] initWithFrame:CGRectMake(0, afMaxY + jiange4, kWidth, 1)];
+    UIView *lineView13 = [[UIView alloc] initWithFrame:CGRectMake(0, afMaxY, kWidth, 1)];
     lineView13.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView13];
     
