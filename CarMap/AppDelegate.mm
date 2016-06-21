@@ -238,7 +238,7 @@
     if (!offLine) {
         NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"responseJSON----%@--",responseJSON);
+        NSLog(@"responseJSON----%@--",responseJSON);
         
         if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
             UILocalNotification*notification = [[UILocalNotification alloc] init];
@@ -252,7 +252,7 @@
                 AudioServicesPlaySystemSound(1307);
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
-        }else if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+        }else if ([responseJSON[@"action"] isEqualToString:@"FINISHED"]){
             AudioServicesPlaySystemSound(1307);
             _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
             [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,6 +269,20 @@
             UIWindow *window = [UIApplication sharedApplication].delegate.window;
             [window addSubview:_alertView];
             
+        }else if ([responseJSON[@"action"]isEqualToString:@"ORDER_GIVEN_UP"]){
+            UILocalNotification*notification = [[UILocalNotification alloc] init];
+            if (nil != notification)
+            {
+                notification.fireDate = [NSDate date];
+                _pushDate = [NSDate date];
+                notification.alertTitle = responseJSON[@"title"];
+                
+                NSDictionary *orderDictionary = responseJSON[@"order"];
+                notification.alertBody = [NSString stringWithFormat:@"订单编号为:%@ 已被技师放弃",orderDictionary[@"orderNum"]];
+//                notification.userInfo = @{@"dictionary":payloadMsg};
+                AudioServicesPlaySystemSound(1307);
+                [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+            }
         }
     
     }else{
