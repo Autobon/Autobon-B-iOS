@@ -349,37 +349,38 @@
 #pragma mark - 业务员管理
 - (void)but3Click {
     
-    
-    [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-        NSLog(@"---查询业务员－－%@--",responseObject);
-        if ([responseObject[@"result"] integerValue] == 1) {
-            GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
-            NSArray *array = responseObject[@"data"];
-            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
-                worker.name = obj[@"name"];
-                worker.workerId = obj[@"id"];
-                worker.fired = [obj[@"fired"] integerValue];
-                worker.phone = obj[@"phone"];
-                worker.sex = obj[@"gender"];
-                if ([obj[@"main"] integerValue] == 0) {
-                    worker.mainString = @"业务员";
-                }else{
-                    worker.mainString = @"管理员";
-                    worker.name = obj[@"shortname"];
-                }
-                [workerView.workerArray addObject:worker];
-            }];
-//            [_tableView reloadData];
-            
-            [self.navigationController pushViewController:workerView animated:YES];
-            
-        }else{
-            [self addAlertView:responseObject[@"message"]];
-        }
-    } failure:^(NSError *error) {
-        [self addAlertView:@"请求失败"];
-    }];
+    GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
+    [self.navigationController pushViewController:workerView animated:YES];
+//    [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
+//        NSLog(@"---查询业务员－－%@--",responseObject);
+//        if ([responseObject[@"result"] integerValue] == 1) {
+//            GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
+//            NSArray *array = responseObject[@"data"];
+//            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+//                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
+//                worker.name = obj[@"name"];
+//                worker.workerId = obj[@"id"];
+//                worker.fired = [obj[@"fired"] integerValue];
+//                worker.phone = obj[@"phone"];
+//                worker.sex = obj[@"gender"];
+//                if ([obj[@"main"] integerValue] == 0) {
+//                    worker.mainString = @"业务员";
+//                }else{
+//                    worker.mainString = @"管理员";
+//                    worker.name = obj[@"shortname"];
+//                }
+//                [workerView.workerArray addObject:worker];
+//            }];
+////            [_tableView reloadData];
+//            
+//            [self.navigationController pushViewController:workerView animated:YES];
+//            
+//        }else{
+//            [self addAlertView:responseObject[@"message"]];
+//        }
+//    } failure:^(NSError *error) {
+//        [self addAlertView:@"请求失败"];
+//    }];
     
     
     

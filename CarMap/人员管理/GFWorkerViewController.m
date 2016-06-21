@@ -39,21 +39,101 @@
 
 @implementation GFWorkerViewController
 
-- (NSMutableArray *)workerArray{
-    if (_workerArray == nil) {
-        _workerArray = [[NSMutableArray alloc]init];
-    }
-    return _workerArray;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.workerArray = [[NSMutableArray alloc] init];
     
     // 基础设置
     [self _setBase];
     
     // 界面搭建
     [self _setView];
+    
+    [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
+        NSLog(@"---查询业务员－－%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+        
+            NSArray *array = responseObject[@"data"];
+            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                
+                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
+                worker.name = obj[@"name"];
+                worker.workerId = obj[@"id"];
+                worker.fired = [obj[@"fired"] integerValue];
+                worker.phone = obj[@"phone"];
+                worker.sex = obj[@"gender"];
+                if ([obj[@"main"] integerValue] == 0) {
+                    
+                    worker.mainString = @"业务员";
+                }else{
+                    
+                    worker.mainString = @"管理员";
+                    worker.name = obj[@"shortname"];
+                }
+                
+                [self.workerArray addObject:worker];
+            }];
+
+            NSLog(@"------------%@", _workerArray);
+            // 界面搭建
+            [self _setView];
+            
+//            [self.tableView reloadData];
+            
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self addAlertView:@"请求失败"];
+    }];
+    
+    
+}
+
+- (void)httpWork {
+
+    self.workerArray = [[NSMutableArray alloc] init];
+    
+    [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
+        NSLog(@"---查询业务员－－%@--",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            
+            NSArray *array = responseObject[@"data"];
+            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                
+                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
+                worker.name = obj[@"name"];
+                worker.workerId = obj[@"id"];
+                worker.fired = [obj[@"fired"] integerValue];
+                worker.phone = obj[@"phone"];
+                worker.sex = obj[@"gender"];
+                if ([obj[@"main"] integerValue] == 0) {
+                    
+                    worker.mainString = @"业务员";
+                }else{
+
+                    worker.mainString = @"管理员";
+                    worker.name = obj[@"shortname"];
+                }
+                
+                [self.workerArray addObject:worker];
+            }];
+            
+            NSLog(@"------------%@", _workerArray);
+            
+            
+            [self.tableView reloadData];
+            
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self addAlertView:@"请求失败"];
+    }];
+
 }
 
 - (void)_setBase {

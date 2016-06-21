@@ -152,6 +152,12 @@
                 
                 if ([responseObject[@"result"] integerValue] == 1) {
                     
+                    
+                    
+                    // 刷新数据
+                    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
+                    [workerView httpWork];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
                     [self addAlertView:@"修改成功"];
                 }
@@ -180,9 +186,8 @@
 //            } failure:^(NSError *error) {
 //                [self addAlertView:@"请求失败"];
 //            }];
-            
-            
-            //            [self.navigationController popViewControllerAnimated:YES];
+           
+//            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self addAlertView:@"请输入业务员名称"];
         }
