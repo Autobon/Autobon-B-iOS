@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *workerArray;
 
+
+- (void)httpWork;
 @end

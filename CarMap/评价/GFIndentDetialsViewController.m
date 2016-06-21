@@ -159,12 +159,23 @@
     pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
     pingjiaBut.layer.borderWidth = 1;
     pingjiaBut.layer.cornerRadius = 5;
-    if ([_model.commentDictionary isKindOfClass:[NSNull class]]) {
+    
+    if([_model.status isEqualToString:@"FINISHED"]) {
+    
+        if ([_model.commentDictionary isKindOfClass:[NSNull class]]) {
+            [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+            [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            [pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+        }
+    }else {
+    
         [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
-        [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    }else{
-        [pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+        pingjiaBut.userInteractionEnabled = NO;
+        pingjiaBut.alpha = 0.3;
     }
+    
+    
     [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
     pingjiaBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView addSubview:pingjiaBut];
@@ -251,7 +262,7 @@
     
     
     // 边线
-    UIView *lineView4 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(contLab5.frame) + jiange4, kWidth, 1)];
+    UIView *lineView4 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(contLab5.frame) + jiange4, kWidth - jianjv2 * 2.0, 1)];
     lineView4.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView4];
     
@@ -296,6 +307,7 @@
     lab7.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab7.text = @"施工人员: ";
     NSString *workers = @"";
+//    NSLog(@"施工人员数组＝＝＝＝＝＝＝＝%@", self.model.workerArr);
     for(NSString *str in self.model.workerArr) {
         
         if([workers isEqualToString:@""]) {
@@ -319,6 +331,10 @@
     UILabel *contLab7 = [[UILabel alloc] initWithFrame:CGRectMake(contLab7X, contLab7Y, contLab7W, contLab7H)];
     contLab7.numberOfLines = 0;
     contLab7.text = lab7Str;
+    if(lab7Str.length == 0) {
+    
+        contLab7.text = @"无";
+    }
     contLab7.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView addSubview:contLab7];
     
@@ -377,7 +393,7 @@
     if([afPhotoStr integerValue] == 1) {
     
 
-        afMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
+        afMaxY = CGRectGetMaxY(afPhotoLab.frame) + jiange4;
         afPhotoLab.text = @"施工后照片：该订单未完成，暂无照片";
 
     }else {
@@ -423,6 +439,9 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.15625, kWidth, 1)];
     lineView.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [iconView addSubview:lineView];
+    
+//    _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(lineView.frame));
+    
     // 头像
     CGFloat iconImgViewW = 0.181 * kWidth;
     CGFloat iconImgViewH = iconImgViewW;
@@ -436,7 +455,7 @@
     iconImgView.image = [UIImage imageNamed:@"userHeadImage"];
     [iconView addSubview:iconImgView];
     // 姓名
-    NSString *nameStr = @"技  师";
+    NSString *nameStr = @"无技师接单";
     NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
     nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -459,12 +478,12 @@
     [phoneBtn addTarget:self action:@selector(cellTech) forControlEvents:UIControlEventTouchUpInside];
     phoneBtn.titleLabel.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     [phoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
+    phoneBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:phoneBtn];
 
     
     // 订单数
-    NSString *indentStr = @"订单数";
+    NSString *indentStr = @"无技师信息";
     NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
     indentDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     indentDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -495,10 +514,16 @@
         NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
+//            if([dataDictionary isKindOfClass:[NSNull class]]) {
+//                
+//                _scrollView.contentSize = CGSizeMake(0, afMaxY);
+//            }
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
             [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString   stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             
-            NSString *nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
+            
+            NSString *nameStr = [[NSString alloc] init];
+            nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
             NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
             nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
             nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -554,7 +579,12 @@
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
 
             
+        }else {
+            
+            _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
         }
+        
+        
         
     } failure:^(NSError *error) {
 //        NSLog(@"请求失败－－－%@---",error);
