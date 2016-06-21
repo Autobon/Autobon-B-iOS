@@ -14,8 +14,12 @@
 #import "UIImageView+WebCache.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
+#import "ACETelPrompt.h"
+
 
 #import "CLImageView.h"
+#import "MYImageView.h"
+
 
 
 @interface GFIndentDetialsViewController () {
@@ -36,6 +40,11 @@
     
     CGFloat beMaxY;
     CGFloat afMaxY;
+    
+    NSMutableArray *_beforeImageArray;
+    NSMutableArray *_afterImageArray;
+    
+    NSString *_phoneString;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -170,7 +179,7 @@
     CGFloat imgViewH = kHeight * 0.237;
     CGFloat imgViewX = jianjv2;
     CGFloat imgViewY = CGRectGetMaxY(self.timeLab.frame) + jiange1 + jiange2;
-    CLImageView *imgView = [[CLImageView alloc] init];
+    UIImageView *imgView = [[CLImageView alloc] init];
     imgView.frame = CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH);
 //    imgView.backgroundColor = [UIColor redColor];
     imgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -339,6 +348,7 @@
         NSArray *bePhotoArr = [bePhotoStr componentsSeparatedByString:@","];
         NSInteger num = bePhotoArr.count;
         extern NSString* const URLHOST;
+        _beforeImageArray = [[NSMutableArray alloc]init];
         for(int i=0; i<num; i++) {
             
             [self addBeforImgView:[NSString stringWithFormat:@"%@%@", URLHOST, bePhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(beforeLab.frame) + jiange4 showInView:baseView];
@@ -367,12 +377,13 @@
     if([afPhotoStr integerValue] == 1) {
     
         afMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
-        afPhotoLab.text = @"施工前照片：该订单未完成，暂无照片";
+        afPhotoLab.text = @"施工后照片：该订单未完成，暂无照片";
     }else {
     
         NSArray *afPhotoArr = [afPhotoStr componentsSeparatedByString:@","];
         NSInteger sum = afPhotoArr.count;
         extern NSString* const URLHOST;
+        _afterImageArray = [[NSMutableArray alloc]init];
         for(int i=0; i<sum; i++) {
             
             [self addAfterImgView:[NSString stringWithFormat:@"%@%@", URLHOST, afPhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(afPhotoLab.frame) + jiange4 showInView:baseView];
@@ -440,12 +451,16 @@
     // 电话号码
     CGFloat phoneLabW = 150;
     CGFloat phoneLabH = nameLabH;
-    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
+//    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
     CGFloat phoneLabY = nameLabY;
-    UILabel *phoneLab = [[UILabel alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY, phoneLabW, phoneLabH)];
-    phoneLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
-    phoneLab.text = @"99999999999";
-    [iconView addSubview:phoneLab];
+    UIButton *phoneBtn = [[UIButton alloc] init];
+    [phoneBtn addTarget:self action:@selector(cellTech) forControlEvents:UIControlEventTouchUpInside];
+    phoneBtn.titleLabel.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+    [phoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [_scrollView addSubview:phoneBtn];
+
+    
     // 订单数
     NSString *indentStr = @"订单数";
     NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
@@ -479,7 +494,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString   stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             
             NSString *nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
             NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
@@ -490,8 +505,13 @@
             nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
             
             // 电话号码
-            phoneLab.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY, phoneLabW, phoneLabH);
-            phoneLab.text = technicianDictionary[@"phone"];
+            phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY+CGRectGetMaxY(jishiView.frame), phoneLabW, phoneLabH);
+            [phoneBtn setTitle:technicianDictionary[@"phone"] forState:UIControlStateNormal];
+            _phoneString = technicianDictionary[@"phone"];
+//            phoneBtn.backgroundColor = [UIColor cyanColor];
+            
+            
+            
             
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
 //            numLab.text = @"999";
@@ -530,6 +550,7 @@
             
             
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
+
             
         }
         
@@ -564,11 +585,16 @@
     CGFloat beforImgViewH = beforImgViewW;
     CGFloat beforImgViewX = jianjv1 * lie + beforImgViewW * (lie - 1);
     CGFloat beforImgViewY = Y + beforImgViewH * hang + jianjv1 * hang;
-    CLImageView *beforImgView = [[CLImageView alloc] init];
+    MYImageView *beforImgView = [[MYImageView alloc] init];
     beforImgView.frame = CGRectMake(beforImgViewX, beforImgViewY, beforImgViewW, beforImgViewH);
     
     //    beforImgView.backgroundColor = [UIColor redColor];
     [showView addSubview:beforImgView];
+    
+    beforImgView.tag = _beforeImageArray.count;
+    beforImgView.imageArray = _beforeImageArray;
+    [_beforeImageArray addObject:beforImgView];
+    
     
     NSURL *imgURL = [NSURL URLWithString:imgUrl];
     [beforImgView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"orderImage.png"]];
@@ -592,9 +618,11 @@
     CGFloat beforImgViewH = beforImgViewW;
     CGFloat beforImgViewX = jianjv1 * lie + beforImgViewW * (lie - 1);
     CGFloat beforImgViewY = Y + beforImgViewH * hang + jianjv1 * hang;
-    CLImageView *beforImgView = [[CLImageView alloc] init];
+    MYImageView *beforImgView = [[MYImageView alloc] init];
     beforImgView.frame = CGRectMake(beforImgViewX, beforImgViewY, beforImgViewW, beforImgViewH);
-    
+    beforImgView.tag = _afterImageArray.count;
+    beforImgView.imageArray = _afterImageArray;
+    [_afterImageArray addObject:beforImgView];
     
     //    beforImgView.backgroundColor = [UIColor redColor];
     [showView addSubview:beforImgView];
@@ -720,6 +748,17 @@
 - (void)leftButClick {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)cellTech{
+    
+    NSLog(@"方法调用了");
+    
+    [ACETelPrompt callPhoneNumber:_phoneString call:^(NSTimeInterval duration) {
+        //         NSLog(@"User made a call of %.1f seconds", duration);
+    } cancel:^{
+        //          NSLog(@"User cancelled the call");
+    }];
 }
 
 

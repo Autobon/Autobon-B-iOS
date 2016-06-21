@@ -16,6 +16,8 @@
 #import "GFHttpTool.h"
 #import "GFTipView.h"
 #import "GFIndentViewController.h"
+#import "ACETelPrompt.h"
+
 
 
 @interface GFEvaluateViewController ()<UITextViewDelegate> {
@@ -37,6 +39,8 @@
     
     CLTouchScrollView *_scrollView;
     UITextView *_otherTextView;
+    
+    NSString *_phoneString;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -120,10 +124,13 @@
     CGFloat phoneLabH = nameLabH;
     CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
     CGFloat phoneLabY = nameLabY;
-    UILabel *phoneLab = [[UILabel alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY, phoneLabW, phoneLabH)];
-    phoneLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
-    phoneLab.text = @"99999999999";
-    [iconView addSubview:phoneLab];
+    UIButton *phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(phoneLabX, phoneLabY, phoneLabW, phoneLabH)];
+    phoneBtn.titleLabel.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+//    phoneLab.text = @"99999999999";
+//    phoneBtn.backgroundColor = [UIColor cyanColor];
+    [phoneBtn addTarget:self action:@selector(cellTech) forControlEvents:UIControlEventTouchUpInside];
+    [phoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [iconView addSubview:phoneBtn];
     // 订单数
     NSString *indentStr = @"订单数";
     NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
@@ -172,11 +179,10 @@
             nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
             
             // 电话号码
-            phoneLab.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY, phoneLabW, phoneLabH);
-            phoneLab.text = technicianDictionary[@"phone"];
-            
+            phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY, phoneLabW, phoneLabH);
+            [phoneBtn setTitle:technicianDictionary[@"phone"] forState:UIControlStateNormal];
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
-            
+            _phoneString = technicianDictionary[@"phone"];
             
             
             
@@ -465,6 +471,17 @@
     [baseView addSubview:lab];
     
     return baseView;
+}
+
+- (void)cellTech{
+    
+    NSLog(@"方法调用了");
+    
+    [ACETelPrompt callPhoneNumber:_phoneString call:^(NSTimeInterval duration) {
+        //         NSLog(@"User made a call of %.1f seconds", duration);
+    } cancel:^{
+        //          NSLog(@"User cancelled the call");
+    }];
 }
 
 - (void)leftButClick {

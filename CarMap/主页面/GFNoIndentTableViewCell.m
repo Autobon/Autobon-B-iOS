@@ -10,7 +10,7 @@
 
 #import "CLImageView.h"
 
-
+#import "GFHttpTool.h"
 
 
 @interface GFNoIndentTableViewCell()
@@ -195,6 +195,12 @@
 
 - (void)removeOrder{
     NSLog(@"撤单按钮被点击了，订单id为－－%@",_orderId);
+    
+    [GFHttpTool postCanceledOrder:_orderId Success:^(id responseObject) {
+        NSLog(@"---撤单成功－－%@",responseObject);
+    } failure:^(NSError *error) {
+        NSLog(@"--撤单失败-----%@-",error);
+    }];
     
 }
 

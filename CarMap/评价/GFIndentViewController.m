@@ -629,6 +629,12 @@
         if ([model.status isEqualToString:@"EXPIRED"]) {
             [cell.pingjiaBut setTitle:@"已超时" forState:UIControlStateNormal];
             cell.pingjiaBut.userInteractionEnabled = NO;
+        }else if([model.status isEqualToString:@"GIVEN_UP"]){
+            [cell.pingjiaBut setTitle:@"已放弃" forState:UIControlStateNormal];
+            cell.pingjiaBut.userInteractionEnabled = NO;
+        }else if([model.status isEqualToString:@"CANCELED"]){
+            [cell.pingjiaBut setTitle:@"已撤销" forState:UIControlStateNormal];
+            cell.pingjiaBut.userInteractionEnabled = NO;
         }else{
             if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
                 [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];

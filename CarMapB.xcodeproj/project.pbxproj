@@ -108,6 +108,7 @@
 		9BD474161D1259DF008EB28C /* CLAddPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD474151D1259DF008EB28C /* CLAddPersonViewController.m */; };
 		9BD474191D125A53008EB28C /* CLPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD474181D125A53008EB28C /* CLPersonTableViewCell.m */; };
 		9BD4741C1D125A66008EB28C /* CLAddPersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD4741B1D125A66008EB28C /* CLAddPersonModel.m */; };
+		9BD5DE2E1D17E53C002FA0E0 /* MYImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5DE2D1D17E53C002FA0E0 /* MYImageView.m */; };
 		9BD6254A1C97BDA600F129CB /* GFNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFD1C96A08F004E26AC /* GFNavigationView.m */; };
 		9BD6254B1C97BDBB00F129CB /* GFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D4FAFF1C96A08F004E26AC /* GFTextField.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
@@ -330,6 +331,8 @@
 		9BD474181D125A53008EB28C /* CLPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLPersonTableViewCell.m; sourceTree = "<group>"; };
 		9BD4741A1D125A66008EB28C /* CLAddPersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLAddPersonModel.h; sourceTree = "<group>"; };
 		9BD4741B1D125A66008EB28C /* CLAddPersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLAddPersonModel.m; sourceTree = "<group>"; };
+		9BD5DE2C1D17E53C002FA0E0 /* MYImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYImageView.h; sourceTree = "<group>"; };
+		9BD5DE2D1D17E53C002FA0E0 /* MYImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYImageView.m; sourceTree = "<group>"; };
 		9BDD16241C9BF27B0017E8E9 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		9BFA805A1C5F4009001651C3 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Base.framework"; sourceTree = "<group>"; };
 		9BFA805B1C5F4009001651C3 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = "../../Downloads/BaiduMap_IOSSDK_v2.10-2.0/BaiduMap_IOSSDK_v2.10.0_Sample/BMKOCDemo/BaiduMapAPI/BaiduMapAPI_Cloud.framework"; sourceTree = "<group>"; };
@@ -433,6 +436,8 @@
 				9B8ED8CE1D10EE0100001A86 /* CLImageView.m */,
 				9B8ED8CF1D10EE0100001A86 /* CLTouchImageView.h */,
 				9B8ED8D01D10EE0100001A86 /* CLTouchImageView.m */,
+				9BD5DE2C1D17E53C002FA0E0 /* MYImageView.h */,
+				9BD5DE2D1D17E53C002FA0E0 /* MYImageView.m */,
 			);
 			path = "自定义控件";
 			sourceTree = "<group>";
@@ -1042,6 +1047,7 @@
 				9B9FEA0A1CA38E1000231747 /* UIImageView+HighlightedWebCache.m in Sources */,
 				9B6B6EB01C9A4B1400449259 /* GFWorkerViewController.m in Sources */,
 				9B6B6ED11C9A59EA00449259 /* GFHttpTool.m in Sources */,
+				9BD5DE2E1D17E53C002FA0E0 /* MYImageView.m in Sources */,
 				8673FDD01C99459200666634 /* AFURLResponseSerialization.m in Sources */,
 				9BD474161D1259DF008EB28C /* CLAddPersonViewController.m in Sources */,
 				9B97543E1C5765B3004BDC7C /* main.m in Sources */,
