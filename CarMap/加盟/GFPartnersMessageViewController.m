@@ -351,7 +351,7 @@
     
     
     [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-//        NSLog(@"---查询业务员－－%@--",responseObject);
+        NSLog(@"---查询业务员－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
             NSArray *array = responseObject[@"data"];
@@ -360,6 +360,8 @@
                 worker.name = obj[@"name"];
                 worker.workerId = obj[@"id"];
                 worker.fired = [obj[@"fired"] integerValue];
+                worker.phone = obj[@"phone"];
+                worker.sex = obj[@"gender"];
                 if ([obj[@"main"] integerValue] == 0) {
                     worker.mainString = @"业务员";
                 }else{

@@ -1,12 +1,12 @@
 //
-//  GFAddWorkerViewController.m
-//  车邻邦客户端
+//  GFBianjiViewController.m
+//  CarMapB
 //
-//  Created by 陈光法 on 16/3/4.
-//  Copyright © 2016年 陈光法. All rights reserved.
+//  Created by 陈光法 on 16/6/21.
+//  Copyright © 2016年 mll. All rights reserved.
 //
 
-#import "GFAddWorkerViewController.h"
+#import "GFBianjiViewController.h"
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "GFButton.h"
@@ -15,9 +15,7 @@
 #import "CLWorkerModel.h"
 #import "GFWorkerViewController.h"
 
-
-
-@interface GFAddWorkerViewController () {
+@interface GFBianjiViewController () {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -34,15 +32,12 @@
 @property (nonatomic, strong) UIButton *signInBut;
 @property (nonatomic, strong) UILabel *lab;
 
-
 @end
 
-@implementation GFAddWorkerViewController
+@implementation GFBianjiViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.gfFlage = 0;
     
     // 基础设置
     [self _setBase];
@@ -62,20 +57,20 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"新增账户" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"员工信息修改" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
 }
 
 - (void)_setView {
-    
+ 
     // 请输入手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入手机号"];
+    self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:self.model.phone];
     [self.view addSubview:self.phoneTxt];
     self.phoneTxt.delegate = self;
     
     // 请输入姓名
-    self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"请输入姓名"];
+    self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:self.model.name];
     [self.view addSubview:self.nameTxt];
     self.nameTxt.delegate = self;
     
@@ -94,23 +89,23 @@
     [baseView1 addSubview:manView];
     UIView *womanView = [self messageButView:@"女" withSelected:NO withX:kWidth * 0.5 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
     [baseView1 addSubview:womanView];
-
     
-//    // 业务员、、管理员
-//    UIView *baseView2 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(baseView1.frame) + jiange2, kWidth, kHeight * 0.078)];
-//    baseView2.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:baseView2];
-//    // 边线
-//    UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 1)];
-//    lineView3.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
-//    [baseView2 addSubview:lineView3];
-//    UIView *lineView4 = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.078 - 1, kWidth, 1)];
-//    lineView4.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
-//    [baseView2 addSubview:lineView4];
-//    UIView *yewuView = [self messageButView:@"业务员" withSelected:YES withX:kWidth * 0.075 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
-//    [baseView2 addSubview:yewuView];
-//    UIView *guanliview = [self messageButView:@"管理员" withSelected:YES withX:kWidth * 0.5 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
-//    [baseView2 addSubview:guanliview];
+    
+    //    // 业务员、、管理员
+    //    UIView *baseView2 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(baseView1.frame) + jiange2, kWidth, kHeight * 0.078)];
+    //    baseView2.backgroundColor = [UIColor whiteColor];
+    //    [self.view addSubview:baseView2];
+    //    // 边线
+    //    UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 1)];
+    //    lineView3.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    //    [baseView2 addSubview:lineView3];
+    //    UIView *lineView4 = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.078 - 1, kWidth, 1)];
+    //    lineView4.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    //    [baseView2 addSubview:lineView4];
+    //    UIView *yewuView = [self messageButView:@"业务员" withSelected:YES withX:kWidth * 0.075 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
+    //    [baseView2 addSubview:yewuView];
+    //    UIView *guanliview = [self messageButView:@"管理员" withSelected:YES withX:kWidth * 0.5 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
+    //    [baseView2 addSubview:guanliview];
     
     // 确认按钮
     CGFloat signInButW = kWidth - (kWidth * 0.116) * 2;
@@ -136,13 +131,13 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-
+    
     [UIView animateWithDuration:0.5 animations:^{
         self.signInBut.frame = CGRectMake(kWidth * 0.116, CGRectGetMaxY(self.nameTxt.frame) + jiange2 + kHeight * 0.078 + kHeight * 0.165 - 80, kWidth - (kWidth * 0.116) * 2, kHeight * 0.07);
         self.lab.frame = CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021);
     }];
-
-   
+    
+    
 }
 
 #pragma mark - 确认按钮的响应方法
@@ -151,29 +146,43 @@
     
     if ([self isPhoneNumber:_phoneTxt.text]) {
         if (_nameTxt.text.length > 0) {
-//            NSLog(@"----responseObject---%@---",@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)});
-            [GFHttpTool postAddAccountDictionary:@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)} success:^(id responseObject) {
-//                NSLog(@"----responseObject---%@---",responseObject);
+            //            NSLog(@"----responseObject---%@---",@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)});
+            
+            [GFHttpTool postChangeWorkMsgParameters:@{@"phone":_phoneTxt.text, @"name":_nameTxt.text, @"gender":@(_sex), @"workID":self.model.workerId} success:^(id responseObject) {
+                
                 if ([responseObject[@"result"] integerValue] == 1) {
-                    NSDictionary *dataDictionary = responseObject[@"data"];
-                    CLWorkerModel *model = [[CLWorkerModel alloc]init];
-                    model.workerId = dataDictionary[@"id"];
-                    model.name = dataDictionary[@"name"];
-                    model.mainString = @"业务员";
-                    model.fired = NO;
-                    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
-                    [workerView.workerArray insertObject:model atIndex:1];
-                    [workerView.tableView reloadData];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
-                }else{
-                    [self addAlertView:responseObject[@"message"]];
+                    [self addAlertView:@"修改成功"];
                 }
+                
             } failure:^(NSError *error) {
+                
                 [self addAlertView:@"请求失败"];
             }];
             
+//            [GFHttpTool postAddAccountDictionary:@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)} success:^(id responseObject) {
+//                //                NSLog(@"----responseObject---%@---",responseObject);
+//                if ([responseObject[@"result"] integerValue] == 1) {
+//                    NSDictionary *dataDictionary = responseObject[@"data"];
+//                    CLWorkerModel *model = [[CLWorkerModel alloc]init];
+//                    model.workerId = dataDictionary[@"id"];
+//                    model.name = dataDictionary[@"name"];
+//                    model.mainString = @"业务员";
+//                    model.fired = NO;
+//                    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
+//                    [workerView.workerArray insertObject:model atIndex:1];
+//                    [workerView.tableView reloadData];
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }else{
+//                    [self addAlertView:responseObject[@"message"]];
+//                }
+//            } failure:^(NSError *error) {
+//                [self addAlertView:@"请求失败"];
+//            }];
             
-//            [self.navigationController popViewControllerAnimated:YES];
+            
+            //            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self addAlertView:@"请输入业务员名称"];
         }
@@ -200,7 +209,7 @@
     imgBut.selected = select;
     imgBut.tag = select +1;
     [imgBut addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    imgBut.backgroundColor = [UIColor redColor];
+    //    imgBut.backgroundColor = [UIColor redColor];
     
     NSString *fenStr = messageStr;
     NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];
@@ -284,6 +293,9 @@
     
     [self.view endEditing:YES];
 }
+    
+    
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

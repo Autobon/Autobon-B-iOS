@@ -13,6 +13,6 @@
 @property (nonatomic, strong) UILabel *leftLab;
 @property (nonatomic, strong) UILabel *centerLab;
 @property (nonatomic, strong) UIButton *rightBut;
-
+@property (nonatomic, strong) UIButton *bianjiBut;
 
 @end

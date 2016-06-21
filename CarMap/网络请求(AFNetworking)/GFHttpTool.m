@@ -815,7 +815,38 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
     
 }
 
+#pragma mark - 修改员工账户
++ (void)postChangeWorkMsgParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
 
+    
+        
+    if ([GFHttpTool isConnectionAvailable]) {
+        
+        NSString *workId = parameters[@"workID"];
+        
+        NSString *suffixURL = [NSString stringWithFormat:@"/coop/account/%@", workId];
+        NSString *url = [NSString stringWithFormat:@"%@%@", HOST, suffixURL];
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            if(failure) {
+                failure(error);
+            }
+        }];
+        
+    }else {
+        
+        [GFHttpTool addAlertView:@"网络无链接，请检查网络"];
+    }
+        
+    
+
+}
 
 
 #pragma mark - AlertView
