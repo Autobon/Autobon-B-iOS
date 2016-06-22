@@ -207,9 +207,14 @@
 
 #pragma mark - 获取未评论订单列表
 - (void)getListUncomment{
-    _tableview.userInteractionEnabled = YES;
+    
+    _tableview.userInteractionEnabled = NO;
+    
     [GFHttpTool postListUncommentDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         if ([responseObject[@"result"] integerValue] == 1) {
+            
+            NSLog(@"-------- 获取未评价订单 ---------- %@", responseObject);
+            
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSArray *listArray = dataDictionary[@"list"];
             if (_page > 1 && listArray.count == 0) {
@@ -247,17 +252,16 @@
                 if(![tech isKindOfClass:[NSNull class]]) {
                     
                     [_workNameArr addObject:tech[@"name"]];
+                    
+                    if(![seTech isKindOfClass:[NSNull class]]) {
+                        
+                        [_workNameArr addObject:seTech[@"name"]];
+                    }
                 }else {
                     
                     [_workItemArr addObject:@"无"];
                 }
-                if(![seTech isKindOfClass:[NSNull class]]) {
-                    
-                    [_workNameArr addObject:seTech[@"name"]];
-                }else {
-                    
-                    [_workItemArr addObject:@"无"];
-                }
+                
                 model.workerArr = _workNameArr;
                 
                 // 添加照片
@@ -323,7 +327,7 @@
                     }
                 }else {
                     
-                    [self.workItemArr addObject:@"0"];
+                    [self.workItemArr addObject:@"无"];
                 }
                 
                 
@@ -350,6 +354,7 @@
             _tableview.userInteractionEnabled = YES;
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
+            
         }else{
             
             [self addAlertView:responseObject[@"message"]];
