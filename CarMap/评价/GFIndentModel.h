@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSString *beforePhotos;         // 施工前照片
 @property (nonatomic, copy) NSString *afterPhotos;          // 施工后照片
 @property (nonatomic, copy) NSString *workItems;      // 施工项目
+@property (nonatomic, copy) NSString *workItemsName;    // 施工项目名称
 
 
 @end

@@ -37,7 +37,6 @@
     
     NSMutableArray *_workNameArr;
 }
-@property (nonatomic, strong) NSMutableArray *workItemArr;
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
@@ -180,7 +179,7 @@
     _page = 1;
     _pageSize = 8;
     
-    self.workItemArr = [[NSMutableArray alloc] init];
+
     if (_isAll) {
         
         [self getOrder];
@@ -259,7 +258,7 @@
                     }
                 }else {
                     
-                    [_workItemArr addObject:@"无"];
+                    [_workNameArr addObject:@"无"];
                 }
                 
                 model.workerArr = _workNameArr;
@@ -295,21 +294,18 @@
                     if ([obj[@"orderType"] integerValue] == 4) {
                         workItemsStr = @"美容清洁";
                         
-                        [self.workItemArr addObject:workItemsStr];
+                        model.workItemsName = workItemsStr;
                         
                     }else{
                         if([model.workItems isKindOfClass:[NSNull class]]) {
                             
                             workItemsStr = @"无";
                             
-                            
-                            [self.workItemArr addObject:workItemsStr];
-                            
-                            
+                            model.workItemsName = workItemsStr;
                         }else if (model.workItems == NULL){
                             workItemsStr = @"无";
-                            
-                            [self.workItemArr addObject:workItemsStr];
+
+                            model.workItemsName = workItemsStr;
                         }else {
                             
                             NSArray *strArr = [model.workItems componentsSeparatedByString:@","];
@@ -320,14 +316,14 @@
                                     workItemsStr = [NSString stringWithFormat:@"%@,%@", workItemsStr, itemDic[str]];
                                 }
                             }
-                            
-                            [self.workItemArr addObject:workItemsStr];
+
+                            model.workItemsName = workItemsStr;
                             
                         }
                     }
                 }else {
                     
-                    [self.workItemArr addObject:@"无"];
+                    model.workItemsName = @"无";
                 }
                 
                 
@@ -454,7 +450,7 @@
                     }
                 }else {
                     
-                    [_workItemArr addObject:@"无"];
+                    [_workNameArr addObject:@"无"];
                 }
                 
                 model.workerArr = _workNameArr;
@@ -489,22 +485,21 @@
                     // 施工项目从字典中取出拼接成字符串
                     if ([obj[@"orderType"] integerValue] == 4) {
                         workItemsStr = @"美容清洁";
-                        
-                        [self.workItemArr addObject:workItemsStr];
+
+                        model.workItemsName = workItemsStr;
                         
                     }else{
                         if([model.workItems isKindOfClass:[NSNull class]]) {
                             
                             workItemsStr = @"无";
-                            
-                            
-                            [self.workItemArr addObject:workItemsStr];
+
+                            model.workItemsName = workItemsStr;
                             
                             
                         }else if (model.workItems == NULL){
                             workItemsStr = @"无";
-                            
-                            [self.workItemArr addObject:workItemsStr];
+
+                            model.workItemsName = workItemsStr;
                         }else {
                             
                             NSArray *strArr = [model.workItems componentsSeparatedByString:@","];
@@ -515,14 +510,16 @@
                                     workItemsStr = [NSString stringWithFormat:@"%@,%@", workItemsStr, itemDic[str]];
                                 }
                             }
+
                             
-                            [self.workItemArr addObject:workItemsStr];
+                            model.workItemsName = workItemsStr;
   
                         }
                     }
                 }else {
-                
-                    [self.workItemArr addObject:@"无"];
+
+                    
+                    model.workItemsName = @"无";
                 }
                 
 //                if(![obj[@"secondConstruct"] isKindOfClass:[NSNull class]]) {
@@ -598,8 +595,7 @@
                 
                 
             }];
-            
-            NSLog(@"++++++++++施工项目数组+++++++++++++%@", self.workItemArr);
+
             [_tableview reloadData];
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
@@ -727,23 +723,20 @@
     
 //    [GFTipView tipViewWithHeight:2 withTipViewMessage:@"gsag"];
 
-    NSLog(@"------------------%@", self.workItemArr);
     
     GFIndentModel *model = _dataArray[indexPath.row];
     if ([model.status isEqualToString:@"EXPIRED"]) {
 //        [self addAlertView:@"订单已超时"];
         GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
         model.workTime = @"无";
+        model.workItemsName = @"无";
         indentDeVC.model = model;
-        indentDeVC.itemStr = @"无";
-        NSLog(@"=====================%@", indentDeVC.itemStr);
         [self.navigationController pushViewController:indentDeVC animated:YES];
     }else{
         GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
         
         indentDeVC.model = model;
-        indentDeVC.itemStr = self.workItemArr[indexPath.row];
-        NSLog(@"=====================%@", indentDeVC.itemStr);
+
         [self.navigationController pushViewController:indentDeVC animated:YES];
     }
    

@@ -277,7 +277,8 @@
     lab6.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     // 获取项目
     lab6.text = @"施工项目:";
-    NSString *lab6Str = self.itemStr;
+//    NSString *lab6Str = self.itemStr;
+    NSString *lab6Str = self.model.workItemsName;
     NSMutableDictionary *lab6Dic = [[NSMutableDictionary alloc] init];
     lab6Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab6Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -527,8 +528,9 @@
         NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             
-//            [fengHuoLun stopAnimating];
-            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:5];
+            // 菊花圈停止转动并消失
+            [fengHuoLun stopAnimating];
+            
             
             NSDictionary *dataDictionary = responseObject[@"data"];
 //            if([dataDictionary isKindOfClass:[NSNull class]]) {
