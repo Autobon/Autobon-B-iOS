@@ -26,6 +26,10 @@
 #import "GFJoinInViewController_1.h"
 #import "GFJoinInViewController_2.h"
 
+//#import "GFEvaluateShareViewController.h"
+
+
+
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
 #define kGtAppId      @"IED5iJnuVu8dklsGy35E54"
 #define kGtAppKey     @"22mn0WmsqS6k7omIUytIo4"
