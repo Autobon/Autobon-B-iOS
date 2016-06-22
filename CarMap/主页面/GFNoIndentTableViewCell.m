@@ -160,8 +160,8 @@
         CGFloat lab3X = jianjv1;
         CGFloat lab3Y = CGRectGetMaxY(lineView2.frame) + jiange4;
         self.lab3 = [[UILabel alloc] initWithFrame:CGRectMake(lab3X, lab3Y, lab3W, lab3H)];
-        self.lab3.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
         self.lab3.numberOfLines = 0;
+        self.lab3.font = [UIFont systemFontOfSize:12 / 320.0 * kWidth];
         [self.baseView addSubview:self.lab3];
         
         // 下单时间
@@ -225,7 +225,7 @@
     
     NSString *fenStr = self.beizhu;
     NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];
-    fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:12 / 320.0 * kWidth];
     fenDic[NSForegroundColorAttributeName] = [UIColor blackColor];
     CGRect fenRect = [fenStr boundingRectWithSize:CGSizeMake(kWidth - jianjv1 * 2.0, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:fenDic context:nil];
     CGFloat lab3W = kWidth - jianjv1 * 2.0;

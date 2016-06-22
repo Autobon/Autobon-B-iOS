@@ -388,9 +388,10 @@
             
             
             
-            NSLog(@"订单数据＝＝＝＝＝＝＝%@", responseObject);
+            NSLog(@"已完成========订单数据＝＝＝＝＝＝＝\n%@", responseObject);
             
             NSDictionary *dataDictionary = responseObject[@"data"];
+            // 订单数组
             NSArray *listArray = dataDictionary[@"list"];
             if (_page > 1 && listArray.count == 0) {
                 [self addAlertView:@"已加载全部"];
@@ -401,42 +402,56 @@
             [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
 //                NSLog(@"---obj-－－%@---",obj);
-                _workNameArr = [[NSMutableArray alloc] init];
                 
+                
+                
+                // 订单数组
                 GFIndentModel *model = [[GFIndentModel alloc]init];
+                // 订单编号
                 model.orderNum = obj[@"orderNum"];
+                // 订单Id
                 model.orderId = obj[@"id"];
+                // 评论的内容：字典
                 model.commentDictionary = obj[@"comment"];
+                // 订单照片
                 model.photo = obj[@"photo"];
+                // 订单类型：隔热膜，隐形车衣，车身改色，美容清洁
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
+                // 施工时间
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
                 model.workTime = [formatter stringFromDate:date];
+                // 下单备注
                 model.remark = obj[@"remark"];
-                
+                // 下单时间
                 date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
                 model.signinTime = [formatter stringFromDate:date];
 //                NSLog(@"---time-%@---signin--%@---",obj[@"addTime"],model.signinTime);
+                
+                // 主技师字典
                 model.mainTechDictionary = obj[@"mainTech"];
+                // 次技师字典
                 model.secondTechDictionary = obj[@"secondTech"];
+                
+                // 订单的状态
                 model.status = obj[@"status"];
                 // 员工姓名添加
+                _workNameArr = [[NSMutableArray alloc] init];   // 施工人员name数组
                 NSDictionary *tech = obj[@"mainTech"];
                 NSDictionary *seTech = obj[@"secondTech"];
                 if(![tech isKindOfClass:[NSNull class]]) {
                     
                     [_workNameArr addObject:tech[@"name"]];
+                    
+                    if(![seTech isKindOfClass:[NSNull class]]) {
+                        
+                        [_workNameArr addObject:seTech[@"name"]];
+                    }
                 }else {
                     
                     [_workItemArr addObject:@"无"];
                 }
-                if(![seTech isKindOfClass:[NSNull class]]) {
-                    
-                    [_workNameArr addObject:seTech[@"name"]];
-                }else {
-                    
-                    [_workItemArr addObject:@"无"];
-                }
+                
                 model.workerArr = _workNameArr;
                 
                 // 添加照片
@@ -466,7 +481,7 @@
                     NSDictionary *itemDic = [NSDictionary dictionaryWithContentsOfFile:path];
                     NSString *workItemsStr = [[NSString alloc] init];
                     //                NSLog(@"订单类型%@", dic[@"orderType"]);
-                    
+                    // 施工项目从字典中取出拼接成字符串
                     if ([obj[@"orderType"] integerValue] == 4) {
                         workItemsStr = @"美容清洁";
                         
@@ -502,7 +517,7 @@
                     }
                 }else {
                 
-                    [self.workItemArr addObject:@"0"];
+                    [self.workItemArr addObject:@"无"];
                 }
                 
 //                if(![obj[@"secondConstruct"] isKindOfClass:[NSNull class]]) {
@@ -579,7 +594,7 @@
                 
             }];
             
-            NSLog(@"+++++++++++++++++++++++%@", self.workItemArr);
+            NSLog(@"++++++++++施工项目数组+++++++++++++%@", self.workItemArr);
             [_tableview reloadData];
             [self.tableview.header endRefreshing];
             [self.tableview.footer endRefreshing];
