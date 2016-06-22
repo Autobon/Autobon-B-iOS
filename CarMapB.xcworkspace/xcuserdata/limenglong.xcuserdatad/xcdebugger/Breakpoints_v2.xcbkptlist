@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "747"
             endingLineNumber = "747"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkName = "-leftButClick"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

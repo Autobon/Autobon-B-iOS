@@ -366,13 +366,13 @@
         
         NSDictionary *orderDictionary = responseJSON[@"order"];
         GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
-        indentDeVC.itemStr = @"无";
         indentDeVC.model = [[GFIndentModel alloc]init];
         indentDeVC.model.workTime = @"无";
         indentDeVC.model.orderNum = orderDictionary[@"orderNum"];
         indentDeVC.model.orderId = orderDictionary[@"id"];
         indentDeVC.model.commentDictionary = orderDictionary[@"comment"];
         indentDeVC.model.photo = orderDictionary[@"photo"];
+        indentDeVC.model.workItemsName = @"无";
         NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
         NSInteger type = [orderDictionary[@"orderType"] integerValue] - 1;
         indentDeVC.model.orderType = typeArray[type];
@@ -451,13 +451,13 @@
             
             NSDictionary *orderDictionary = responseJSON[@"order"];
             GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
-            indentDeVC.itemStr = @"无";
             indentDeVC.model = [[GFIndentModel alloc]init];
             indentDeVC.model.workTime = @"无";
             indentDeVC.model.orderNum = orderDictionary[@"orderNum"];
             indentDeVC.model.orderId = orderDictionary[@"id"];
             indentDeVC.model.commentDictionary = orderDictionary[@"comment"];
             indentDeVC.model.photo = orderDictionary[@"photo"];
+            indentDeVC.model.workItemsName = @"无";
             NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
             NSInteger type = [orderDictionary[@"orderType"] integerValue] - 1;
             indentDeVC.model.orderType = typeArray[type];
