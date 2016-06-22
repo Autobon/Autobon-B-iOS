@@ -77,16 +77,16 @@
         [self.baseView addSubview:self.lab1];
         
 // 撤单
-        UIButton *removeOrderButton = [[UIButton alloc]init];
-        removeOrderButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, CGRectGetMidY(_indentView.frame)-kHeight * 0.016, 50, kHeight * 0.032);
-        [removeOrderButton setTitle:@"撤单" forState:UIControlStateNormal];
-        [removeOrderButton setTitleColor:[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0] forState:UIControlStateNormal];
-        removeOrderButton.layer.cornerRadius = 5;
-        removeOrderButton.layer.borderWidth = 1.0;
-        removeOrderButton.layer.borderColor = [[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0]CGColor];
-        removeOrderButton.titleLabel.font = [UIFont systemFontOfSize:13];
-        [removeOrderButton addTarget:self action:@selector(removeOrder) forControlEvents:UIControlEventTouchUpInside];
-        [self.baseView addSubview:removeOrderButton];
+        _removeOrderButton = [[UIButton alloc]init];
+        _removeOrderButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, CGRectGetMidY(_indentView.frame)-kHeight * 0.016, 50, kHeight * 0.032);
+        [_removeOrderButton setTitle:@"撤单" forState:UIControlStateNormal];
+        [_removeOrderButton setTitleColor:[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0] forState:UIControlStateNormal];
+        _removeOrderButton.layer.cornerRadius = 5;
+        _removeOrderButton.layer.borderWidth = 1.0;
+        _removeOrderButton.layer.borderColor = [[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0]CGColor];
+        _removeOrderButton.titleLabel.font = [UIFont systemFontOfSize:13];
+
+        [self.baseView addSubview:_removeOrderButton];
         
         
 // 指定技师
@@ -193,16 +193,7 @@
 }
 
 
-- (void)removeOrder{
-    NSLog(@"撤单按钮被点击了，订单id为－－%@",_orderId);
-    
-    [GFHttpTool postCanceledOrder:_orderId Success:^(id responseObject) {
-        NSLog(@"---撤单成功－－%@",responseObject);
-    } failure:^(NSError *error) {
-        NSLog(@"--撤单失败-----%@-",error);
-    }];
-    
-}
+
 
 
 

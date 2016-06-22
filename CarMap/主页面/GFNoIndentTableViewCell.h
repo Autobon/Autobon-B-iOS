@@ -24,6 +24,7 @@
 
 @property (nonatomic ,strong) GFTitleView *indentView;
 @property (nonatomic ,strong) UIButton *appointButton;
+@property (nonatomic ,strong) UIButton *removeOrderButton;
 
 @property (nonatomic, assign) CGFloat cellHeight;
 

@@ -656,21 +656,27 @@
         if ([model.status isEqualToString:@"EXPIRED"]) {
             [cell.pingjiaBut setTitle:@"已超时" forState:UIControlStateNormal];
             cell.pingjiaBut.userInteractionEnabled = NO;
+            cell.pingjiaBut.alpha = 0.5;
         }else if([model.status isEqualToString:@"GIVEN_UP"]){
             [cell.pingjiaBut setTitle:@"已放弃" forState:UIControlStateNormal];
             cell.pingjiaBut.userInteractionEnabled = NO;
+            cell.pingjiaBut.alpha = 0.5;
         }else if([model.status isEqualToString:@"CANCELED"]){
             [cell.pingjiaBut setTitle:@"已撤销" forState:UIControlStateNormal];
             cell.pingjiaBut.userInteractionEnabled = NO;
+            cell.pingjiaBut.alpha = 0.5;
         }else{
             if ([model.commentDictionary isKindOfClass:[NSNull class]]) {
                 [cell.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+                cell.pingjiaBut.userInteractionEnabled = YES;
+                cell.pingjiaBut.alpha = 1.0;
                 cell.pingjiaBut.tag = indexPath.row;
                 cell.pingjiaBut.userInteractionEnabled = YES;
                 [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             }else{
                 [cell.pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
                 cell.pingjiaBut.userInteractionEnabled = NO;
+                cell.pingjiaBut.alpha = 1.0;
                 //        [cell.pingjiaBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             }
         }

@@ -229,6 +229,8 @@
     [cell.workerBut setTitle:model.workName forState:UIControlStateNormal];
     [cell.workerBut addTarget:self action:@selector(workerBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     cell.workerBut.tag = indexPath.row;
+    cell.removeOrderButton.tag = [model.orderId integerValue];
+    [cell.removeOrderButton addTarget:self action:@selector(removeOrder:) forControlEvents:UIControlEventTouchUpInside];
     [cell setMessage];
     
     self.cellHhh = cell.cellHeight;
@@ -285,6 +287,34 @@
     return self.cellHhh + 2;
 }
 
+
+#pragma mark - 撤单按钮的响应方法
+- (void)removeOrder:(UIButton *)button{
+    NSLog(@"撤单按钮被点击了，订单id为－－%@",@(button.tag));
+    
+    [GFHttpTool postCanceledOrder:[NSString stringWithFormat:@"%ld",button.tag] Success:^(id responseObject) {
+        NSLog(@"---撤单成功－－%@",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            [self tipShow:@"撤单成功"];
+            
+        }else{
+            [self tipShow:responseObject[@"message"]];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"--撤单失败-----%@-",error);
+        [self tipShow:@"撤单失败"];
+    }];
+    
+}
+
+- (void)tipShow:(NSString *)string{
+   
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:string withShowTimw:1.5];
+    [tipView tipViewShow];
+    
+}
 
 
 - (void)leftButClick {

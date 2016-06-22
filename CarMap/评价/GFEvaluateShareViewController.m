@@ -14,6 +14,7 @@
 #import "GFHttpTool.h"
 #import "GFEvaluateViewController.h"
 #import "GFTipView.h"
+#import "ACETelPrompt.h"
 
 
 
@@ -21,6 +22,9 @@
     
     CGFloat kWidth;
     CGFloat kHeight;
+    
+    NSString *_phoneString;
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -34,7 +38,7 @@
     [super viewDidLoad];
     
 //    _star = 0;
-//    _orderId = @"100";
+//    _orderId = @"26";
     
     
     
@@ -80,13 +84,15 @@
 //    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"23"]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
     iconImgView.image = [UIImage imageNamed:@"userHeadImage"];
     [iconView addSubview:iconImgView];
+    
+    
     // 姓名
     NSString *nameStr = @"技  师";
     NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
     nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
 //    CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
-    CGFloat nameLabW = 200;
+    CGFloat nameLabW = 70;
     CGFloat nameLabH = 20;
     CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
     CGFloat nameLabY = kHeight * 0.04;
@@ -95,6 +101,34 @@
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
 //    nameLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:nameLab];
+    
+    
+    
+    // 电话号码
+//    CGFloat phoneLabW = 150;
+    CGFloat phoneLabH = nameLabH;
+    //    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
+//    CGFloat phoneLabY = nameLabY;
+    UIButton *phoneBtn = [[UIButton alloc] init];
+    [phoneBtn addTarget:self action:@selector(cellTech) forControlEvents:UIControlEventTouchUpInside];
+    phoneBtn.titleLabel.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+    [phoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    phoneBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    phoneBtn.backgroundColor = [UIColor redColor];
+    [iconView addSubview:phoneBtn];
+    // 电话号码
+    phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), CGRectGetMinY(nameLab.frame), iconView.frame.size.width - CGRectGetMaxX(nameLab.frame)-10, phoneLabH);
+    //            phoneBtn.backgroundColor = [UIColor cyanColor];
+    
+    
+    
+    
+//    numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
+    
+    
+    
+    
+    
     // 订单数
     NSString *indentStr = @"订单数";
     NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
@@ -160,7 +194,9 @@
             nameLab.text = technicianDictionary[@"name"];
             numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
             
-            
+            [phoneBtn setTitle:technicianDictionary[@"phone"] forState:UIControlStateNormal];
+            _phoneString = technicianDictionary[@"phone"];
+
             
             
             // 橘色星星
@@ -271,6 +307,17 @@
     [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦专业的汽车保养团队" shareImage:[UIImage imageNamed:@"logoImage"] shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
     
     
+}
+
+- (void)cellTech{
+    
+    NSLog(@"方法调用了");
+    
+    [ACETelPrompt callPhoneNumber:_phoneString call:^(NSTimeInterval duration) {
+        //         NSLog(@"User made a call of %.1f seconds", duration);
+    } cancel:^{
+        //          NSLog(@"User cancelled the call");
+    }];
 }
 
 
