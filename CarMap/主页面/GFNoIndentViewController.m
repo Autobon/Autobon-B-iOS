@@ -284,7 +284,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     
-    return self.cellHhh + 2;
+    return self.cellHhh+1;
+
 }
 
 

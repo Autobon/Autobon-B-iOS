@@ -7,7 +7,7 @@
 //
 
 #import "GFIndentTableViewCell.h"
-#import "CLImageView.h"
+//#import "CLImageView.h"
 
 
 @implementation GFIndentTableViewCell
@@ -79,7 +79,7 @@
         CGFloat photoImgViewH = kHeight * 0.2344;
         CGFloat photoImgViewX = jiange;
         CGFloat photoImgViewY = CGRectGetMaxY(self.numberLab.frame) + kHeight * 0.013;
-        self.photoImgView = [[CLImageView alloc] initWithFrame:CGRectMake(photoImgViewX, photoImgViewY+10, photoImgViewW, photoImgViewH)];
+        self.photoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(photoImgViewX, photoImgViewY+10, photoImgViewW, photoImgViewH)];
         _photoImgView.contentMode = UIViewContentModeScaleAspectFit;
         self.photoImgView.image = [UIImage imageNamed:@"orderImage.png"];
         [baseView addSubview:self.photoImgView];
