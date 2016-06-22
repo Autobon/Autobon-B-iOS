@@ -528,7 +528,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             
 //            [fengHuoLun stopAnimating];
-            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:5];
+            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:1];
             
             NSDictionary *dataDictionary = responseObject[@"data"];
 //            if([dataDictionary isKindOfClass:[NSNull class]]) {
@@ -620,7 +620,7 @@
 
             
         }else {
-            
+            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:0];
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
         }
         

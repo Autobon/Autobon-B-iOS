@@ -89,6 +89,8 @@
     // 验证码
     self.verifyTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"验证码"];
     self.verifyTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.verifyTxt.delegate = self;
+    self.verifyTxt.tag = 3;
     [self.view addSubview:self.verifyTxt];
     
     // 获取验证码
@@ -113,6 +115,7 @@
     self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
     self.passwordTxt.delegate = self;
+    self.passwordTxt.tag = 1;
     
     UIButton *eyeButton = [[UIButton alloc]init];
     eyeButton.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
@@ -130,7 +133,7 @@
     self.againPwdTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.againPwdTxt];
     self.againPwdTxt.delegate = self;
-    
+    self.againPwdTxt.tag = 2;
     
     UIButton *eyeButton2 = [[UIButton alloc]init];
     eyeButton2.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
@@ -182,9 +185,15 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 
-    self.view.frame = CGRectMake(0, -140, kWidth, kHeight);
-    self.navView.frame = CGRectMake(0, 140, kWidth, 64);
-    [self.view bringSubviewToFront:self.navView];
+    if (textField.tag == 3) {
+        self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
+        self.navView.frame = CGRectMake(0, 0, kWidth, 64);
+    }else{
+        self.view.frame = CGRectMake(0, -70*textField.tag, kWidth, kHeight);
+        self.navView.frame = CGRectMake(0, 70*textField.tag, kWidth, 64);
+        [self.view bringSubviewToFront:self.navView];
+    }
+    
 }
 
 

@@ -297,6 +297,7 @@
         NSLog(@"---撤单成功－－%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             [self tipShow:@"撤单成功"];
+            [self headRefresh];
             
         }else{
             [self tipShow:responseObject[@"message"]];

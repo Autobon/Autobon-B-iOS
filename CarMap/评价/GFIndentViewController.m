@@ -207,7 +207,7 @@
 
 #pragma mark - 获取未评论订单列表
 - (void)getListUncomment{
-    _tableview.userInteractionEnabled = YES;
+    _tableview.userInteractionEnabled = NO;
     [GFHttpTool postListUncommentDictionary:@{@"page":@(_page),@"pageSize":@(_pageSize)} success:^(id responseObject) {
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
