@@ -121,7 +121,7 @@
     self.bianhaoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.bianhaoLab];
     
-    // 汽车贴膜
+    // 订单类型
     CGFloat tiemoLabW = bianhaoLabW;
     CGFloat tiemoLabH = bianhaoLabH;
     CGFloat tiemoLabX = bianhaoLabX;
@@ -509,10 +509,27 @@
     numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [iconView addSubview:numLab];
     
+    // 菊花圈
+    //创建一个活动指示器的对象，并初始化它的样式
+    UIActivityIndicatorView *fengHuoLun = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    fengHuoLun.frame = CGRectMake(0, CGRectGetMaxY(jishiView.frame), 0, 0);
+    fengHuoLun.center = CGPointMake(kWidth / 2.0, CGRectGetMaxY(jishiView.frame));
+    // 开始风火轮
+    [fengHuoLun startAnimating];
+    // 设置风火轮停止之后是否隐藏
+    fengHuoLun.hidesWhenStopped = YES;
+    [_scrollView addSubview:fengHuoLun];
+    //5秒之后调用stopAnimating方法
+//    [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:25];
+
     
     [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderId} success:^(id responseObject) {
         NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
+            
+//            [fengHuoLun stopAnimating];
+            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:5];
+            
             NSDictionary *dataDictionary = responseObject[@"data"];
 //            if([dataDictionary isKindOfClass:[NSNull class]]) {
 //                
@@ -523,13 +540,25 @@
             
             
             NSString *nameStr = [[NSString alloc] init];
-            nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
+            nameStr = [NSString stringWithFormat:@"%@:", technicianDictionary[@"name"]];
             NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
             nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
             nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
             CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
             nameLab.text = nameStr;
             nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
+            
+            NSString *indentStr = @"订单数:";
+            NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
+            indentDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+            indentDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+            CGRect indentRect = [indentStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:indentDic context:nil];
+            CGFloat indentLabW = indentRect.size.width;
+            CGFloat indentLabH = indentRect.size.height;
+            CGFloat indentLabX = nameLabX;
+            CGFloat indentLabY = CGRectGetMaxY(nameLab.frame) + kHeight * 0.0183;
+            indentLab.frame = CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH);
+            indentLab.text = indentStr;
             
             // 电话号码
             phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY+CGRectGetMaxY(jishiView.frame), phoneLabW, phoneLabH);
@@ -539,8 +568,19 @@
             
             
             
-            
-            numLab.text = [NSString stringWithFormat:@"%@",dataDictionary[@"totalOrders"]];
+            // 订单数目
+            NSString *numStr = [[NSString alloc] init];
+            numStr = [NSString stringWithFormat:@"%@", dataDictionary[@"totalOrders"]];
+            NSMutableDictionary *numDic = [[NSMutableDictionary alloc] init];
+            numDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+            numDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+            CGRect numRect = [numStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:numDic context:nil];
+            CGFloat numLabW = numRect.size.width + 5;
+            CGFloat numLabH = indentLabH;
+            CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
+            CGFloat numLabY = indentLabY;
+            numLab.frame = CGRectMake(numLabX, numLabY, numLabW, numLabH);
+            numLab.text = numStr;
 //            numLab.text = @"999";
 //            numLab.backgroundColor = [UIColor redColor];
             
@@ -551,7 +591,7 @@
                 CGFloat starImgViewW = nameLabH - 2;
                 CGFloat starImgViewH = nameLabH - 2;
                 CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * i;
-                CGFloat starImgViewY = numLabY + 1;
+                CGFloat starImgViewY = numLabY;
                 UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor redColor];
@@ -567,7 +607,7 @@
                 CGFloat starImgViewW = nameLabH - 2;
                 CGFloat starImgViewH = nameLabH - 2;
                 CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
-                CGFloat starImgViewY = numLabY + 1;
+                CGFloat starImgViewY = numLabY;
                 UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
                 //        starImgView.backgroundColor = [UIColor greenColor];
