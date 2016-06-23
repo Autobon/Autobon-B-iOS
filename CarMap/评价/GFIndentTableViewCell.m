@@ -31,7 +31,7 @@
         
         // 基础视图
         CGFloat baseViewW = kWidth;
-        CGFloat baseViewH = kHeight * 0.339;
+        CGFloat baseViewH = kHeight * 0.339 + kHeight * 0.013;
         CGFloat baseViewX = 0;
         CGFloat baseViewY = kHeight * 0.0183;
         UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
