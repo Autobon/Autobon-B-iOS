@@ -181,7 +181,7 @@
                 
             } failure:^(NSError *error) {
                 
-                [self addAlertView:@"请求失败"];
+//                [self addAlertView:@"请求失败"];
             }];
             
 //            [GFHttpTool postAddAccountDictionary:@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)} success:^(id responseObject) {

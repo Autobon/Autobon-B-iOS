@@ -162,7 +162,7 @@
                     
                     
                 } failure:^(NSError *error) {
-                    [self addAlertView:@"请求失败"];
+//                    [self addAlertView:@"请求失败"];
 //                    NSLog(@"----error--%@--",error);
                 }];
                   
@@ -248,7 +248,7 @@
                 [self addAlertView:responseObject[@"message"]];
             }
         } failure:^(NSError *error) {
-            [self addAlertView:@"请求失败"];
+//            [self addAlertView:@"请求失败"];
         }];
     }else{
         [self addAlertView:@"请输入合法手机号"];

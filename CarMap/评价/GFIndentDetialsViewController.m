@@ -636,7 +636,8 @@
             
         }else {
             
-            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:5];
+            // 菊花圈停止转动并消失
+            [fengHuoLun stopAnimating];
 
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
         }
@@ -645,7 +646,7 @@
         
     } failure:^(NSError *error) {
 //        NSLog(@"请求失败－－－%@---",error);
-        [self addAlertView:@"请求失败"];
+//        [self addAlertView:@"请求失败"];
     }];
     
     

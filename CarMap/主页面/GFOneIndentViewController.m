@@ -180,7 +180,7 @@
         
     } failure:^(NSError *error) {
 //        NSLog(@"----shibaile---%@---",error);
-         [self addAlertView:@"请求失败"];
+//         [self addAlertView:@"请求失败"];
     }];
 }
 
@@ -563,8 +563,8 @@
                     [self addAlertView:responseObject[@"message"]];
                 }
             } failure:^(NSError *error) {
-                NSLog(@"－－－下单失败---%@----",error);
-                [self addAlertView:@"下单失败"];
+//                NSLog(@"－－－下单失败---%@----",error);
+//                [self addAlertView:@"下单失败"];
             }];
             
             
@@ -626,7 +626,7 @@
         }
     } failure:^(NSError *error) {
 //        NSLog(@"上传失败－－%@---",error);
-        [self addAlertView:@"图片上传失败"];
+//        [self addAlertView:@"图片上传失败"];
     }];
     
     
@@ -761,7 +761,7 @@
             [self addAlertView:responseObject[@"message"]];
         }
     } failure:^(NSError *error) {
-        [self addAlertView:@"请求失败"];
+//        [self addAlertView:@"请求失败"];
     }];
     
     

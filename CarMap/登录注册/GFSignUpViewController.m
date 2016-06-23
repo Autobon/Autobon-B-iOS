@@ -241,7 +241,7 @@
             }
         } failure:^(NSError *error) {
 //            NSLog(@"----请求失败--%@----",error);
-            [self addAlertView:@"请求验证码失败"];
+//            [self addAlertView:@"请求验证码失败"];
             button.userInteractionEnabled = YES;
         }];
     }else{
@@ -335,7 +335,7 @@
     
                                 } failure:^(NSError *error) {
 //                                    NSLog(@"----请求失败--%@----",error);
-                                     [self addAlertView:@"请求失败"];
+//                                     [self addAlertView:@"请求失败"];
                                 }];
                                 
                             }else{

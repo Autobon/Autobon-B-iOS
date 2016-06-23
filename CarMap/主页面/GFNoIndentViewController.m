@@ -176,7 +176,7 @@
         
     } failure:^(NSError *error) {
         _tableView.userInteractionEnabled = YES;
-         [self addAlertView:@"请求失败"];
+//         [self addAlertView:@"请求失败"];
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
 //        NSLog(@"----shibaile---%@---",error);
@@ -274,7 +274,7 @@
         }
         
     } failure:^(NSError *error) {
-         [self addAlertView:@"请求失败"];
+//         [self addAlertView:@"请求失败"];
     }];
     
     
@@ -306,7 +306,7 @@
         
     } failure:^(NSError *error) {
         NSLog(@"--撤单失败-----%@-",error);
-        [self tipShow:@"撤单失败"];
+//        [self tipShow:@"撤单失败"];
     }];
     
 }
