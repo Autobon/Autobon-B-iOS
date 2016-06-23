@@ -325,7 +325,7 @@
     [submitBut setTitle:@"提交评价" forState:UIControlStateNormal];
     [submitBut addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:submitBut];
-    
+    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(submitBut.frame) + 20);
 }
 
 #pragma mark - textView的协议方法
