@@ -743,7 +743,7 @@
 }
 
 - (void)leftButClick {
-    
+     
     [self.navigationController popViewControllerAnimated:YES];
 }
 
