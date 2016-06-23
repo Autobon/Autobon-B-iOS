@@ -83,12 +83,12 @@
     
     // 请输入您的手机号
     self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.enterpriseNameTxt.frame) + jiange2 withPlaceholder:@"请输入您的手机号"];
-    self.phoneTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
     
     // 验证码
     self.verifyTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"验证码"];
-    self.verifyTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.verifyTxt.keyboardType = UIKeyboardTypePhonePad;
     self.verifyTxt.delegate = self;
     self.verifyTxt.tag = 3;
     [self.view addSubview:self.verifyTxt];
@@ -274,6 +274,10 @@
 - (void)agreeButClick {
 
 
+    self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
+    self.navView.frame = CGRectMake(0, 0, kWidth, 64);
+    [self.view bringSubviewToFront:self.navView];
+    [self.view endEditing:YES];
     CLDelegateViewController *delegateView = [[CLDelegateViewController alloc]init];
     
     [self.navigationController pushViewController:delegateView animated:YES];

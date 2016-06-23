@@ -209,10 +209,10 @@
         cell.rightBut.hidden = YES;
         cell.bianjiBut.hidden = YES;
     }else{
-        
+
         cell.rightBut.hidden = NO;
         cell.bianjiBut.hidden = NO;
-        
+
         if (worker.fired) {
             cell.rightBut.userInteractionEnabled = NO;
             cell.rightBut.alpha = 0.3;
