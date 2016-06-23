@@ -26,7 +26,9 @@
 #import "GFJoinInViewController_1.h"
 #import "GFJoinInViewController_2.h"
 
+#import "GFIndentDetialsViewController.h"
 //#import "GFEvaluateShareViewController.h"
+#import "GFHttpTool.h"
 
 
 
@@ -283,7 +285,7 @@
                 
                 NSDictionary *orderDictionary = responseJSON[@"order"];
                 notification.alertBody = [NSString stringWithFormat:@"订单编号为:%@ 已被技师放弃",orderDictionary[@"orderNum"]];
-//                notification.userInfo = @{@"dictionary":payloadMsg};
+                notification.userInfo = @{@"dictionary":payloadMsg};
                 AudioServicesPlaySystemSound(1307);
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
@@ -355,6 +357,57 @@
         UIWindow *window = [UIApplication sharedApplication].delegate.window;
         [window addSubview:_alertView];
         
+    }else if ([responseJSON[@"action"]isEqualToString:@"ORDER_GIVEN_UP"]){
+        GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+        navigation.navigationBarHidden = YES;
+        window.rootViewController = navigation;
+        
+        NSDictionary *orderDictionary = responseJSON[@"order"];
+        GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
+        indentDeVC.model = [[GFIndentModel alloc]init];
+        indentDeVC.model.workTime = @"无";
+        indentDeVC.model.orderNum = orderDictionary[@"orderNum"];
+        indentDeVC.model.orderId = orderDictionary[@"id"];
+        indentDeVC.model.commentDictionary = orderDictionary[@"comment"];
+        indentDeVC.model.photo = orderDictionary[@"photo"];
+        indentDeVC.model.workItemsName = @"无";
+        NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
+        NSInteger type = [orderDictionary[@"orderType"] integerValue] - 1;
+        indentDeVC.model.orderType = typeArray[type];
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+        //            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[orderDictionary[@"orderTime"] floatValue]/1000];
+        //            indentDeVC.model.workTime = [formatter stringFromDate:date];
+        indentDeVC.model.remark = orderDictionary[@"remark"];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[orderDictionary[@"addTime"] floatValue]/1000];
+        indentDeVC.model.signinTime = [formatter stringFromDate:date];
+        
+        
+        indentDeVC.model.beforePhotos = @"1";
+        indentDeVC.model.afterPhotos = @"1";
+        
+        
+        
+        
+        
+        [GFHttpTool GetTechnicianParameters:@{@"orderId":orderDictionary[@"id"]} success:^(id responseObject) {
+            
+            NSLog(@"请求技师信息--%@--",responseObject);
+            
+            NSDictionary *dataDictionary = responseObject[@"data"];
+            NSDictionary *technicianDictionary = dataDictionary[@"technician"];
+            indentDeVC.model.workerArr = [[NSMutableArray alloc]init];
+            [indentDeVC.model.workerArr addObject:technicianDictionary[@"name"]];
+            [navigation pushViewController:indentDeVC animated:YES];
+            
+            
+        } failure:^(NSError *error) {
+            
+        }];
+        
     }
     
     
@@ -373,7 +426,7 @@
     
     
     long time = (long)[[NSDate date] timeIntervalSince1970] - [_pushDate timeIntervalSince1970];
-    //    NSLog(@"---time--%@----",notification.userInfo);
+//        NSLog(@"---time--%@----",notification.userInfo);
 
     if (0 < time && notification.userInfo) {
 //        NSLog(@"消息来了a－－%@",notification.userInfo);
@@ -387,6 +440,76 @@
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:signin];
             navigation.navigationBarHidden = YES;
             window.rootViewController = navigation;
+            
+            
+        }else if ([responseJSON[@"action"]isEqualToString:@"ORDER_GIVEN_UP"]){
+            GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+            navigation.navigationBarHidden = YES;
+            window.rootViewController = navigation;
+            
+            NSDictionary *orderDictionary = responseJSON[@"order"];
+            GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
+            indentDeVC.model = [[GFIndentModel alloc]init];
+            indentDeVC.model.workTime = @"无";
+            indentDeVC.model.orderNum = orderDictionary[@"orderNum"];
+            indentDeVC.model.orderId = orderDictionary[@"id"];
+            indentDeVC.model.commentDictionary = orderDictionary[@"comment"];
+            indentDeVC.model.photo = orderDictionary[@"photo"];
+            indentDeVC.model.workItemsName = @"无";
+            NSArray *typeArray = @[@"隔热层",@"隐形车衣",@"车身改色",@"美容清洁"];
+            NSInteger type = [orderDictionary[@"orderType"] integerValue] - 1;
+            indentDeVC.model.orderType = typeArray[type];
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+//            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[orderDictionary[@"orderTime"] floatValue]/1000];
+//            indentDeVC.model.workTime = [formatter stringFromDate:date];
+            indentDeVC.model.remark = orderDictionary[@"remark"];
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[orderDictionary[@"addTime"] floatValue]/1000];
+            indentDeVC.model.signinTime = [formatter stringFromDate:date];
+            
+
+            indentDeVC.model.beforePhotos = @"1";
+            indentDeVC.model.afterPhotos = @"1";
+            
+            
+            // 员工姓名添加
+//            _workNameArr = [[NSMutableArray alloc] init];
+//            NSDictionary *tech = obj[@"mainTech"];
+//            NSDictionary *seTech = obj[@"secondTech"];
+//            if(![tech isKindOfClass:[NSNull class]]) {
+//                
+//                [_workNameArr addObject:tech[@"name"]];
+//            }else {
+//                
+//                [_workItemArr addObject:@"无"];
+//            }
+            
+            
+            
+            
+            [GFHttpTool GetTechnicianParameters:@{@"orderId":orderDictionary[@"id"]} success:^(id responseObject) {
+                    
+                NSLog(@"请求技师信息--%@--",responseObject);
+            
+                NSDictionary *dataDictionary = responseObject[@"data"];
+                NSDictionary *technicianDictionary = dataDictionary[@"technician"];
+                indentDeVC.model.workerArr = [[NSMutableArray alloc]init];
+                [indentDeVC.model.workerArr addObject:technicianDictionary[@"name"]];
+                [navigation pushViewController:indentDeVC animated:YES];
+                
+                
+            } failure:^(NSError *error) {
+
+            }];
+            
+//            indentDeVC.model = model;
+//            indentDeVC.itemStr = self.workItemArr[indexPath.row];
+//            NSLog(@"=====================%@", indentDeVC.itemStr);
+//            [self.navigationController pushViewController:indentDeVC animated:YES];
+            
             
             
         }

@@ -848,7 +848,45 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
 
 
 
-
++ (void)getOrderDetailOrderId:(NSInteger )orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    
+    
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        
+        
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/technician/order/%ld",HOST,orderId];
+        
+        
+        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                failure(error);
+            }
+        }];
+        
+        
+    }else{
+        
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+}
 
 
 #pragma mark - 商户撤单

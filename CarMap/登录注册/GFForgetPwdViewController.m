@@ -73,12 +73,12 @@
     
     // 请输入手机号
     self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入手机号"];
-    self.phoneTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
     
     // 请输入验证码
     self.verifyTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"请输入验证码"];
-    self.verifyTxt.keyboardType = UIKeyboardTypeNumberPad;
+    self.verifyTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.verifyTxt];
     // 获取验证码
     CGFloat getVerifyButW = kWidth * 0.172;

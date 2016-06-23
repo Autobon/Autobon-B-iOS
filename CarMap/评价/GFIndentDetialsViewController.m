@@ -534,9 +534,11 @@
         NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             
+
             // 菊花圈停止转动并消失
             [fengHuoLun stopAnimating];
             
+
             
             NSDictionary *dataDictionary = responseObject[@"data"];
 //            if([dataDictionary isKindOfClass:[NSNull class]]) {
@@ -630,6 +632,7 @@
         }else {
             
             [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:5];
+
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
         }
         
