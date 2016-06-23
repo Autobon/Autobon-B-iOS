@@ -345,6 +345,7 @@
     [baseView addSubview:lineView11];
     
     // 下边线的Y值
+    CGFloat lineYY = 0;
     CGFloat lineY = 0;
     
     // 施工前照片
@@ -363,6 +364,8 @@
         
         beMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
         beforeLab.text = @"施工前照片：该订单未完成，暂无照片";
+        
+        lineYY = beMaxY;
     }else {
         
         NSArray *bePhotoArr = [bePhotoStr componentsSeparatedByString:@","];
@@ -373,12 +376,14 @@
             
             [self addBeforImgView:[NSString stringWithFormat:@"%@%@", URLHOST, bePhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(beforeLab.frame) + jiange4 showInView:baseView];
         }
+        
+        lineYY = beMaxY + jianjv1;
     }
     
     
     
     // 边线
-    UIView *lineView12 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, beMaxY, kWidth - jianjv2 * 2.0, 1)];
+    UIView *lineView12 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, lineYY, kWidth - jianjv2 * 2.0, 1)];
     lineView12.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView12];
     

@@ -162,8 +162,9 @@
                     model.mainString = @"业务员";
                     model.fired = NO;
                     GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
-                    [workerView.workerArray insertObject:model atIndex:1];
-                    [workerView.tableView reloadData];
+//                    [workerView.workerArray insertObject:model atIndex:1];
+//                    [workerView.tableView reloadData];
+                    [workerView httpWork];
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     [self addAlertView:responseObject[@"message"]];
