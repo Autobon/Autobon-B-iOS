@@ -65,12 +65,16 @@
 - (void)_setView {
  
     // 请输入手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:self.model.phone];
+    self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入手机号"];
+    self.phoneTxt.text = self.model.phone;
+    self.phoneTxt.clearButtonMode = UITextFieldViewModeAlways;
     [self.view addSubview:self.phoneTxt];
     self.phoneTxt.delegate = self;
     
     // 请输入姓名
-    self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:self.model.name];
+    self.nameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.phoneTxt.frame) + jiange2 withPlaceholder:@"qing"];
+    self.nameTxt.text = self.model.name;
+    self.nameTxt.clearButtonMode = UITextFieldViewModeAlways;
     [self.view addSubview:self.nameTxt];
     self.nameTxt.delegate = self;
     
@@ -85,9 +89,19 @@
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight * 0.078 - 1, kWidth, 1)];
     lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView1 addSubview:lineView2];
-    UIView *manView = [self messageButView:@"男" withSelected:YES withX:kWidth * 0.075 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
+    // 添加按钮
+    _sex = [self.model.sex integerValue];
+    BOOL flage;
+    if(_sex == 0) {
+        
+        flage = YES;
+    }else {
+    
+        flage = NO;
+    }
+    UIView *manView = [self messageButView:@"男" withSelected:flage withX:kWidth * 0.075 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
     [baseView1 addSubview:manView];
-    UIView *womanView = [self messageButView:@"女" withSelected:NO withX:kWidth * 0.5 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
+    UIView *womanView = [self messageButView:@"女" withSelected:!flage withX:kWidth * 0.5 withY:(kHeight * 0.078 - kWidth * 0.051) * 0.5];
     [baseView1 addSubview:womanView];
     
     
@@ -128,6 +142,9 @@
     self.lab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.lab];
     
+    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
+    NSLog(@"222222222222222%@", workerView);
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -159,7 +176,7 @@
                     [workerView httpWork];
                     
                     [self.navigationController popViewControllerAnimated:YES];
-                    [self addAlertView:@"修改成功"];
+//                    [self addAlertView:@"修改成功"];
                 }
                 
             } failure:^(NSError *error) {
