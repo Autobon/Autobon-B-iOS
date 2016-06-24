@@ -178,7 +178,7 @@
                 
                 [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
                     
-                    NSLog(@"---登录返回---%@---",responseObject);
+//                    NSLog(@"---登录返回---%@---",responseObject);
                     
                     if ([responseObject[@"result"] integerValue] == 1) {
                         

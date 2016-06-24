@@ -388,7 +388,7 @@
 }
 
 - (void)appointBtnClick:(UIButton *)button{
-    NSLog(@"指定技师按钮");
+//    NSLog(@"指定技师按钮");
     
     button.selected = !button.selected;
     
@@ -497,12 +497,12 @@
     
     
     if (_appointButton.selected) {
-        NSLog(@"指定技师");
+//        NSLog(@"指定技师");
         [_dataDictionary setObject:@"false" forKey:@"pushToAll"];
         
         
     }else{
-        NSLog(@"创建订单");
+//        NSLog(@"创建订单");
         [_dataDictionary setObject:@"true" forKey:@"pushToAll"];
     }
     
@@ -524,10 +524,10 @@
                 [_dataDictionary setObject:_txtView.text forKey:@"remark"];
             }
             
-            NSLog(@"一键下单--%@--",_dataDictionary);
+//            NSLog(@"一键下单--%@--",_dataDictionary);
             
             [GFHttpTool postOneIndentDictionary:_dataDictionary success:^(NSDictionary *responseObject) {
-                NSLog(@"下单返回数据-----%@---",responseObject);
+//                NSLog(@"下单返回数据-----%@---",responseObject);
                 if ([responseObject[@"result"] integerValue] == 1) {
                     [self.imgView setImage:nil forState:UIControlStateNormal];
                     _txtView.text = @"订单备注";
@@ -545,11 +545,11 @@
                     
                     
                     if (_appointButton.selected) {
-                        NSLog(@"指定技师");
+//                        NSLog(@"指定技师");
                         CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
                         NSDictionary *dataDictionary = responseObject[@"data"];
                         addPerson.orderId = dataDictionary[@"id"];
-                        NSLog(@"---addPerson.orderId---%@--",addPerson.orderId);
+//                        NSLog(@"---addPerson.orderId---%@--",addPerson.orderId);
                         [self.navigationController pushViewController:addPerson animated:YES];
                     }
                     

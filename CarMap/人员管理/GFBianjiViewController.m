@@ -142,8 +142,8 @@
     self.lab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.lab];
     
-    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
-    NSLog(@"222222222222222%@", workerView);
+//    GFWorkerViewController *workerView = self.navigationController.viewControllers[2];
+//    NSLog(@"222222222222222%@", workerView);
     
 }
 

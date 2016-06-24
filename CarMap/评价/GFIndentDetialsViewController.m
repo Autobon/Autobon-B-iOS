@@ -424,7 +424,7 @@
     
    
     
-    NSLog(@"=======%f======%f", afMaxY, beMaxY);
+//    NSLog(@"=======%f======%f", afMaxY, beMaxY);
     
     
     // 边线
@@ -537,7 +537,7 @@
 
     
     [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderId} success:^(id responseObject) {
-        NSLog(@"请求成功－－－%@---",responseObject);
+//        NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             
 
@@ -841,7 +841,7 @@
 
 - (void)cellTech{
     
-    NSLog(@"方法调用了");
+//    NSLog(@"方法调用了");
     
     [ACETelPrompt callPhoneNumber:_phoneString call:^(NSTimeInterval duration) {
         //         NSLog(@"User made a call of %.1f seconds", duration);

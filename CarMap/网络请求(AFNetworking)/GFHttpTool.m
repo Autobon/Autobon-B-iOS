@@ -117,7 +117,7 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/login",HOST];
-        NSLog(@"-----%@----%@---",URLString,parameters);
+//        NSLog(@"-----%@----%@---",URLString,parameters);
         [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             
@@ -1075,10 +1075,10 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         NSString *token = [userDefaultes objectForKey:@"autoken"];
-        NSLog(@"token--%@--",token);
+//        NSLog(@"token--%@--",token);
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/technician/search",HOST];
-        NSLog(@"------URLString----%@",URLString);
+//        NSLog(@"------URLString----%@",URLString);
         
         [manager GET:URLString parameters:@{@"query":string} progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             //            NSLog(@"----responseObject--%@--",responseObject);

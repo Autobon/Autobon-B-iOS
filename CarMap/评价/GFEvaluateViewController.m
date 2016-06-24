@@ -475,7 +475,7 @@
 
 - (void)cellTech{
     
-    NSLog(@"方法调用了");
+//    NSLog(@"方法调用了");
     
     [ACETelPrompt callPhoneNumber:_phoneString call:^(NSTimeInterval duration) {
         //         NSLog(@"User made a call of %.1f seconds", duration);

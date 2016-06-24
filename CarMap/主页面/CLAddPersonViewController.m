@@ -160,14 +160,14 @@
 - (void)addPersonBtnClick:(UIButton *)button{
 
     CLAddPersonModel *person = _addPersonArray[button.tag];
-    NSLog(@"---指定技师---dictionary----%@------%@-",_orderId,person.personId);
+//    NSLog(@"---指定技师---dictionary----%@------%@-",_orderId,person.personId);
     
     NSDictionary *dic = @{@"orderId":_orderId,@"techId":person.personId};
    
-    NSLog(@"---指定技师---dictionary----%@--",dic);
+//    NSLog(@"---指定技师---dictionary----%@--",dic);
     
     [GFHttpTool postAppintTechForOrder:dic Success:^(NSDictionary *responseObject) {
-         NSLog(@"－－－%@--",responseObject);
+//         NSLog(@"－－－%@--",responseObject);
         if ([responseObject[@"result"]integerValue]==1) {
             [self addAlertView:@"指派已完成"];
             _isAdd = YES;

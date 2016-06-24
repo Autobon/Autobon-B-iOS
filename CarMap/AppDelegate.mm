@@ -71,7 +71,7 @@
     [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://hpecar.com:12345/shareB.html"];
 //    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
     
-//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"439118116" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1532716943" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"er5ppSPS6vxnd5BtvWDsgthy" generalDelegate:self];
@@ -98,6 +98,16 @@
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
+
 - (void)onGetNetworkState:(int)iError
 {
     if (0 == iError) {
@@ -236,15 +246,15 @@
     if (payload) {
         payloadMsg = [[NSString alloc] initWithBytes:payload.bytes length:payload.length encoding:NSUTF8StringEncoding];
         }
-    NSString *msg = [NSString stringWithFormat:@" payloadId=%@,taskId=%@,messageId:%@,payloadMsg:%@%@",payloadId,taskId,aMsgId,payloadMsg,offLine ? @"<离线消息>" : @""];
-    NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+//    NSString *msg = [NSString stringWithFormat:@" payloadId=%@,taskId=%@,messageId:%@,payloadMsg:%@%@",payloadId,taskId,aMsgId,payloadMsg,offLine ? @"<离线消息>" : @""];
+//    NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
     [GeTuiSdk sendFeedbackMessage:90001 taskId:taskId msgId:aMsgId];
 
     
     if (!offLine) {
         NSData *JSONData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"responseJSON----%@--",responseJSON);
+//        NSLog(@"responseJSON----%@--",responseJSON);
         
         if ([responseJSON[@"action"]isEqualToString:@"VERIFICATION_FAILED"] || [responseJSON[@"action"]isEqualToString:@"VERIFICATION_SUCCEED"]||[responseJSON[@"action"]isEqualToString:@"INVITATION_ACCEPTED"]){
             UILocalNotification*notification = [[UILocalNotification alloc] init];
@@ -328,7 +338,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     // 处理APNs代码，通过userInfo可以取到推送的信息（包括内容，角标，自定义参数等）。如果需要弹窗等其他操作，则需要自行编码。
 #pragma mark - 后台运行调用的方法
-    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
+//    NSLog(@"\n>>>[Receive ------ RemoteNotification - Background Fetch]:%@\n\n",userInfo);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"通知消息" forKey:@"title"];
     completionHandler(UIBackgroundFetchResultNewData);
@@ -401,7 +411,7 @@
         
         [GFHttpTool GetTechnicianParameters:@{@"orderId":orderDictionary[@"id"]} success:^(id responseObject) {
             
-            NSLog(@"请求技师信息--%@--",responseObject);
+//            NSLog(@"请求技师信息--%@--",responseObject);
             
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
@@ -498,7 +508,7 @@
             
             [GFHttpTool GetTechnicianParameters:@{@"orderId":orderDictionary[@"id"]} success:^(id responseObject) {
                     
-                NSLog(@"请求技师信息--%@--",responseObject);
+//                NSLog(@"请求技师信息--%@--",responseObject);
             
                 NSDictionary *dataDictionary = responseObject[@"data"];
                 NSDictionary *technicianDictionary = dataDictionary[@"technician"];

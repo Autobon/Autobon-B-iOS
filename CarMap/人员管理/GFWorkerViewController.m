@@ -50,7 +50,7 @@
     [self _setBase];
     
     [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-        NSLog(@"---查询业务员1－－%@--",responseObject);
+//        NSLog(@"---查询业务员1－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
         
             NSArray *array = responseObject[@"data"];
@@ -74,7 +74,7 @@
                 [self.workerArray addObject:worker];
             }];
 
-            NSLog(@"------------%@", _workerArray);
+//            NSLog(@"------------%@", _workerArray);
             // 界面搭建
             [self _setView];
             
@@ -95,7 +95,7 @@
     self.workerArray = [[NSMutableArray alloc] init];
     
     [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-        NSLog(@"---查询业务员2－－%@--",responseObject);
+//        NSLog(@"---查询业务员2－－%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             
             NSArray *array = responseObject[@"data"];
@@ -119,7 +119,7 @@
                 [self.workerArray addObject:worker];
             }];
             
-            NSLog(@"------------%@", _workerArray);
+//            NSLog(@"------------%@", _workerArray);
             
             [self.tableView reloadData];
             
@@ -275,12 +275,12 @@
     CLWorkerModel *worker = _workerArray[sender.tag - 100000];
     GFBianjiViewController *bianjiVC = [[GFBianjiViewController alloc] init];
     bianjiVC.model = worker;
-    NSLog(@"传递过去的编辑模型%@,,,%@", bianjiVC.model.name, bianjiVC.model.phone);
+//    NSLog(@"传递过去的编辑模型%@,,,%@", bianjiVC.model.name, bianjiVC.model.phone);
     [self.navigationController pushViewController:bianjiVC animated:YES];
     
-    NSLog(@"编辑员工信息====%ld", sender.tag);
-    
-    NSLog(@"111111111111111%@", self);
+//    NSLog(@"编辑员工信息====%ld", sender.tag);
+//
+//    NSLog(@"111111111111111%@", self);
 }
 
 #pragma mark - 移除业务员按钮
