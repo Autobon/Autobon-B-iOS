@@ -636,13 +636,6 @@
 
             
         }else {
-            
-<<<<<<< HEAD
-            // 菊花圈停止转动并消失
-            [fengHuoLun stopAnimating];
-=======
-//            [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:5];
->>>>>>> dfae3247c55faaaadeaebde6b55dcbe98cf535cb
 
             [fengHuoLun stopAnimating];
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);

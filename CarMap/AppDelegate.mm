@@ -27,7 +27,7 @@
 #import "GFJoinInViewController_2.h"
 
 #import "GFIndentDetialsViewController.h"
-//#import "GFEvaluateShareViewController.h"
+#import "GFEvaluateShareViewController.h"
 #import "GFHttpTool.h"
 
 
@@ -69,7 +69,7 @@
     [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:@"http://hpecar.com:12345/shareB.html"];
     
     [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://hpecar.com:12345/shareB.html"];
-    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
+//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
     
 //    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"439118116" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 
@@ -258,15 +258,18 @@
                 AudioServicesPlaySystemSound(1307);
                 [[UIApplication sharedApplication]scheduleLocalNotification:notification];
             }
-        }else if ([responseJSON[@"action"] isEqualToString:@"FINISHED"]){
-            AudioServicesPlaySystemSound(1307);
-            _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
-            [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            _alertView.okBut.tag = [responseJSON[@"id"] integerValue];
-            UIWindow *window = [UIApplication sharedApplication].delegate.window;
-            [window addSubview:_alertView];
+        }else if ([responseJSON[@"action"] isEqualToString:@"ORDER_COMPLETE"]){
+            NSDictionary *orderDictionary = responseJSON[@"order"];
+            if ([orderDictionary[@"status"] isEqualToString:@"FINISHED"]) {
+                AudioServicesPlaySystemSound(1307);
+                _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",orderDictionary[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
+                [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                _alertView.okBut.tag = [orderDictionary[@"id"] integerValue];
+                UIWindow *window = [UIApplication sharedApplication].delegate.window;
+                [window addSubview:_alertView];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+            }
             
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
         }else if ([responseJSON[@"action"]isEqualToString:@"NEW_MESSAGE"]){
             NSDictionary *messageDictionary = responseJSON[@"message"];
             AudioServicesPlaySystemSound(1307);
@@ -334,21 +337,24 @@
     NSData *JSONData = [alertDictionary[@"payload"] dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
 //    NSLog(@"----responseJSON----%@--",responseJSON);
-    if ([responseJSON[@"status"] isEqualToString:@"FINISHED"]){
+    if ([responseJSON[@"action"] isEqualToString:@"ORDER_COMPLETE"]){
 //        AudioServicesPlaySystemSound(1307);
+        NSDictionary *orderDictionary = responseJSON[@"order"];
+        if ([orderDictionary[@"status"] isEqualToString:@"FINISHED"]) {
+            GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
+            navigation.navigationBarHidden = YES;
+            window.rootViewController = navigation;
+            _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",orderDictionary[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
+            [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            _alertView.okBut.tag = [orderDictionary[@"id"] integerValue];
+            
+            [window addSubview:_alertView];
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+        }
         
-        GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
-        UIWindow *window = [UIApplication sharedApplication].delegate.window;
-        UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
-        navigation.navigationBarHidden = YES;
-        window.rootViewController = navigation;
-        _alertView = [[GFAlertView alloc] initWithHomeTipName:@"提醒" withTipMessage:[NSString stringWithFormat:@"订单编号为%@已结束工作，请您对此次工作的技师做出评价",responseJSON[@"orderNum"]] withButtonNameArray:@[@"立即评价"]];
-        [_alertView.okBut addTarget:self action:@selector(judgeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _alertView.okBut.tag = [responseJSON[@"id"] integerValue];
-        
-        [window addSubview:_alertView];
-        
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
     }else if ([responseJSON[@"action"]isEqualToString:@"NEW_MESSAGE"]){
         NSDictionary *messageDictionary = responseJSON[@"message"];
         

@@ -602,7 +602,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    
+    [self.imgView setImage:image forState:UIControlStateNormal];
     
     CGSize imagesize;
     if (image.size.width > image.size.height) {
@@ -623,14 +623,16 @@
             [_dataDictionary setObject:responseObject[@"data"] forKey:@"photo"];
         }else{
             [self addAlertView:responseObject[@"message"]];
+            [self.imgView setImage:nil forState:UIControlStateNormal];
         }
     } failure:^(NSError *error) {
+        [self.imgView setImage:nil forState:UIControlStateNormal];
 //        NSLog(@"上传失败－－%@---",error);
 //        [self addAlertView:@"图片上传失败"];
     }];
     
     
-    [self.imgView setImage:image forState:UIControlStateNormal];
+    
     
 }
 
