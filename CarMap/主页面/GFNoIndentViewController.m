@@ -291,10 +291,22 @@
 
 #pragma mark - 撤单按钮的响应方法
 - (void)removeOrder:(UIButton *)button{
-//    NSLog(@"撤单按钮被点击了，订单id为－－%@",@(button.tag));
     
+    GFAlertView *alertView = [[GFAlertView alloc]initWithTitle:@"确认要撤销此订单吗？" leftBtn:@"取消" rightBtn:@"确定"];
+    [alertView.rightButton addTarget:self action:@selector(removeSelectOrder:) forControlEvents:UIControlEventTouchUpInside];
+    alertView.rightButton.tag = button.tag;
+    [self.view addSubview:alertView];
+    
+    
+    
+    
+    
+}
+
+- (void)removeSelectOrder:(UIButton *)button{
+    NSLog(@"撤单按钮被点击了，订单id为－－%@",@(button.tag));
     [GFHttpTool postCanceledOrder:[NSString stringWithFormat:@"%ld",button.tag] Success:^(id responseObject) {
-//        NSLog(@"---撤单成功－－%@",responseObject);
+        NSLog(@"---撤单成功－－%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             [self tipShow:@"撤单成功"];
             [self headRefresh];
@@ -305,8 +317,8 @@
         
         
     } failure:^(NSError *error) {
-//        NSLog(@"--撤单失败-----%@-",error);
-//        [self tipShow:@"撤单失败"];
+        //        NSLog(@"--撤单失败-----%@-",error);
+        //        [self tipShow:@"撤单失败"];
     }];
     
 }

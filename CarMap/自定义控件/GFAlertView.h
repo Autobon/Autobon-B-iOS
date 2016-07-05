@@ -17,6 +17,9 @@
 }
 
 @property (nonatomic, strong) UIButton *okBut;
+@property (nonatomic, strong) UIButton *rightButton;
+
+- (instancetype)initWithTitle:(NSString *)title leftBtn:(NSString *)leftBtn rightBtn:(NSString *)rightBtn;
 
 - (instancetype)initWithTipName:(NSString *)tipName withTipMessage:(NSString *)tipMessageStr withButtonNameArray:(NSArray *)buttonArray;
 

@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-//NSString *const URLHOST = @"http://121.40.157.200:12345";
+NSString *const URLHOST = @"http://121.40.157.200:12345";
 
-NSString *const URLHOST = @"http://hpecar.com:8012";
+//NSString *const URLHOST = @"http://hpecar.com:8012";
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {

@@ -171,6 +171,7 @@
         if ([responseObject[@"result"]integerValue]==1) {
             [self addAlertView:@"指派已完成"];
             _isAdd = YES;
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];
         }

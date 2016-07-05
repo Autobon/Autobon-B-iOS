@@ -139,7 +139,7 @@
             }else {
                 self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH);
                 self.scrollerView.frame = CGRectMake(0, 64-_tipButton.frame.size.height - 20, kWidth, kHeight - 44+_tipButton.frame.size.height);
-                self.scrollerView.contentSize = CGSizeMake(0, baseViewHH);
+                self.scrollerView.contentSize = CGSizeMake(0, baseViewHH+50);
                 _tipButton.hidden = YES;
             }
             
@@ -193,7 +193,7 @@
     self.scrollerView = [[CLTouchScrollView alloc] init];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     self.scrollerView.frame = CGRectMake(0, 64-kHeight * 0.0625-20, kWidth, kHeight - 44+kHeight * 0.0625);
-    self.scrollerView.contentSize = CGSizeMake(0, 1000);
+    self.scrollerView.contentSize = CGSizeMake(0, 1050);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
     self.scrollerView.showsVerticalScrollIndicator = NO;
 //    self.scrollerView.backgroundColor = [UIColor cyanColor];
@@ -380,7 +380,7 @@
     
     baseViewHH = CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443;
     self.baseView.frame = CGRectMake(0, 0, kWidth, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
-    self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443);
+    self.scrollerView.contentSize = CGSizeMake(0, CGRectGetMaxY(signInBut.frame) + kHeight * 0.0443+40);
     
 //    baseView.backgroundColor = [UIColor redColor];
 //    self.scrollerView.backgroundColor = [UIColor greenColor];
@@ -401,6 +401,7 @@
     _pickerView = [UWDatePickerView instanceDatePickerView];
     _pickerView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [_pickerView setBackgroundColor:[UIColor clearColor]];
+
     _pickerView.delegate = self;
     _pickerView.type = type;
     

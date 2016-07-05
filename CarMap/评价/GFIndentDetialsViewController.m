@@ -556,7 +556,7 @@
             
             
             NSString *nameStr = [[NSString alloc] init];
-            nameStr = [NSString stringWithFormat:@"%@:", technicianDictionary[@"name"]];
+            nameStr = [NSString stringWithFormat:@"%@   ", technicianDictionary[@"name"]];
             NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
             nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
             nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];

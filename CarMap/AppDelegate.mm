@@ -23,11 +23,11 @@
 #import "GFOneIndentViewController.h"
 
 // 调试界面
-#import "GFJoinInViewController_1.h"
-#import "GFJoinInViewController_2.h"
-
-#import "GFIndentDetialsViewController.h"
-#import "GFEvaluateShareViewController.h"
+//#import "GFJoinInViewController_1.h"
+//#import "GFJoinInViewController_2.h"
+//
+//#import "GFIndentDetialsViewController.h"
+//#import "GFEvaluateShareViewController.h"
 #import "GFHttpTool.h"
 
 
@@ -350,8 +350,9 @@
     if ([responseJSON[@"action"] isEqualToString:@"ORDER_COMPLETE"]){
 //        AudioServicesPlaySystemSound(1307);
         NSDictionary *orderDictionary = responseJSON[@"order"];
+        
         if ([orderDictionary[@"status"] isEqualToString:@"FINISHED"]) {
-            GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+             GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
             UIWindow *window = [UIApplication sharedApplication].delegate.window;
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
             navigation.navigationBarHidden = YES;
@@ -374,6 +375,7 @@
         [window addSubview:_alertView];
         
     }else if ([responseJSON[@"action"]isEqualToString:@"ORDER_GIVEN_UP"]){
+        /*
         GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
         UIWindow *window = [UIApplication sharedApplication].delegate.window;
         UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
@@ -423,7 +425,7 @@
         } failure:^(NSError *error) {
             
         }];
-        
+       */
     }
     
     
@@ -459,6 +461,7 @@
             
             
         }else if ([responseJSON[@"action"]isEqualToString:@"ORDER_GIVEN_UP"]){
+            /*
             GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
             UIWindow *window = [UIApplication sharedApplication].delegate.window;
             UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
@@ -527,7 +530,7 @@
 //            [self.navigationController pushViewController:indentDeVC animated:YES];
             
             
-            
+            */
         }
         
     }

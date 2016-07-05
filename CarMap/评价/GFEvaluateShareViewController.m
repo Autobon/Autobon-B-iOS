@@ -37,8 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _star = 0;
-    _orderId = @"26";
+//    _star = 0;
+//    _orderId = @"26";
     
     
     

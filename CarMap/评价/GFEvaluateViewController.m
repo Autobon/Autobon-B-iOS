@@ -170,7 +170,7 @@
             [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
 //            nameLab.text = technicianDictionary[@"name"];
             
-            NSString *nameStr = [NSString stringWithFormat:@"%@：", technicianDictionary[@"name"]];
+            NSString *nameStr = [NSString stringWithFormat:@"%@", technicianDictionary[@"name"]];
             NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
             nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
             nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];

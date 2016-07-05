@@ -15,11 +15,11 @@
 
 
 
-//NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
-//NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
+NSString* const HOST = @"http://121.40.157.200:12345/api/mobile";
+NSString* const PUBHOST = @"http://121.40.157.200:12345/api";
 
-NSString* const HOST = @"http://hpecar.com:8012/api/mobile";
-NSString* const PUBHOST = @"http://hpecar.com:8012/api";
+//NSString* const HOST = @"http://hpecar.com:8012/api/mobile";
+//NSString* const PUBHOST = @"http://hpecar.com:8012/api";
 
 @implementation GFHttpTool
 
@@ -1277,7 +1277,7 @@ NSString* const PUBHOST = @"http://hpecar.com:8012/api";
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/%@/cancel",HOST,orderId];
-        
+        NSLog(@"--URLString----%@--",URLString);
         
         [manager POST:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
