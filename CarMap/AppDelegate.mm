@@ -322,6 +322,7 @@
     navigation.navigationBarHidden = YES;
     evaluateView.isPush = NO;
     [window.rootViewController presentViewController:navigation animated:YES completion:nil];
+    
 //    for (UIView* next = [[button superview]superview]; next; next =
 //         next.superview) {
 //        UIResponder* nextResponder = [next nextResponder];
