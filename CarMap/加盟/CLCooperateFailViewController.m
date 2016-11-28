@@ -11,6 +11,7 @@
 #import "GFJoinInViewController_1.h"
 #import "UIImageView+WebCache.h"
 #import "GFHttpTool.h"
+#import "GFCooperationViewController.h"
 
 
 
@@ -23,32 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-//    [GFHttpTool GetInformationSuccess:^(id responseObject) {
-//        
-//        NSLog(@"---获取商户信息---%@----",responseObject);
-//        if ([responseObject[@"result"] integerValue] == 1) {
-//            NSDictionary *dataDictionary = responseObject[@"data"];
-//            
-//            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
-//            if (![dataDictionary isKindOfClass:[NSNull class]]) {
-//                joinInView.dataForPastDictionary = dataDictionary;
-//            }
-//            
-//            [self.navigationController pushViewController:joinInView animated:YES];
-//            
-//            
-//        }else{
-//            [self addAlertView:@"请求失败"];
-//        }
-//        
-//        
-//    } failure:^(NSError *error) {
-//        
-//        NSLog(@"---请求失败---%@----",error);
-//        
-//    }];
-    
     
     
     [self setNavigation];
@@ -110,6 +85,39 @@
     licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
     [scrollView addSubview:licenceName];
     
+    
+// 营业执照副本
+    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(15, licenceName.frame.origin.y + 30+30, self.view.frame.size.width-30, 1)];
+    lineView2.backgroundColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    [scrollView addSubview:lineView2];
+    
+    
+    UILabel *licenceDuplicate = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 160, 20)];
+    licenceDuplicate.center = lineView2.center;
+    licenceDuplicate.text = @"营业执照副本";
+    licenceDuplicate.textAlignment = NSTextAlignmentCenter;
+    licenceDuplicate.backgroundColor = [UIColor whiteColor];
+    licenceDuplicate.font = [UIFont systemFontOfSize:16];
+    licenceDuplicate.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    [scrollView addSubview:licenceDuplicate];
+    
+    
+    UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];
+    licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+    //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
+    licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
+    extern NSString* const URLHOST;
+    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [scrollView addSubview:licenceDuplicateImage];
+    
+    // 我要加盟
+    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(licenceDuplicateImage.frame) + 50, self.view.frame.size.width-60, 40)];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"buttonClick"] forState:UIControlStateHighlighted];
+    [addButton setTitle:@"我要加盟" forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:addButton];
+    /*
     UILabel *licenceNumber = [[UILabel alloc]init];
     licenceNumber.text = [NSString stringWithFormat:@"营业执照号：%@",_dataDictionary[@"businessLicense"]];
     licenceNumber.frame = CGRectMake(15, licenceName.frame.origin.y + 35, self.view.frame.size.width-30, 30);
@@ -243,17 +251,15 @@
     [addButton setTitle:@"我要加盟" forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addButton];
+    */
     
-    
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, addButton.frame.origin.y + 80);
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(addButton.frame) + 20);
 }
 
 #pragma mark - 我要加盟按钮响应方法
 - (void)changeBtnClick{
     
-    GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
-    joinInView.dataForPastDictionary = _dataDictionary;
-    
+    GFCooperationViewController *joinInView = [[GFCooperationViewController alloc]init];
     
     [self.navigationController pushViewController:joinInView animated:YES];
     

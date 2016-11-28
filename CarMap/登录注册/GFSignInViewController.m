@@ -17,7 +17,9 @@
 #import "GFJoinInViewController_1.h"
 #import "CLCooperateFailViewController.h"
 #import "CLCooperatingViewController.h"
+#import "GFCooperationViewController.h"
 
+#import "CLAddPersonViewController.h"
 
 
 @interface GFSignInViewController () {
@@ -73,14 +75,14 @@
     [self.view addSubview:logoImgView];
 //    logoImgView.backgroundColor = [UIColor redColor];
     
-    // 企业简称
-    self.enterpriseTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(logoImgView.frame) + kHeight * 0.091 withPlaceholder:@"企业简称"];
-    [self.view addSubview:self.enterpriseTxt];
-    self.enterpriseTxt.delegate = self;
+//    // 企业简称
+//    self.enterpriseTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(logoImgView.frame) + kHeight * 0.091 withPlaceholder:@"企业简称"];
+//    [self.view addSubview:self.enterpriseTxt];
+//    self.enterpriseTxt.delegate = self;
 
     
     // 手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.enterpriseTxt.frame) + jiange1 withPlaceholder:@"请输入您的手机号"];
+    self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(logoImgView.frame) + kHeight * 0.091 withPlaceholder:@"请输入您的手机号"];
     self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
     self.phoneTxt.delegate = self;
@@ -162,25 +164,29 @@
 #pragma mark - 登录按钮的响应的响应方法
 - (void)signInButClick {
     
+    NSInteger iii = 0;
+    
     self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
     
     [self.view endEditing:YES];
     
-    if (_enterpriseTxt.text.length == 0) {
-        [self addAlertView:@"请输入企业简称"];
+//    if (_enterpriseTxt.text.length == 0) {
+//        [self addAlertView:@"请输入企业简称"];
+    if(iii == 1) {
+        
     }else{
         if ([self isPhoneNumber:_phoneTxt.text]) {
             if (_passwordTxt.text.length == 0) {
                 [self addAlertView:@"请输入密码"];
             }else{
-                NSDictionary *dictionary = @{@"shortname":_enterpriseTxt.text,@"phone":_phoneTxt.text,@"password":_passwordTxt.text};
+                NSDictionary *dictionary = @{@"phone":_phoneTxt.text,@"password":_passwordTxt.text};
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 
                 [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
                     
-//                    NSLog(@"---登录返回---%@---",responseObject);
+                    NSLog(@"---登录返回---%@---",responseObject);
                     
-                    if ([responseObject[@"result"] integerValue] == 1) {
+                    if ([responseObject[@"status"] integerValue] == 1) {
                         
                 // 更新pushid
                         [GFHttpTool postPushIdDictionary:@{@"pushId":[userDefaults objectForKey:@"clientId"]} success:^(id responseObject) {
@@ -189,25 +195,17 @@
 //                            NSLog(@"－－－请求失败---%@---",error);
 //                             [self addAlertView:@"请求失败"];
                         }];
+                    
                         
-                        
-                        
-                        
-                        
-                        [userDefaults setObject:_enterpriseTxt.text forKey:@"userEnterprise"];
+//                        [userDefaults setObject:_enterpriseTxt.text forKey:@"userEnterprise"];
                         [userDefaults setObject:_phoneTxt.text forKey:@"userPhone"];
                         [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
-                        NSDictionary *dataDictionary = responseObject[@"data"];
+                        NSDictionary *dataDictionary = responseObject[@"message"];
                         
                         if ([dataDictionary[@"cooperator"] isKindOfClass:[NSNull class]]) {
             // 没有填写认证信息
-                            GFJoinInViewController_1 *joinInView = [[GFJoinInViewController_1 alloc]init];
+                            GFCooperationViewController *joinInView = [[GFCooperationViewController alloc]init];
                             [self.navigationController pushViewController:joinInView animated:YES];
-//                            GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
-//                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                            UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
-//                            window.rootViewController = navigation;
-//                            navigation.navigationBarHidden = YES;
                             
                         }else{
                             NSDictionary *cooperatorDictionary = dataDictionary[@"cooperator"];
@@ -230,6 +228,7 @@
                                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                                 [userDefaults setObject:cooperatorDictionary[@"fullname"] forKey:@"userFullname"];
                                 GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
+//                                CLAddPersonViewController *oneIndentView = [[CLAddPersonViewController alloc]init];
                                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                                 UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:oneIndentView];
                                 window.rootViewController = navigation;

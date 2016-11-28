@@ -77,12 +77,12 @@
 
 - (void)_setView {
     
-    // 企业简称
-    self.enterpriseNameTxt = [[GFTextField alloc] initWithY:jiange1 + 64 withPlaceholder:@"企业简称"];
-    [self.view addSubview:self.enterpriseNameTxt];
+//    // 企业简称
+//    self.enterpriseNameTxt = [[GFTextField alloc] initWithY:jiange1 + 64 withPlaceholder:@"企业简称"];
+//    [self.view addSubview:self.enterpriseNameTxt];
     
     // 请输入您的手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(self.enterpriseNameTxt.frame) + jiange2 withPlaceholder:@"请输入您的手机号"];
+    self.phoneTxt = [[GFTextField alloc] initWithY:jiange1 + 64 withPlaceholder:@"请输入您的手机号"];
     self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
     
@@ -226,8 +226,8 @@
         button.userInteractionEnabled = NO;
         [GFHttpTool codeGetParameters:@{@"phone":_phoneTxt.text} success:^(id responseObject) {
             
-//            NSLog(@"－－－请求成功－－%@-",responseObject);
-            if ([responseObject[@"result"] integerValue] == 1) {
+            NSLog(@"－－－请求成功－－%@-",responseObject);
+            if ([responseObject[@"status"] integerValue] == 1) {
                 
 //                [button setTitle:@"60" forState:UIControlStateNormal];
                 if (_timer == nil) {
@@ -290,7 +290,7 @@
 #pragma mark - 注册按钮的响应方法
 - (void)signUpButClick {
 
-    
+    NSInteger ii = 0;
 //    [self addAlertView:@"注册按钮点击了"];
     
     self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
@@ -298,8 +298,10 @@
     [self.view bringSubviewToFront:self.navView];
     [self.view endEditing:YES];
     
-    if (_enterpriseNameTxt.text.length == 0) {
-        [self addAlertView:@"请输入企业简称"];
+//    if (_enterpriseNameTxt.text.length == 0) {
+//        [self addAlertView:@"请输入企业简称"];
+    if(ii == 1) {
+        
     }else{
         if (_phoneTxt.text.length != 11) {
             [self addAlertView:@"请输入合法手机号"];
@@ -316,11 +318,11 @@
                         }else{
                             if ([_passwordTxt.text isEqualToString:_againPwdTxt.text]) {
                                 
-                                NSDictionary *dictionary = @{@"shortname":_enterpriseNameTxt.text,@"phone":_phoneTxt.text,@"password":_passwordTxt.text,@"verifySms":_verifyTxt.text};
+                                NSDictionary *dictionary = @{@"phone":_phoneTxt.text,@"password":_passwordTxt.text,@"verifySms":_verifyTxt.text};
 //                                NSLog(@"-----dictionary---%@---",dictionary);
                                 [GFHttpTool postRegisterParameters:dictionary success:^(id responseObject) {
 //                                    NSLog(@"－－－请求成功－－%@-",responseObject[@"message"]);
-                                    if ([responseObject[@"result"] integerValue] == 1) {
+                                    if ([responseObject[@"status"] integerValue] == 1) {
                                         
                                         [UIView animateWithDuration:2 animations:^{
                                             

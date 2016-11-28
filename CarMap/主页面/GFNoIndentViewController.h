@@ -11,5 +11,7 @@
 @interface GFNoIndentViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic ,strong) NSMutableArray *modelMutableArray;
+@property (nonatomic, strong) UITableView *tableView;
 
+- (void)httpWork;
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class CLAddPersonModel;
+
 @interface CLPersonTableViewCell : UITableViewCell
 
 @property (nonatomic ,strong) UIImageView *headImage;
@@ -15,9 +17,9 @@
 @property (nonatomic ,strong) UILabel *identityLabel;
 @property (nonatomic ,strong) UIButton *button;
 
+@property (nonatomic, strong) CLAddPersonModel *model;
 
-
-- (void)setCell;
+- (void)setCell2;
 
 
 

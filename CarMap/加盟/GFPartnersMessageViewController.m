@@ -22,6 +22,8 @@
 #import "GFTransformViewController.h"
 //#import "CLImageView.h"
 
+#import "GFCooperatingSucViewController.h"
+
 
 
 @interface GFPartnersMessageViewController () {
@@ -180,8 +182,6 @@
     UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:signinView];
     window.rootViewController = navigation;
     navigation.navigationBarHidden = YES;
-    
-    
 }
 
 
@@ -305,16 +305,14 @@
     
     [GFHttpTool GetInformationSuccess:^(id responseObject) {
         
-//        NSLog(@"---获取商户信息---%@----",responseObject);
-        if ([responseObject[@"result"] integerValue] == 1) {
-            NSDictionary *dataDictionary = responseObject[@"data"];
+        NSLog(@"---获取商户信息---%@----",responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            NSDictionary *dataDictionary = responseObject[@"message"];
             
-//            GFJoinInViewController_1 *cooperatingView = [[GFJoinInViewController_1 alloc]init];
-            
-            CLCooperatingViewController *cooperatingView = [[CLCooperatingViewController alloc]init];
+            GFCooperatingSucViewController *cooperatingView = [[GFCooperatingSucViewController alloc]init];
             
             if (![dataDictionary isKindOfClass:[NSNull class]]) {
-//                cooperatingView.dataForPastDictionary = dataDictionary;
+                
                 cooperatingView.dataDictionary = dataDictionary;
                 cooperatingView.setLabel.text = @"审核成功";
                 

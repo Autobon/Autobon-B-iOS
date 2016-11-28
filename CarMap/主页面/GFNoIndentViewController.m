@@ -20,7 +20,10 @@
 #import "GFOneIndentViewController.h"
 #import "CLAddPersonViewController.h"
 
+#import "GFNoInTableViewCell.h"
+#import "GFDeNoindentViewController.h"
 
+#import "GFNoIndentModel.h"
 
 @interface GFNoIndentViewController () {
     
@@ -34,9 +37,11 @@
 
 @property (nonatomic, strong) GFNavigationView *navView;
 
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) CGFloat cellHhh;
+
+@property (nonatomic, strong) NSMutableArray *modelArr;
 
 @end
 
@@ -44,6 +49,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.modelArr = [[NSMutableArray alloc] init];
     
     // 基础设置
     [self _setBase];
@@ -57,7 +64,7 @@
     kWidth = [UIScreen mainScreen].bounds.size.width;
     kHeight = [UIScreen mainScreen].bounds.size.height;
     
-    self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];;
     
     // 导航栏
     self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"未完成订单" withFrame:CGRectMake(0, 0, kWidth, 64)];
@@ -72,6 +79,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
     [self.view addSubview:self.tableView];
     
     
@@ -80,7 +88,7 @@
     _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     [_tableView.header beginRefreshing];
     _page = 1;
-    _pageSize = 2;
+    _pageSize = 10;
     
 }
 
@@ -89,8 +97,9 @@
     
     _page = 1;
     
-    _modelMutableArray = [[NSMutableArray alloc]init];
-    [self getListUnfinished];
+    self.modelArr = [[NSMutableArray alloc]init];
+//    [self getListUnfinished];
+    [self httpWork];
     
 
 }
@@ -100,12 +109,47 @@
     
     _page = _page+1;
     
-    [self getListUnfinished];
+//    [self getListUnfinished];
+    [self httpWork];
     
 //    NSLog(@"-------");
 }
 
 #pragma mark - 获取商户未完成订单
+- (void)httpWork {
+    
+    NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
+    mDic[@"status"] = @"1";
+    mDic[@"page"] = @(_page);
+    mDic[@"pageSize"] = @(_pageSize);
+    
+    [GFHttpTool dingdanPostWithDictionary:mDic success:^(id responseObject) {
+        
+        NSLog(@"--未完成订单列表--%@", responseObject);
+        
+        if([responseObject[@"status"] integerValue] ==1) {
+        
+            NSDictionary *dic = responseObject[@"message"];
+            NSArray *arr = dic[@"content"];
+            for(int i=0; i<arr.count; i++) {
+            
+                NSDictionary *dd = arr[i];
+                GFNoIndentModel *model = [[GFNoIndentModel alloc] initWithDictionary:dd];
+                [self.modelArr addObject:model];
+            }
+            
+            [self.tableView reloadData];
+        }
+        
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
+    } failure:^(NSError *error) {
+        
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
+    }];
+}
+
 - (void)getListUnfinished{
     
     _tableView.userInteractionEnabled = NO;
@@ -190,18 +234,26 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     
-    return _modelMutableArray.count;
+//    return _modelMutableArray.count;
+    return self.modelArr.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID = @"cell";
-    GFNoIndentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    GFNoInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if(cell == nil) {
-        cell = [[GFNoIndentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[GFNoInTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
+    if(self.modelArr.count > indexPath.row) {
+    
+        cell.model = self.modelArr[indexPath.row];
+    }
+    
+    
+    /*
     CLIndentModel *model = _modelMutableArray[indexPath.row];
     
     
@@ -234,7 +286,7 @@
     [cell setMessage];
     
     self.cellHhh = cell.cellHeight;
-    
+    */
     
     return cell;
 
@@ -284,8 +336,24 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     
-    return self.cellHhh+1;
+//    return self.cellHhh+1;
+    
+    return 92;
 
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    GFNoInTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    GFDeNoindentViewController *vc = [[GFDeNoindentViewController alloc] init];
+    vc.zhipai = cell.zhipian;
+    vc.jishi = cell.jishi;
+    vc.model = cell.model;
+    vc.noIndentVC = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -310,6 +378,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             [self tipShow:@"撤单成功"];
             [self headRefresh];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
             
         }else{
             [self tipShow:responseObject[@"message"]];

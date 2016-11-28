@@ -12,17 +12,19 @@
 #import "GFTitleView.h"
 #import "GFEvaluateViewController.h"
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
 #import "ACETelPrompt.h"
 
+#import "HZPhotoBrowser.h"
 
 #import "CLImageView.h"
 #import "MYImageView.h"
 
 
 
-@interface GFIndentDetialsViewController () {
+@interface GFIndentDetialsViewController () <HZPhotoBrowserDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -91,7 +93,7 @@
     jianjv1 = kWidth * 0.0417;
     jianjv2 = kWidth * 0.037;
     
-    
+   
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
@@ -101,6 +103,8 @@
 }
 
 - (void)_setView {
+    
+    
     
     CGFloat baseViewW = kWidth;
     CGFloat baseViewH = 500;
@@ -127,7 +131,7 @@
     CGFloat tiemoLabX = bianhaoLabX;
     CGFloat tiemoLabY = CGRectGetMaxY(self.bianhaoLab.frame);
     self.tiemoLab = [[UILabel alloc] initWithFrame:CGRectMake(tiemoLabX, tiemoLabY, tiemoLabW, tiemoLabH)];
-    self.tiemoLab.text = _model.orderType;
+    self.tiemoLab.text = _model.typeName;
     self.tiemoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     self.tiemoLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [baseView addSubview:self.tiemoLab];
@@ -144,7 +148,7 @@
     CGFloat timeLabX = bianhaoLabX;
     CGFloat timeLabY = CGRectGetMaxY(self.tiemoLab.frame);
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
-    self.timeLab.text = [NSString stringWithFormat:@"预约时间：%@",_model.workTime];
+    self.timeLab.text = [NSString stringWithFormat:@"预约时间：%@",_model.agreedStartTime];
     self.timeLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     self.timeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     [baseView addSubview:self.timeLab];
@@ -155,28 +159,49 @@
     CGFloat pingjiaButX = kWidth - jianjv1 - pingjiaButW;
     CGFloat pingjiaButY = CGRectGetMinY(self.bianhaoLab.frame) + jiange3 + 3 / 568.0 * kHeight;
     UIButton *pingjiaBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
     pingjiaBut.frame = CGRectMake(pingjiaButX, pingjiaButY, pingjiaButW, pingjiaButH);
     pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
     pingjiaBut.layer.borderWidth = 1;
     pingjiaBut.layer.cornerRadius = 5;
+    [pingjiaBut addTarget:self action:@selector(pingjiaButClick:) forControlEvents:UIControlEventTouchUpInside];
     
     if([_model.status isEqualToString:@"FINISHED"]) {
-    
-        if ([_model.commentDictionary isKindOfClass:[NSNull class]]) {
-            [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
-            [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        }else{
-            [pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
-        }
-    }else {
-    
+        
         [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
-        pingjiaBut.userInteractionEnabled = NO;
-        pingjiaBut.alpha = 0.3;
+        [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
+        pingjiaBut.enabled = YES;
+    }else if([_model.status isEqualToString:@"COMMENTED"]) {
+        
+        [pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+        [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] forState:UIControlStateNormal];
+        pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] CGColor];
+        pingjiaBut.enabled = NO;
+    }else {
+        
+        [pingjiaBut setTitle:@"已撤消" forState:UIControlStateNormal];
+        pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] CGColor];
+        [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] forState:UIControlStateNormal];
+        pingjiaBut.enabled = NO;
     }
     
+//    if([_model.status isEqualToString:@"FINISHED"]) {
+//    
+////        if ([_model.commentDictionary isKindOfClass:[NSNull class]]) {
+////            [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+////            [pingjiaBut addTarget:self action:@selector(judgeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+////        }else{
+////            [pingjiaBut setTitle:@"已评价" forState:UIControlStateNormal];
+////        }
+//    }else {
+//    
+//        [pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+//        pingjiaBut.userInteractionEnabled = NO;
+//        pingjiaBut.alpha = 0.3;
+//    }
     
-    [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
+    
+//    [pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
     pingjiaBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView addSubview:pingjiaBut];
     
@@ -186,21 +211,40 @@
     [baseView addSubview:lineView1];
     
     // 订单图片
-    CGFloat imgViewW = kWidth - jianjv2 * 2;
-    CGFloat imgViewH = kHeight * 0.237;
-    CGFloat imgViewX = jianjv2;
+    CGFloat imgViewW = (kWidth - 40) / 3.0;
+    CGFloat imgViewH = (kWidth - 40) / 3.0;
     CGFloat imgViewY = CGRectGetMaxY(self.timeLab.frame) + jiange1 + jiange2;
-    UIImageView *imgView = [[CLImageView alloc] init];
-    imgView.frame = CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH);
-//    imgView.backgroundColor = [UIColor redColor];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    extern NSString* const URLHOST;
-    [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+    NSInteger sum = self.model.photoArr.count;
+    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [baseView addSubview:imgView];
+    for(int i=0; i<sum; i++) {
+    
+        UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+        but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , imgViewY + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
+        but.tag = i + 1;
+        [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+        NSString *ss = [NSString stringWithFormat:@"http://10.0.12.221:12345%@", self.model.photoArr[i]];
+        [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
+        [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
+        [baseView addSubview:but];
+        
+        if(i == sum - 1) {
+        
+            but1 = but;
+        }
+    }
+    
+//    UIButton *imgView = [UIButton buttonWithType:UIButtonTypeCustom];
+//    imgView.frame = CGRectMake(imgViewX, imgViewY, imgViewW, imgViewH);
+////    imgView.backgroundColor = [UIColor redColor];
+//    imgView.contentMode = UIViewContentModeScaleAspectFit;
+//    extern NSString* const URLHOST;
+//    [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_model.photo]] placeholderImage:[UIImage imageNamed:@"orderImage"]];
+    
+//    [baseView addSubview:imgView];
     
     // 边线
-    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(imgView.frame) + jiange1, kWidth - jianjv2 * 2.0, 1)];
+    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(but1.frame) + jiange1, kWidth - jianjv2 * 2.0, 1)];
     lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView2];
     
@@ -245,7 +289,7 @@
     [baseView addSubview:lab5];
     lab5.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab5.text = @"下单时间: ";
-    NSString *lab5Str = _model.signinTime;
+    NSString *lab5Str = _model.createTime;
     NSMutableDictionary *lab5Dic = [[NSMutableDictionary alloc] init];
     lab5Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab5Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -278,7 +322,7 @@
     // 获取项目
     lab6.text = @"施工项目:";
 //    NSString *lab6Str = self.itemStr;
-    NSString *lab6Str = self.model.workItemsName;
+    NSString *lab6Str = self.model.typeName;
     NSMutableDictionary *lab6Dic = [[NSMutableDictionary alloc] init];
     lab6Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab6Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -307,20 +351,20 @@
     [baseView addSubview:lab7];
     lab7.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab7.text = @"施工人员: ";
-    NSString *workers = @"";
+//    NSString *workers = @"";
 //    NSLog(@"施工人员数组＝＝＝＝＝＝＝＝%@", self.model.workerArr);
-    for(NSString *str in self.model.workerArr) {
-        
-        if([workers isEqualToString:@""]) {
-            
-            workers = [NSString stringWithFormat:@"%@", str];
-        }else {
-            
-            workers = [NSString stringWithFormat:@"%@,%@", workers, str];
-        }
-        
-    }
-    NSString *lab7Str = workers;
+//    for(NSString *str in self.model.techName) {
+//        
+//        if([workers isEqualToString:@""]) {
+//            
+//            workers = [NSString stringWithFormat:@"%@", str];
+//        }else {
+//            
+//            workers = [NSString stringWithFormat:@"%@,%@", workers, str];
+//        }
+//        
+//    }
+    NSString *lab7Str = self.model.techName;
     NSMutableDictionary *lab7Dic = [[NSMutableDictionary alloc] init];
     lab7Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab7Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -360,7 +404,7 @@
     // 照片
     NSString *bePhotoStr = self.model.beforePhotos;
     
-    if([bePhotoStr integerValue] == 1) {
+    if([bePhotoStr isEqualToString:@"无"]) {
         
         beMaxY = CGRectGetMaxY(beforeLab.frame) + jiange4;
         beforeLab.text = @"施工前照片：该订单未完成，暂无照片";
@@ -400,7 +444,8 @@
     [baseView addSubview:afPhotoLab];
     //照片
     NSString *afPhotoStr = self.model.afterPhotos;
-    if([afPhotoStr integerValue] == 1) {
+    NSLog(@"+++++---+++++%@", afPhotoStr);
+    if([afPhotoStr isEqualToString:@"无"]) {
     
 
         afMaxY = CGRectGetMaxY(afPhotoLab.frame) + jiange4;
@@ -536,7 +581,7 @@
 //    [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:25];
 
     
-    [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderId} success:^(id responseObject) {
+    [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderID} success:^(id responseObject) {
 //        NSLog(@"请求成功－－－%@---",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             
@@ -552,7 +597,7 @@
 //                _scrollView.contentSize = CGSizeMake(0, afMaxY);
 //            }
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString   stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@" ,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             
             
             NSString *nameStr = [[NSString alloc] init];
@@ -660,6 +705,50 @@
     
 }
 
+- (void)butClick:(UIButton *)sender {
+    
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    
+    browser.sourceImagesContainerView = sender.superview;
+    
+    browser.imageCount = self.model.photoArr.count;
+    
+    browser.currentImageIndex = sender.tag - 1;
+    
+    browser.delegate = self;
+    
+    [browser show]; // 展示图片浏览器
+}
+
+- (void)pingjiaButClick:(UIButton *)sender {
+    
+    NSLog(@"========%@", sender.titleLabel.text);
+    
+    if([sender.titleLabel.text isEqualToString:@"去评价"]) {
+        
+        GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
+        //    _indentViewButton = button;
+        evaluateView.orderId = self.model.orderID;
+        evaluateView.isPush = YES;
+        [self.navigationController pushViewController:evaluateView animated:YES];
+    }
+}
+
+
+- (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index {
+    
+    UIImage *img = [UIImage imageNamed:@"orderImage"];
+    
+    return img;
+}
+- (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
+    
+    NSURL *url = [NSURL URLWithString:self.model.photoArr[index]];
+    
+    return url;
+}
+
+
 // 添加前照片
 - (void)addBeforImgView:(NSString *)imgUrl withPhotoIndex:(NSInteger)index withFirstY:(CGFloat)Y showInView:(UIView *)showView{
     
@@ -750,7 +839,7 @@
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
     //    iconImgView.backgroundColor =[UIColor redColor];
-    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.photo]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
     [iconView addSubview:iconImgView];
     // 姓名
     NSString *nameStr = @"陈光法";
@@ -826,7 +915,7 @@
 - (void)judgeBtnClick{
     GFEvaluateViewController *evaluateView = [[GFEvaluateViewController alloc]init];
     
-    evaluateView.orderId = _model.orderId;
+    evaluateView.orderId = _model.orderID;
     evaluateView.isPush = YES;
     [self.navigationController pushViewController:evaluateView animated:YES];
     

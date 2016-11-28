@@ -75,6 +75,39 @@
     [scrollView addSubview:idImageLabel];
     
     
+    UILabel *licenceName = [[UILabel alloc]init];
+    licenceName.text = [NSString stringWithFormat:@"营业执照名：%@",_dataDictionary[@"fullname"]];
+    licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
+    [scrollView addSubview:licenceName];
+    
+    // 营业执照副本
+    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(licenceName.frame) + 31, self.view.frame.size.width-30, 1)];
+    lineView2.backgroundColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    [scrollView addSubview:lineView2];
+    
+    
+    UILabel *licenceDuplicate = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 160, 20)];
+    licenceDuplicate.center = lineView2.center;
+    licenceDuplicate.text = @"营业执照副本";
+    licenceDuplicate.textAlignment = NSTextAlignmentCenter;
+    licenceDuplicate.backgroundColor = [UIColor whiteColor];
+    licenceDuplicate.font = [UIFont systemFontOfSize:16];
+    licenceDuplicate.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    [scrollView addSubview:licenceDuplicate];
+    
+    
+    UIImageView *licenceDuplicateImage = [[CLImageView alloc]init];
+    licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+    licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
+    //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
+    extern NSString* const URLHOST;
+    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+    //    NSLog(@"-------_dataDictionary---%@",_dataDictionary[@"bussinessLicensePic"]);
+    //    licenceDuplicateImage.backgroundColor = [UIColor cyanColor];
+    [scrollView addSubview:licenceDuplicateImage];
+    
+    
+    /*
     // 营业执照名，号；法人姓名，身份证号
     
     UILabel *licenceName = [[UILabel alloc]init];
@@ -209,9 +242,9 @@
     placeLabel.frame = CGRectMake(15, CGRectGetMaxY(addressLabel.frame) + 5 , self.view.frame.size.width-30, detailSize.height);
     [scrollView addSubview:placeLabel];
     
+    */
     
-    
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, placeLabel.frame.origin.y + 80);
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(licenceDuplicateImage.frame) + 40);
 }
 
 #pragma mark - 设置导航条

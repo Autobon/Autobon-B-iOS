@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class GFNewIndentModel;
+
+
 @interface GFIndentTableViewCell : UITableViewCell
 
 
@@ -15,6 +18,11 @@
 @property (nonatomic, strong) UIImageView *photoImgView;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) UIButton *pingjiaBut;
+@property (nonatomic, strong) UILabel *yuyueTimeLab;
+
+@property (nonatomic, assign) CGFloat cellHeight;
+
+@property (nonatomic, strong) GFNewIndentModel *model;
 
 
 @end

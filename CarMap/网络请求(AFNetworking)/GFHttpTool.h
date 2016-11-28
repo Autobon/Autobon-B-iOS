@@ -119,18 +119,27 @@
 // 修改员工账户
 + (void)postChangeWorkMsgParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+// 获取技师详情，，根据技师ID
+// 二期
++ (void)getjishiDetailOrderId:(NSInteger )jishiID success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 商户查询技师列表（距离优先）
+// 二期
++ (void)jishiListGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+#pragma mark - 商户查询技师列表（模糊查询）
+// 二期
++ (void)jishiMohuGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+#pragma mark - 获取订单列表（包括已完成和未完成）
+// 二期
++ (void)dingdanPostWithDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
 
 
 
 
-
-
-
-
-
-
+#pragma mark - 二期合作商加盟
++ (void)jiamengPostWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
 

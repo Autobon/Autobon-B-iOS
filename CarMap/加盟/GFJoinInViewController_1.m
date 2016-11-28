@@ -291,7 +291,6 @@
     
     
 }
-
 #pragma mark - 选择照片
 - (void)imageChoose:(UIButton *)button{
     _chooseView.hidden = YES;
@@ -324,7 +323,6 @@
     
     
 }
-
 #pragma mark - 图片协议方法
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -387,8 +385,6 @@
     }
     
 }
-
-
 #pragma mark - 压缩图片尺寸
 -(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 {
@@ -408,7 +404,6 @@
     // Return the new image.
     return newImage;
 }
-
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [self dismissViewControllerAnimated:YES completion:nil];

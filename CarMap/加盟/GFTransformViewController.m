@@ -56,8 +56,6 @@
 
 - (void)_setBase {
     
-    
-    
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏

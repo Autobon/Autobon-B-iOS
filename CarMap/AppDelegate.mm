@@ -22,6 +22,10 @@
 #import "GFAlertView.h"
 #import "GFOneIndentViewController.h"
 
+#import "GFNoIndentViewController.h"
+
+#import "GFMapViewController.h"
+
 // 调试界面
 //#import "GFJoinInViewController_1.h"
 //#import "GFJoinInViewController_2.h"
@@ -29,6 +33,10 @@
 //#import "GFIndentDetialsViewController.h"
 //#import "GFEvaluateShareViewController.h"
 #import "GFHttpTool.h"
+
+#import "GFCooperationViewController.h"
+#import "PoiSearchDemoViewController.h"
+#import "CLAddPersonViewController.h"
 
 
 
@@ -82,16 +90,16 @@
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
 //    GFAddWorkerViewController *firstView = [[GFAddWorkerViewController alloc]init];
-    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
+//    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
 //    CLAutobonViewController *firstView = [[CLAutobonViewController alloc]init];
 //    CLCertifyViewController *firstView = [[CLCertifyViewController alloc]init];
 //    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
 //    GFEvaluateShareViewController *firstView = [[GFEvaluateShareViewController alloc]init];
 //    SecondViewController *firstView = [[SecondViewController alloc]init];
-//    GFJoinInViewController_1 *firstView = [[GFJoinInViewController_1 alloc]init];
-    
+    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
-//    _navigation = [[UINavigationController alloc]initWithRootViewController:[[GFJoinInViewController_2 alloc] init]];
+//    GFNoIndentViewController *coopVC = [[GFNoIndentViewController alloc] init];
+//    _navigation = [[UINavigationController alloc]initWithRootViewController:coopVC];
     _navigation.navigationBarHidden = YES;
     _window.rootViewController = _navigation;
     [_window makeKeyAndVisible];

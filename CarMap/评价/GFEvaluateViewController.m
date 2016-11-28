@@ -372,10 +372,15 @@
     }
     [dictionary setObject:_orderId forKey:@"orderId"];
     
+    
+    NSLog(@"=======%@", dictionary);
+    
+    
     [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
         
+        NSLog(@"%@", responseObject);
         
-        if ([responseObject[@"result"] integerValue] == 1) {
+        if ([responseObject[@"status"] integerValue] == 1) {
             GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
             shareView.orderId = _orderId;
             shareView.star = _star;
