@@ -6,7 +6,8 @@
 //
 
 #import "PoiSearchDemoViewController.h"
-#import "BMKLocationService.h"
+//#import "BMKLocationService.h"
+#import <BaiduMapAPI_Location/BMKLocationService.h>
 #import "GFAnnotation.h"
 #import "GFAnnotationView.h"
 #import "GFNavigationView.h"

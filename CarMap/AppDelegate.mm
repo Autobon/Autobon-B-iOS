@@ -34,7 +34,7 @@
 //#import "GFEvaluateShareViewController.h"
 #import "GFHttpTool.h"
 
-#import "GFCooperationViewController.h"
+//#import "GFCooperationViewController.h"
 #import "PoiSearchDemoViewController.h"
 #import "CLAddPersonViewController.h"
 
@@ -74,12 +74,12 @@
     [UMSocialData setAppKey:@"564d41b4e0f55a596d003fe4"];
     
     
-    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:@"http://hpecar.com:12345/shareB.html"];
+    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:@"http://121.40.219.58:8000/shareB.html"];
     
-    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://hpecar.com:12345/shareB.html"];
+    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:@"http://121.40.219.58:8000/shareB.html"];
 //    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
     
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1532716943" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1532716943" RedirectURL:@"http://121.40.219.58:8000/shareB.html"];
 
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"er5ppSPS6vxnd5BtvWDsgthy" generalDelegate:self];

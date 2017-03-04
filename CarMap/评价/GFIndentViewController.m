@@ -237,7 +237,7 @@
     mDic[@"status"] = @"2";
     [GFHttpTool postListFinishedDictionary:mDic success:^(id responseObject) {
         
-        NSLog(@"===商户已完成订单列表===%@", responseObject);
+//        NSLog(@"===商户已完成订单列表===%@", responseObject);
         
         if([responseObject[@"status"] integerValue] == 1) {
         
@@ -258,7 +258,7 @@
                 _nothingView.hidden = YES;
             }
             
-            NSLog(@"----%@", self.modelArr);
+//            NSLog(@"----%@", self.modelArr);
         }
         
         [self.tableview reloadData];
@@ -268,7 +268,7 @@
     } failure:^(NSError *error) {
         
         
-        NSLog(@"商户已完成订单列表===%@", error);
+//        NSLog(@"商户已完成订单列表===%@", error);
         [self.tableview.header endRefreshing];
         [self.tableview.footer endRefreshing];
     }];
@@ -285,7 +285,7 @@
     [GFHttpTool postListUncommentDictionary:mDic success:^(id responseObject) {
         
         
-        NSLog(@"===商户未评论订单列表===%@", responseObject);
+//        NSLog(@"===商户未评论订单列表===%@", responseObject);
         
         if([responseObject[@"status"] integerValue] == 1) {
             
@@ -306,7 +306,7 @@
                 _nothingView.hidden = YES;
             }
             
-            NSLog(@"----%@", self.modelArr);
+//            NSLog(@"----%@", self.modelArr);
         }
         
         
@@ -315,7 +315,7 @@
         [self.tableview.footer endRefreshing];
     } failure:^(NSError *error) {
         
-        NSLog(@"商户未评论订单列表==%@", error);
+//        NSLog(@"商户未评论订单列表==%@", error);
         
         [self.tableview reloadData];
         [self.tableview.header endRefreshing];

@@ -113,19 +113,19 @@
     
     [GFHttpTool jishiListGetWithParameters:mDic success:^(id responseObject) {
         
-        NSLog(@"====技师列表数据====%@", responseObject);
+//        NSLog(@"====技师列表数据====%@", responseObject);
         if([responseObject[@"status"] integerValue] == 1) {
             
             NSDictionary *dic = responseObject[@"message"];
             NSArray *arr = dic[@"content"];
-            NSLog(@"===%@", arr);
+//            NSLog(@"===%@", arr);
             for(int i=0; i<arr.count; i++) {
             
                 CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:arr[i]];
                 [self.modelArr addObject:model];
                 model.orderID = _orderId;
                 
-                NSLog(@"-每个模型--%@", model.orderCount);
+//                NSLog(@"-每个模型--%@", model.orderCount);
             }
             
             [_tableView reloadData];
@@ -151,18 +151,18 @@
     
     [GFHttpTool jishiMohuGetWithParameters:mDic success:^(id responseObject) {
         
-        NSLog(@"====++++%@", responseObject);
+//        NSLog(@"====++++%@", responseObject);
         if([responseObject[@"status"] integerValue] ==1) {
             NSDictionary *dic = responseObject[@"message"];
             NSArray *arr = dic[@"content"];
-            NSLog(@"===%@", arr);
+//            NSLog(@"===%@", arr);
             for(int i=0; i<arr.count; i++) {
                 
                 CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:arr[i]];
                 model.orderID = _orderId;
                 [self.modelArr addObject:model];
                 
-                NSLog(@"-每个模型--%@", model.orderCount);
+//                NSLog(@"-每个模型--%@", model.orderCount);
             }
             
             [_tableView reloadData];
@@ -231,7 +231,7 @@
     
         CLAddPersonModel *model = (CLAddPersonModel *)self.modelArr[indexPath.row];
         cell.model = model;
-        NSLog(@"---老天保佑---%@", model.distance);
+//        NSLog(@"---老天保佑---%@", model.distance);
     }
     return cell;
 }
@@ -322,7 +322,7 @@
 // 添加导航
 - (void)setNavigation{
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"指定技师" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
 //    [navView.rightBut addTarget:navView action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:navView];

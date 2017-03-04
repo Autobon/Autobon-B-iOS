@@ -13,7 +13,7 @@
 #import "GFHttpTool.h"
 #import "GFJoinInViewController_1.h"
 #import "CLDelegateViewController.h"
-
+#import "GFSignInViewController.h"
 
 
 @interface GFSignUpViewController () {
@@ -326,10 +326,21 @@
                                         
                                         [UIView animateWithDuration:2 animations:^{
                                             
-                                            [self tipView:kHeight * 0.8 withTipmessage:@"注册成功"];                                            
+                                            [self tipView:kHeight * 0.8 withTipmessage:@"注册成功"];
+                                            
+                                            
+                                            [[NSUserDefaults standardUserDefaults] setObject:_phoneTxt.text forKey:@"userPhone"];
+                                            [[NSUserDefaults standardUserDefaults] setObject:_passwordTxt.text forKey:@"userPassword"];
+                                            
                                         } completion:^(BOOL finished) {
 //                                            GFJoinInViewController_1 *joinVC_1 = [[GFJoinInViewController_1 alloc] init];
 //                                            [self.navigationController pushViewController:joinVC_1 animated:YES];
+                                            
+                                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                                            UINavigationController *navVC = (UINavigationController *)window.rootViewController;
+                                            GFSignInViewController *vc = (GFSignInViewController *)navVC.childViewControllers[0];
+                                            vc.phoneTxt.text = _phoneTxt.text;
+                                            vc.passwordTxt.text = _passwordTxt.text;
                                             [self.navigationController popToRootViewControllerAnimated:YES];
                                         }];
                                         

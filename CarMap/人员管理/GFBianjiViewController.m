@@ -167,6 +167,8 @@
             
             [GFHttpTool postChangeWorkMsgParameters:@{@"phone":_phoneTxt.text, @"name":_nameTxt.text, @"gender":@(_sex), @"workID":self.model.workerId} success:^(id responseObject) {
                 
+//                NSLog(@"==============%@", responseObject);
+                
                 if ([responseObject[@"result"] integerValue] == 1) {
                     
                     
@@ -181,7 +183,8 @@
                 
             } failure:^(NSError *error) {
                 
-//                [self addAlertView:@"请求失败"];
+                //                [self addAlertView:@"请求失败"];
+//                NSLog(@"==================%@", error);
             }];
             
 //            [GFHttpTool postAddAccountDictionary:@{@"phone":_phoneTxt.text,@"name":_nameTxt.text,@"gender":@(_sex)} success:^(id responseObject) {
@@ -310,8 +313,6 @@
         self.signInBut.frame = CGRectMake(kWidth * 0.116, CGRectGetMaxY(self.nameTxt.frame) + jiange2 + kHeight * 0.078 + kHeight * 0.165, kWidth - (kWidth * 0.116) * 2, kHeight * 0.07);
         self.lab.frame = CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021);
     }];
-    
-    
     
     [self.view endEditing:YES];
 }

@@ -10,8 +10,13 @@
 #import "GFNavigationView.h"
 #import "UIImageView+WebCache.h"
 #import "CLImageView.h"
+#import "HZPhotoBrowser.h"
+#import "UIButton+WebCache.h"
 
-@interface GFCooperatingSucViewController ()
+@interface GFCooperatingSucViewController () <HZPhotoBrowserDelegate>
+
+@property (nonatomic, strong) NSMutableArray *photoUrlArr;
+
 
 @end
 
@@ -45,6 +50,8 @@
     //    scrollView.backgroundColor = [UIColor cyanColor];
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
+    
+    self.photoUrlArr = [[NSMutableArray alloc] init];
     
     //加盟状态
     UILabel *settingLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, 100, 30)];
@@ -113,20 +120,31 @@
      licenceDuplicate.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
      [scrollView addSubview:licenceDuplicate];
      
-     
-     UIImageView *licenceDuplicateImage = [[CLImageView alloc]init];
-     licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-     licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
-     //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
-     extern NSString* const URLHOST;
-     [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
-     //    NSLog(@"-------_dataDictionary---%@",_dataDictionary[@"bussinessLicensePic"]);
-     //    licenceDuplicateImage.backgroundColor = [UIColor cyanColor];
-     [scrollView addSubview:licenceDuplicateImage];
-     
+    
+    UIButton *licenceDuplicateBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    licenceDuplicateBut.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+    extern NSString* const URLHOST;
+//    [licenceDuplicateBut sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [licenceDuplicateBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [scrollView addSubview:licenceDuplicateBut];
+    licenceDuplicateBut.tag = 1;
+    [licenceDuplicateBut addTarget:self action:@selector(imgButClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]];
+//    licenceDuplicateBut.backgroundColor = [UIColor redColor];
+    
+//     UIImageView *licenceDuplicateImage = [[CLImageView alloc]init];
+//     licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+//     licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
+//     //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
+//     extern NSString* const URLHOST;
+//     [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+//     //    NSLog(@"-------_dataDictionary---%@",_dataDictionary[@"bussinessLicensePic"]);
+//     //    licenceDuplicateImage.backgroundColor = [UIColor cyanColor];
+//     [scrollView addSubview:licenceDuplicateImage];
+    
      // 法人身份证正面照
      
-     UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(15, licenceDuplicateImage.frame.origin.y + licenceDuplicateImage.frame.size.height + 30, self.view.frame.size.width-30, 1)];
+     UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(15, licenceDuplicateBut.frame.origin.y + licenceDuplicateBut.frame.size.height + 30, self.view.frame.size.width-30, 1)];
      lineView3.backgroundColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
      [scrollView addSubview:lineView3];
      
@@ -137,21 +155,28 @@
      legalEntityIdLabel.textAlignment = NSTextAlignmentCenter;
      legalEntityIdLabel.backgroundColor = [UIColor whiteColor];
      legalEntityIdLabel.font = [UIFont systemFontOfSize:16];
-     legalEntityIdLabel.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    legalEntityIdLabel.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
      
      [scrollView addSubview:legalEntityIdLabel];
      
-     
-     UIImageView *legalEntityIdImage = [[CLImageView alloc]init];
-     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-     //    legalEntityIdImage.backgroundColor = [UIColor darkGrayColor];
-     legalEntityIdImage.contentMode = UIViewContentModeScaleAspectFit;
-     [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
-     [scrollView addSubview:legalEntityIdImage];
-     
+    UIButton *legalEntityIdBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    legalEntityIdBut.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+    [legalEntityIdBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [scrollView addSubview:legalEntityIdBut];
+    legalEntityIdBut.tag = 2;
+    [legalEntityIdBut addTarget:self action:@selector(imgButClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]];
+    
+//     UIImageView *legalEntityIdImage = [[CLImageView alloc]init];
+//     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+//     //    legalEntityIdImage.backgroundColor = [UIColor darkGrayColor];
+//     legalEntityIdImage.contentMode = UIViewContentModeScaleAspectFit;
+//     [legalEntityIdImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+//     [scrollView addSubview:legalEntityIdImage];
+    
      
      // 发票信息
-     UIView *lineView4 = [[UIView alloc]initWithFrame:CGRectMake(15, legalEntityIdImage.frame.origin.y + licenceDuplicateImage.frame.size.height + 30, self.view.frame.size.width-30, 1)];
+     UIView *lineView4 = [[UIView alloc]initWithFrame:CGRectMake(15, legalEntityIdBut.frame.origin.y + licenceDuplicateBut.frame.size.height + 30, self.view.frame.size.width-30, 1)];
      lineView4.backgroundColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
      [scrollView addSubview:lineView4];
      
@@ -209,6 +234,34 @@
     
     
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(placeLabel.frame) + 40);
+}
+
+
+- (void)imgButClick:(UIButton *)sender {
+    
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    
+    browser.sourceImagesContainerView = sender.superview;
+    
+    browser.imageCount = 2;
+    
+    browser.currentImageIndex = sender.tag - 1;
+    
+    browser.delegate = self;
+    
+    [browser show]; // 展示图片浏览器
+}
+- (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index {
+    
+    UIImage *img = [UIImage imageNamed:@"userImage"];
+    
+    return img;
+}
+- (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
+    
+    NSURL *url = [NSURL URLWithString:self.photoUrlArr[index]];
+    
+    return url;
 }
 
 #pragma mark - 设置导航条

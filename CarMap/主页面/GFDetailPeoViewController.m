@@ -12,12 +12,12 @@
 #import "UIImageView+WebCache.h"
 #import "GFHttpTool.h"
 
+
 @interface GFDetailPeoViewController () {
     
     CGFloat kWidth;
     CGFloat kHieght;
 }
-
 @end
 
 @implementation GFDetailPeoViewController
@@ -50,15 +50,49 @@
     [self.view addSubview:iconImgView];
     
     // 姓名
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 75, 150, 40)];
+    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 71.5, 150, 30)];
     nameLab.font = [UIFont systemFontOfSize:20];
     nameLab.text = _model.name;
     nameLab.textColor = [UIColor darkGrayColor];
     [self.view addSubview:nameLab];
     
+    // 星级
+    NSInteger starNum = [_model.evaluate integerValue];
+    CGFloat starW = 17;
+    CGFloat starH = 17;
+    CGFloat starX = CGRectGetMaxX(iconImgView.frame) + 10;
+    CGFloat starY = CGRectGetMaxY(nameLab.frame) + 5;
+    for(int i=0; i<5; i++) {
+    
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(starX + (starW + 1) * i, starY, starW, starH)];
+        imgView.image = [UIImage imageNamed:@"detailsStarDark"];
+        [self.view addSubview:imgView];
+    }
+    for(int i=0; i<starNum; i++) {
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(starX + (starW + 1) * i, starY, starW, starH)];
+        imgView.image = [UIImage imageNamed:@"detailsStar"];
+        [self.view addSubview:imgView];
+    }
+
+    // 总单数
+    UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(starX + (starW + 1) * 5 + 3, starY + 1, 35, 17)];
+    numLab.textColor = [UIColor orangeColor];
+    numLab.text = [NSString stringWithFormat:@"%@", self.model.orderCount];
+    numLab.font = [UIFont systemFontOfSize:13];
+    numLab.textAlignment = NSTextAlignmentRight;
+    [self.view addSubview:numLab];
+    [numLab sizeToFit];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(numLab.frame) + 1, starY+ 1, 20, 17)];
+    lab.text = @"单";
+    lab.textColor = [UIColor darkGrayColor];
+    lab.font = [UIFont systemFontOfSize:13];
+    [self.view addSubview:lab];
+    
+    
     // 手机号
     UIButton *phoneBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    phoneBut.frame = CGRectMake(nameLab.frame.origin.x, CGRectGetMaxY(nameLab.frame) + 5, 150, 20);
+    phoneBut.frame = CGRectMake(nameLab.frame.origin.x, starH + starY + 5, 150, 20);
     [phoneBut setImage:[UIImage imageNamed:@"iPhone"] forState:UIControlStateNormal];
     phoneBut.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     phoneBut.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -72,14 +106,14 @@
     [distanceBut setImage:[UIImage imageNamed:@"distance"] forState:UIControlStateNormal];
     distanceBut.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     distanceBut.titleLabel.font = [UIFont systemFontOfSize:12];
-    [distanceBut setTitle:[NSString stringWithFormat:@"  %@km", _model.distance] forState:UIControlStateNormal];
+    [distanceBut setTitle:[NSString stringWithFormat:@"  %.2fkm", [_model.distance floatValue]] forState:UIControlStateNormal];
     [distanceBut setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.view addSubview:distanceBut];
     
     
     // 指派按钮
     UIButton *zhipaiBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    zhipaiBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70, 80, 60, 30);
+    zhipaiBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70, 75, 60, 30);
     [zhipaiBut setTitle:@"指派" forState:UIControlStateNormal];
     zhipaiBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     zhipaiBut.layer.borderWidth = 1;
@@ -90,44 +124,44 @@
     [self.view addSubview:zhipaiBut];
     
     // 横线1
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(iconImgView.frame) + 10, [UIScreen mainScreen].bounds.size.width - 20, 1)];
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(iconImgView.frame) + 15, [UIScreen mainScreen].bounds.size.width, 1)];
     lineView1.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:lineView1];
     
-    // 订单数、弃单数、好评率
-    NSArray *textArr = @[_model.orderCount, _model.cancelCount, _model.evaluate];
-    NSArray *labArr = @[@"订单数", @"弃单次数", @"好评率"];
-    CGFloat maxY = 0;
-    for(int i=0; i<3; i++) {
-        
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lineView1.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 40)];
-        lab.textAlignment = NSTextAlignmentCenter;
-        lab.text = textArr[i];
-        lab.font = [UIFont systemFontOfSize:16];
-        lab.textColor = [UIColor darkGrayColor];
-        [self.view addSubview:lab];
-        
-        UILabel *downLab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lab.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 10)];
-        downLab.textAlignment = NSTextAlignmentCenter;
-        downLab.text = labArr[i];
-        downLab.font = [UIFont systemFontOfSize:10];
-        downLab.textColor = [UIColor darkGrayColor];
-        [self.view addSubview:downLab];
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * (i + 1), CGRectGetMaxY(lineView1.frame) + 10, 1, 40)];
-        lineView.backgroundColor = [UIColor lightGrayColor];
-        [self.view addSubview:lineView];
-        
-        maxY = CGRectGetMaxY(downLab.frame);
-    }
-    
-    // 横线2
-    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, maxY + 10, [UIScreen mainScreen].bounds.size.width, 1)];
-    lineView2.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:lineView2];
+//    // 订单数、弃单数、好评率
+//    NSArray *textArr = @[_model.orderCount, _model.cancelCount, _model.evaluate];
+//    NSArray *labArr = @[@"订单数", @"弃单次数", @"好评率"];
+//    CGFloat maxY = 0;
+//    for(int i=0; i<3; i++) {
+//        
+//        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lineView1.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 40)];
+//        lab.textAlignment = NSTextAlignmentCenter;
+//        lab.text = textArr[i];
+//        lab.font = [UIFont systemFontOfSize:16];
+//        lab.textColor = [UIColor darkGrayColor];
+//        [self.view addSubview:lab];
+//        
+//        UILabel *downLab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lab.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 10)];
+//        downLab.textAlignment = NSTextAlignmentCenter;
+//        downLab.text = labArr[i];
+//        downLab.font = [UIFont systemFontOfSize:10];
+//        downLab.textColor = [UIColor darkGrayColor];
+//        [self.view addSubview:downLab];
+//        
+//        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * (i + 1), CGRectGetMaxY(lineView1.frame) + 10, 1, 40)];
+//        lineView.backgroundColor = [UIColor lightGrayColor];
+//        [self.view addSubview:lineView];
+//        
+//        maxY = CGRectGetMaxY(downLab.frame);
+//    }
+//    
+//    // 横线2
+//    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, maxY + 10, [UIScreen mainScreen].bounds.size.width, 1)];
+//    lineView2.backgroundColor = [UIColor lightGrayColor];
+//    [self.view addSubview:lineView2];
     
     // 横线3
-    UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(lineView2.frame) + 10, [UIScreen mainScreen].bounds.size.width, 1)];
+    UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(lineView1.frame) + 10, [UIScreen mainScreen].bounds.size.width, 1)];
     lineView3.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:lineView3];
     
@@ -195,7 +229,7 @@
 
 - (void)zhipaiButClick:(UIButton *)sender {
     
-    NSLog(@"===%@", _model.distance);
+//    NSLog(@"===%@", _model.distance);
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"orderId"] = _model.orderID;
@@ -203,7 +237,7 @@
     
     [GFHttpTool postAppintTechForOrder:mDic Success:^(id responseObject) {
         
-        NSLog(@"指派技师返回的数据＝＝＝＝%@", responseObject);
+//        NSLog(@"指派技师返回的数据＝＝＝＝%@", responseObject);
         if([responseObject[@"status"] integerValue] == 1) {
             
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -224,7 +258,7 @@
 // 添加导航
 - (void)setNavigation{
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"技师详情" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     //    [navView.rightBut addTarget:navView action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:navView];

@@ -55,7 +55,8 @@
 @property (nonatomic, strong) UILabel *tiemoLab;
 @property (nonatomic, strong) UILabel *timeLab;
 
-
+@property (nonatomic, strong) NSMutableArray *photoMarr;
+@property (nonatomic, strong) NSArray *curPhotoArr;
 
 @end
 
@@ -104,6 +105,15 @@
 
 - (void)_setView {
     
+    NSArray *arr1 = [self.model.photo componentsSeparatedByString:@","];
+    NSArray *arr2 = [self.model.beforePhotos componentsSeparatedByString:@","];
+    NSArray *arr3 = [self.model.afterPhotos componentsSeparatedByString:@","];
+    self.photoMarr = [[NSMutableArray alloc] init];
+    [self.photoMarr addObject:arr1];
+    [self.photoMarr addObject:arr2];
+    [self.photoMarr addObject:arr3];
+    self.curPhotoArr = self.photoMarr[0];
+    
     
     
     CGFloat baseViewW = kWidth;
@@ -121,7 +131,7 @@
     CGFloat bianhaoLabX = jianjv1;
     CGFloat bianhaoLabY = jiange2;
     self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, bianhaoLabY, bianhaoLabW, bianhaoLabH)];
-    self.bianhaoLab.text = [NSString stringWithFormat:@"订单编号%@",_model.orderNum];
+    self.bianhaoLab.text = [NSString stringWithFormat:@"订单编号：%@",_model.orderNum];
     self.bianhaoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.bianhaoLab];
     
@@ -148,7 +158,7 @@
     CGFloat timeLabX = bianhaoLabX;
     CGFloat timeLabY = CGRectGetMaxY(self.tiemoLab.frame);
     self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
-    self.timeLab.text = [NSString stringWithFormat:@"预约时间：%@",_model.agreedStartTime];
+    self.timeLab.text = [NSString stringWithFormat:@"预约施工时间：%@",_model.agreedStartTime];
     self.timeLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     self.timeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     [baseView addSubview:self.timeLab];
@@ -223,10 +233,12 @@
         but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , imgViewY + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
         but.tag = i + 1;
         [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
-        NSString *ss = [NSString stringWithFormat:@"http://10.0.12.221:12345%@", self.model.photoArr[i]];
+        NSString *ss = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.photoArr[i]];
         [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [baseView addSubview:but];
+        
+        [but setTitle:@"订单" forState:UIControlStateNormal];
         
         if(i == sum - 1) {
         
@@ -279,16 +291,17 @@
     [baseView addSubview:lineView3];
     
     
-    // 下单时间
-    CGFloat lab5W = kWidth * 0.2;
+    // 订单创建时间
+    CGFloat lab5W = kWidth * 0.3;
     CGFloat lab5H = kHeight * 0.026;
     CGFloat lab5X = jianjv2;
     CGFloat lab5Y = CGRectGetMaxY(contLab4.frame) + jiange4 * 2;
     UILabel *lab5 = [[UILabel alloc] initWithFrame:CGRectMake(lab5X, lab5Y, lab5W, lab5H)];
 //    lab5.backgroundColor = [UIColor redColor];
     [baseView addSubview:lab5];
+//    lab5.backgroundColor = [UIColor redColor];
     lab5.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
-    lab5.text = @"下单时间: ";
+    lab5.text = @"订单创建时间: ";
     NSString *lab5Str = _model.createTime;
     NSMutableDictionary *lab5Dic = [[NSMutableDictionary alloc] init];
     lab5Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -311,18 +324,82 @@
     [baseView addSubview:lineView4];
     
     
-    // 施工项目
-    CGFloat lab6W = kWidth * 0.2;
+    // 订单创建时间
+    CGFloat lab55W = kWidth * 0.3;
+    CGFloat lab55H = kHeight * 0.026;
+    CGFloat lab55X = jianjv2;
+    CGFloat lab55Y = CGRectGetMaxY(contLab5.frame) + jiange4 * 2;
+    UILabel *lab55 = [[UILabel alloc] initWithFrame:CGRectMake(lab55X, lab55Y, lab55W, lab55H)];
+    //    lab5.backgroundColor = [UIColor redColor];
+    [baseView addSubview:lab55];
+    //    lab5.backgroundColor = [UIColor redColor];
+    lab55.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab55.text = @"施工开始时间: ";
+    NSString *lab55Str = _model.startTime;
+    NSMutableDictionary *lab55Dic = [[NSMutableDictionary alloc] init];
+    lab55Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab55Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
+    CGRect fenRect55 = [lab55Str boundingRectWithSize:CGSizeMake(kWidth - lab55W - lab55X * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:lab55Dic context:nil];
+    CGFloat contLab55W = kWidth - lab55W - lab55X * 2;
+    CGFloat contLab55H = fenRect55.size.height;
+    CGFloat contLab55X = CGRectGetMaxX(lab55.frame);
+    CGFloat contLab55Y = lab55Y;
+    UILabel *contLab55 = [[UILabel alloc] initWithFrame:CGRectMake(contLab55X, contLab55Y, contLab55W, contLab55H)];
+    contLab55.numberOfLines = 0;
+    contLab55.text = lab55Str;
+    contLab55.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [baseView addSubview:contLab55];
+    
+    
+    // 边线
+    UIView *lineView444 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(contLab55.frame) + jiange4, kWidth - jianjv2 * 2.0, 1)];
+    lineView444.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [baseView addSubview:lineView444];
+    
+    
+    // 施工结束时间
+    CGFloat lab56W = kWidth * 0.3;
+    CGFloat lab56H = kHeight * 0.026;
+    CGFloat lab56X = jianjv2;
+    CGFloat lab56Y = CGRectGetMaxY(contLab55.frame) + jiange4 * 2;
+    UILabel *lab56 = [[UILabel alloc] initWithFrame:CGRectMake(lab56X, lab56Y, lab56W, lab56H)];
+    //    lab5.backgroundColor = [UIColor redColor];
+    [baseView addSubview:lab56];
+    lab56.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab56.text = @"施工结束时间: ";
+    NSString *lab56Str = _model.endTime;
+    NSMutableDictionary *lab56Dic = [[NSMutableDictionary alloc] init];
+    lab56Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    lab56Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
+    CGRect fenRect56 = [lab56Str boundingRectWithSize:CGSizeMake(kWidth - lab56W - lab56X * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:lab56Dic context:nil];
+    CGFloat contLab56W = kWidth - lab56W - lab56X * 2;
+    CGFloat contLab56H = fenRect56.size.height;
+    CGFloat contLab56X = CGRectGetMaxX(lab56.frame);
+    CGFloat contLab56Y = lab56Y;
+    UILabel *contLab56 = [[UILabel alloc] initWithFrame:CGRectMake(contLab56X, contLab56Y, contLab56W, contLab56H)];
+    contLab56.numberOfLines = 0;
+    contLab56.text = lab56Str;
+    contLab56.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [baseView addSubview:contLab56];
+    
+    // 边线
+    UIView *lineView44 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(contLab56.frame) + jiange4, kWidth - jianjv2 * 2.0, 1)];
+    lineView44.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [baseView addSubview:lineView44];
+    
+    
+    // 最迟交车时间
+    CGFloat lab6W = kWidth * 0.3;
     CGFloat lab6H = kHeight * 0.026;
     CGFloat lab6X = jianjv2;
-    CGFloat lab6Y = CGRectGetMaxY(lineView4.frame) + jiange4;
+    CGFloat lab6Y = CGRectGetMaxY(lineView44.frame) + jiange4;
     UILabel *lab6 = [[UILabel alloc] initWithFrame:CGRectMake(lab6X, lab6Y, lab6W, lab6H)];
     [baseView addSubview:lab6];
     lab6.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     // 获取项目
-    lab6.text = @"施工项目:";
+    lab6.text = @"最迟交车时间:";
 //    NSString *lab6Str = self.itemStr;
-    NSString *lab6Str = self.model.typeName;
+    NSString *lab6Str = self.model.agreedEndTime;
     NSMutableDictionary *lab6Dic = [[NSMutableDictionary alloc] init];
     lab6Dic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab6Dic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -412,16 +489,40 @@
         lineYY = beMaxY;
     }else {
         
-        NSArray *bePhotoArr = [bePhotoStr componentsSeparatedByString:@","];
-        NSInteger num = bePhotoArr.count;
-        extern NSString* const URLHOST;
-        _beforeImageArray = [[NSMutableArray alloc]init];
-        for(int i=0; i<num; i++) {
+//        NSArray *bePhotoArr = [bePhotoStr componentsSeparatedByString:@","];
+//        NSInteger num = bePhotoArr.count;
+//        extern NSString* const URLHOST;
+//        _beforeImageArray = [[NSMutableArray alloc]init];
+//        for(int i=0; i<num; i++) {
+//            
+//            [self addBeforImgView:[NSString stringWithFormat:@"%@%@", URLHOST, bePhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(beforeLab.frame) + jiange4 showInView:baseView];
+//        }
+        
+        
+        NSInteger sum = self.model.beforePhotosArr.count;
+        UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        for(int i=0; i<sum; i++) {
             
-            [self addBeforImgView:[NSString stringWithFormat:@"%@%@", URLHOST, bePhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(beforeLab.frame) + jiange4 showInView:baseView];
+            UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+            but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , CGRectGetMaxY(beforeLab.frame) + jiange4 + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
+            but.tag = i + 1;
+            [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+            NSString *ss = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.beforePhotosArr[i]];
+            [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
+            [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
+            [baseView addSubview:but];
+            
+            [but setTitle:@"施工前" forState:UIControlStateNormal];
+            
+            if(i == sum - 1) {
+                
+                but1 = but;
+            }
         }
         
-        lineYY = beMaxY + jianjv1;
+        
+        lineYY = CGRectGetMaxY(but1.frame) + jianjv1;
     }
     
     
@@ -444,26 +545,49 @@
     [baseView addSubview:afPhotoLab];
     //照片
     NSString *afPhotoStr = self.model.afterPhotos;
-    NSLog(@"+++++---+++++%@", afPhotoStr);
+//    NSLog(@"+++++---+++++%@", afPhotoStr);
     if([afPhotoStr isEqualToString:@"无"]) {
     
-
         afMaxY = CGRectGetMaxY(afPhotoLab.frame) + jiange4;
         afPhotoLab.text = @"施工后照片：该订单未完成，暂无照片";
         lineY = afMaxY;
 
     }else {
     
-        NSArray *afPhotoArr = [afPhotoStr componentsSeparatedByString:@","];
-        NSInteger sum = afPhotoArr.count;
-        extern NSString* const URLHOST;
-        _afterImageArray = [[NSMutableArray alloc]init];
+//        NSArray *afPhotoArr = [afPhotoStr componentsSeparatedByString:@","];
+//        NSInteger sum = afPhotoArr.count;
+//        extern NSString* const URLHOST;
+//        _afterImageArray = [[NSMutableArray alloc]init];
+//        for(int i=0; i<sum; i++) {
+//            
+//            [self addAfterImgView:[NSString stringWithFormat:@"%@%@", URLHOST, afPhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(afPhotoLab.frame) + jiange4 showInView:baseView];
+//        }
+        
+        
+        NSInteger sum = self.model.afterPhotosArr.count;
+        UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
+        
         for(int i=0; i<sum; i++) {
             
-            [self addAfterImgView:[NSString stringWithFormat:@"%@%@", URLHOST, afPhotoArr[i]] withPhotoIndex:i + 1 withFirstY:CGRectGetMaxY(afPhotoLab.frame) + jiange4 showInView:baseView];
+            UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+            but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , CGRectGetMaxY(afPhotoLab.frame) + jiange4 + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
+            but.tag = i + 1;
+            [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+            NSString *ss = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.afterPhotosArr[i]];
+            [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
+            [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
+            [baseView addSubview:but];
+            
+            [but setTitle:@"施工后" forState:UIControlStateNormal];
+            
+            if(i == sum - 1) {
+                
+                but1 = but;
+            }
         }
         
-        lineY = afMaxY + jianjv1;
+        
+        lineY = CGRectGetMaxY(but1.frame) + jianjv1;
     }
     
     
@@ -508,12 +632,18 @@
     UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImgViewX, iconImgViewY, iconImgViewW, iconImgViewH)];
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
-//    iconImgView.backgroundColor =[UIColor redColor];
-//    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.photo]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
-    iconImgView.image = [UIImage imageNamed:@"userHeadImage"];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@" ,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+//    iconImgView.image = [UIImage imageNamed:@"userHeadImage"];
     [iconView addSubview:iconImgView];
     // 姓名
     NSString *nameStr = @"无技师接单";
+    if([_model.techName isEqualToString:@"无"]) {
+        nameStr = @"无技师接单";
+    }else {
+        
+        nameStr = _model.techName;
+    }
+    
     NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
     nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -528,14 +658,15 @@
 //    nameLab.backgroundColor = [UIColor blueColor];
     [iconView addSubview:nameLab];
     // 电话号码
-    CGFloat phoneLabW = 150;
+    CGFloat phoneLabW = 200;
     CGFloat phoneLabH = nameLabH;
-//    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
+    CGFloat phoneLabX = CGRectGetMaxX(nameLab.frame);
     CGFloat phoneLabY = nameLabY;
     UIButton *phoneBtn = [[UIButton alloc] init];
     [phoneBtn addTarget:self action:@selector(cellTech) forControlEvents:UIControlEventTouchUpInside];
     phoneBtn.titleLabel.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     [phoneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [phoneBtn setTitle:_model.techPhone forState:UIControlStateNormal];
     phoneBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_scrollView addSubview:phoneBtn];
 
@@ -567,71 +698,71 @@
     numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [iconView addSubview:numLab];
     
-    // 菊花圈
-    //创建一个活动指示器的对象，并初始化它的样式
-    UIActivityIndicatorView *fengHuoLun = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    fengHuoLun.frame = CGRectMake(0, CGRectGetMaxY(jishiView.frame), 0, 0);
-    fengHuoLun.center = CGPointMake(kWidth / 2.0, CGRectGetMaxY(jishiView.frame));
-    // 开始风火轮
-    [fengHuoLun startAnimating];
-    // 设置风火轮停止之后是否隐藏
-    fengHuoLun.hidesWhenStopped = YES;
-    [_scrollView addSubview:fengHuoLun];
+//    // 菊花圈
+//    //创建一个活动指示器的对象，并初始化它的样式
+//    UIActivityIndicatorView *fengHuoLun = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    fengHuoLun.frame = CGRectMake(0, CGRectGetMaxY(jishiView.frame), 0, 0);
+//    fengHuoLun.center = CGPointMake(kWidth / 2.0, CGRectGetMaxY(jishiView.frame));
+//    // 开始风火轮
+//    [fengHuoLun startAnimating];
+//    // 设置风火轮停止之后是否隐藏
+//    fengHuoLun.hidesWhenStopped = YES;
+//    [_scrollView addSubview:fengHuoLun];
     //5秒之后调用stopAnimating方法
 //    [fengHuoLun performSelector:@selector(stopAnimating) withObject:fengHuoLun afterDelay:25];
 
     
-    [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderID} success:^(id responseObject) {
+//    [GFHttpTool GetTechnicianParameters:@{@"orderId":_model.orderID} success:^(id responseObject) {
 //        NSLog(@"请求成功－－－%@---",responseObject);
-        if ([responseObject[@"result"] integerValue] == 1) {
-            
+        if (![_model.techPhone isEqualToString:@"无"]) {
+    
 
             // 菊花圈停止转动并消失
-            [fengHuoLun stopAnimating];
+//            [fengHuoLun stopAnimating];
             
 
             
-            NSDictionary *dataDictionary = responseObject[@"data"];
+//            NSDictionary *dataDictionary = responseObject[@"data"];
 //            if([dataDictionary isKindOfClass:[NSNull class]]) {
 //                
 //                _scrollView.contentSize = CGSizeMake(0, afMaxY);
 //            }
-            NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@" ,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+//            NSDictionary *technicianDictionary = dataDictionary[@"technician"];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000:12345%@" ,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             
             
-            NSString *nameStr = [[NSString alloc] init];
-            nameStr = [NSString stringWithFormat:@"%@   ", technicianDictionary[@"name"]];
-            NSMutableDictionary *nameDic = [[NSMutableDictionary alloc] init];
-            nameDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
-            nameDic[NSForegroundColorAttributeName] = [UIColor blackColor];
-            CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic context:nil];
-            nameLab.text = nameStr;
+            NSString *nameStr2 = [[NSString alloc] init];
+            nameStr2 = [NSString stringWithFormat:@"%@   ", _model.techName];
+            NSMutableDictionary *nameDic2 = [[NSMutableDictionary alloc] init];
+            nameDic2[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
+            nameDic2[NSForegroundColorAttributeName] = [UIColor blackColor];
+            CGRect nameRect = [nameStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:nameDic2 context:nil];
+            nameLab.text = nameStr2;
             nameLab.frame = CGRectMake(nameLabX, nameLabY, nameRect.size.width, nameLabH);
             
-            NSString *indentStr = @"订单数:";
-            NSMutableDictionary *indentDic = [[NSMutableDictionary alloc] init];
-            indentDic[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
-            indentDic[NSForegroundColorAttributeName] = [UIColor blackColor];
-            CGRect indentRect = [indentStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:indentDic context:nil];
-            CGFloat indentLabW = indentRect.size.width;
-            CGFloat indentLabH = indentRect.size.height;
-            CGFloat indentLabX = nameLabX;
-            CGFloat indentLabY = CGRectGetMaxY(nameLab.frame) + kHeight * 0.0183;
-            indentLab.frame = CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH);
-            indentLab.text = indentStr;
+            NSString *indentStr2 = @"订单数:";
+            NSMutableDictionary *indentDic2 = [[NSMutableDictionary alloc] init];
+            indentDic2[NSFontAttributeName] = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
+            indentDic2[NSForegroundColorAttributeName] = [UIColor blackColor];
+            CGRect indentRect2 = [indentStr2 boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:indentDic2 context:nil];
+            CGFloat indentLab2W = indentRect2.size.width;
+            CGFloat indentLab2H = indentRect2.size.height;
+            CGFloat indentLab2X = nameLabX;
+            CGFloat indentLab2Y = CGRectGetMaxY(nameLab.frame) + kHeight * 0.0183;
+            indentLab.frame = CGRectMake(indentLab2X, indentLab2Y, indentLab2W, indentLab2H);
+            indentLab.text = indentStr2;
             
             // 电话号码
-            phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame), phoneLabY+CGRectGetMaxY(jishiView.frame), phoneLabW, phoneLabH);
-            [phoneBtn setTitle:technicianDictionary[@"phone"] forState:UIControlStateNormal];
-            _phoneString = technicianDictionary[@"phone"];
+            phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame)  + 10, phoneLabY+CGRectGetMaxY(jishiView.frame), phoneLabW, phoneLabH);
+            [phoneBtn setTitle:_model.techPhone forState:UIControlStateNormal];
+//            _phoneString = technicianDictionary[@"phone"];
 //            phoneBtn.backgroundColor = [UIColor cyanColor];
             
             
             
             // 订单数目
             NSString *numStr = [[NSString alloc] init];
-            numStr = [NSString stringWithFormat:@"%@", dataDictionary[@"totalOrders"]];
+            numStr = [NSString stringWithFormat:@"%@", _model.orderCount];
             NSMutableDictionary *numDic = [[NSMutableDictionary alloc] init];
             numDic[NSFontAttributeName] = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
             numDic[NSForegroundColorAttributeName] = [UIColor blackColor];
@@ -647,7 +778,7 @@
             
             
             // 橘色星星
-            for(int i=0; i<round([dataDictionary[@"starRate"] floatValue]); i++) {
+            for(int i=0; i<[_model.evaluate integerValue]; i++) {
                 
                 CGFloat starImgViewW = nameLabH - 2;
                 CGFloat starImgViewH = nameLabH - 2;
@@ -663,11 +794,11 @@
             
             
             // 灰色星星
-            for(int i=0; i < 5-round([dataDictionary[@"starRate"] floatValue]); i++) {
+            for(int i=0; i < 5 - [_model.evaluate integerValue]; i++) {
                 
                 CGFloat starImgViewW = nameLabH - 2;
                 CGFloat starImgViewH = nameLabH - 2;
-                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + round([dataDictionary[@"starRate"] floatValue]));
+                CGFloat starImgViewX = CGRectGetMaxX(numLab.frame) + kHeight * 0.014 + starImgViewW * (i + [_model.evaluate integerValue]);
                 CGFloat starImgViewY = numLabY;
                 UIImageView *starImgView = [[UIImageView alloc] initWithFrame:CGRectMake(starImgViewX, starImgViewY, starImgViewW, starImgViewH)];
                 starImgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -682,16 +813,16 @@
             
         }else {
 
-            [fengHuoLun stopAnimating];
+//            [fengHuoLun stopAnimating];
             _scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(iconView.frame) + 64);
         }
         
         
-        
-    } failure:^(NSError *error) {
-//        NSLog(@"请求失败－－－%@---",error);
-//        [self addAlertView:@"请求失败"];
-    }];
+//        
+//    } failure:^(NSError *error) {
+////        NSLog(@"请求失败－－－%@---",error);
+////        [self addAlertView:@"请求失败"];
+//    }];
     
     
     
@@ -707,11 +838,23 @@
 
 - (void)butClick:(UIButton *)sender {
     
+    if([sender.titleLabel.text isEqualToString:@"订单"]) {
+        
+        self.curPhotoArr = self.photoMarr[0];
+    }else if([sender.titleLabel.text isEqualToString:@"施工前"]) {
+        
+        self.curPhotoArr = self.photoMarr[1];
+    }else {
+        
+        self.curPhotoArr = self.photoMarr[2];
+    }
+    
+    
     HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
     
     browser.sourceImagesContainerView = sender.superview;
     
-    browser.imageCount = self.model.photoArr.count;
+    browser.imageCount = self.curPhotoArr.count;
     
     browser.currentImageIndex = sender.tag - 1;
     
@@ -722,7 +865,7 @@
 
 - (void)pingjiaButClick:(UIButton *)sender {
     
-    NSLog(@"========%@", sender.titleLabel.text);
+//    NSLog(@"========%@", sender.titleLabel.text);
     
     if([sender.titleLabel.text isEqualToString:@"去评价"]) {
         
@@ -743,7 +886,7 @@
 }
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
     
-    NSURL *url = [NSURL URLWithString:self.model.photoArr[index]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.curPhotoArr[index]]];
     
     return url;
 }

@@ -33,9 +33,6 @@
 @property (nonatomic, strong) GFNavigationView *navView;
 
 @property (nonatomic, strong) GFTextField *enterpriseTxt;
-@property (nonatomic, strong) GFTextField *phoneTxt;
-@property (nonatomic, strong) GFTextField *passwordTxt;
-
 @end
 
 @implementation GFSignInViewController
@@ -93,7 +90,6 @@
     self.passwordTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.passwordTxt];
     self.passwordTxt.delegate = self;
-    
     
     UIButton *eyeButton = [[UIButton alloc]init];
     eyeButton.frame = CGRectMake(0, 0, kWidth * 0.09, kHeight * 0.025);
@@ -184,7 +180,7 @@
                 
                 [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
                     
-                    NSLog(@"---登录返回---%@---",responseObject);
+//                    NSLog(@"---登录返回---%@---",responseObject);
                     
                     if ([responseObject[@"status"] integerValue] == 1) {
                         

@@ -27,6 +27,9 @@
 
 #import "CLAddPersonModel.h"
 
+#import "GFJishiDDViewController.h"
+#import "GFTipView.h"
+
 
 #define MYBUNDLE_NAME @ "mapapi.bundle"
 #define MYBUNDLE_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MYBUNDLE_NAME]
@@ -72,13 +75,26 @@
 
 - (void)jishixinxiClick {
     
-    NSLog(@"跳转到技师详情页面＝＝＝＝");
-    
-    [GFHttpTool getjishiDetailOrderId:0 success:^(id responseObject) {
+//    NSLog(@"跳转到技师详情页面＝＝＝＝");
+    NSInteger ID = [self.model.techId integerValue];
+    [GFHttpTool getjishiDetailOrderId:ID success:^(id responseObject) {
+        
+//        NSLog(@"--技师详情--%@", responseObject);
+        
+        if([responseObject[@"status"] integerValue] == 1) {
+        
+            CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:responseObject[@"message"]];
+//            GFDetailPeoViewController *deVC = [[GFDetailPeoViewController alloc] init];
+            GFJishiDDViewController *deVC = [[GFJishiDDViewController alloc] init];
+            deVC.model = model;
+            
+            [self.navigationController pushViewController:deVC animated:YES];
+        }
+        
+//        printf(@"====%s", responseObject);
         
         
         
-        GFDetailPeoViewController *deVC = [[GFDetailPeoViewController alloc] init];
 //        deVC.model
     } failure:^(NSError *error) {
         
@@ -100,7 +116,8 @@
     [vv3 addSubview:kejiView];
     UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
     but.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 10, kejiView.frame.size.height);
-    but.backgroundColor = [UIColor redColor];
+    but.backgroundColor = [UIColor clearColor];
+    but.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [but setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
     [but addTarget:self action:@selector(jishixinxiClick) forControlEvents:UIControlEventTouchUpInside];
     [kejiView addSubview:but];
@@ -112,7 +129,7 @@
     //    [self.mapView setZoomLevel:13];
     [vv3 addSubview:self.mapView];
     
-    NSLog(@"===%f,,,%f", [self.model.techLatitude floatValue], [self.model.techLongitude floatValue]);
+//    NSLog(@"===%f,,,%f", [self.model.techLatitude floatValue], [self.model.techLongitude floatValue]);
     if([self.model.techLatitude floatValue] == 0 && [self.model.techLongitude floatValue] == 0) {
     
         // 商户大头针
@@ -167,7 +184,23 @@
     }
     
     
-    UIView *vv1 = [[UIView alloc] initWithFrame:CGRectMake(-1, 10, [UIScreen mainScreen].bounds.size.width + 2, 170)];
+    
+    NSString *fenStr = [NSString stringWithFormat:@"下单备注：%@", self.model.remark];
+    NSMutableDictionary *fenDic = [[NSMutableDictionary alloc] init];
+    fenDic[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+    fenDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+    CGRect fenRect = [fenStr boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 10, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:fenDic context:nil];
+    CGFloat ff = fenRect.size.height - 30.0;
+    CGFloat a;
+    if(ff >= 0) {
+    
+        a = fenRect.size.height;
+    }else {
+        
+        a = 30;
+    }
+    
+    UIView *vv1 = [[UIView alloc] initWithFrame:CGRectMake(-1, 10, [UIScreen mainScreen].bounds.size.width + 2, 205 + a)];
     vv1.layer.borderWidth = 1;
     vv1.layer.borderColor = [[UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1] CGColor];
     vv1.backgroundColor = [UIColor whiteColor];
@@ -185,10 +218,10 @@
     chedanBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 6 - 50, bianhaoLab.frame.origin.y, 50, 30);
     [chedanBut setTitle:@"撤单" forState:UIControlStateNormal];
     chedanBut.titleLabel.font = [UIFont systemFontOfSize:13];
-    [chedanBut setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [chedanBut setTitleColor:[UIColor colorWithRed:88 / 255.0 green:88 / 255.0 blue:88 / 255.0 alpha:1] forState:UIControlStateNormal];
     chedanBut.layer.cornerRadius = 5;
     chedanBut.layer.borderWidth = 1;
-    chedanBut.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    chedanBut.layer.borderColor = [[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1] CGColor];
     [vv1 addSubview:chedanBut];
     [chedanBut addTarget:self action:@selector(chedanButClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -213,11 +246,42 @@
     UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(bianhaoLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
     timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     timeLab.font = [UIFont systemFontOfSize:14];
-    timeLab.text = @"已施工88分钟";
     [vv1 addSubview:timeLab];
+    if([self.model.statusName isEqualToString:@"施工中"]){
+    
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+        NSDate *dd = [formatter dateFromString:self.model.startTime];
+        NSInteger time = (NSInteger)[[NSDate date] timeIntervalSince1970] - (NSInteger)[dd timeIntervalSince1970];
+//        NSLog(@"-已经开始---%ld", time);
+        
+        NSInteger mm = time / 60;
+        
+        NSInteger fen = mm % 60;
+        NSInteger hour = mm / 60;
+        if(hour > 0) {
+            
+            timeLab.text = [NSString stringWithFormat:@"已施工 %ld小时%ld分", hour, fen];
+        }else {
+        
+            timeLab.text = [NSString stringWithFormat:@"已施工 %ld分", fen];
+        }
+        
+    }else {
+        
+        timeLab.text = self.model.statusName;
+    }
+    
+    // 施工项目
+    UILabel *proLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(timeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    proLab.textColor = [UIColor darkGrayColor];
+    proLab.font = [UIFont systemFontOfSize:14];
+    proLab.text = [NSString stringWithFormat:@"施工项目：%@", self.model.typeName];
+    [vv1 addSubview:proLab];
     
     // 预约施工时间
-    UILabel *yuyueTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(timeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *yuyueTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(proLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
     yuyueTimeLab.textColor = [UIColor darkGrayColor];
     yuyueTimeLab.font = [UIFont systemFontOfSize:14];
     yuyueTimeLab.text = [NSString stringWithFormat:@"预约施工时间：%@", self.model.agreedStartTime];
@@ -227,15 +291,24 @@
     UILabel *zuicheTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(yuyueTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
     zuicheTimeLab.textColor = [UIColor darkGrayColor];
     zuicheTimeLab.font = [UIFont systemFontOfSize:14];
-    zuicheTimeLab.text = [NSString stringWithFormat:@"最迟交车时间%@", self.model.agreedEndTime];
+    zuicheTimeLab.text = [NSString stringWithFormat:@"最迟交车时间：%@", self.model.agreedEndTime];
     [vv1 addSubview:zuicheTimeLab];
     
-    // 下单时间
+    // 订单创建时间
     UILabel *xiadanTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(zuicheTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
     xiadanTimeLab.textColor = [UIColor darkGrayColor];
     xiadanTimeLab.font = [UIFont systemFontOfSize:14];
     xiadanTimeLab.text = [NSString stringWithFormat:@"订单创建时间：%@", self.model.createTime];
     [vv1 addSubview:xiadanTimeLab];
+    
+    // 下单备注
+    UILabel *beizhuLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(xiadanTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, fenRect.size.height)];
+    beizhuLab.textColor = [UIColor darkGrayColor];
+    beizhuLab.font = [UIFont systemFontOfSize:14];
+    beizhuLab.numberOfLines = 0;
+    beizhuLab.text = fenStr;
+    [vv1 addSubview:beizhuLab];
+    
 
     // 订单图片
     UIView *vv2 = [[UIView alloc] initWithFrame:CGRectMake(-1, CGRectGetMaxY(vv1.frame) + 10, kWidth + 2, 100)];
@@ -253,7 +326,7 @@
         but.frame = CGRectMake((i % 3) * (butImgW + 10) + 10, (i / 3) * (butImgH + 10) + 10, butImgW, butImgH);
         but.tag = i + 1;
 //        [but setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://10.0.12.221:12345%@", self.model.photoUrlArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.photoUrlArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [vv2 addSubview:but];
     }
@@ -275,26 +348,51 @@
 
 - (void)chedanButClick {
     
-    UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [self.view addSubview:aView];
-    aView.delegate = self;
-    [aView show];
-    
+//    UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//    [self.view addSubview:aView];
+//    aView.delegate = self;
+//    [aView show];
+    if(![_model.statusName isEqualToString:@"已出发"] && ![_model.statusName isEqualToString:@"已签到"] && ![_model.statusName isEqualToString:@"施工中"]) {
+        
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [self.view addSubview:aView];
+        aView.delegate = self;
+        [aView show];
+    }else {
+        
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"已开始施工的订单不可撤销" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [self.view addSubview:aView];
+        [aView show];
+    }
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonInde {
     
-    NSLog(@"=====++++=%ld===", buttonInde);
+//    NSLog(@"=====++++=%ld===", buttonInde);
     if(buttonInde == 1) {
         
         [GFHttpTool postCanceledOrder:self.model.orderID Success:^(id responseObject) {
             
-            NSLog(@"==撤单返回的信息==%@", responseObject);
+//            NSLog(@"==撤单返回的信息==%@", responseObject);
             
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+            if([responseObject[@"status"] integerValue] == 1) {
+                
+                [self tipShow:@"撤单成功！"];
+                [self performSelector:@selector(successWork) withObject:nil afterDelay:1];
+            }else {
+                
+                if([responseObject[@"message"] isKindOfClass:[NSNull class]]) {
+                    
+                    [self tipShow:@"撤单失败，请重试或联系上头"];
+                }else {
+                    
+                    [self tipShow:responseObject[@"message"]];
+                }
+            }
             
-            [self.noIndentVC.tableView.header beginRefreshing];
-            [self.navigationController popViewControllerAnimated:YES];
+//            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+            
+            
             
         } failure:^(NSError *error) {
             
@@ -303,6 +401,21 @@
     }
 }
 
+- (void)successWork {
+    
+    
+    [self.noIndentVC.tableView.header beginRefreshing];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+
+}
+- (void)tipShow:(NSString *)string{
+    
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:string withShowTimw:2.5];
+    [tipView tipViewShow];
+    
+}
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
     
@@ -340,7 +453,7 @@
 }
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://10.0.12.221:12345%@", self.model.photoUrlArr[index]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.photoUrlArr[index]]];
     
     return url;
 }
@@ -348,7 +461,7 @@
 // 添加导航
 - (void)setNavigation{
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"订单详情" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     //    [navView.rightBut addTarget:navView action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:navView];

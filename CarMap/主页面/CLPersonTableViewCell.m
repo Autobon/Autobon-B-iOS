@@ -45,11 +45,11 @@
     
     self.nameLab.text = model.name;
     self.danshuLab.text = [NSString stringWithFormat:@"%@单", model.orderCount];
-    self.gereLab.text = [NSString stringWithFormat:@"隔热膜：%@", model.filmLevel];
-    self.gaiseLab.text = [NSString stringWithFormat:@"车身改色：%@", model.colorModifyLevel];
-    self.cheyiLab.text = [NSString stringWithFormat:@"隐形车衣：%@", model.carCoverLevel];
-    self.meirongLab.text = [NSString stringWithFormat:@"美容清洁：%@", model.beautyLevel];
-    self.jvliLab.text = [NSString stringWithFormat:@"%@ km", model.distance];
+    self.gereLab.text = [NSString stringWithFormat:@"隔热膜：%@星", model.filmLevel];
+    self.gaiseLab.text = [NSString stringWithFormat:@"车身改色：%@星", model.colorModifyLevel];
+    self.cheyiLab.text = [NSString stringWithFormat:@"隐形车衣：%@星", model.carCoverLevel];
+    self.meirongLab.text = [NSString stringWithFormat:@"美容清洁：%@星", model.beautyLevel];
+    self.jvliLab.text = [NSString stringWithFormat:@"%.2f km", [model.distance floatValue]];
     
 }
 
@@ -137,7 +137,7 @@
 
 - (void)zhipaiButClick:(UIButton *)sender {
     
-    NSLog(@"===%@", _model.distance);
+//    NSLog(@"===%@", _model.distance);
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"orderId"] = _model.orderID;
@@ -145,7 +145,7 @@
     
     [GFHttpTool postAppintTechForOrder:mDic Success:^(id responseObject) {
         
-        NSLog(@"指派技师返回的数据＝＝＝＝%@", responseObject);
+//        NSLog(@"指派技师返回的数据＝＝＝＝%@", responseObject);
         if([responseObject[@"status"] integerValue] == 1) {
         
             [[self viewController].navigationController popToRootViewControllerAnimated:YES];

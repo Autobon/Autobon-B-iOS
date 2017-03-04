@@ -12,6 +12,7 @@
 #import "GFHttpTool.h"
 #import "GFNoIndentViewController.h"
 #import "MJRefresh.h"
+#import "GFTipView.h"
 
 @interface GFNoInTableViewCell()
 
@@ -88,12 +89,12 @@
         vv.layer.borderWidth = 1;
         [self.contentView addSubview:vv];
         
-        UIImageView *ii = [[UIImageView alloc] initWithFrame:CGRectMake(5, 15, 20, 20)];
-        ii.image = [UIImage imageNamed:@"tishi"];
-        [vv addSubview:ii];
+//        UIImageView *ii = [[UIImageView alloc] initWithFrame:CGRectMake(5, 15, 20, 20)];
+//        ii.image = [UIImage imageNamed:@"tishi"];
+//        [vv addSubview:ii];
         
         // 订单编号
-        self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(30, 10, 200, 30)];
+        self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 30)];
         self.bianhaoLab.text = @"我就不信这么多字还满足不了";
         self.bianhaoLab.font = [UIFont boldSystemFontOfSize:13];
         self.bianhaoLab.textColor = [UIColor darkGrayColor];
@@ -106,10 +107,10 @@
         self.chedanBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 5 - 50, self.bianhaoLab.frame.origin.y, 50, 30);
         [self.chedanBut setTitle:@"撤单" forState:UIControlStateNormal];
         self.chedanBut.titleLabel.font = [UIFont systemFontOfSize:13];
-        [self.chedanBut setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.chedanBut setTitleColor:[UIColor colorWithRed:88 / 255.0 green:88 / 255.0 blue:88 / 255.0 alpha:1] forState:UIControlStateNormal];
         self.chedanBut.layer.cornerRadius = 5;
         self.chedanBut.layer.borderWidth = 1;
-        self.chedanBut.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.chedanBut.layer.borderColor = [[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1] CGColor];;
         [vv addSubview:self.chedanBut];
         [self.chedanBut addTarget:self action:@selector(chedanButClick) forControlEvents:UIControlEventTouchUpInside];
         
@@ -124,7 +125,7 @@
         [self.zhipaiBut addTarget:self action:@selector(zhipaiButClick:) forControlEvents:UIControlEventTouchUpInside];
         
         // 施工项目
-        self.proLab = [[UILabel alloc] initWithFrame:CGRectMake(30, CGRectGetMaxY(self.bianhaoLab.frame) + 5, 250, 30)];
+        self.proLab = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bianhaoLab.frame) + 5, 250, 30)];
         self.proLab.textColor = [UIColor grayColor];
         self.proLab.font = [UIFont systemFontOfSize:12];
         self.proLab.text = @"隔热膜，隐形车衣，美容清洁，车身改色";
@@ -145,30 +146,60 @@
 
 - (void)chedanButClick {
     
-    UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [[self viewController].view addSubview:aView];
-    aView.delegate = self;
-    [aView show];
+    if(![_model.statusName isEqualToString:@"已出发"] && ![_model.statusName isEqualToString:@"已签到"] && ![_model.statusName isEqualToString:@"施工中"]) {
+        
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [[self viewController].view addSubview:aView];
+        aView.delegate = self;
+        [aView show];
+    }else {
+    
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"已开始施工的订单不可撤销" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [[self viewController].view addSubview:aView];
+        [aView show];
+    }
     
 
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonInde {
     
-    NSLog(@"=====++++=%ld===", buttonInde);
+//    NSLog(@"=====++++=%ld===", buttonInde);
     if(buttonInde == 1) {
     
         [GFHttpTool postCanceledOrder:self.model.orderID Success:^(id responseObject) {
     
-            NSLog(@"==撤单返回的信息==%@", responseObject);
-            GFNoIndentViewController *vc = (GFNoIndentViewController *)[self viewController];
-            [vc.tableView.header beginRefreshing];
-//            [vc httpWork];
+//            NSLog(@"==撤单返回的信息==%@", responseObject);
+            
+            if([responseObject[@"status"] integerValue] == 1) {
+                
+                GFNoIndentViewController *vc = (GFNoIndentViewController *)[self viewController];
+                [vc.tableView.header beginRefreshing];
+                [self tipShow:@"撤单成功"];
+                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+            }else {
+                
+                if([responseObject[@"message"] isKindOfClass:[NSNull class]]) {
+                
+                    [self tipShow:@"撤单失败！"];
+                }else {
+                    
+                    [self tipShow:responseObject[@"message"]];
+                }
+            }
     
         } failure:^(NSError *error) {
             
             
         }];
     }
+}
+
+- (void)tipShow:(NSString *)string{
+    
+    GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:string withShowTimw:2.5];
+    [tipView tipViewShow];
+    
 }
 
 - (void)zhipaiButClick:(UIButton *)sender {

@@ -188,17 +188,17 @@
                 CLIndentModel *model = [[CLIndentModel alloc]init];
                 model.orderId = obj[@"id"];
 //                NSLog(@"-------id-----%@--",model.orderId);
-                model.orderNum = [NSString stringWithFormat:@"订单编号%@",obj[@"orderNum"]];
+                model.orderNum = [NSString stringWithFormat:@"订单编号：%@",obj[@"orderNum"]];
                 model.orderStatus = obj[@"status"];
                 NSInteger type = [obj[@"orderType"] integerValue] - 1;
                 model.orderType = typeArray[type];
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] floatValue]/1000];
-                model.orderTime = [NSString stringWithFormat:@"预约时间 %@",[formatter stringFromDate:date]];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[obj[@"orderTime"] doubleValue]/1000];
+                model.orderTime = [NSString stringWithFormat:@"预约时间：%@",[formatter stringFromDate:date]];
                 model.photo = obj[@"photo"];
                 model.remark = obj[@"remark"];
                 
-                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] floatValue]/1000];
-                model.addTime = [NSString stringWithFormat:@"下单时间 %@",[formatter stringFromDate:date]];
+                date = [NSDate dateWithTimeIntervalSince1970:[obj[@"addTime"] doubleValue]/1000];
+                model.addTime = [NSString stringWithFormat:@"下单时间：%@",[formatter stringFromDate:date]];
                 [_modelMutableArray addObject:model];
                 
                 if ([obj[@"mainTech"] isKindOfClass:[NSNull class]]) {
@@ -372,10 +372,10 @@
 }
 
 - (void)removeSelectOrder:(UIButton *)button{
-    NSLog(@"撤单按钮被点击了，订单id为－－%@",@(button.tag));
+//    NSLog(@"撤单按钮被点击了，订单id为－－%@",@(button.tag));
     [GFHttpTool postCanceledOrder:[NSString stringWithFormat:@"%ld",button.tag] Success:^(id responseObject) {
-        NSLog(@"---撤单成功－－%@",responseObject);
-        if ([responseObject[@"result"] integerValue] == 1) {
+//        NSLog(@"---撤单成功－－%@",responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
             [self tipShow:@"撤单成功"];
             [self headRefresh];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
@@ -386,7 +386,7 @@
         
         
     } failure:^(NSError *error) {
-        //        NSLog(@"--撤单失败-----%@-",error);
+//                NSLog(@"--撤单失败-----%@-",error);
         //        [self tipShow:@"撤单失败"];
     }];
     

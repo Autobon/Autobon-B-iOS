@@ -15,8 +15,11 @@
 
 
 
-NSString* const HOST = @"http://10.0.12.221:12345/api/mobile";
-NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
+NSString* const HOST = @"http://121.40.219.58:8000/api/mobile";
+NSString* const PUBHOST = @"http://121.40.219.58:8000/api";
+
+//NSString* const HOST = @"http://dev.incardata.com.cn:12345/api/mobile";
+//NSString* const PUBHOST = @"http://dev.incardata.com.cn:12345/api";
 
 //NSString* const HOST = @"http://hpecar.com:8012/api/mobile";
 //NSString* const PUBHOST = @"http://hpecar.com:8012/api";
@@ -102,7 +105,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         
 //        NSString *suffixURL = @"/coop/merchant/certificate";
 //        NSString *url = [NSString stringWithFormat:@"%@%@", HOST, suffixURL];
-        NSString *url = @"http://10.0.12.221:12345/api/mobile/coop/merchant/certificate";
+        NSString *url = @"http://121.40.219.58:8000/api/mobile/coop/merchant/certificate";
         GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"提交中..."];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         // 请求超时时间设置
@@ -117,7 +120,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         
         // 获取token
         NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"];
-        NSLog(@"---%@--\n--%@", url, token);
+//        NSLog(@"---%@--\n--%@", url, token);
 //        autoken="cooperator:/Ga65PRJ+9fUyAWFKA5mzQ=="
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         
@@ -139,7 +142,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
                     [GFHttpTool addAlertView:@"请求失败，请重试"];
                 }
                 
-                NSLog(@"===%@", errorStr);
+//                NSLog(@"===%@", errorStr);
                 
                 failure(error);
             }
@@ -249,7 +252,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/login",HOST];
-        NSLog(@"-----%@----%@---",URLString,parameters);
+//        NSLog(@"-----%@----%@---",URLString,parameters);
         [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             
@@ -262,7 +265,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
                 if ([cookie.name isEqualToString:@"autoken"]) { // 获取响应头数组对象里地名字为autoken的对象
 //                    NSLog(@"############%@", [NSString stringWithFormat:@"%@=%@",[cookie name],[cookie value]]); //获取响应头数组对象里地名字为autoken的对象的数据，这个数据是用来验证用户身份相当于“key”
                     [autokenValue setObject:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forKey:@"autoken"];
-                    NSLog(@"===autoken===\n%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"]);
+//                    NSLog(@"===autoken===\n%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"]);
                     break;
                 }
             }
@@ -979,7 +982,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
 + (void)getjishiDetailOrderId:(NSInteger )jishiID success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
 
     if ([GFHttpTool isConnectionAvailable]) {
-        
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"正在获取技师信息..."];
         NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         
@@ -994,16 +997,16 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         
         NSString *token = [userDefaultes objectForKey:@"autoken"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
-        NSString *URLString = [NSString stringWithFormat:@"%@coop/merchant/technician/%ld",HOST, jishiID];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/technician/%ld",HOST, jishiID];
         
         
         [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
-            
+            [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            [alertView removeFromSuperview];
             if(failure) {
                 
                 // 判断请求超时
@@ -1036,6 +1039,10 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        // 清除NULL
+        AFJSONResponseSerializer *response = (AFJSONResponseSerializer *)manager.responseSerializer;
+        response.removesKeysWithNullValues = YES;
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/getSaleList",HOST];
@@ -1320,6 +1327,9 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         manager.requestSerializer.timeoutInterval = 30;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        
         [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
             if(success) {
@@ -1423,7 +1433,7 @@ NSString* const PUBHOST = @"http://10.0.12.221:12345/api";
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop//merchant/order/%@/cancel",HOST,orderId];
-        NSLog(@"--URLString----%@--",URLString);
+//        NSLog(@"--URLString----%@--",URLString);
         
         [manager PUT:URLString parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             

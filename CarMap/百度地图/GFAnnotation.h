@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BMKAnnotation.h"
+//#import "BMKAnnotation.h"
+#import <BaiduMapAPI_Map/BMKAnnotation.h>
 
 @interface GFAnnotation : NSObject <BMKAnnotation>
 

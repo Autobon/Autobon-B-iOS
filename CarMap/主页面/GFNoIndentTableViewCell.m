@@ -80,10 +80,10 @@
         _removeOrderButton = [[UIButton alloc]init];
         _removeOrderButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, CGRectGetMidY(_indentView.frame)-kHeight * 0.016, 50, kHeight * 0.032);
         [_removeOrderButton setTitle:@"撤单" forState:UIControlStateNormal];
-        [_removeOrderButton setTitleColor:[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [_removeOrderButton setTitleColor:[UIColor colorWithRed:88 / 255.0 green:88 / 255.0 blue:88 / 255.0 alpha:1] forState:UIControlStateNormal];
         _removeOrderButton.layer.cornerRadius = 5;
         _removeOrderButton.layer.borderWidth = 1.0;
-        _removeOrderButton.layer.borderColor = [[UIColor colorWithRed:217/255.0 green:105/255.0 blue:42/255.0 alpha:1.0]CGColor];
+        _removeOrderButton.layer.borderColor = [[UIColor colorWithRed:153.0 / 255.0 green:153.0 / 255.0 blue:153.0 / 255.0 alpha:1] CGColor];
         _removeOrderButton.titleLabel.font = [UIFont systemFontOfSize:13];
 
         [self.baseView addSubview:_removeOrderButton];

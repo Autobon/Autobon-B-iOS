@@ -20,6 +20,7 @@
 
 @property (nonatomic, copy) NSString *techLatitude;     // 技师的维度
 @property (nonatomic, copy) NSString *techLongitude;    // 技师的经度
+@property (nonatomic, copy) NSString *techId;           // 技师ID
 
 
 

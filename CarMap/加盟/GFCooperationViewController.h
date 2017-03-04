@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BaiduMapAPI_Map/BMKMapComponent.h>
-#import <BaiduMapAPI_Search/BMKSearchComponent.h>
+//#import <BaiduMapAPI_Map/BMKMapComponent.h>
+//#import <BaiduMapAPI_Search/BMKSearchComponent.h>
+//<BMKMapViewDelegate, BMKPoiSearchDelegate>
 
-
-@interface GFCooperationViewController : UIViewController<BMKMapViewDelegate, BMKPoiSearchDelegate> {
-    BMKMapView* _mapView;
+@interface GFCooperationViewController : UIViewController {
+//    BMKMapView* _mapView;
     UITextField* _cityText;
     UITextField* _keyText;
     UIButton* _nextPageButton;
-    BMKPoiSearch* _poisearch;
+//    BMKPoiSearch* _poisearch;
     int curPage;
 }
 

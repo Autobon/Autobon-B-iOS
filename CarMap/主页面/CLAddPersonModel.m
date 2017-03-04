@@ -17,11 +17,18 @@
     
     if(self != nil) {
         
-        _avatar = [NSString stringWithFormat:@"%@", dic[@"avatar"]];
+        _avatar = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", dic[@"avatar"]];
         _jishiID = [NSString stringWithFormat:@"%@", dic[@"id"]];
         _name = [NSString stringWithFormat:@"%@", dic[@"name"]];
         _phone = [NSString stringWithFormat:@"%@", dic[@"phone"]];
-        _orderCount = [NSString stringWithFormat:@"%@", dic[@"orderCount"]];
+        if(dic[@"orderCount"] == nil) {
+        
+            _orderCount = @"0";
+        }else {
+            
+            _orderCount = [NSString stringWithFormat:@"%@", dic[@"orderCount"]];
+
+        }
         _distance = [NSString stringWithFormat:@"%@", dic[@"distance"]];
         if(dic[@"distance"] == nil) {
             

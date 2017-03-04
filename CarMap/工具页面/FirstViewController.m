@@ -8,7 +8,7 @@
 
 #import "FirstViewController.h"
 #import "AppDelegate.h"
-#import "GFMapViewController.h"
+//#import "GFMapViewController.h"
 
 @interface FirstViewController ()
 
@@ -35,9 +35,9 @@
 //    titleLabel.text = _labelTitle;
 //    [view addSubview:titleLabel];
     
-    GFMapViewController *map = [[GFMapViewController alloc]init];
-    map.first = self;
-    [self presentViewController:map animated:YES completion:nil];
+//    GFMapViewController *map = [[GFMapViewController alloc]init];
+//    map.first = self;
+//    [self presentViewController:map animated:YES completion:nil];
 }
 - (void)firstBackClick{
 //    NSLog(@"返回出栈");

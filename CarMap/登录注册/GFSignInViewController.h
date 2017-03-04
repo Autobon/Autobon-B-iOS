@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class GFTextField;
+
 @interface GFSignInViewController : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) GFTextField *phoneTxt;
+@property (nonatomic, strong) GFTextField *passwordTxt;
 @end

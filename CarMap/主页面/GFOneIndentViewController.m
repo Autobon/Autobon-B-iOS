@@ -51,6 +51,8 @@
     
     UIButton *_appointButton;
     
+    NSInteger _suo;
+    
 }
 
 //@property (nonatomic, strong) GFNavigationView *navView;
@@ -94,6 +96,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _suo = 0;
+    
     kWidth = [UIScreen mainScreen].bounds.size.width;
     kHeight = [UIScreen mainScreen].bounds.size.height;
     jiange1 = kHeight * 0.013;
@@ -146,6 +151,9 @@
     
     [GFHttpTool dingdanPostWithDictionary:@{@"page":@"1",@"pageSize":@"1"} success:^(id responseObject) {
         
+        
+//        NSLog(@"------%@", responseObject);
+        
         NSDictionary *dataDictionary = responseObject[@"message"];
         
         NSInteger ff = [dataDictionary[@"totalElements"] integerValue];
@@ -164,7 +172,7 @@
     } failure:^(NSError *error) {
         
         
-        
+//        NSLog(@"------%@", error);
     }];
     
     /*
@@ -354,7 +362,7 @@
     CGFloat txtViewX = jianjv1;
     CGFloat txtViewY = CGRectGetMaxY(lineView1.frame) + kHeight * 0.024;
     self.txtView = [[UITextView alloc] initWithFrame:CGRectMake(txtViewX, txtViewY, txtViewW, txtViewH)];
-    self.txtView.text = @"订单备注";
+    self.txtView.text = @"订单备注(请填写本车提成，最多200字)";
     self.txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     self.txtView.delegate = self;
     [self.baseView addSubview:self.txtView];
@@ -445,7 +453,7 @@
 
 - (void)xuanzeshijianClick:(UIButton *)sender {
     
-    NSLog(@"-----%ld----", sender.tag);
+//    NSLog(@"-----%ld----", sender.tag);
     
     self.shijianNum = sender.tag;
     
@@ -482,11 +490,29 @@
     NSInteger time = (NSInteger)[[formatter dateFromString:date] timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970];
     if (time > 0) {
         
-        if(self.shijianNum == 1) {
+        if(self.shijianNum == 1 && _suo == 0) {
             
             self.timeLab.text = date;
             self.timeLab.textColor = [UIColor blackColor];
-        }else {
+            
+            NSDate *dy = [formatter dateFromString:date];
+            NSInteger chijianchou = (long)[dy timeIntervalSince1970] + 10800;
+            NSDate *dd = [NSDate dateWithTimeIntervalSince1970:chijianchou];
+            NSString *ddd = [formatter stringFromDate:dd];
+            NSLog(@"===%@", ddd);
+            self.zuichiTimeLab.text = ddd;
+            _suo = 1;
+        }else if(self.shijianNum == 2 && _suo == 0) {
+            
+            
+            self.zuichiTimeLab.text = date;
+            self.zuichiTimeLab.textColor = [UIColor blackColor];
+            _suo = 1;
+        }else if(self.shijianNum == 1 && _suo == 1) {
+            
+            self.timeLab.text = date;
+            self.timeLab.textColor = [UIColor blackColor];
+        }else if(self.shijianNum == 2 && _suo == 1){
             
             
             self.zuichiTimeLab.text = date;
@@ -526,7 +552,7 @@
 #pragma mark - textView的协议方法
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     
-    if ([textView.text isEqualToString:@"订单备注"]) {
+    if ([textView.text isEqualToString:@"订单备注(请填写本车提成，最多200字)"]) {
         textView.text = nil;
         textView.textColor = [UIColor blackColor];
     }
@@ -537,7 +563,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     if (textView.text.length == 0) {
-        textView.text = @"订单备注";
+        textView.text = @"订单备注(请填写本车提成，最多200字)";
         textView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     }
     
@@ -571,11 +597,11 @@
     // 判断是否群推
     if (_appointButton.selected) {
         
-        NSLog(@"指定技师");
+//        NSLog(@"指定技师");
         mDic[@"pushToAll"] = @"false";
     }else{
         
-        NSLog(@"创建订单");
+//        NSLog(@"创建订单");
         mDic[@"pushToAll"] = @"true";
     }
     
@@ -620,7 +646,7 @@
         }else{
             
             mDic[@"type"] = proIDStr;   // 订单类型
-            if ([_txtView.text isEqualToString:@"订单备注"]) {
+            if ([_txtView.text isEqualToString:@"订单备注(请填写本车提成，最多200字)"]) {
                 
                 mDic[@"remark"] = @"无";
             }else{
@@ -632,55 +658,71 @@
             mDic[@"agreedStartTime"] = self.timeLab.text;
             mDic[@"agreedEndTime"] = self.zuichiTimeLab.text;
             
-            NSLog(@"----下单的字典-%@===", mDic);
+            // 最迟交车时间和最晚交车时间
+            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            NSInteger yuyueTime = (NSInteger)[[formatter dateFromString:self.timeLab.text] timeIntervalSince1970];
+            NSInteger zuichiTime = (NSInteger)[[formatter dateFromString:self.zuichiTimeLab.text] timeIntervalSince1970];
+            NSInteger cha = zuichiTime - yuyueTime;
+            if(cha >= 0) {
             
-            [GFHttpTool postOneIndentDictionary:mDic success:^(NSDictionary *responseObject) {
-                NSLog(@"下单返回数据-----%@---",responseObject);
-                if ([responseObject[@"status"] integerValue] == 1) {
-                    
-                    if(_appointButton.selected) {
-                    
-                        // 刷新黑条
-                        [self getListUnfinished];
+                [GFHttpTool postOneIndentDictionary:mDic success:^(NSDictionary *responseObject) {
+//                    NSLog(@"下单返回数据-----%@---",responseObject);
+                    if ([responseObject[@"status"] integerValue] == 1) {
                         
-                        CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
-                        NSDictionary *dataDictionary = responseObject[@"message"];
-                        addPerson.orderId = dataDictionary[@"id"];
-                        [self.navigationController pushViewController:addPerson animated:YES];
-                        
-                        for(UIView *mylabelview in [self.view subviews]) {
+                        if(_appointButton.selected) {
                             
-                            [mylabelview removeFromSuperview];
+                            // 刷新黑条
+                            [self getListUnfinished];
+                            
+                            CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
+                            NSDictionary *dataDictionary = responseObject[@"message"];
+                            addPerson.orderId = dataDictionary[@"id"];
+                            [self.navigationController pushViewController:addPerson animated:YES];
+                            
+                            for(UIView *mylabelview in [self.view subviews]) {
+                                
+                                [mylabelview removeFromSuperview];
+                            }
+                            
+                            [self viewDidLoad];
+                            self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+                            //                        [self.navigationController popToRootViewControllerAnimated:YES];
+                            //                        NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
+                        }else {
+                            
+                            
+                            GFAlertView *alertView = [[GFAlertView alloc]initWithMiao:3.0];
+                            UIWindow *winndow = [UIApplication sharedApplication].keyWindow;
+                            [winndow addSubview:alertView];
+                            
+                            for(UIView *mylabelview in [self.view subviews]) {
+                                
+                                [mylabelview removeFromSuperview];
+                            }
+                            
+                            [self viewDidLoad];
+                            self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+                            [self.navigationController popToRootViewControllerAnimated:YES];
+//                            NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
                         }
                         
-                        [self viewDidLoad];
-                        self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-//                        [self.navigationController popToRootViewControllerAnimated:YES];
-//                        NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
-                    }else {
-                    
-                        for(UIView *mylabelview in [self.view subviews]) {
-                            
-                            [mylabelview removeFromSuperview];
-                        }
                         
-                        [self viewDidLoad];
-                        self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-                        [self.navigationController popToRootViewControllerAnimated:YES];
-                        NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
                     }
+                } failure:^(NSError *error) {
                     
-                    GFAlertView *alertView = [[GFAlertView alloc]initWithMiao:3.0];
-                    UIWindow *winndow = [UIApplication sharedApplication].keyWindow;
-                    [winndow addSubview:alertView];
-                    
-                }
-            } failure:^(NSError *error) {
+                    NSLog(@"－－－下单失败---%@----",error);
+                    [self addAlertView:@"下单失败,请重试"];
+                }];
+
+            }else {
                 
-                NSLog(@"－－－下单失败---%@----",error);
-                [self addAlertView:@"下单失败,请重试"];
-            }];
-        }
+                [self addAlertView:@"最迟交车时间应不小于预约施工时间"];
+            }
+            
+//            NSLog(@"----下单的字典-%@===", mDic);
+            
+                    }
     }
     
     /*
@@ -808,7 +850,7 @@
     self.imgView.hidden = YES;
     self.cameraBtn.hidden = YES;
     
-    if(self.photoIndex == 6) {
+    if(self.photoIndex == 5) {
     
         self.addPhotoBut.hidden = YES;
     }
@@ -842,12 +884,12 @@
             [self addAlertView:responseObject[@"message"]];
 //            [self.imgView setImage:nil forState:UIControlStateNormal];
             
-            if(self.photoIndex > 0) {
-                
+//            if(self.photoIndex > 0) {
+            
                 self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
                 
                 [imgView removeFromSuperview];
-            }
+//            }
         }
     } failure:^(NSError *error) {
         
@@ -855,12 +897,12 @@
         NSLog(@"上传失败－－%@---",error);
         [self addAlertView:@"图片上传失败"];
         
-        if(self.photoIndex > 0) {
-            
+//        if(self.photoIndex > 0) {
+        
             self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
             [imgView removeFromSuperview];
     
-        }
+//        }
     }];
     
     
@@ -1028,7 +1070,7 @@
         [self.baseView addSubview:imgView];
     }
     
-    NSLog(@"--上传照片数组--%@", self.photoUrlArr);
+//    NSLog(@"--上传照片数组--%@", self.photoUrlArr);
 }
 
 
@@ -1036,13 +1078,13 @@
     
     [GFHttpTool postOrderCountsuccess:^(id responseObject) {
         
-        NSLog(@"===%@==", responseObject);
+//        NSLog(@"===%@==", responseObject);
         
         if ([responseObject[@"status"] integerValue] == 1) {
             GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
             partnerView.muLab = [[UILabel alloc]init];
             partnerView.muLab.text = [NSString stringWithFormat:@"%@",responseObject[@"message"]];
-            NSLog(@"--获取商户订单信息－－%@--",partnerView.muLab.text);
+//            NSLog(@"--获取商户订单信息－－%@--",partnerView.muLab.text);
             [self.navigationController pushViewController:partnerView animated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];

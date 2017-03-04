@@ -144,6 +144,8 @@
                                 
                                 [self tipView:kHeight * 0.8 withTipmessage:@"修改密码成功"];
                                 
+                                [[NSUserDefaults standardUserDefaults] setObject:self.xinPwdtxt.text forKey:@"userPassword"];
+                                
                             } completion:^(BOOL finished) {
                                 
                                 [self.navigationController popViewControllerAnimated:YES];

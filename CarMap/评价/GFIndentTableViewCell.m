@@ -79,7 +79,7 @@
         [baseView addSubview:self.numberLab];
         
         // 工作内容
-        CGFloat tipLabW = 200;
+        CGFloat tipLabW = 240 / 375.0 * kWidth;
         CGFloat tipLabH = 25;
         CGFloat tipLabX = jiange;
         CGFloat tipLabY = CGRectGetMaxY(self.numberLab.frame);
@@ -132,7 +132,7 @@
 
 - (void)pingjiaButClick:(UIButton *)sender {
     
-    NSLog(@"========%@", sender.titleLabel.text);
+//    NSLog(@"========%@", sender.titleLabel.text);
     
     if([sender.titleLabel.text isEqualToString:@"去评价"]) {
     

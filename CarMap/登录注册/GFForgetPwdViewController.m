@@ -11,7 +11,7 @@
 #import "GFTextField.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
-
+#import "GFSignInViewController.h"
 
 
 @interface GFForgetPwdViewController () {
@@ -147,6 +147,14 @@
                         [UIView animateWithDuration:2 animations:^{
                             
                             [self tipView:kHeight * 0.8 withTipmessage:@"密码找回成功"];
+                            [[NSUserDefaults standardUserDefaults] setObject:_phoneTxt.text forKey:@"userPhone"];
+                            [[NSUserDefaults standardUserDefaults] setObject:_passwordTxt.text forKey:@"userPassword"];
+                            
+                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                            UINavigationController *navVC = (UINavigationController *)window.rootViewController;
+                            GFSignInViewController *vc = (GFSignInViewController *)navVC.childViewControllers[0];
+                            vc.phoneTxt.text = _phoneTxt.text;
+                            vc.passwordTxt.text = _passwordTxt.text;
                             
                         } completion:^(BOOL finished) {
                             
@@ -236,7 +244,7 @@
         [GFHttpTool codeGetParameters:@{@"phone":_phoneTxt.text} success:^(id responseObject) {
             
 //            NSLog(@"－－－请求成功－－%@-",responseObject);
-            if ([responseObject[@"result"] integerValue] == 1) {
+            if ([responseObject[@"status"] integerValue] == 1) {
                 
                 //                [button setTitle:@"60" forState:UIControlStateNormal];
                 if (_timer == nil) {

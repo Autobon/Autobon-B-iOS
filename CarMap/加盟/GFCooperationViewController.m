@@ -13,14 +13,18 @@
 #import "CLTouchView.h"
 #import "GFHttpTool.h"
 #import "GFTipView.h"
-#import "BMKLocationService.h"
+#import <BaiduMapAPI_Location/BMKLocationService.h>
+//#import "BMKLocationService.h"
+
+
 #import "GFAnnotation.h"
 #import "GFAnnotationView.h"
 #import "GFJoinInViewController_2.h"
 #import "CLTouchScrollView.h"
 #import "CLCooperatingViewController.h"
+#import "CLDelegateViewController.h"
 
-@interface GFCooperationViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UISearchBarDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate,BMKGeoCodeSearchDelegate> {
+@interface GFCooperationViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UISearchBarDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate,BMKLocationServiceDelegate, UITextFieldDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -49,7 +53,7 @@
     
     /// 地图定位
     UISearchBar *_searchbar;
-    BMKGeoCodeSearch* _geocodesearch;
+//    BMKGeoCodeSearch* _geocodesearch;
     
 }
 
@@ -62,6 +66,8 @@
 // 大头针
 @property(nonatomic, strong) GFAnnotation *workerPointAnno;
 
+@property (nonatomic, copy) NSString *photo;
+
 @end
 
 @implementation GFCooperationViewController
@@ -71,12 +77,20 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.photo = @"";
     
     [self _setCoopNav];
     [self _setCoopView];
     
 }
-
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if(textField.text.length >= 20) {
+    
+        textField.text = @"";
+        [self addAlertView:@"请输入少于20字的营业执照名"];
+    }
+}
 - (void)_setCoopNav {
     
     GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
@@ -112,6 +126,7 @@
     
     // 营业执照的工商注册名称
     self.yingyeNameTxt = [[GFTextField alloc] initWithY:CGRectGetMaxY(kejiView.frame) withPlaceholder:@"营业执照的工商注册名称"];
+    self.yingyeNameTxt.delegate = self;
     [_scView addSubview:self.yingyeNameTxt];
     
     // 上传营业执照副本
@@ -206,32 +221,72 @@
     [_scView addSubview:okBut];
     [okBut addTarget:self action:@selector(okButClick) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    // 车邻邦合作商加盟服务协议
+    CGFloat agreeLabW = kWidth;
+    CGFloat agreeLabH = kHeight * 0.024;
+    CGFloat agreeLabX = 0;
+    CGFloat agreeLabY = CGRectGetMaxY(okBut.frame) + jiange2 * 1.5 + 5;
+    UILabel *agreeLab = [[UILabel alloc] initWithFrame:CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH)];
+    [_scView addSubview:agreeLab];
+    agreeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
+    agreeLab.textAlignment = NSTextAlignmentCenter;
+    NSMutableAttributedString *MAStr = [[NSMutableAttributedString alloc] initWithString:@"点击“加盟”代表本人已阅读并同意《车邻邦合作商加盟服务协议》"];
+    [MAStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] range:NSMakeRange(16, 14)];
+    agreeLab.attributedText = MAStr;
+    agreeLab.font = [UIFont systemFontOfSize:10.5 / 320.0 * kWidth];
+    agreeLab.userInteractionEnabled = YES;
+    
+    CGFloat agreeButW = kWidth / 2.0;
+    CGFloat agreeButH = agreeLabH;
+    CGFloat agreeButX = kWidth / 2.0;
+    CGFloat agreeButY = 0;
+    UIButton *agreeBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    agreeBut.frame = CGRectMake(agreeButX, agreeButY, agreeButW, agreeButH);
+    [agreeLab addSubview:agreeBut];
+    [agreeBut addTarget:self action:@selector(agreeButClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     _scView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, CGRectGetMaxY(okBut.frame));
+}
+
+- (void)agreeButClick {
+    
+    CLDelegateViewController *delegateView = [[CLDelegateViewController alloc]init];
+    [self.navigationController pushViewController:delegateView animated:YES];
+    
 }
 
 - (void)okButClick {
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"enterpriseName"] = self.yingyeNameTxt.text;
-    mDic[@"businessLicensePic"] = _dataDictionary[@"bussinessLicensePic"];
-    NSLog(@"-%@-", mDic);
+    mDic[@"businessLicensePic"] = self.photo;
+//    NSLog(@"-%@-", mDic);
     
-    [GFHttpTool jiamengPostWithParameters:mDic success:^(id responseObject) {
-        
-        NSLog(@"--加盟信息提交成功---%@--\n\n--%@", mDic, responseObject);
-        if([responseObject[@"status"] integerValue] == 1) {
-        
-            [self.navigationController popToRootViewControllerAnimated:YES];
-//            CLCooperatingViewController *cooperating = [[CLCooperatingViewController alloc]init];
-//            cooperating.setLabel.text = @"正在审核";
-//            cooperating.dataDictionary = dataDictionary[@"cooperator"];
-//            [self.navigationController pushViewController:cooperating animated:YES];
-        }
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"--请求失败!!!!!--%@", error);
-    }];
+    if([mDic[@"enterpriseName"] isEqualToString:@""]) {
+        [self addAlertView:@"请输入营业执照的工商注册名称"];
+    }else if([mDic[@"businessLicensePic"] isEqualToString:@""]) {
+        [self addAlertView:@"请上传营业执照照片"];
+    }else {
+    
+        [GFHttpTool jiamengPostWithParameters:mDic success:^(id responseObject) {
+            
+//            NSLog(@"--加盟信息提交成功---%@--\n\n--%@", mDic, responseObject);
+            if([responseObject[@"status"] integerValue] == 1) {
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                //            CLCooperatingViewController *cooperating = [[CLCooperatingViewController alloc]init];
+                //            cooperating.setLabel.text = @"正在审核";
+                //            cooperating.dataDictionary = dataDictionary[@"cooperator"];
+                //            [self.navigationController pushViewController:cooperating animated:YES];
+            }
+            
+        } failure:^(NSError *error) {
+            
+//            NSLog(@"--请求失败!!!!!--%@", error);
+        }];
+    }
 }
 
 //*****//*****//*****//*****//*****//*****//*****//*****//*****//*****//
@@ -245,12 +300,13 @@
     //    self.workerPointAnno.title = @"我是技师";
     //    self.workerPointAnno.subtitle = @"天赐我一个单吧";
     //    self.workerPointAnno.iconImgName = @"me-1";
-    [_mapView addAnnotation:self.workerPointAnno];
+//    [_mapView addAnnotation:self.workerPointAnno];
 }
 #pragma mark - ***** 定位 *****
+/*
 - (void)_setLocationService {
     
-    self.locationService = [[BMKLocationService alloc] init];
+//    self.locationService = [[BMKLocationService alloc] init];
     [self.locationService startUserLocationService];
     self.locationService.allowsBackgroundLocationUpdates = NO;
     self.locationService.pausesLocationUpdatesAutomatically = YES;
@@ -262,8 +318,8 @@
     //    [_mapView removeOverlays:array];
     if (error == 0) {
         //        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
-        _workerPointAnno.coordinate = result.location;
-        _workerPointAnno.title = result.address;
+//        _workerPointAnno.coordinate = result.location;
+//        _workerPointAnno.title = result.address;
 //        [_mapView addAnnotation:_workerPointAnno];
         _mapView.centerCoordinate = result.location;
 //        NSString* titleStr;
@@ -324,6 +380,7 @@
         [myAlertView show];
     }
 }
+ 
 - (void)onClickGeocode {
     //    isGeoSearch = true;
     
@@ -342,11 +399,13 @@
     }
     
 }
+ */
 #pragma mark - ***** 定位代理 *****
 /**
  *用户位置更新后，会调用此函数
  *@param userLocation 新的用户位置
  */
+/*
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation {
     
     _mapView.centerCoordinate = userLocation.location.coordinate;
@@ -383,7 +442,7 @@
     
     
 }
-
+*/
 
 //- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
 //    NSLog(@"看一看");
@@ -415,6 +474,7 @@
  *@param mapview 地图View
  *@param coordinate 空白处坐标点的经纬度
  */
+/*
 #pragma mark - 单机地图调用的接口
 - (void)mapView:(BMKMapView *)mapView onClickedMapBlank:(CLLocationCoordinate2D)coordinate
 {
@@ -498,7 +558,7 @@
     }
 }
 
-
+*/
 
 
 
@@ -594,16 +654,17 @@
         NSData *imageData = UIImageJPEGRepresentation(imageNew, 0.8);
         
         [GFHttpTool postcertificateImage:imageData success:^(id responseObject) {
-            NSLog(@"上传成功－－%@--",responseObject);
+//            NSLog(@"上传成功－－%@--",responseObject);
             if ([responseObject[@"status"] integerValue] == 1) {
                 _isUpCertificate = YES;
                 _dataDictionary = [[NSMutableDictionary alloc] init];
                 [_dataDictionary setObject:responseObject[@"message"] forKey:@"bussinessLicensePic"];
+                self.photo = responseObject[@"message"];
             }else{
                 [self addAlertView:responseObject[@"message"]];
             }
         } failure:^(NSError *error) {
-                NSLog(@"上传失败－－%@---",error);
+//                NSLog(@"上传失败－－%@---",error);
                  [self addAlertView:@"请求失败"];
         }];
         
@@ -681,7 +742,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+/*
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
@@ -705,6 +766,7 @@
         _mapView = nil;
     }
 }
+ */
 /*
 #pragma mark - Navigation
 

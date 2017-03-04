@@ -353,58 +353,68 @@
 
 #pragma mark - 提交评价按钮的响应方法
 - (void)submitBtnClick{
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
-    [dictionary setObject:@(_star) forKey:@"star"];
-    NSArray *array = @[@"arriveOnTime",@"completeOnTime",@"professional",@"dressNeatly",@"carProtect",@"goodAttitude",];
-    [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-        UIButton *button = _selectBtnArray[idx];
-        if (button.selected) {
-            [dictionary setObject:@"true" forKey:obj];
+    
+    
+    if(_otherTextView.text.length > 198) {
+    
+        [self addAlertView:@"意见和建议不能超过200个字"];
+    }else {
+    
+        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
+        [dictionary setObject:@(_star) forKey:@"star"];
+        NSArray *array = @[@"arriveOnTime",@"completeOnTime",@"professional",@"dressNeatly",@"carProtect",@"goodAttitude",];
+        [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            UIButton *button = _selectBtnArray[idx];
+            if (button.selected) {
+                [dictionary setObject:@"true" forKey:obj];
+            }else{
+                [dictionary setObject:@"false" forKey:obj];
+            }
+        }];
+        
+        if ([_otherTextView.text isEqualToString:@"其他意见和建议"]) {
+            [dictionary setObject:@"" forKey:@"advice"];
         }else{
-            [dictionary setObject:@"false" forKey:obj];
+            [dictionary setObject:_otherTextView.text forKey:@"advice"];
         }
-    }];
-    
-    if ([_otherTextView.text isEqualToString:@"其他意见和建议"]) {
-        [dictionary setObject:@"" forKey:@"advice"];
-    }else{
-        [dictionary setObject:_otherTextView.text forKey:@"advice"];
-    }
-    [dictionary setObject:_orderId forKey:@"orderId"];
-    
-    
-    NSLog(@"=======%@", dictionary);
-    
-    
-    [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
+        [dictionary setObject:_orderId forKey:@"orderId"];
         
-        NSLog(@"%@", responseObject);
         
-        if ([responseObject[@"status"] integerValue] == 1) {
-            GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
-            shareView.orderId = _orderId;
-            shareView.star = _star;
-//            NSLog(@"－－评论成功－－%ld---",(long)_star);
-            shareView.isPush = _isPush;
-            if (self.navigationController.viewControllers.count == 4) {
-                GFIndentViewController *indentView = self.navigationController.viewControllers[2];
-                [indentView.indentViewButton setTitle:@"已评价" forState:UIControlStateNormal];
-                indentView.indentViewButton.userInteractionEnabled = NO;
+        NSLog(@"=======%@", dictionary);
+        
+        
+        [GFHttpTool postCommentDictionary:dictionary success:^(id responseObject) {
+            
+            NSLog(@"%@", responseObject);
+            
+            if ([responseObject[@"status"] integerValue] == 1) {
+                GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+                shareView.orderId = _orderId;
+                shareView.star = _star;
+                //            NSLog(@"－－评论成功－－%ld---",(long)_star);
+                shareView.isPush = _isPush;
+                if (self.navigationController.viewControllers.count == 4) {
+                    GFIndentViewController *indentView = self.navigationController.viewControllers[2];
+                    [indentView.indentViewButton setTitle:@"已评价" forState:UIControlStateNormal];
+                    indentView.indentViewButton.userInteractionEnabled = NO;
+                    
+                }
                 
+                
+                [self.navigationController pushViewController:shareView animated:YES];
+            }else{
+                [self addAlertView:responseObject[@"message"]];
             }
             
+        } failure:^(NSError *error) {
             
-            [self.navigationController pushViewController:shareView animated:YES];
-        }else{
-            [self addAlertView:responseObject[@"message"]];
-        }
-        
-    } failure:^(NSError *error) {
-        
-//        NSLog(@"－－评论失败－－%@---",error);
-//        [self addAlertView:@"请求失败"];
-        
-    }];
+            //        NSLog(@"－－评论失败－－%@---",error);
+            //        [self addAlertView:@"请求失败"];
+            
+        }];
+    }
+    
+    
     
 //    GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
 //    shareView.orderId = @"4";

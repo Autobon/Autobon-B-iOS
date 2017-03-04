@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-NSString *const URLHOST = @"http://10.0.12.221:12345";
+NSString *const URLHOST = @"http://121.40.219.58:8000";
 
 //NSString *const URLHOST = @"http://hpecar.com:8012";
 

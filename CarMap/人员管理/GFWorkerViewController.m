@@ -27,7 +27,7 @@
     
     CGFloat jianjv1;
     
-    
+    NSInteger iii;
     
 }
 
@@ -54,7 +54,11 @@
         if ([responseObject[@"result"] integerValue] == 1) {
         
             NSArray *array = responseObject[@"data"];
-            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            
+            for(int i=0 ; i<array.count; i++) {
+            
+                NSDictionary *obj = array[i];
+                
                 
                 CLWorkerModel *worker = [[CLWorkerModel alloc]init];
                 worker.name = obj[@"name"];
@@ -72,9 +76,29 @@
                 }
                 
                 [self.workerArray addObject:worker];
-            }];
+            }
+            
+//            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+//                
+//                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
+//                worker.name = obj[@"name"];
+//                worker.workerId = obj[@"id"];
+//                worker.fired = [obj[@"fired"] integerValue];
+//                worker.phone = obj[@"phone"];
+//                worker.sex = obj[@"gender"];
+//                if ([obj[@"main"] integerValue] == 0) {
+//                    
+//                    worker.mainString = @"业务员";
+//                }else{
+//                    
+//                    worker.mainString = @"管理员";
+//                    worker.name = obj[@"shortname"];
+//                }
+//                
+//                [self.workerArray addObject:worker];
+//            }];
 
-//            NSLog(@"------------%@", _workerArray);
+//            NSLog(@"------------%@===%@", _workerArray, ((CLWorkerModel *)_workerArray[0]).phone);
             // 界面搭建
             [self _setView];
             
@@ -151,7 +175,7 @@
     
     
     UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 60, 22, 40, 44)];
-    [addButton setTitle:@"增加" forState:UIControlStateNormal];
+    [addButton setTitle:@"新增" forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addWorker) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:addButton];
     
@@ -191,7 +215,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     
-    return _workerArray.count;
+    return self.workerArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -218,11 +242,14 @@
             cell.rightBut.alpha = 0.3;
             cell.bianjiBut.userInteractionEnabled = NO;
             cell.bianjiBut.alpha = 0.3;
+            
+            [cell.rightBut setTitle:@"已离职" forState:UIControlStateNormal];
         }else{
             cell.rightBut.alpha = 1.0;
             cell.rightBut.tag = indexPath.row;
             cell.rightBut.userInteractionEnabled = YES;
             [cell.rightBut addTarget:self action:@selector(moveWorker:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.rightBut setTitle:@"离职" forState:UIControlStateNormal];
             
             cell.bianjiBut.alpha = 1.0;
             cell.bianjiBut.tag = indexPath.row + 100000;
@@ -285,22 +312,32 @@
 
 #pragma mark - 移除业务员按钮
 - (void)moveWorker:(UIButton *)button{
-//    NSLog(@"移除业务员");
-    CLWorkerModel *worker = _workerArray[button.tag];
-    [GFHttpTool postSaleFiredDictionary:@{@"coopAccountId":worker.workerId} success:^(id responseObject) {
-//        NSLog(@"----responseObject---%@--",responseObject);
-        if ([responseObject[@"result"] integerValue] == 1) {
-//            [_workerArray removeObject:worker];
-            worker.fired = YES;
-            [_tableView reloadData];
-        }else{
-            [self addAlertView:responseObject[@"message"]];
-        }
-        
-    } failure:^(NSError *error) {
-//        [self addAlertView:@"请求失败"];
-    }];
     
+    UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定离职该业务员！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [aView show];
+    
+    iii = button.tag;
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if(buttonIndex == 1) {
+    
+        //    NSLog(@"移除业务员");
+        CLWorkerModel *worker = _workerArray[iii];
+        [GFHttpTool postSaleFiredDictionary:@{@"coopAccountId":worker.workerId} success:^(id responseObject) {
+            //        NSLog(@"----responseObject---%@--",responseObject);
+            if ([responseObject[@"result"] integerValue] == 1) {
+                //            [_workerArray removeObject:worker];
+                worker.fired = YES;
+                [_tableView reloadData];
+            }else{
+                [self addAlertView:responseObject[@"message"]];
+            }
+            
+        } failure:^(NSError *error) {
+            //        [self addAlertView:@"请求失败"];
+        }];
+    }
 }
 
 - (void)leftButClick {

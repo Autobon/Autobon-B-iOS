@@ -305,7 +305,7 @@
     
     [GFHttpTool GetInformationSuccess:^(id responseObject) {
         
-        NSLog(@"---获取商户信息---%@----",responseObject);
+//        NSLog(@"---获取商户信息---%@----",responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"message"];
             

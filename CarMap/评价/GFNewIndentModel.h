@@ -26,7 +26,11 @@
 @property (nonatomic, strong) NSArray *beforePhotosArr; // 施工前的照片数组
 @property (nonatomic, copy) NSString *afterPhotos;  // 施工后的照片
 @property (nonatomic, strong) NSArray *afterPhotosArr; // 施工后的照片数组
-@property (nonatomic, copy) NSString *xingji;  // 星级
+@property (nonatomic, copy) NSString *evaluate;  // 星级
+
+@property (nonatomic, copy) NSString *agreedEndTime;    // 最迟交车时间
+
+@property (nonatomic, copy) NSString *endTime;      // 施工结束时间
 
 @property (nonatomic, copy) NSString *status;   // 订单的状态
 
@@ -34,6 +38,9 @@
 
 @property (nonatomic, copy) NSString *techAvatar;
 @property (nonatomic, copy) NSString *orderCount;
+@property (nonatomic, copy) NSString *techPhone;
+
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dic;
 

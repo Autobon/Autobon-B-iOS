@@ -10,10 +10,14 @@
 #import <UIKit/UIKit.h>
 
 // 百度地图类库
-#import "BMKMapManager.h"
-#import "BMKLocationService.h"
-#import "BMKMapView.h"
-#import "BMKPoiSearch.h"
+//#import "BMKMapManager.h"
+#import <BaiduMapAPI_Base/BMKMapManager.h>
+//#import "BMKLocationService.h"
+#import <BaiduMapAPI_Location/BMKLocationService.h>
+//#import "BMKMapView.h"
+#import <BaiduMapAPI_Map/BMKMapView.h>
+#import <BaiduMapAPI_Search/BMKPoiSearch.h>
+//#import "BMKPoiSearch.h"
 #import "GFAnnotationView.h"
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 
@@ -344,7 +348,7 @@
     
     double a = [self calculatorWithCoordinate1:self.workerPointAnno.coordinate withCoordinate2:self.bossPointAnno.coordinate];
 //    NSLog(@"---技师和客户的距离－－%@--",@(a));
-    _distanceLabel.text = [NSString stringWithFormat:@"距离工作地点%0.1fkm",a/1000];
+    _distanceLabel.text = [NSString stringWithFormat:@"距离工作地点%0.2fkm",a/1000];
     if (_distanceBlock) {
         _distanceBlock(a);
     }

@@ -12,10 +12,14 @@
 #import "UIImageView+WebCache.h"
 #import "GFHttpTool.h"
 #import "GFCooperationViewController.h"
+#import "UIButton+WebCache.h"
+#import "HZPhotoBrowser.h"
 
 
 
-@interface CLCooperateFailViewController ()
+@interface CLCooperateFailViewController ()<HZPhotoBrowserDelegate>
+
+@property (nonatomic, strong) NSMutableArray *photoUrlArr;
 
 @end
 
@@ -41,6 +45,8 @@
 //    scrollView.backgroundColor = [UIColor cyanColor];
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
+    
+    self.photoUrlArr = [[NSMutableArray alloc] init];
     
 //加盟状态
     UILabel *settingLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, 100, 30)];
@@ -102,16 +108,26 @@
     [scrollView addSubview:licenceDuplicate];
     
     
-    UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];
-    licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-    //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
-    licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
     extern NSString* const URLHOST;
-    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
-    [scrollView addSubview:licenceDuplicateImage];
+    UIButton *imgBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    imgBut.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+    [imgBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [scrollView addSubview:imgBut];
+    imgBut.tag = 1;
+    [imgBut addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]];
+    
+    
+//    UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];
+//    licenceDuplicateImage.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
+//    //    licenceDuplicateImage.backgroundColor = [UIColor darkGrayColor];
+//    licenceDuplicateImage.contentMode = UIViewContentModeScaleAspectFit;
+//    extern NSString* const URLHOST;
+//    [licenceDuplicateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] placeholderImage:[UIImage imageNamed:@"userImage"]];
+//    [scrollView addSubview:licenceDuplicateImage];
     
     // 我要加盟
-    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(licenceDuplicateImage.frame) + 50, self.view.frame.size.width-60, 40)];
+    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(imgBut.frame) + 50, self.view.frame.size.width-60, 40)];
     [addButton setBackgroundImage:[UIImage imageNamed:@"button"] forState:UIControlStateNormal];
     [addButton setBackgroundImage:[UIImage imageNamed:@"buttonClick"] forState:UIControlStateHighlighted];
     [addButton setTitle:@"我要加盟" forState:UIControlStateNormal];
@@ -255,6 +271,37 @@
     
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(addButton.frame) + 20);
 }
+
+
+- (void)butClick:(UIButton *)sender {
+    
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    
+    browser.sourceImagesContainerView = sender.superview;
+    
+    browser.imageCount = 1;
+    
+    browser.currentImageIndex = sender.tag - 1;
+    
+    browser.delegate = self;
+    
+    [browser show]; // 展示图片浏览器
+}
+
+
+- (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index {
+    
+    UIImage *img = [UIImage imageNamed:@"userImage"];
+    
+    return img;
+}
+- (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
+    
+    NSURL *url = [NSURL URLWithString:self.photoUrlArr[index]];
+    
+    return url;
+}
+
 
 #pragma mark - 我要加盟按钮响应方法
 - (void)changeBtnClick{
