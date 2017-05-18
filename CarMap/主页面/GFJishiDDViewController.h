@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class CLAddPersonModel;
 
 @interface GFJishiDDViewController : UIViewController
 
 @property (nonatomic, strong) CLAddPersonModel *model;
+
 
 @end
