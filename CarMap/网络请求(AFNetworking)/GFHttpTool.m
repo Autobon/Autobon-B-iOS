@@ -15,14 +15,22 @@
 
 
 
-NSString* const HOST = @"http://121.40.219.58:8000/api/mobile";
-NSString* const PUBHOST = @"http://121.40.219.58:8000/api";
+//NSString* const HOST = @"http://121.40.219.58:8000/api/mobile";
+//NSString* const PUBHOST = @"http://121.40.219.58:8000/api";
 
-//NSString* const HOST = @"http://dev.incardata.com.cn:12345/api/mobile";
-//NSString* const PUBHOST = @"http://dev.incardata.com.cn:12345/api";
+//测试服务器
+//NSString* const HOST = @"http://10.0.12.168:12345/api/mobile";
+//NSString* const PUBHOST = @"http://10.0.12.168:12345/api";
 
-//NSString* const HOST = @"http://hpecar.com:8012/api/mobile";
-//NSString* const PUBHOST = @"http://hpecar.com:8012/api";
+
+
+//新的正式服务器
+NSString *const prefixURL = @"http://47.93.17.218:12345/api/mobile";
+NSString* const HOST = @"http://47.93.17.218:12345/api/mobile";
+NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
+
+
+
 
 @implementation GFHttpTool
 // 模版
