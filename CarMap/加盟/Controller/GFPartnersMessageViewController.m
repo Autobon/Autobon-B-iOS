@@ -114,43 +114,49 @@
     [baseView1 addSubview:lineView4];
     
     // 我的订单
-    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but1.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
-    [but1 addTarget:self action:@selector(but1Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 withLeftImgName:@"order" withCenterText:@"我的订单" withRightImgName:@"right" withBut:but1];
+    UIButton *orderButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    orderButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [orderButton addTarget:self action:@selector(orderBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 withLeftImgName:@"order" withCenterText:@"我的订单" withRightImgName:@"right" withBut:orderButton];
+    
+    // 我的收藏
+    UIButton *collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    collectButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 *2 withLeftImgName:@"order" withCenterText:@"我的订单" withRightImgName:@"right" withBut:collectButton];
     
     // 合作商加盟
-    UIButton *but2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but2.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
-    [but2 addTarget:self action:@selector(but2Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 2 + kHeight * 0.078 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:but2];
+    UIButton *joinInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    joinInButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [joinInButton addTarget:self action:@selector(joinInBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 3 + kHeight * 0.078 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
     
     // 业务员管理
-    UIButton *but3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but3.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
-    [but3 addTarget:self action:@selector(but3Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 3 + kHeight * 0.078 * 2 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:but3];
+    UIButton *managerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    managerButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [managerButton addTarget:self action:@selector(manageClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 2 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
     
     
     //通知列表
     UIButton *notificationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     notificationBtn.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [notificationBtn addTarget:self action:@selector(notificationBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 5 + kHeight * 0.078 * 3 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
     
     
     // 修改密码
-    UIButton *but4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but4.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
-    [but4 addTarget:self action:@selector(but4Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:but4];
+    UIButton *changePasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    changePasswordButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [changePasswordButton addTarget:self action:@selector(changePasswordClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 6 + kHeight * 0.078 * 4 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
     
     
     // 车邻班专职客服电话
-    UIButton *but5 = [UIButton buttonWithType:UIButtonTypeCustom];
-    but5.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
-    [but5 addTarget:self action:@selector(but5Click) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"person-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:but5];
+    UIButton *phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    phoneButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [phoneButton addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 7 + kHeight * 0.078 * 5 withLeftImgName:@"person-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:phoneButton];
     
     // 退出登录
     CGFloat exitViewW = kWidth;
@@ -291,7 +297,7 @@
 
 
 #pragma mark - 我的订单
-- (void)but1Click {
+- (void)orderBtnClick {
 
     GFIndentViewController *indentView = [[GFIndentViewController alloc]init];
     [self.navigationController pushViewController:indentView animated:YES];
@@ -300,8 +306,15 @@
 }
 
 
+#pragma mark - 收藏按钮响应方法
+- (void)collectBtnClick{
+    
+    
+}
+
+
 #pragma mark - 合作商加盟
-- (void)but2Click {
+- (void)joinInBtnClick {
     
     [GFHttpTool GetInformationSuccess:^(id responseObject) {
         
@@ -345,44 +358,11 @@
 
 
 #pragma mark - 业务员管理
-- (void)but3Click {
+- (void)manageClick {
     
     GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
     [self.navigationController pushViewController:workerView animated:YES];
-//    [GFHttpTool postGetSaleListSuccess:^(id responseObject) {
-//        NSLog(@"---查询业务员－－%@--",responseObject);
-//        if ([responseObject[@"result"] integerValue] == 1) {
-//            GFWorkerViewController *workerView = [[GFWorkerViewController alloc]init];
-//            NSArray *array = responseObject[@"data"];
-//            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-//                CLWorkerModel *worker = [[CLWorkerModel alloc]init];
-//                worker.name = obj[@"name"];
-//                worker.workerId = obj[@"id"];
-//                worker.fired = [obj[@"fired"] integerValue];
-//                worker.phone = obj[@"phone"];
-//                worker.sex = obj[@"gender"];
-//                if ([obj[@"main"] integerValue] == 0) {
-//                    worker.mainString = @"业务员";
-//                }else{
-//                    worker.mainString = @"管理员";
-//                    worker.name = obj[@"shortname"];
-//                }
-//                [workerView.workerArray addObject:worker];
-//            }];
-////            [_tableView reloadData];
-//            
-//            [self.navigationController pushViewController:workerView animated:YES];
-//            
-//        }else{
-//            [self addAlertView:responseObject[@"message"]];
-//        }
-//    } failure:^(NSError *error) {
-//        [self addAlertView:@"请求失败"];
-//    }];
-    
-    
-    
-//    NSLog(@"业务员管理");
+
 }
 
 
@@ -396,7 +376,7 @@
 
 
 #pragma mark - 修改密码
-- (void)but4Click {
+- (void)changePasswordClick {
     
     GFChangePwdViewController *changePwd = [[GFChangePwdViewController alloc]init];
     [self.navigationController pushViewController:changePwd animated:YES];
@@ -405,7 +385,7 @@
 
 
 #pragma mark - 车邻邦专职客服电话
-- (void)but5Click {
+- (void)phoneBtnClick {
     
     [ACETelPrompt callPhoneNumber:@"4001871500" call:^(NSTimeInterval duration) {
 //         NSLog(@"User made a call of %.1f seconds", duration);
