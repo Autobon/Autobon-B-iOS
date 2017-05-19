@@ -81,6 +81,14 @@
             self.techName = [NSString stringWithFormat:@"%@", dic[@"techName"]];
         }
         
+        if(dic[@"techId"] == nil) {
+            
+            self.techId = @"无";
+        }else {
+            
+            self.techId = [NSString stringWithFormat:@"%@", dic[@"techId"]];
+        }
+        
         if(dic[@"beforePhotos"] == nil) {
         
             self.beforePhotos = @"无";

@@ -31,7 +31,7 @@
 @property (nonatomic, strong) UILabel *cheyiLab;
 @property (nonatomic, strong) UILabel *meirongLab;
 
-@property (nonatomic, strong) UIButton *zhipaiBut;
+
 
 
 @end

@@ -16,7 +16,7 @@
 @property (nonatomic ,strong) UILabel *userNameLabel;
 @property (nonatomic ,strong) UILabel *identityLabel;
 @property (nonatomic ,strong) UIButton *button;
-
+@property (nonatomic, strong) UIButton *zhipaiBut;
 @property (nonatomic, strong) CLAddPersonModel *model;
 
 - (void)setCell2;

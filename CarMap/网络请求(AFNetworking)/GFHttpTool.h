@@ -147,4 +147,24 @@
 
 
 
+#pragma mark - 商户员工收藏技师
++ (void)favoriteTechnicianPostWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 商户员工删除收藏技师
++ (void)favoriteTechnicianDeleteWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 商户员工查询收藏技师列表
++ (void)favoriteTechnicianGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+
+
+
+
+
+
+
+
+
+
+
 @end

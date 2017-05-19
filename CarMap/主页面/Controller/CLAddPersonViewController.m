@@ -72,7 +72,27 @@
 }
 
 - (void)setViewForAdd{
-    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 84, self.view.frame.size.width-100, 40)];
+    
+    UIButton *button1 = [[UIButton alloc]init];
+    [button1 setTitle:@"距离" forState:UIControlStateNormal];
+    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.view addSubview:button1];
+    button1.frame = CGRectMake(-1, 64, self.view.frame.size.width/2+1, 30);
+    button1.layer.borderWidth = 0.5;
+    button1.layer.borderColor = [UIColor blackColor].CGColor;
+    button1.titleLabel.font = [UIFont systemFontOfSize:15];
+    
+    UIButton *button2 = [[UIButton alloc]init];
+    [button2 setTitle:@"收藏" forState:UIControlStateNormal];
+    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.view addSubview:button2];
+    button2.frame = CGRectMake(self.view.frame.size.width/2, 64, self.view.frame.size.width/2+1, 30);
+    button2.alpha = 0.5;
+    button2.layer.borderWidth = 0.5;
+    button2.layer.borderColor = [UIColor blackColor].CGColor;
+    button2.titleLabel.font = [UIFont systemFontOfSize:15];
+    
+    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 70 + 30, self.view.frame.size.width-100, 40)];
 //    searchbar.backgroundColor = [UIColor whiteColor];
     _searchbar.barTintColor = [UIColor whiteColor];
 //    searchbar.barStyle = UIBarStyleDefault;
@@ -85,7 +105,7 @@
     _searchbar.clipsToBounds = YES;
     
     
-    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 84, 60, 40)];
+    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 70 + 30, 60, 40)];
     [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -95,7 +115,7 @@
     _tableView = [[UITableView alloc]init];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.frame = CGRectMake(0, 124, self.view.frame.size.width, self.view.frame.size.height-124);
+    _tableView.frame = CGRectMake(0, 110 + 30, self.view.frame.size.width, self.view.frame.size.height-110 - 30);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
     _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefreshDo)];

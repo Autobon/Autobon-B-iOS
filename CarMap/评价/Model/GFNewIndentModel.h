@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString *remark;  // 下单备注
 @property (nonatomic, copy) NSString *startTime;  // 施工时间
 @property (nonatomic, copy) NSString *techName;  // 主技师
+@property (nonatomic, copy) NSString *techId;       //主技师id
 @property (nonatomic, copy) NSString *beforePhotos;  // 施工前的照片
 @property (nonatomic, strong) NSArray *beforePhotosArr; // 施工前的照片数组
 @property (nonatomic, copy) NSString *afterPhotos;  // 施工后的照片

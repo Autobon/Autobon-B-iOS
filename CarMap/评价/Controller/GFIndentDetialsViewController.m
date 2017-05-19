@@ -613,6 +613,20 @@
     [baseView addSubview:jishiView];
     
     
+    UIButton *collectButton = [[UIButton alloc]init];
+    [collectButton setTitle:@"收藏" forState:UIControlStateNormal];
+    [collectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    collectButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    collectButton.layer.cornerRadius = 3;
+    collectButton.layer.borderWidth = 1;
+    collectButton.layer.borderColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1].CGColor;
+    [_scrollView addSubview:collectButton];
+    
+    collectButton.frame = CGRectMake(self.view.frame.size.width - 65, CGRectGetMinY(jishiView.frame) + 10, 50, 25);
+    [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
     // 技师头像栏
     UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(jishiView.frame), kWidth, kHeight * 0.15625)];
     iconView.backgroundColor = [UIColor whiteColor];
@@ -755,7 +769,7 @@
             // 电话号码
             phoneBtn.frame = CGRectMake(CGRectGetMaxX(nameLab.frame)  + 10, phoneLabY+CGRectGetMaxY(jishiView.frame), phoneLabW, phoneLabH);
             [phoneBtn setTitle:_model.techPhone forState:UIControlStateNormal];
-//            _phoneString = technicianDictionary[@"phone"];
+            _phoneString = _model.techPhone;
 //            phoneBtn.backgroundColor = [UIColor cyanColor];
             
             
@@ -834,6 +848,16 @@
     
 //    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 700);
     
+}
+
+- (void)collectBtnClick{
+    [GFHttpTool favoriteTechnicianPostWithParameters:@{@"techId":_model.techId} success:^(id responseObject) {
+        ICLog(@"收藏成功--%@--",responseObject);
+        
+    } failure:^(NSError *error) {
+        ICLog(@"收藏失败--%@--",error);
+        
+    }];
 }
 
 - (void)butClick:(UIButton *)sender {

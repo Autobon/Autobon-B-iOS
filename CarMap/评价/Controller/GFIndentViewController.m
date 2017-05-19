@@ -237,7 +237,7 @@
     mDic[@"status"] = @"2";
     [GFHttpTool postListFinishedDictionary:mDic success:^(id responseObject) {
         
-//        NSLog(@"===商户已完成订单列表===%@", responseObject);
+        ICLog(@"===商户已完成订单列表===%@", responseObject);
         
         if([responseObject[@"status"] integerValue] == 1) {
         

@@ -129,6 +129,10 @@
 		B02290741ECD49F50022D34F /* MYImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02290301ECD49F40022D34F /* MYImageView.m */; };
 		B02290751ECD49F50022D34F /* UWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02290321ECD49F40022D34F /* UWDatePickerView.m */; };
 		B02290761ECD49F50022D34F /* UWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02290331ECD49F40022D34F /* UWDatePickerView.xib */; };
+		B081E75A1ECEC9DE003558DC /* CLCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E7591ECEC9DE003558DC /* CLCollectViewController.m */; };
+		B081E75D1ECEC9F9003558DC /* CLCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E75C1ECEC9F9003558DC /* CLCollectTableViewCell.m */; };
+		B081E7601ECEDDA8003558DC /* CLTechModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E75F1ECEDDA8003558DC /* CLTechModel.m */; };
+		B081E7631ECEF537003558DC /* CLCollectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E7621ECEF537003558DC /* CLCollectListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -396,6 +400,14 @@
 		B02290311ECD49F40022D34F /* UWDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWDatePickerView.h; sourceTree = "<group>"; };
 		B02290321ECD49F40022D34F /* UWDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UWDatePickerView.m; sourceTree = "<group>"; };
 		B02290331ECD49F40022D34F /* UWDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UWDatePickerView.xib; sourceTree = "<group>"; };
+		B081E7581ECEC9DE003558DC /* CLCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCollectViewController.h; sourceTree = "<group>"; };
+		B081E7591ECEC9DE003558DC /* CLCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCollectViewController.m; sourceTree = "<group>"; };
+		B081E75B1ECEC9F9003558DC /* CLCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCollectTableViewCell.h; sourceTree = "<group>"; };
+		B081E75C1ECEC9F9003558DC /* CLCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCollectTableViewCell.m; sourceTree = "<group>"; };
+		B081E75E1ECEDDA8003558DC /* CLTechModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTechModel.h; sourceTree = "<group>"; };
+		B081E75F1ECEDDA8003558DC /* CLTechModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTechModel.m; sourceTree = "<group>"; };
+		B081E7611ECEF537003558DC /* CLCollectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCollectListViewController.h; sourceTree = "<group>"; };
+		B081E7621ECEF537003558DC /* CLCollectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCollectListViewController.m; sourceTree = "<group>"; };
 		C4779D0AF22B67AE4A5F3A88 /* Pods-CarMapB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarMapB.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarMapB/Pods-CarMapB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -550,6 +562,10 @@
 				B0228E4B1ECD47E60022D34F /* GFTransformViewController.m */,
 				B0228E4C1ECD47E60022D34F /* PoiSearchDemoViewController.h */,
 				B0228E4D1ECD47E60022D34F /* PoiSearchDemoViewController.mm */,
+				B081E7581ECEC9DE003558DC /* CLCollectViewController.h */,
+				B081E7591ECEC9DE003558DC /* CLCollectViewController.m */,
+				B081E7611ECEF537003558DC /* CLCollectListViewController.h */,
+				B081E7621ECEF537003558DC /* CLCollectListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -559,6 +575,8 @@
 			children = (
 				B0228E4F1ECD47E60022D34F /* CLNotificationModel.h */,
 				B0228E501ECD47E60022D34F /* CLNotificationModel.m */,
+				B081E75E1ECEDDA8003558DC /* CLTechModel.h */,
+				B081E75F1ECEDDA8003558DC /* CLTechModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -568,6 +586,8 @@
 			children = (
 				B0228E521ECD47E60022D34F /* GFTransformTableViewCell.h */,
 				B0228E531ECD47E60022D34F /* GFTransformTableViewCell.m */,
+				B081E75B1ECEC9F9003558DC /* CLCollectTableViewCell.h */,
+				B081E75C1ECEC9F9003558DC /* CLCollectTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1203,6 +1223,7 @@
 				B0228E6F1ECD48B40022D34F /* GFBianjiViewController.m in Sources */,
 				B022905A1ECD49F50022D34F /* UIImageView+WebCache.m in Sources */,
 				B0228E5E1ECD47E60022D34F /* CLNotificationModel.m in Sources */,
+				B081E75A1ECEC9DE003558DC /* CLCollectViewController.m in Sources */,
 				B0228E6E1ECD48B40022D34F /* GFAddWorkerViewController.m in Sources */,
 				B02290641ECD49F50022D34F /* CLTouchImageView.m in Sources */,
 				B02290471ECD49F50022D34F /* MJRefreshNormalHeader.m in Sources */,
@@ -1250,6 +1271,7 @@
 				B022905B1ECD49F50022D34F /* UIView+WebCacheOperation.m in Sources */,
 				B02290661ECD49F50022D34F /* CLTouchView.m in Sources */,
 				B02290351ECD49F40022D34F /* AFHTTPSessionManager.m in Sources */,
+				B081E7631ECEF537003558DC /* CLCollectListViewController.m in Sources */,
 				B0228EA41ECD499D0022D34F /* GFDetailPeoViewController.m in Sources */,
 				B022904E1ECD49F50022D34F /* NSData+ImageContentType.m in Sources */,
 				B0228E821ECD48BD0022D34F /* GFChangePwdViewController.m in Sources */,
@@ -1259,6 +1281,7 @@
 				B022903A1ECD49F50022D34F /* AFURLSessionManager.m in Sources */,
 				B022906F1ECD49F50022D34F /* GFTouchImageView.m in Sources */,
 				B022903E1ECD49F50022D34F /* MJRefreshFooter.m in Sources */,
+				B081E75D1ECEC9F9003558DC /* CLCollectTableViewCell.m in Sources */,
 				B02290621ECD49F50022D34F /* GFMapViewController.mm in Sources */,
 				B02290671ECD49F50022D34F /* GFAlertView.m in Sources */,
 				B02290571ECD49F50022D34F /* UIImage+GIF.m in Sources */,
@@ -1268,6 +1291,7 @@
 				B0228EC01ECD49A80022D34F /* GFEvaluateShareViewController.m in Sources */,
 				B022904F1ECD49F50022D34F /* SDImageCache.m in Sources */,
 				B0228EA21ECD499D0022D34F /* CLAddPersonViewController.m in Sources */,
+				B081E7601ECEDDA8003558DC /* CLTechModel.m in Sources */,
 				B0228E831ECD48BD0022D34F /* GFForgetPwdViewController.m in Sources */,
 				B02290461ECD49F50022D34F /* MJRefreshGifHeader.m in Sources */,
 				B0228E551ECD47E60022D34F /* CLCooperatingViewController.m in Sources */,
@@ -1431,6 +1455,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BaiduMapAPI",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CarMap/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1472,6 +1497,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BaiduMapAPI",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CarMap/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
