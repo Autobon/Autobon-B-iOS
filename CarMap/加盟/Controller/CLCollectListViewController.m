@@ -145,20 +145,50 @@
         cell = [[CLPersonTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
         [cell.zhipaiBut setTitle:@"移除" forState:UIControlStateNormal];
+        [cell.zhipaiBut removeTarget:cell action:@selector(zhipaiButClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if(self.dataArray.count > indexPath.row) {
     
         CLAddPersonModel *model = (CLAddPersonModel *)self.dataArray[indexPath.row];
         cell.model = model;
-
+        cell.zhipaiBut.tag = indexPath.row;
+        [cell.zhipaiBut addTarget:self action:@selector(removeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return cell;
 }
 
+
+- (void)removeBtnClick:(UIButton *)button{
+    if (_dataArray.count > button.tag) {
+        CLAddPersonModel *model = _dataArray[button.tag];
+        
+        [GFHttpTool favoriteTechnicianDeleteWithParameters:@{@"cooperatorId":model.jishiID} success:^(id responseObject) {
+            ICLog(@"删除成功--%@--",responseObject);
+            if ([responseObject[@"result"] integerValue] == 1) {
+                [self addAlertView:@"操作成功"];
+            }else{
+                [self addAlertView:responseObject[@"message"]];
+            }
+            
+        } failure:^(NSError *error) {
+            ICLog(@"删除失败--%@--",error);
+        }];
+        
+    }
+
+}
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+//    GFDetailPeoViewController *VC = [[GFDetailPeoViewController alloc] init];
+//    VC.model = _dataArray[indexPath.row];
+//    [self.navigationController pushViewController:VC animated:YES];
     
 }
 

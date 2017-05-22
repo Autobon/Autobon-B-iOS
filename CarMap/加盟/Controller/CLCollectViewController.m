@@ -126,17 +126,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    if (_dataArray.count > indexPath.row) {
-//        CLCooperatorModel *model = _dataArray[indexPath.row];
-//        
-//        [GFHttpTool favoriteCooperatorDeleteWithParameters:@{@"cooperatorId":model.idString} success:^(id responseObject) {
-//            ICLog(@"删除成功--%@--",responseObject);
-//            
-//            [_tableView.header beginRefreshing];
-//        } failure:^(NSError *error) {
-//            ICLog(@"删除失败--%@--",error);
-//        }];
-//    }
     
 }
 

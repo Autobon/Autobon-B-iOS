@@ -853,7 +853,11 @@
 - (void)collectBtnClick{
     [GFHttpTool favoriteTechnicianPostWithParameters:@{@"techId":_model.techId} success:^(id responseObject) {
         ICLog(@"收藏成功--%@--",responseObject);
-        
+        if ([responseObject[@"result"] integerValue] == 1) {
+            [self addAlertView:@"操作成功"];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
     } failure:^(NSError *error) {
         ICLog(@"收藏失败--%@--",error);
         

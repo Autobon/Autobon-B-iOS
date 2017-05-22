@@ -43,7 +43,7 @@
     NSInteger _page;
     NSInteger _pageSize;
     
-    NSInteger _flage;
+    NSInteger _flage;       //收藏距离切换
 }
 
 @property (nonatomic, strong) NSMutableArray *modelArr;
@@ -73,30 +73,30 @@
 
 - (void)setViewForAdd{
     
-    UIButton *button1 = [[UIButton alloc]init];
-    [button1 setTitle:@"距离" forState:UIControlStateNormal];
-    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.view addSubview:button1];
-    button1.frame = CGRectMake(-1, 64, self.view.frame.size.width/2+1, 30);
-    button1.layer.borderWidth = 0.5;
-    button1.layer.borderColor = [UIColor blackColor].CGColor;
-    button1.titleLabel.font = [UIFont systemFontOfSize:15];
+//    UIButton *button1 = [[UIButton alloc]init];
+//    [button1 setTitle:@"距离" forState:UIControlStateNormal];
+//    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [self.view addSubview:button1];
+//    button1.frame = CGRectMake(-1, 64, self.view.frame.size.width/2+1, 30);
+//    button1.layer.borderWidth = 0.5;
+//    button1.layer.borderColor = [UIColor blackColor].CGColor;
+//    button1.titleLabel.font = [UIFont systemFontOfSize:15];
+//    
+//    UIButton *button2 = [[UIButton alloc]init];
+//    [button2 setTitle:@"收藏" forState:UIControlStateNormal];
+//    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [self.view addSubview:button2];
+//    button2.frame = CGRectMake(self.view.frame.size.width/2, 64, self.view.frame.size.width/2+1, 30);
+//    button2.alpha = 0.5;
+//    button2.layer.borderWidth = 0.5;
+//    button2.layer.borderColor = [UIColor blackColor].CGColor;
+//    button2.titleLabel.font = [UIFont systemFontOfSize:15];
     
-    UIButton *button2 = [[UIButton alloc]init];
-    [button2 setTitle:@"收藏" forState:UIControlStateNormal];
-    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.view addSubview:button2];
-    button2.frame = CGRectMake(self.view.frame.size.width/2, 64, self.view.frame.size.width/2+1, 30);
-    button2.alpha = 0.5;
-    button2.layer.borderWidth = 0.5;
-    button2.layer.borderColor = [UIColor blackColor].CGColor;
-    button2.titleLabel.font = [UIFont systemFontOfSize:15];
-    
-    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 70 + 30, self.view.frame.size.width-100, 40)];
+    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 74, self.view.frame.size.width-100, 30)];
 //    searchbar.backgroundColor = [UIColor whiteColor];
     _searchbar.barTintColor = [UIColor whiteColor];
 //    searchbar.barStyle = UIBarStyleDefault;
-    _searchbar.layer.cornerRadius = 20;
+    _searchbar.layer.cornerRadius = 15;
     _searchbar.layer.borderWidth = 1.0;
     _searchbar.layer.borderColor = [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]CGColor];
     
@@ -105,17 +105,18 @@
     _searchbar.clipsToBounds = YES;
     
     
-    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 70 + 30, 60, 40)];
+    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 74 , 60, 30)];
     [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [searchButton addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    searchButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:searchButton];
     
     _tableView = [[UITableView alloc]init];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.frame = CGRectMake(0, 110 + 30, self.view.frame.size.width, self.view.frame.size.height-110 - 30);
+    _tableView.frame = CGRectMake(0, 110 , self.view.frame.size.width, self.view.frame.size.height-110);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
     _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefreshDo)];
@@ -125,31 +126,24 @@
     [_tableView.header beginRefreshing];
 }
 
-- (void)httpWork {
-    
+- (void)getCollectList{
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"page"] = @(_page);
     mDic[@"pageSize"] = @(_pageSize);
+    if (_searchbar.text.length > 0) {
+        mDic[@"query"] = _searchbar.text;
+    }
     
-    [GFHttpTool jishiListGetWithParameters:mDic success:^(id responseObject) {
-        
-//        NSLog(@"====技师列表数据====%@", responseObject);
-        if([responseObject[@"status"] integerValue] == 1) {
-            
-            NSDictionary *dic = responseObject[@"message"];
-            NSArray *arr = dic[@"content"];
-//            NSLog(@"===%@", arr);
-            for(int i=0; i<arr.count; i++) {
-            
-                CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:arr[i]];
-                [self.modelArr addObject:model];
-                model.orderID = _orderId;
-                
-//                NSLog(@"-每个模型--%@", model.orderCount);
-            }
-            
-            [_tableView reloadData];
+    [GFHttpTool favoriteTechnicianGetWithParameters:mDic success:^(id responseObject) {
+        ICLog(@"===%@", responseObject);
+        NSArray *arr = responseObject[@"list"];
+        for(int i=0; i<arr.count; i++) {
+            NSDictionary *dic = arr[i];
+            CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:dic[@"technician"]];
+            [self.modelArr addObject:model];
         }
+        
+        [_tableView reloadData];
         
         
         [_tableView.header endRefreshing];
@@ -162,27 +156,28 @@
         [_tableView.footer endRefreshing];
     }];
 }
-- (void)httpWork2 {
+
+
+- (void)httpWork {
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
-    mDic[@"query"] = _searchbar.text;
     mDic[@"page"] = @(_page);
     mDic[@"pageSize"] = @(_pageSize);
+    if (_searchbar.text.length > 0) {
+        mDic[@"query"] = _searchbar.text;
+    }
     
-    [GFHttpTool jishiMohuGetWithParameters:mDic success:^(id responseObject) {
-        
-//        NSLog(@"====++++%@", responseObject);
-        if([responseObject[@"status"] integerValue] ==1) {
+    [GFHttpTool jishiListGetWithParameters:mDic success:^(id responseObject) {
+        if([responseObject[@"status"] integerValue] == 1) {
+            
             NSDictionary *dic = responseObject[@"message"];
             NSArray *arr = dic[@"content"];
-//            NSLog(@"===%@", arr);
+            ICLog(@"===%@", arr);
             for(int i=0; i<arr.count; i++) {
-                
+            
                 CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:arr[i]];
-                model.orderID = _orderId;
                 [self.modelArr addObject:model];
-                
-//                NSLog(@"-每个模型--%@", model.orderCount);
+                model.orderID = _orderId;
             }
             
             [_tableView reloadData];
@@ -193,6 +188,7 @@
         [_tableView.footer endRefreshing];
         
     } failure:^(NSError *error) {
+        
         
         [_tableView.header endRefreshing];
         [_tableView.footer endRefreshing];
@@ -201,32 +197,27 @@
 
 - (void)headRefreshDo {
     
-    if(_flage == 0) {
-        
-        _page = 1;
-        self.modelArr = [[NSMutableArray alloc] init];
+    _page = 1;
+    self.modelArr = [[NSMutableArray alloc] init];
+    
+    if (_flage == 0) {
         [self httpWork];
-    }else {
-        
-        _page = 1;
-        self.modelArr = [[NSMutableArray alloc] init];
-        [self httpWork2];
+    }else{
+        [self getCollectList];
     }
+    
+    
 }
 
 - (void)footRefreshDo {
     
-    
-    if(_flage == 0) {
-        
-        _page++;
-        
+    _page++;
+    if (_flage == 0) {
         [self httpWork];
-    }else {
-        
-        _page++;
-        [self httpWork2];
+    }else{
+        [self getCollectList];
     }
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -295,8 +286,6 @@
     //    NSLog(@"搜索按钮被点击了");
     [self.view endEditing:YES];
     
-    
-    _flage = 1;
     [_tableView.header beginRefreshing];
     
     /*
@@ -342,9 +331,12 @@
 // 添加导航
 - (void)setNavigation{
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"指定技师" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:@" " withRightImgHightName:@"收藏" withCenterTitle:@"指定技师" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    [navView.rightBut addTarget:navView action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [navView.rightBut addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    navView.rightBut.titleLabel.font = [UIFont systemFontOfSize:15];
+    [navView.rightBut setTitle:@"收藏" forState:UIControlStateNormal];
+    [navView.rightBut setTitle:@"距离" forState:UIControlStateSelected];
     [self.view addSubview:navView];
     
     
@@ -361,8 +353,16 @@
     
 }
 // 更多按钮的响应方法
-- (void)moreBtnClick{
-//    NSLog(@"更多");
+- (void)moreBtnClick:(UIButton *)button{
+    
+    button.selected = !button.selected;
+    if (button.selected) {
+        _flage = 1;
+    }else{
+        _flage = 0;
+    }
+    [_tableView.header beginRefreshing];
+    
 }
 
 #pragma mark - AlertView
