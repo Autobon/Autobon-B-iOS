@@ -123,13 +123,13 @@
     
     UIButton *licenceDuplicateBut = [UIButton buttonWithType:UIButtonTypeCustom];
     licenceDuplicateBut.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-    extern NSString* const URLHOST;
+
 //    [licenceDuplicateBut sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
-    [licenceDuplicateBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [licenceDuplicateBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:licenceDuplicateBut];
     licenceDuplicateBut.tag = 1;
     [licenceDuplicateBut addTarget:self action:@selector(imgButClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"bussinessLicensePic"]]];
 //    licenceDuplicateBut.backgroundColor = [UIColor redColor];
     
 //     UIImageView *licenceDuplicateImage = [[CLImageView alloc]init];
@@ -161,11 +161,11 @@
      
     UIButton *legalEntityIdBut = [UIButton buttonWithType:UIButtonTypeCustom];
     legalEntityIdBut.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-    [legalEntityIdBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [legalEntityIdBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:legalEntityIdBut];
     legalEntityIdBut.tag = 2;
     [legalEntityIdBut addTarget:self action:@selector(imgButClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"corporationIdPicA"]]];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"corporationIdPicA"]]];
     
 //     UIImageView *legalEntityIdImage = [[CLImageView alloc]init];
 //     legalEntityIdImage.frame = CGRectMake(30, lineView3.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);

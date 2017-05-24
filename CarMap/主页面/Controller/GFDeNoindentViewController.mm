@@ -326,7 +326,7 @@
         but.frame = CGRectMake((i % 3) * (butImgW + 10) + 10, (i / 3) * (butImgH + 10) + 10, butImgW, butImgH);
         but.tag = i + 1;
 //        [but setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.photoUrlArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoUrlArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [vv2 addSubview:but];
     }
@@ -453,7 +453,7 @@
 }
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.photoUrlArr[index]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoUrlArr[index]]];
     
     return url;
 }

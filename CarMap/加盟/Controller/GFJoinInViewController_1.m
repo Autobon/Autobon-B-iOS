@@ -232,10 +232,9 @@
             self.zhizhaohaoTxt.text = _dataForPastDictionary[@"businessLicense"];
             self.nameTxt.text = _dataForPastDictionary[@"corporationName"];
             self.idCardTxt.text = _dataForPastDictionary[@"corporationIdNo"];
-            extern NSString* const URLHOST;
-            [_certificateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_certificateImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataForPastDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"bussinessLicensePic"] forKey:@"bussinessLicensePic"];
-            [_idImageViewBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+            [_idImageViewBtn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataForPastDictionary[@"corporationIdPicA"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
             [_dataDictionary setObject:_dataForPastDictionary[@"corporationIdPicA"] forKey:@"corporationIdPicA"];
             _isUpCertificate = YES;
             _isUpidImageView = YES;

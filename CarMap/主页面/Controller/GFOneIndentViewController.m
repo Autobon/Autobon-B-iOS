@@ -591,8 +591,8 @@
 #pragma mark - 一键下单按钮响应方法
 - (void)signInButClick {
     
-    CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
-    [self.navigationController pushViewController:addPerson animated:YES];
+//    CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
+//    [self.navigationController pushViewController:addPerson animated:YES];
     
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];

@@ -157,8 +157,8 @@
     }];
 }
 
-
-- (void)httpWork {
+#pragma mark - 获取按照距离排序的技师列表
+- (void)getDistanceList {
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"page"] = @(_page);
@@ -195,15 +195,60 @@
     }];
 }
 
+#pragma mark - 获取模糊搜索的技师列表
+- (void)getSearchList {
+    
+    NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
+    mDic[@"page"] = @(_page);
+    mDic[@"pageSize"] = @(_pageSize);
+    if (_searchbar.text.length > 0) {
+        mDic[@"query"] = _searchbar.text;
+    }
+    
+    [GFHttpTool jishiMohuGetWithParameters:mDic success:^(id responseObject) {
+        if([responseObject[@"status"] integerValue] == 1) {
+            
+            NSDictionary *dic = responseObject[@"message"];
+            NSArray *arr = dic[@"content"];
+            ICLog(@"===%@", arr);
+            for(int i=0; i<arr.count; i++) {
+                
+                CLAddPersonModel *model = [[CLAddPersonModel alloc] initWithDictionary:arr[i]];
+                [self.modelArr addObject:model];
+                model.orderID = _orderId;
+            }
+            
+            [_tableView reloadData];
+        }
+        
+        
+        [_tableView.header endRefreshing];
+        [_tableView.footer endRefreshing];
+        
+    } failure:^(NSError *error) {
+        
+        
+        [_tableView.header endRefreshing];
+        [_tableView.footer endRefreshing];
+    }];
+}
+
+
 - (void)headRefreshDo {
     
     _page = 1;
     self.modelArr = [[NSMutableArray alloc] init];
     
     if (_flage == 0) {
-        [self httpWork];
+        if (_searchbar.text.length > 0) {
+            [self getSearchList];
+        }else{
+            [self getDistanceList];
+        }
+        _tableView.frame = CGRectMake(0, 110 , self.view.frame.size.width, self.view.frame.size.height-110);
     }else{
         [self getCollectList];
+        _tableView.frame = CGRectMake(0, 64 , self.view.frame.size.width, self.view.frame.size.height-110);
     }
     
     
@@ -213,7 +258,11 @@
     
     _page++;
     if (_flage == 0) {
-        [self httpWork];
+        if (_searchbar.text.length > 0) {
+            [self getSearchList];
+        }else{
+            [self getDistanceList];
+        }
     }else{
         [self getCollectList];
     }
@@ -241,8 +290,19 @@
     if(self.modelArr.count > indexPath.row) {
     
         CLAddPersonModel *model = (CLAddPersonModel *)self.modelArr[indexPath.row];
+        model.orderID = _orderId;
         cell.model = model;
 //        NSLog(@"---老天保佑---%@", model.distance);
+        if (_flage == 0) {//所有
+            cell.danshuLab.hidden = NO;
+            cell.jvliImgView.hidden = NO;
+            cell.jvliLab.hidden = NO;
+        }else{// 收藏
+            cell.danshuLab.hidden = YES;
+            cell.jvliImgView.hidden = YES;
+            cell.jvliLab.hidden = YES;
+        }
+        
     }
     return cell;
 }

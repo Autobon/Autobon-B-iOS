@@ -113,7 +113,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         
 //        NSString *suffixURL = @"/coop/merchant/certificate";
 //        NSString *url = [NSString stringWithFormat:@"%@%@", HOST, suffixURL];
-        NSString *url = @"http://121.40.219.58:8000/api/mobile/coop/merchant/certificate";
+        NSString *url = [NSString stringWithFormat:@"%@/api/mobile/coop/merchant/certificate",BaseHttp];
         GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"提交中..."];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         // 请求超时时间设置
@@ -273,7 +273,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
                 if ([cookie.name isEqualToString:@"autoken"]) { // 获取响应头数组对象里地名字为autoken的对象
 //                    NSLog(@"############%@", [NSString stringWithFormat:@"%@=%@",[cookie name],[cookie value]]); //获取响应头数组对象里地名字为autoken的对象的数据，这个数据是用来验证用户身份相当于“key”
                     [autokenValue setObject:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forKey:@"autoken"];
-//                    NSLog(@"===autoken===\n%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"]);
+                    ICLog(@"===autoken===\n%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"]);
                     break;
                 }
             }
@@ -505,11 +505,15 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         manager.requestSerializer.timeoutInterval = 30.0;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"];
         
+        ICLog(@"token---%@--",token);
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         // 清除NULL
         AFJSONResponseSerializer *response = (AFJSONResponseSerializer *)manager.responseSerializer;
         response.removesKeysWithNullValues = YES;
-        
+        ICLog(@"---URLString-%@----parameters---%@",url,parameters);
         [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
@@ -558,7 +562,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             if(failure) {
-                
+                ICLog(@"error---%@--",error);
                 // 判断请求超时
                 NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
                 if([errorStr isEqualToString:@"The request timed out."]) {

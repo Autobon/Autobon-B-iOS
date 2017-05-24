@@ -19,6 +19,17 @@
 @property (nonatomic, strong) UIButton *zhipaiBut;
 @property (nonatomic, strong) CLAddPersonModel *model;
 
+
+@property (nonatomic, strong) UILabel *nameLab;
+@property (nonatomic, strong) UILabel *danshuLab;
+@property (nonatomic, strong) UIButton *jvliBut;
+@property (nonatomic, strong) UIImageView *jvliImgView;
+@property (nonatomic, strong) UILabel *jvliLab;
+@property (nonatomic, strong) UILabel *gereLab;
+@property (nonatomic, strong) UILabel *gaiseLab;
+@property (nonatomic, strong) UILabel *cheyiLab;
+@property (nonatomic, strong) UILabel *meirongLab;
+
 - (void)setCell2;
 
 

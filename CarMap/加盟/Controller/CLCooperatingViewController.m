@@ -101,10 +101,9 @@
     licenceDuplicate.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
     [scrollView addSubview:licenceDuplicate];
     
-    extern NSString* const URLHOST;
     UIButton *imgBut = [UIButton buttonWithType:UIButtonTypeCustom];
     imgBut.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-    [imgBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [imgBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:imgBut];
     imgBut.tag = 1;
     [imgBut addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -120,7 +119,7 @@
 //    [scrollView addSubview:licenceDuplicateImage];
     
     
-    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"bussinessLicensePic"]]];
     
     /*
     // 营业执照名，号；法人姓名，身份证号

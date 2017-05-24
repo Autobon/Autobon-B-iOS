@@ -233,7 +233,7 @@
         but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , imgViewY + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
         but.tag = i + 1;
         [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
-        NSString *ss = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.photoArr[i]];
+        NSString *ss = [NSString stringWithFormat:@"%@%@",BaseHttp ,self.model.photoArr[i]];
         [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [baseView addSubview:but];
@@ -508,7 +508,7 @@
             but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , CGRectGetMaxY(beforeLab.frame) + jiange4 + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
             but.tag = i + 1;
             [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
-            NSString *ss = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.beforePhotosArr[i]];
+            NSString *ss = [NSString stringWithFormat:@"%@%@",BaseHttp, self.model.beforePhotosArr[i]];
             [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
             [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
             [baseView addSubview:but];
@@ -573,7 +573,7 @@
             but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , CGRectGetMaxY(afPhotoLab.frame) + jiange4 + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
             but.tag = i + 1;
             [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
-            NSString *ss = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.model.afterPhotosArr[i]];
+            NSString *ss = [NSString stringWithFormat:@"%@%@",BaseHttp, self.model.afterPhotosArr[i]];
             [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
             [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
             [baseView addSubview:but];
@@ -615,16 +615,17 @@
     
     UIButton *collectButton = [[UIButton alloc]init];
     [collectButton setTitle:@"收藏" forState:UIControlStateNormal];
-    [collectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
     collectButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    collectButton.layer.cornerRadius = 3;
-    collectButton.layer.borderWidth = 1;
-    collectButton.layer.borderColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1].CGColor;
     [_scrollView addSubview:collectButton];
     
     collectButton.frame = CGRectMake(self.view.frame.size.width - 65, CGRectGetMinY(jishiView.frame) + 10, 50, 25);
     [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
+    [collectButton setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
+    collectButton.layer.borderWidth = 1;
+    collectButton.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
+    collectButton.layer.cornerRadius = 3;
     
     
     // 技师头像栏
@@ -646,7 +647,7 @@
     UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImgViewX, iconImgViewY, iconImgViewW, iconImgViewH)];
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
-    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@" ,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp ,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
 //    iconImgView.image = [UIImage imageNamed:@"userHeadImage"];
     [iconView addSubview:iconImgView];
     // 姓名
@@ -742,7 +743,7 @@
 //                _scrollView.contentSize = CGSizeMake(0, afMaxY);
 //            }
 //            NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000:12345%@" ,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp ,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
             
             
             NSString *nameStr2 = [[NSString alloc] init];
@@ -854,7 +855,7 @@
     [GFHttpTool favoriteTechnicianPostWithParameters:@{@"techId":_model.techId} success:^(id responseObject) {
         ICLog(@"收藏成功--%@--",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
-            [self addAlertView:@"操作成功"];
+            [self addAlertView:@"收藏技师成功"];
         }else{
             [self addAlertView:responseObject[@"message"]];
         }
@@ -914,7 +915,7 @@
 }
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://121.40.219.58:8000%@", self.curPhotoArr[index]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.curPhotoArr[index]]];
     
     return url;
 }
@@ -1010,7 +1011,7 @@
     iconImgView.layer.cornerRadius = iconImgViewW / 2.0;
     iconImgView.clipsToBounds = YES;
     //    iconImgView.backgroundColor =[UIColor redColor];
-    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+    [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_model.techAvatar]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
     [iconView addSubview:iconImgView];
     // 姓名
     NSString *nameStr = @"陈光法";

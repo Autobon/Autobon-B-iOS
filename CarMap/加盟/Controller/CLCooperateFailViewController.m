@@ -108,14 +108,13 @@
     [scrollView addSubview:licenceDuplicate];
     
     
-    extern NSString* const URLHOST;
     UIButton *imgBut = [UIButton buttonWithType:UIButtonTypeCustom];
     imgBut.frame = CGRectMake(30, lineView2.frame.origin.y + 30, self.view.frame.size.width-60, (self.view.frame.size.width-60)*9/14.0);
-    [imgBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+    [imgBut sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"bussinessLicensePic"]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
     [scrollView addSubview:imgBut];
     imgBut.tag = 1;
     [imgBut addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",URLHOST,_dataDictionary[@"bussinessLicensePic"]]];
+    [self.photoUrlArr addObject:[NSString stringWithFormat:@"%@%@",BaseHttp,_dataDictionary[@"bussinessLicensePic"]]];
     
     
 //    UIImageView *licenceDuplicateImage = [[UIImageView alloc]init];

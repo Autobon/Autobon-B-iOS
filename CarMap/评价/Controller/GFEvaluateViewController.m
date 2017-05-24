@@ -166,8 +166,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSDictionary *dataDictionary = responseObject[@"data"];
             NSDictionary *technicianDictionary = dataDictionary[@"technician"];
-            extern NSString* const URLHOST;
-            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLHOST,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
+            [iconImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp,technicianDictionary[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"userHeadImage"]];
 //            nameLab.text = technicianDictionary[@"name"];
             
             NSString *nameStr = [NSString stringWithFormat:@"%@", technicianDictionary[@"name"]];

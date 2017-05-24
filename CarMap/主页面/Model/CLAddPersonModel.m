@@ -17,7 +17,7 @@
     
     if(self != nil) {
         
-        _avatar = [NSString stringWithFormat:@"http://121.40.219.58:8000%@", dic[@"avatar"]];
+        _avatar = [NSString stringWithFormat:@"%@%@",BaseHttp ,dic[@"avatar"]];
         _jishiID = [NSString stringWithFormat:@"%@", dic[@"id"]];
         _name = [NSString stringWithFormat:@"%@", dic[@"name"]];
         _phone = [NSString stringWithFormat:@"%@", dic[@"phone"]];

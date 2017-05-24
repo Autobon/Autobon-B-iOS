@@ -146,6 +146,10 @@
         cell.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
         [cell.zhipaiBut setTitle:@"移除" forState:UIControlStateNormal];
         [cell.zhipaiBut removeTarget:cell action:@selector(zhipaiButClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.danshuLab.hidden = YES;
+        cell.jvliImgView.hidden = YES;
+        cell.jvliLab.hidden = YES;
     }
     
     if(self.dataArray.count > indexPath.row) {
@@ -167,7 +171,8 @@
         [GFHttpTool favoriteTechnicianDeleteWithParameters:@{@"cooperatorId":model.jishiID} success:^(id responseObject) {
             ICLog(@"删除成功--%@--",responseObject);
             if ([responseObject[@"result"] integerValue] == 1) {
-                [self addAlertView:@"操作成功"];
+                [self addAlertView:@"移除技师成功"];
+                [_tableView.header beginRefreshing];
             }else{
                 [self addAlertView:responseObject[@"message"]];
             }

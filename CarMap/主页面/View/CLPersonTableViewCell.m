@@ -21,15 +21,7 @@
 //    UILabel *_meirongLab;
 }
 
-@property (nonatomic, strong) UILabel *nameLab;
-@property (nonatomic, strong) UILabel *danshuLab;
-@property (nonatomic, strong) UIButton *jvliBut;
-@property (nonatomic, strong) UIImageView *jvliImgView;
-@property (nonatomic, strong) UILabel *jvliLab;
-@property (nonatomic, strong) UILabel *gereLab;
-@property (nonatomic, strong) UILabel *gaiseLab;
-@property (nonatomic, strong) UILabel *cheyiLab;
-@property (nonatomic, strong) UILabel *meirongLab;
+
 
 
 
@@ -137,22 +129,22 @@
 
 - (void)zhipaiButClick:(UIButton *)sender {
     
-//    NSLog(@"===%@", _model.distance);
+    
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"orderId"] = _model.orderID;
     mDic[@"techId"] = _model.jishiID;
-    
+    ICLog(@"===%@－－－－mDic--%@--", _model.distance,mDic);
     [GFHttpTool postAppintTechForOrder:mDic Success:^(id responseObject) {
         
-//        NSLog(@"指派技师返回的数据＝＝＝＝%@", responseObject);
+        ICLog(@"指派技师返回的数据＝＝＝＝%@", responseObject);
         if([responseObject[@"status"] integerValue] == 1) {
         
             [[self viewController].navigationController popToRootViewControllerAnimated:YES];
         }
         
     } failure:^(NSError *error) {
-        
+        ICLog(@"指派技师返回的数据＝＝＝＝%@", error);
         
     }];
 }
