@@ -124,7 +124,7 @@
     UIButton *collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
     collectButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 *2 + kHeight * 0.078 withLeftImgName:@"order" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
+    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 *2 + kHeight * 0.078 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
     
     // 合作商加盟
     UIButton *joinInButton = [UIButton buttonWithType:UIButtonTypeCustom];

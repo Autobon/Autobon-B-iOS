@@ -312,11 +312,23 @@
 //        NSLog(@"geo检索发送失败");
     }
     
+    
+    
+    
 }
 
 
 
 
+//实现Delegate处理回调结果
+- (void)onGetSuggestionResult:(BMKSuggestionSearch*)searcher result:(BMKSuggestionResult*)result errorCode:(BMKSearchErrorCode)error{
+    if (error == BMK_SEARCH_NO_ERROR) {
+        //在此处理正常结果
+    }
+    else {
+        NSLog(@"抱歉，未找到结果");
+    }
+}
 
 
 
@@ -339,7 +351,6 @@
     [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
     
     NSString *dateString = [formatter stringFromDate:userLocation.location.timestamp];
-    
     
     
     //    NSLog(@"---%@---定位",userLocation.location);
