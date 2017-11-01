@@ -9,11 +9,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
 #import "GeTuiSdk.h"
-#import "UMSocial.h"
-#import "UMSocialWechatHandler.h"
-#import "UMSocialSinaHandler.h"
-#import "UMSocialQQHandler.h"
-#import "UMSocialSinaSSOHandler.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 
 
@@ -31,14 +26,14 @@
 //#import "GFJoinInViewController_2.h"
 //
 //#import "GFIndentDetialsViewController.h"
-//#import "GFEvaluateShareViewController.h"
+#import "GFEvaluateShareViewController.h"
 #import "GFHttpTool.h"
 
 //#import "GFCooperationViewController.h"
 #import "PoiSearchDemoViewController.h"
 #import "CLAddPersonViewController.h"
 
-
+#import <UMSocialCore/UMSocialCore.h>
 
 // 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
 #define kGtAppId      @"IED5iJnuVu8dklsGy35E54"
@@ -71,23 +66,42 @@
     [self registerUserNotification];
     
     
-    [UMSocialData setAppKey:@"564d41b4e0f55a596d003fe4"];
-    
-    
-    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
-    
-    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
-//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
-    
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1532716943" RedirectURL:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
+//    [UMSocialData setAppKey:@"564d41b4e0f55a596d003fe4"];
+//
+//
+//    [UMSocialWechatHandler setWXAppId:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" url:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
+//
+//    [UMSocialQQHandler setQQWithAppId:@"1105229897" appKey:@"k2nOEjpJOx5stTYA" url:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
+////    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://hpecar.com:12345/shareB.html"];
+//
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1532716943" RedirectURL:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
 
+    
+    
+    /* 设置友盟appkey */
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"564d41b4e0f55a596d003fe4"];
+    
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx568c812182fa1a4d" appSecret:@"b2933cbe8ad5b3dcd26d1eb5825140b3" redirectURL:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
+    
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105229897"/*设置QQ平台的appID*/  appSecret:nil redirectURL:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
+    
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1532716943"/*设置微博平台的appID*/  appSecret:nil redirectURL:[NSString stringWithFormat:@"%@/shareB.html",BaseHttp]];
+    
+    
+    
+    
+    
+    
+    
+    
+    
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"er5ppSPS6vxnd5BtvWDsgthy" generalDelegate:self];
     if (!ret) {
 //        NSLog(@"manager start failed!");
     }
     
-    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
 //    GFAddWorkerViewController *firstView = [[GFAddWorkerViewController alloc]init];
 //    GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
@@ -109,7 +123,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (result == FALSE) {
         //调用其他SDK，例如支付宝SDK等
     }

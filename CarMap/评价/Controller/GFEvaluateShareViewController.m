@@ -10,15 +10,15 @@
 #import "GFNavigationView.h"
 #import "GFTextField.h"
 #import "UIImageView+WebCache.h"
-#import "UMSocial.h"
 #import "GFHttpTool.h"
 #import "GFEvaluateViewController.h"
 #import "GFTipView.h"
 #import "ACETelPrompt.h"
 
+#import <UShareUI/UShareUI.h>
+#import <UMSocialCore/UMSocialCore.h>
 
-
-@interface GFEvaluateShareViewController () {
+@interface GFEvaluateShareViewController ()<UMSocialShareMenuViewDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -300,13 +300,51 @@
 //    NSLog(@"分享");
     
 //    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦测试分享消息" shareImage:nil shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"车邻邦商户端";
-    [UMSocialData defaultData].extConfig.qqData.title = @"车邻邦商户端";
-    [UMSocialData defaultData].extConfig.qzoneData.title = @"车邻邦商户端";
-    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦专业的汽车保养团队" shareImage:[UIImage imageNamed:@"logoImage"] shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
+//    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"车邻邦商户端";
+//    [UMSocialData defaultData].extConfig.qqData.title = @"车邻邦商户端";
+//    [UMSocialData defaultData].extConfig.qzoneData.title = @"车邻邦商户端";
+//    [UMSocialSnsService presentSnsIconSheetView:self appKey:@"564d41b4e0f55a596d003fe4" shareText:@"车邻邦专业的汽车保养团队" shareImage:[UIImage imageNamed:@"logoImage"] shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToQQ,UMShareToSina,nil] delegate:self];
     
+    
+    
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_Qzone),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Sina)]];
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        [self shareWebPageToPlatformType:platformType];
+    }];
     
 }
+
+
+
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+{
+    
+    
+    
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    //    NSString* thumbURL =  @"http://media.incardata.com.cn/others%2f512-512.png";
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"车邻邦" descr:@"车邻邦专业的汽车保养团队" thumImage:[UIImage imageNamed:@"logoImage"]];
+    //设置网页地址
+    shareObject.webpageUrl = [NSString stringWithFormat:@"%@/shareB.html",BaseHttp];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        
+        if (error) {
+            ICLog(@"************Share fail with error %@*********",error);
+        }else{
+           
+        }
+        
+    }];
+}
+
+
 
 - (void)cellTech{
     

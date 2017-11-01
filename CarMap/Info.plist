@@ -50,6 +50,14 @@
 				<string>wb1532716943</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1105229897</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
@@ -57,7 +65,11 @@
 	<array>
 		<string>mqqOpensdkSSoLogin</string>
 		<string>mqzone</string>
+		<string>sinaweibohd</string>
 		<string>sinaweibo</string>
+		<string>sinaweibosso</string>
+		<string>weibosdk</string>
+		<string>weibosdk2.5</string>
 		<string>alipayauth</string>
 		<string>alipay</string>
 		<string>safepay</string>
@@ -71,6 +83,7 @@
 		<string>wtloginmqq2</string>
 		<string>weixin</string>
 		<string>wechat</string>
+		<string>baidumap</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
