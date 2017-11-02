@@ -198,6 +198,9 @@
                         [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
                         NSDictionary *dataDictionary = responseObject[@"message"];
                         
+                        
+                        
+                        
                         if ([dataDictionary[@"cooperator"] isKindOfClass:[NSNull class]]) {
             // 没有填写认证信息
                             GFCooperationViewController *joinInView = [[GFCooperationViewController alloc]init];

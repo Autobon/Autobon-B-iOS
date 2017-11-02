@@ -125,6 +125,11 @@
     baseView.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:baseView];
     
+    [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
+    
     // 订单编号
     CGFloat bianhaoLabW = 0.7 * kWidth;
     CGFloat bianhaoLabH = kHeight * 0.026;

@@ -65,7 +65,7 @@
 - (void)_setView {
     
     // 技师头像栏
-    UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight * 0.15625)];
+    UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 24, kWidth, kHeight * 0.15625)];
     iconView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:iconView];
     // 边线

@@ -73,6 +73,7 @@
     self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"加盟商" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
+    
 }
 
 - (void)_setView {
@@ -82,7 +83,7 @@
 //    [self.view addSubview:self.enterpriseNameTxt];
     
     // 请输入您的手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:jiange1 + 64 withPlaceholder:@"请输入您的手机号"];
+    self.phoneTxt = [[GFTextField alloc] initWithY:jiange1 + 88 withPlaceholder:@"请输入您的手机号"];
     self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
     
@@ -188,9 +189,15 @@
     if (textField.tag == 3) {
         self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
         self.navView.frame = CGRectMake(0, 0, kWidth, 64);
+        if (self.view.frame.size.height > 800) {
+            self.navView.frame = CGRectMake(0, 0, kWidth, 88);
+        }
     }else{
         self.view.frame = CGRectMake(0, -70*textField.tag, kWidth, kHeight);
         self.navView.frame = CGRectMake(0, 70*textField.tag, kWidth, 64);
+        if (self.view.frame.size.height > 800) {
+            self.navView.frame = CGRectMake(0, 70*textField.tag, kWidth, 88);
+        }
         [self.view bringSubviewToFront:self.navView];
     }
     
@@ -276,6 +283,9 @@
 
     self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
     self.navView.frame = CGRectMake(0, 0, kWidth, 64);
+    if(self.view.frame.size.height > 800){
+        self.navView.frame = CGRectMake(0, 0, kWidth, 88);
+    }
     [self.view bringSubviewToFront:self.navView];
     [self.view endEditing:YES];
     CLDelegateViewController *delegateView = [[CLDelegateViewController alloc]init];
@@ -439,6 +449,10 @@
     self.view.frame = CGRectMake(0, 0, kWidth, kHeight);
     self.navView.frame = CGRectMake(0, 0, kWidth, 64);
     [self.view bringSubviewToFront:self.navView];
+    
+    if (self.view.frame.size.height > 800) {
+        self.navView.frame = CGRectMake(0, 0, kWidth, 88);
+    }
     
     
     [self.view endEditing:YES];

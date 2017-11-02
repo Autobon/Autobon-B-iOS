@@ -30,6 +30,8 @@
     NSInteger _pageSize;
     
     NSInteger _flage;
+    
+    GFNavigationView *_navView;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -65,11 +67,16 @@
     _tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
-    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
-    _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     [self.view addSubview:_tableView];
     
-    [_tableView.header beginRefreshing];
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
+    
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)getFavoriteList {
@@ -95,14 +102,14 @@
         
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         
     } failure:^(NSError *error) {
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -172,7 +179,7 @@
             ICLog(@"删除成功--%@--",responseObject);
             if ([responseObject[@"result"] integerValue] == 1) {
                 [self addAlertView:@"移除技师成功"];
-                [_tableView.header beginRefreshing];
+                [_tableView.mj_header beginRefreshing];
             }else{
                 [self addAlertView:responseObject[@"message"]];
             }
@@ -202,9 +209,9 @@
 // 添加导航
 - (void)setNavigation{
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"我的收藏" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:navView];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"我的收藏" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_navView];
     
     
 }

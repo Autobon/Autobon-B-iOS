@@ -82,11 +82,15 @@
     self.tableView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
     [self.view addSubview:self.tableView];
     
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
     
     
-    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
-    _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
-    [_tableView.header beginRefreshing];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    [_tableView.mj_header beginRefreshing];
     _page = 1;
     _pageSize = 10;
     
@@ -141,12 +145,12 @@
             [self.tableView reloadData];
         }
         
-        [self.tableView.header endRefreshing];
-        [self.tableView.footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     } failure:^(NSError *error) {
         
-        [self.tableView.header endRefreshing];
-        [self.tableView.footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -212,8 +216,8 @@
                 
                 
             }];
-            [self.tableView.header endRefreshing];
-            [self.tableView.footer endRefreshing];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
             [self.tableView reloadData];
             _tableView.userInteractionEnabled = YES;
         }
@@ -221,8 +225,8 @@
     } failure:^(NSError *error) {
         _tableView.userInteractionEnabled = YES;
 //         [self addAlertView:@"请求失败"];
-        [self.tableView.header endRefreshing];
-        [self.tableView.footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
 //        NSLog(@"----shibaile---%@---",error);
     }];
 }

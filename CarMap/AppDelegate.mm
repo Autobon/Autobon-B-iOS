@@ -24,7 +24,7 @@
 // 调试界面
 //#import "GFJoinInViewController_1.h"
 //#import "GFJoinInViewController_2.h"
-//
+#import "CLAddPersonViewController.h"
 //#import "GFIndentDetialsViewController.h"
 #import "GFEvaluateShareViewController.h"
 #import "GFHttpTool.h"
@@ -110,6 +110,7 @@
 //    GFOneIndentViewController *firstView = [[GFOneIndentViewController alloc]init];
 //    GFEvaluateShareViewController *firstView = [[GFEvaluateShareViewController alloc]init];
 //    SecondViewController *firstView = [[SecondViewController alloc]init];
+//    CLAddPersonViewController *firstView = [[CLAddPersonViewController alloc]init];
     GFSignInViewController *firstView = [[GFSignInViewController alloc]init];
     _navigation = [[UINavigationController alloc]initWithRootViewController:firstView];
 //    GFNoIndentViewController *coopVC = [[GFNoIndentViewController alloc] init];

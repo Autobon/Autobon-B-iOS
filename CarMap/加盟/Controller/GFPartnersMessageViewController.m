@@ -70,13 +70,19 @@
 - (void)_setView {
     
     // 合作商信息
-    CGFloat baseView1W = kWidth;
+//    CGFloat baseView1W = kWidth;
     CGFloat baseView1H = kHeight * 0.167;
-    CGFloat baseView1X = 0;
-    CGFloat baseView1Y = 64;
-    UIView *baseView1 = [[UIView alloc] initWithFrame:CGRectMake(baseView1X, baseView1Y, baseView1W, baseView1H)];
+//    CGFloat baseView1X = 0;
+//    CGFloat baseView1Y = 64;
+    UIView *baseView1 = [[UIView alloc] init];
     baseView1.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView1];
+    
+    [baseView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+        make.height.mas_offset(kHeight * 0.167);
+    }];
     
     CGFloat msgLabW = kWidth - (kWidth * 0.083) * 2;
     CGFloat msgLabH = kHeight * 0.03125;
@@ -118,46 +124,46 @@
     UIButton *orderButton = [UIButton buttonWithType:UIButtonTypeCustom];
     orderButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [orderButton addTarget:self action:@selector(orderBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 withLeftImgName:@"order" withCenterText:@"我的订单" withRightImgName:@"right" withBut:orderButton];
+    [self setGFViewWithY:baseView1H + jiange1 withLeftImgName:@"order" withCenterText:@"我的订单" withRightImgName:@"right" withBut:orderButton];
     
     // 我的收藏
     UIButton *collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
     collectButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 *2 + kHeight * 0.078 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
+    [self setGFViewWithY:baseView1H + jiange1 *2 + kHeight * 0.078 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
     
     // 合作商加盟
     UIButton *joinInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     joinInButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [joinInButton addTarget:self action:@selector(joinInBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 3 + kHeight * 0.078 *2 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 3 + kHeight * 0.078 *2 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
     
     // 业务员管理
     UIButton *managerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     managerButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [managerButton addTarget:self action:@selector(manageClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
     
     
     //通知列表
     UIButton *notificationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     notificationBtn.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [notificationBtn addTarget:self action:@selector(notificationBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
+    [self setGFViewWithY:baseView1H + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
     
     
     // 修改密码
     UIButton *changePasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
     changePasswordButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [changePasswordButton addTarget:self action:@selector(changePasswordClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
     
     
     // 车邻班专职客服电话
     UIButton *phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [phoneButton addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:CGRectGetMaxY(baseView1.frame) + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:phoneButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:phoneButton];
     
     // 退出登录
     CGFloat exitViewW = kWidth;
@@ -199,6 +205,13 @@
     
     CGFloat jiange = kHeight * 0.026;
 
+    if (self.view.frame.size.height > 800) {
+        y = y + 88;
+    }else{
+        y = y + 64;
+    }
+    
+    
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kWidth, kHeight * 0.078)];
     baseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView];
@@ -249,6 +262,12 @@
     CGFloat jianjv = kWidth * 0.037;
     
     CGFloat jiange = kHeight * 0.026;
+    
+    if (self.view.frame.size.height > 800) {
+        y = y + 88;
+    }else{
+        y = y + 64;
+    }
     
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kWidth, kHeight * 0.078)];
     baseView.backgroundColor = [UIColor whiteColor];

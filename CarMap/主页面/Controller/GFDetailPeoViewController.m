@@ -41,7 +41,7 @@
 - (void)_setPeoView {
     
     // 头像
-    UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 80, 80, 80)];
+    UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 80 + 24, 80, 80)];
     iconImgView.contentMode = UIViewContentModeScaleAspectFit;
     iconImgView.layer.cornerRadius = 40;
     NSURL *imgUrl = [NSURL URLWithString:_model.avatar];
@@ -50,7 +50,7 @@
     [self.view addSubview:iconImgView];
     
     // 姓名
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 71.5, 150, 30)];
+    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 71.5 + 24, 150, 30)];
     nameLab.font = [UIFont systemFontOfSize:20];
     nameLab.text = _model.name;
     nameLab.textColor = [UIColor darkGrayColor];
@@ -113,7 +113,7 @@
     
     // 指派按钮
     UIButton *zhipaiBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    zhipaiBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70, 75, 60, 30);
+    zhipaiBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70, 75 + 24, 60, 30);
     [zhipaiBut setTitle:@"指派" forState:UIControlStateNormal];
     zhipaiBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     zhipaiBut.layer.borderWidth = 1;

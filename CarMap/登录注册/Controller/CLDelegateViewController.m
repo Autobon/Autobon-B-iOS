@@ -12,7 +12,9 @@
 
 
 @interface CLDelegateViewController ()
-
+{
+    GFNavigationView *_navView;
+}
 @end
 
 @implementation CLDelegateViewController
@@ -31,7 +33,7 @@
     
     
     
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height- 44)];
+    UIWebView *webView = [[UIWebView alloc]init];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"servicedelegate" ofType:@"html"];
     NSURL* url = [NSURL fileURLWithPath:path];
     NSURLRequest* request = [NSURLRequest requestWithURL:url] ;
@@ -42,15 +44,21 @@
     [self.view addSubview:webView];
     
     [self setNavigation];
+    
+    [webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
+    
 }
 // 添加导航
 - (void)setNavigation{
     
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦协议" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦协议" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
 //    [navView.rightBut addTarget:navView action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:navView];
+    [self.view addSubview:_navView];
     
     
     

@@ -63,7 +63,7 @@
     
     
     // 请输入旧密码
-    self.oldPwdTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入旧密码"];
+    self.oldPwdTxt = [[GFTextField alloc] initWithY:88 + jiange1 withPlaceholder:@"请输入旧密码"];
     _oldPwdTxt.secureTextEntry = YES;
     self.oldPwdTxt.keyboardType = UIKeyboardTypeNamePhonePad;
     [self.view addSubview:self.oldPwdTxt];

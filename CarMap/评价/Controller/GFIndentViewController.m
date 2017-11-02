@@ -91,9 +91,16 @@
     CGFloat baseViewH = kHeight * 0.0651;
     CGFloat baseViewX = 0;
     CGFloat baseViewY = 64;
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
+    UIView *baseView = [[UIView alloc] init];
     baseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView];
+    
+    [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+        make.height.mas_offset(baseViewH);
+    }];
+    
     // 主负责人
     UIButton *mainBut = [UIButton buttonWithType:UIButtonTypeCustom];
     mainBut.frame = CGRectMake(0, 0, baseViewW / 2.0, baseViewH);
@@ -137,17 +144,23 @@
     
     
     // tableView视图
-    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + baseViewH, kWidth, kHeight - 64 - baseViewH) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc] init];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     [self.view addSubview:self.tableview];
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.tableview.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
-    self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(baseView.mas_bottom);
+    }];
     
-    [self.tableview.header beginRefreshing];
-//    [self.tableview.footer beginRefreshing];
+    
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    self.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    
+    [self.tableview.mj_header beginRefreshing];
+//    [self.tableview.mj_footer beginRefreshing];
     
 }
 
@@ -174,7 +187,7 @@
         self.lineView.center = oriPoint;
     }];
     
-    [self.tableview.header beginRefreshing];
+    [self.tableview.mj_header beginRefreshing];
     
 }
 
@@ -263,14 +276,14 @@
         
         [self.tableview reloadData];
         
-        [self.tableview.header endRefreshing];
-        [self.tableview.footer endRefreshing];
+        [self.tableview.mj_header endRefreshing];
+        [self.tableview.mj_footer endRefreshing];
     } failure:^(NSError *error) {
         
         
 //        NSLog(@"商户已完成订单列表===%@", error);
-        [self.tableview.header endRefreshing];
-        [self.tableview.footer endRefreshing];
+        [self.tableview.mj_header endRefreshing];
+        [self.tableview.mj_footer endRefreshing];
     }];
 }
 
@@ -311,15 +324,15 @@
         
         
         [self.tableview reloadData];
-        [self.tableview.header endRefreshing];
-        [self.tableview.footer endRefreshing];
+        [self.tableview.mj_header endRefreshing];
+        [self.tableview.mj_footer endRefreshing];
     } failure:^(NSError *error) {
         
 //        NSLog(@"商户未评论订单列表==%@", error);
         
         [self.tableview reloadData];
-        [self.tableview.header endRefreshing];
-        [self.tableview.footer endRefreshing];
+        [self.tableview.mj_header endRefreshing];
+        [self.tableview.mj_footer endRefreshing];
     }];
 }
 
@@ -571,16 +584,16 @@
  
  [_tableview reloadData];
  _tableview.userInteractionEnabled = YES;
- [self.tableview.header endRefreshing];
- [self.tableview.footer endRefreshing];
+ [self.tableview.mj_header endRefreshing];
+ [self.tableview.mj_footer endRefreshing];
  
  }else{
  
  [self addAlertView:responseObject[@"message"]];
  [_tableview reloadData];
  _tableview.userInteractionEnabled = YES;
- [self.tableview.header endRefreshing];
- [self.tableview.footer endRefreshing];
+ [self.tableview.mj_header endRefreshing];
+ [self.tableview.mj_footer endRefreshing];
  }
  
  if (_dataArray.count == 0) {
@@ -596,8 +609,8 @@
  //        NSLog(@"请求失败---%@--",error);
  [_tableview reloadData];
  _tableview.userInteractionEnabled = YES;
- [self.tableview.header endRefreshing];
- [self.tableview.footer endRefreshing];
+ [self.tableview.mj_header endRefreshing];
+ [self.tableview.mj_footer endRefreshing];
  
  }];
  }
@@ -754,15 +767,15 @@
      }];
      
      [_tableview reloadData];
-     [self.tableview.header endRefreshing];
-     [self.tableview.footer endRefreshing];
+     [self.tableview.mj_header endRefreshing];
+     [self.tableview.mj_footer endRefreshing];
      _tableview.userInteractionEnabled = YES;
      }else{
      [self addAlertView:responseObject[@"message"]];
      [_tableview reloadData];
      
-     [self.tableview.header endRefreshing];
-     [self.tableview.footer endRefreshing];
+     [self.tableview.mj_header endRefreshing];
+     [self.tableview.mj_footer endRefreshing];
      _tableview.userInteractionEnabled = YES;
      }
      
@@ -778,8 +791,8 @@
      //         [self addAlertView:@"请求失败"];
      [_tableview reloadData];
      _tableview.userInteractionEnabled = YES;
-     [self.tableview.header endRefreshing];
-     [self.tableview.footer endRefreshing];
+     [self.tableview.mj_header endRefreshing];
+     [self.tableview.mj_footer endRefreshing];
      //        [self addAlertView:@"请求失败"];
      //        NSLog(@"请求失败---%@--",error);
      

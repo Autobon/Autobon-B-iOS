@@ -19,8 +19,8 @@
 
 @interface GFTransformViewController () {
     
-    CGFloat kWidth;
-    CGFloat kHeight;
+//    CGFloat kWidth;
+//    CGFloat kHeight;
     
     CGFloat cellHeight;
     
@@ -42,11 +42,13 @@
     
 //    _notificationModelArray = [[NSMutableArray alloc]init];
     
+    // 基础设置
+    [self _setBase];
+    
     // 界面搭建
     [self _setView];
     
-    // 基础设置
-    [self _setBase];
+    
     
     
     
@@ -59,25 +61,30 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"消息通知" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"消息通知" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navView];
+
 }
 
 - (void)_setView {
     
-    kWidth = [UIScreen mainScreen].bounds.size.width;
-    kHeight = [UIScreen mainScreen].bounds.size.height;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kWidth, kHeight - 44) style:UITableViewStylePlain];
+//    kWidth = [UIScreen mainScreen].bounds.size.width;
+//    kHeight = [UIScreen mainScreen].bounds.size.height;
+    self.tableView = [[UITableView alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
-    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    [self.tableView.mj_header beginRefreshing];
     
-    [self.tableView.header beginRefreshing];
     
     
 }
@@ -133,8 +140,8 @@
                 [_tableView reloadData];
             }
 
-            [_tableView.header endRefreshing];
-            [_tableView.footer endRefreshing];
+            [_tableView.mj_header endRefreshing];
+            [_tableView.mj_footer endRefreshing];
             if (_notificationModelArray.count == 0) {
                 _tableView.userInteractionEnabled = NO;
                 GFNothingView *nothingView = [[GFNothingView alloc] initWithImageName:@"NoOrder" withTipString:@"暂无数据" withSubtipString:nil];

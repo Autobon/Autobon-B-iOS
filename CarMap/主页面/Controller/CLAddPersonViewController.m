@@ -44,6 +44,7 @@
     NSInteger _pageSize;
     
     NSInteger _flage;       //收藏距离切换
+    GFNavigationView *_navView;
 }
 
 @property (nonatomic, strong) NSMutableArray *modelArr;
@@ -92,7 +93,7 @@
 //    button2.layer.borderColor = [UIColor blackColor].CGColor;
 //    button2.titleLabel.font = [UIFont systemFontOfSize:15];
     
-    _searchbar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 74, self.view.frame.size.width-100, 30)];
+    _searchbar = [[UISearchBar alloc]init];
 //    searchbar.backgroundColor = [UIColor whiteColor];
     _searchbar.barTintColor = [UIColor whiteColor];
 //    searchbar.barStyle = UIBarStyleDefault;
@@ -104,8 +105,17 @@
     _searchbar.delegate = self;
     _searchbar.clipsToBounds = YES;
     
+    [_searchbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(20);
+        make.top.equalTo(_navView.mas_bottom).offset(10);
+        make.right.equalTo(self.view).offset(-100);
+        make.height.mas_offset(30);
+    }];
     
-    UIButton *searchButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 74 , 60, 30)];
+    
+    
+    
+    UIButton *searchButton = [[UIButton alloc]init];
     [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -113,17 +123,31 @@
     searchButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:searchButton];
     
+    [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-20);
+        make.top.equalTo(_navView.mas_bottom).offset(10);
+        make.width.mas_offset(60);
+        make.height.mas_offset(30);
+    }];
+    
+    
     _tableView = [[UITableView alloc]init];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.frame = CGRectMake(0, 110 , self.view.frame.size.width, self.view.frame.size.height-110);
+//    _tableView.frame = CGRectMake(0, 110 , self.view.frame.size.width, self.view.frame.size.height-110);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
-    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefreshDo)];
-    _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefreshDo)];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefreshDo)];
+    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefreshDo)];
     [self.view addSubview:_tableView];
     
-    [_tableView.header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom).offset(50);
+    }];
+    
 }
 
 - (void)getCollectList{
@@ -146,14 +170,14 @@
         [_tableView reloadData];
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         
     } failure:^(NSError *error) {
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -184,14 +208,14 @@
         }
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         
     } failure:^(NSError *error) {
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -222,14 +246,14 @@
         }
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         
     } failure:^(NSError *error) {
         
         
-        [_tableView.header endRefreshing];
-        [_tableView.footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -245,10 +269,17 @@
         }else{
             [self getDistanceList];
         }
-        _tableView.frame = CGRectMake(0, 110 , self.view.frame.size.width, self.view.frame.size.height-110);
+//        _tableView.frame = CGRectMake(0, 110 , self.view.frame.size.width, self.view.frame.size.height-110);
+        [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_navView.mas_bottom).offset(50);
+        }];
+    
     }else{
         [self getCollectList];
-        _tableView.frame = CGRectMake(0, 64 , self.view.frame.size.width, self.view.frame.size.height-110);
+//        _tableView.frame = CGRectMake(0, 64 , self.view.frame.size.width, self.view.frame.size.height-110);
+        [_tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_navView.mas_bottom).offset(0);
+        }];
     }
     
     
@@ -346,7 +377,7 @@
     //    NSLog(@"搜索按钮被点击了");
     [self.view endEditing:YES];
     
-    [_tableView.header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
     
     /*
     [GFHttpTool getSearch:_searchbar.text Success:^(NSDictionary *responseObject) {
@@ -391,13 +422,13 @@
 // 添加导航
 - (void)setNavigation{
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:@" " withRightImgHightName:@"收藏" withCenterTitle:@"指定技师" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [navView.rightBut addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    navView.rightBut.titleLabel.font = [UIFont systemFontOfSize:15];
-    [navView.rightBut setTitle:@"收藏" forState:UIControlStateNormal];
-    [navView.rightBut setTitle:@"距离" forState:UIControlStateSelected];
-    [self.view addSubview:navView];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:@" " withRightImgHightName:@"收藏" withCenterTitle:@"指定技师" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_navView.rightBut addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    _navView.rightBut.titleLabel.font = [UIFont systemFontOfSize:15];
+    [_navView.rightBut setTitle:@"收藏" forState:UIControlStateNormal];
+    [_navView.rightBut setTitle:@"距离" forState:UIControlStateSelected];
+    [self.view addSubview:_navView];
     
     
 }
@@ -421,7 +452,7 @@
     }else{
         _flage = 0;
     }
-    [_tableView.header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
     
 }
 

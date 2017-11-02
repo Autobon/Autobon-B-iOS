@@ -55,6 +55,8 @@
     UISearchBar *_searchbar;
 //    BMKGeoCodeSearch* _geocodesearch;
     
+    GFNavigationView *_navView;
+    
 }
 
 @property (nonatomic, strong) GFTextField *yingyeNameTxt;
@@ -93,9 +95,9 @@
 }
 - (void)_setCoopNav {
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:navView];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_navView];
 }
 -(void)backBtnClick{
     
@@ -115,10 +117,14 @@
     
     jianjv1 = kWidth * 0.18;
     
-    _scView = [[CLTouchScrollView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, kHeight - 64)];
+    _scView = [[CLTouchScrollView alloc] init];
     _scView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_scView];
     
+    [_scView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
 
     // 公司信息
     GFTitleView *kejiView = [[GFTitleView alloc] initWithY:10 Title:@"公司信息"];

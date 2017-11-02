@@ -14,7 +14,11 @@
 #import "UIButton+WebCache.h"
 
 @interface GFCooperatingSucViewController () <HZPhotoBrowserDelegate>
-
+{
+    GFNavigationView *_navView;
+    
+    
+}
 @property (nonatomic, strong) NSMutableArray *photoUrlArr;
 
 
@@ -46,10 +50,16 @@
 #pragma mark - 页面设置
 - (void)setViewForCooperate{
     UIScrollView *scrollView = [[UIScrollView alloc]init];
-    scrollView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
+//    scrollView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     //    scrollView.backgroundColor = [UIColor cyanColor];
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
+    
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
+    
     
     self.photoUrlArr = [[NSMutableArray alloc] init];
     
@@ -268,10 +278,10 @@
 - (void)setNavigation{
     
     
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-    [navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"合作商加盟" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     //    [navView.rightBut addTarget:navView action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:navView];
+    [self.view addSubview:_navView];
     
     
     //    navView.hidden = YES;

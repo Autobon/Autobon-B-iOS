@@ -53,6 +53,8 @@
     
     NSInteger _suo;
     
+    GFNavigationView *_navView;
+    
 }
 
 //@property (nonatomic, strong) GFNavigationView *navView;
@@ -115,11 +117,12 @@
     
     self.shijianNum = 1;
     
+    // 基础设置
+    [self _setBase];
+    
     // 界面搭建
     [self _setView];
     
-    // 基础设置
-    [self _setBase];
     
     [self NSNotificationCenter];
 }
@@ -138,10 +141,10 @@
     
     
     // 导航栏
-    GFNavigationView *navView = [[GFNavigationView alloc] initWithLeftImgName:@"person" withLeftImgHightName:@"personClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, kWidth, 64)];
-    [navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:navView];
-    [self.view bringSubviewToFront:navView];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"person" withLeftImgHightName:@"personClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"车邻邦" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    [_navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_navView];
+    [self.view bringSubviewToFront:_navView];
     
     
 }
@@ -161,13 +164,23 @@
             self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH + kHeight * 0.0625);
             self.scrollerView.contentSize = CGSizeMake(0, baseViewHH + kHeight * 0.0625*2);
             [_tipButton setTitle:[NSString stringWithFormat:@"有%@个未完成订单",dataDictionary[@"totalElements"]] forState:UIControlStateNormal];
-            self.scrollerView.frame = CGRectMake(0, 64-20, kWidth, kHeight - 44);
+//            self.scrollerView.frame = CGRectMake(0, 64-20, kWidth, kHeight - 44);
+            
+            [self.scrollerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_navView.mas_bottom).offset(0);
+            }];
+            
             _tipButton.hidden = NO;
         }else {
             self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH);
-            self.scrollerView.frame = CGRectMake(0, 64-_tipButton.frame.size.height - 20, kWidth, kHeight - 44+_tipButton.frame.size.height);
+//            self.scrollerView.frame = CGRectMake(0, 64-_tipButton.frame.size.height - 20, kWidth, kHeight - 44+_tipButton.frame.size.height);
             self.scrollerView.contentSize = CGSizeMake(0, baseViewHH+50);
             _tipButton.hidden = YES;
+            
+            [self.scrollerView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_navView.mas_bottom).offset(-50);
+            }];
+            
         }
     } failure:^(NSError *error) {
         
@@ -246,15 +259,17 @@
     self.scrollerView = [[CLTouchScrollView alloc] init];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     //    self.scrollerView.frame = CGRectMake(0, 64-kHeight * 0.0625-20, kWidth, kHeight - 44+kHeight * 0.0625);
-    self.scrollerView.frame = CGRectMake(0, 64, kWidth, kHeight - 44);
-    self.scrollerView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//    self.scrollerView.frame = CGRectMake(0, 64, kWidth, kHeight - 44);
+//    self.scrollerView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.scrollerView.contentSize = CGSizeMake(0, 1050);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
     self.scrollerView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.scrollerView];
-    
-    
-    
+    [self.view sendSubviewToBack:self.scrollerView];
+    [self.scrollerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
     // 订单信息基础视图
     CGFloat baseViewW = kWidth;
     CGFloat baseViewH = 500;

@@ -72,7 +72,7 @@
 - (void)_setView {
     
     // 请输入手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入手机号"];
+    self.phoneTxt = [[GFTextField alloc] initWithY:88 + jiange1 withPlaceholder:@"请输入手机号"];
     self.phoneTxt.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:self.phoneTxt];
     

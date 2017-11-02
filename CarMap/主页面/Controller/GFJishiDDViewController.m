@@ -43,7 +43,7 @@
 - (void)_setPeoView {
     
     // 头像
-    UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 80, 80, 80)];
+    UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 80 + 20, 80, 80)];
     iconImgView.contentMode = UIViewContentModeScaleAspectFit;
     iconImgView.layer.cornerRadius = 40;
     NSURL *imgUrl = [NSURL URLWithString:_model.avatar];
@@ -52,7 +52,7 @@
     [self.view addSubview:iconImgView];
     
     // 姓名
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 75, 150, 40)];
+    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 75 + 24, 150, 40)];
     nameLab.font = [UIFont systemFontOfSize:20];
     nameLab.text = _model.name;
     nameLab.textColor = [UIColor darkGrayColor];
@@ -63,7 +63,7 @@
     CGFloat starW = 17;
     CGFloat starH = 17;
     CGFloat starX = CGRectGetMaxX(iconImgView.frame) + 10;
-    CGFloat starY = CGRectGetMaxY(nameLab.frame) + 10;
+    CGFloat starY = CGRectGetMaxY(nameLab.frame) + 4;
     for(int i=0; i<5; i++) {
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(starX + (starW + 1) * i, starY, starW, starH)];
@@ -115,7 +115,7 @@
     
     // 指派按钮
     UIButton *zhipaiBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    zhipaiBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 50, 75, 40, 40);
+    zhipaiBut.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 50, 75 + 24, 40, 40);
     [zhipaiBut setBackgroundImage:[UIImage imageNamed:@"dianhua"] forState:UIControlStateNormal];
     [zhipaiBut addTarget:self action:@selector(zhipaiButClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:zhipaiBut];

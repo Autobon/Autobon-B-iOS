@@ -65,7 +65,7 @@
 - (void)_setView {
  
     // 请输入手机号
-    self.phoneTxt = [[GFTextField alloc] initWithY:64 + jiange1 withPlaceholder:@"请输入手机号"];
+    self.phoneTxt = [[GFTextField alloc] initWithY:24 + 64 + jiange1 withPlaceholder:@"请输入手机号"];
     self.phoneTxt.text = self.model.phone;
     self.phoneTxt.clearButtonMode = UITextFieldViewModeAlways;
     [self.view addSubview:self.phoneTxt];

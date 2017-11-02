@@ -174,13 +174,18 @@
     [self.view addSubview:self.navView];
     
     
-    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 60, 22, 40, 44)];
+    UIButton *addButton = [[UIButton alloc]init];
     [addButton setTitle:@"新增" forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addWorker) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:addButton];
     
     
-    
+    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_navView);
+        make.right.equalTo(_navView).offset(-20);
+        make.width.mas_offset(40);
+        make.height.mas_offset(44);
+    }];
     
 }
 
@@ -205,7 +210,10 @@
     [self.view addSubview:self.tableView];
     
     
-    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+    }];
     
     
     
@@ -270,6 +278,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+//    CLWorkerModel *worker = _workerArray[sender.tag - 100000];
+    GFBianjiViewController *bianjiVC = [[GFBianjiViewController alloc] init];
+//    bianjiVC.model = worker;
+    [self.navigationController pushViewController:bianjiVC animated:YES];
+    
 }
 
 - (void)setGFViewWithY:(CGFloat)y withLeftText:(NSString *)leftStr withCenterText:(NSString *)centerStr withRightBut:(UIButton *)righntBut {

@@ -173,7 +173,7 @@
             if([responseObject[@"status"] integerValue] == 1) {
                 
                 GFNoIndentViewController *vc = (GFNoIndentViewController *)[self viewController];
-                [vc.tableView.header beginRefreshing];
+                [vc.tableView.mj_header beginRefreshing];
                 [self tipShow:@"撤单成功"];
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
