@@ -375,7 +375,7 @@
 				9B9754401C5765B3004BDC7C /* AppDelegate.mm */,
 				B0228EAE1ECD49A80022D34F /* 评价 */,
 				B0228E861ECD499D0022D34F /* 主页面 */,
-				B0228E731ECD48BD0022D34F /* 登录注册 */,
+				B0228E731ECD48BD0022D34F /* login */,
 				B0228E601ECD48B40022D34F /* 人员管理 */,
 				B0228E381ECD47E60022D34F /* 加盟 */,
 				8673FDBB1C99459200666634 /* 网络请求(AFNetworking) */,
@@ -514,14 +514,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		B0228E731ECD48BD0022D34F /* 登录注册 */ = {
+		B0228E731ECD48BD0022D34F /* login */ = {
 			isa = PBXGroup;
 			children = (
 				B0228E741ECD48BD0022D34F /* Controller */,
 				B0228E7F1ECD48BD0022D34F /* Model */,
 				B0228E801ECD48BD0022D34F /* View */,
 			);
-			path = "登录注册";
+			path = login;
 			sourceTree = "<group>";
 		};
 		B0228E741ECD48BD0022D34F /* Controller */ = {

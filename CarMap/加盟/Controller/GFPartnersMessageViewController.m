@@ -163,7 +163,7 @@
     UIButton *phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [phoneButton addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"4001871500" withBut:phoneButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"18201306715" withBut:phoneButton];
     
     // 退出登录
     CGFloat exitViewW = kWidth;
@@ -408,7 +408,7 @@
 #pragma mark - 车邻邦专职客服电话
 - (void)phoneBtnClick {
     
-    [ACETelPrompt callPhoneNumber:@"4001871500" call:^(NSTimeInterval duration) {
+    [ACETelPrompt callPhoneNumber:@"18201306715" call:^(NSTimeInterval duration) {
 //         NSLog(@"User made a call of %.1f seconds", duration);
     } cancel:^{
 //          NSLog(@"User cancelled the call");
