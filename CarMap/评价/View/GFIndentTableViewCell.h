@@ -19,6 +19,11 @@
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) UIButton *pingjiaBut;
 @property (nonatomic, strong) UILabel *yuyueTimeLab;
+@property (nonatomic, strong) UILabel *contactPhoneLab;
+
+@property (nonatomic, strong) UIButton *removeOrderButton;
+@property (nonatomic, strong) UIButton *appointButton;
+@property (nonatomic, strong) UILabel *statusLabel;
 
 @property (nonatomic, assign) CGFloat cellHeight;
 

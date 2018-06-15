@@ -23,9 +23,18 @@
 #define TextSize 15
 
 
-#define BaseHttp @"http://47.93.17.218:12345"
+//#define BaseHttp @"http://47.93.17.218:12345"
+#define BaseHttp @"http://10.0.12.184:12345"
 
+#ifdef DEBUG
 
+#define ICLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+
+#else
+
+#define ICLog(...)
+
+#endif
 
 
 

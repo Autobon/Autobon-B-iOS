@@ -36,6 +36,8 @@
         self.orderCount = [NSString stringWithFormat:@"%@", dic[@"orderCount"]];
         self.techAvatar = [NSString stringWithFormat:@"%@", dic[@"techAvatar"]];
         
+        self.contactPhone = [NSString stringWithFormat:@"%@",dic[@"contactPhone"]];
+        
         NSArray *typeArr = [self.type componentsSeparatedByString:@","];
         NSArray *arr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁"];
         for(int i=0; i<typeArr.count; i++) {

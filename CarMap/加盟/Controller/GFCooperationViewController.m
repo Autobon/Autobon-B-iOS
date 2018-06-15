@@ -278,7 +278,7 @@
     
         [GFHttpTool jiamengPostWithParameters:mDic success:^(id responseObject) {
             
-//            NSLog(@"--加盟信息提交成功---%@--\n\n--%@", mDic, responseObject);
+            ICLog(@"--加盟信息提交成功---%@--\n\n--%@", mDic, responseObject);
             if([responseObject[@"status"] integerValue] == 1) {
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
@@ -290,7 +290,7 @@
             
         } failure:^(NSError *error) {
             
-//            NSLog(@"--请求失败!!!!!--%@", error);
+            ICLog(@"--请求失败!!!!!--%@", error);
         }];
     }
 }

@@ -152,10 +152,10 @@
 #pragma mark - 获取商户未完成订单
 - (void)getListUnfinished{
     
-    [GFHttpTool dingdanPostWithDictionary:@{@"page":@"1",@"pageSize":@"1"} success:^(id responseObject) {
+    [GFHttpTool dingdanPostWithDictionary:@{@"page":@"1",@"pageSize":@"1",@"status":@"1"} success:^(id responseObject) {
         
         
-//        NSLog(@"------%@", responseObject);
+        ICLog(@"------%@", responseObject);
         
         NSDictionary *dataDictionary = responseObject[@"message"];
         
@@ -185,7 +185,7 @@
     } failure:^(NSError *error) {
         
         
-//        NSLog(@"------%@", error);
+        ICLog(@"------%@", error);
     }];
     
     /*
@@ -683,11 +683,11 @@
             NSInteger zuichiTime = (NSInteger)[[formatter dateFromString:self.zuichiTimeLab.text] timeIntervalSince1970];
             NSInteger cha = zuichiTime - yuyueTime;
             if(cha >= 0) {
-            
+                ICLog(@"mDic");
                 [GFHttpTool postOneIndentDictionary:mDic success:^(NSDictionary *responseObject) {
-//                    NSLog(@"下单返回数据-----%@---",responseObject);
+                    ICLog(@"下单返回数据-----%@---",responseObject);
                     if ([responseObject[@"status"] integerValue] == 1) {
-                        
+                        /*
                         if(_appointButton.selected) {
                             
                             // 刷新黑条
@@ -709,7 +709,9 @@
                             //                        NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
                         }else {
                             
-                            
+                        }
+                        */
+                        
                             GFAlertView *alertView = [[GFAlertView alloc]initWithMiao:3.0];
                             UIWindow *winndow = [UIApplication sharedApplication].keyWindow;
                             [winndow addSubview:alertView];
@@ -723,13 +725,13 @@
                             self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
                             [self.navigationController popToRootViewControllerAnimated:YES];
 //                            NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
-                        }
+                        
                         
                         
                     }
                 } failure:^(NSError *error) {
                     
-                    NSLog(@"－－－下单失败---%@----",error);
+                    ICLog(@"－－－下单失败---%@----",error);
                     [self addAlertView:@"下单失败,请重试"];
                 }];
 

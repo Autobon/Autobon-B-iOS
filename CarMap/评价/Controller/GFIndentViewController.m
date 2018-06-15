@@ -19,6 +19,7 @@
 #import "GFTipView.h"
 #import "GFNothingView.h"
 #import "GFNewIndentModel.h"
+#import "CLSearchOrderViewController.h"
 
 
 
@@ -79,10 +80,23 @@
     self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
     
     // 导航栏
-    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"我的订单" withFrame:CGRectMake(0, 0, kWidth, 64)];
+    self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:@"" withRightImgHightName:nil withCenterTitle:@"我的订单" withFrame:CGRectMake(0, 0, kWidth, 64)];
     [self.navView.leftBut addTarget:self action:@selector(leftButClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView.rightBut setTitle:@"搜索  " forState:UIControlStateNormal];
+    self.navView.rightBut.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.navView.rightBut addTarget:self action:@selector(rightSearchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:self.navView];
 }
+
+- (void)rightSearchBtnClick{
+    ICLog(@"--right search button click---");
+    
+    CLSearchOrderViewController *searchOrderVC = [[CLSearchOrderViewController alloc]init];
+    [self.navigationController pushViewController:searchOrderVC animated:YES];
+    
+}
+
 
 - (void)_setView {
     
@@ -247,7 +261,7 @@
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
     mDic[@"page"] = @(_page);
     mDic[@"pageSize"] = @(_pageSize);
-    mDic[@"status"] = @"2";
+    mDic[@"status"] = @"5";
     [GFHttpTool postListFinishedDictionary:mDic success:^(id responseObject) {
         
         ICLog(@"===商户已完成订单列表===%@", responseObject);
@@ -298,7 +312,7 @@
     [GFHttpTool postListUncommentDictionary:mDic success:^(id responseObject) {
         
         
-//        NSLog(@"===商户未评论订单列表===%@", responseObject);
+        ICLog(@"===商户未评论订单列表===%@", responseObject);
         
         if([responseObject[@"status"] integerValue] == 1) {
             
@@ -328,7 +342,7 @@
         [self.tableview.mj_footer endRefreshing];
     } failure:^(NSError *error) {
         
-//        NSLog(@"商户未评论订单列表==%@", error);
+        ICLog(@"商户未评论订单列表==%@", error);
         
         [self.tableview reloadData];
         [self.tableview.mj_header endRefreshing];
@@ -394,7 +408,7 @@
 //    GFIndentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     
-    return 90;
+    return 115;
 
 }
 

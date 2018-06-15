@@ -41,6 +41,7 @@
 @property (nonatomic, copy) NSString *orderCount;
 @property (nonatomic, copy) NSString *techPhone;
 
+@property (nonatomic, copy) NSString *contactPhone;
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dic;

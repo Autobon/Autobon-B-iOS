@@ -180,7 +180,7 @@
                 
                 [GFHttpTool postLoginParameters:dictionary success:^(id responseObject) {
                     
-//                    NSLog(@"---登录返回---%@---",responseObject);
+                    ICLog(@"---登录返回---%@---",responseObject);
                     
                     if ([responseObject[@"status"] integerValue] == 1) {
                         
@@ -243,7 +243,7 @@
                         [self addAlertView:responseObject[@"message"]];
                     }
                 } failure:^(NSError *error) {
-//                    NSLog(@"登录失败---%@----",error);
+                    ICLog(@"登录失败---%@----",error);
 //                     [self addAlertView:@"请求失败"];
                 }];
             }

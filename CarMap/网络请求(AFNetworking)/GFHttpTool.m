@@ -19,15 +19,16 @@
 //NSString* const PUBHOST = @"http://121.40.219.58:8000/api";
 
 //测试服务器
-//NSString* const HOST = @"http://10.0.12.168:12345/api/mobile";
-//NSString* const PUBHOST = @"http://10.0.12.168:12345/api";
+NSString *const prefixURL = @"http://10.0.12.184:12345/api/mobile";
+NSString* const HOST = @"http://10.0.12.184:12345/api/mobile";
+NSString* const PUBHOST = @"http://10.0.12.184:12345/api";
 
 
 
 //新的正式服务器
-NSString *const prefixURL = @"http://47.93.17.218:12345/api/mobile";
-NSString* const HOST = @"http://47.93.17.218:12345/api/mobile";
-NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
+//NSString *const prefixURL = @"http://47.93.17.218:12345/api/mobile";
+//NSString* const HOST = @"http://47.93.17.218:12345/api/mobile";
+//NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
 
 
 
@@ -597,7 +598,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order",HOST];
-        
+        ICLog(@"token----%@--",token);
         
         [manager GET:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             if(success) {

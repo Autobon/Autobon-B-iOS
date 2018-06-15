@@ -90,6 +90,9 @@
 		B02290741ECD49F50022D34F /* MYImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02290301ECD49F40022D34F /* MYImageView.m */; };
 		B02290751ECD49F50022D34F /* UWDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02290321ECD49F40022D34F /* UWDatePickerView.m */; };
 		B02290761ECD49F50022D34F /* UWDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02290331ECD49F40022D34F /* UWDatePickerView.xib */; };
+		B03B258920D260FC007CA21D /* CLSearchOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B03B258820D260FC007CA21D /* CLSearchOrderViewController.m */; };
+		B03B258C20D2641B007CA21D /* CLLineTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = B03B258B20D2641B007CA21D /* CLLineTextFieldView.m */; };
+		B03B258F20D27019007CA21D /* CLZYSupperSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = B03B258E20D27019007CA21D /* CLZYSupperSelectView.m */; };
 		B081E75A1ECEC9DE003558DC /* CLCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E7591ECEC9DE003558DC /* CLCollectViewController.m */; };
 		B081E75D1ECEC9F9003558DC /* CLCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E75C1ECEC9F9003558DC /* CLCollectTableViewCell.m */; };
 		B081E7601ECEDDA8003558DC /* CLTechModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E75F1ECEDDA8003558DC /* CLTechModel.m */; };
@@ -281,6 +284,12 @@
 		B02290311ECD49F40022D34F /* UWDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UWDatePickerView.h; sourceTree = "<group>"; };
 		B02290321ECD49F40022D34F /* UWDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UWDatePickerView.m; sourceTree = "<group>"; };
 		B02290331ECD49F40022D34F /* UWDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UWDatePickerView.xib; sourceTree = "<group>"; };
+		B03B258720D260FC007CA21D /* CLSearchOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSearchOrderViewController.h; sourceTree = "<group>"; };
+		B03B258820D260FC007CA21D /* CLSearchOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLSearchOrderViewController.m; sourceTree = "<group>"; };
+		B03B258A20D2641B007CA21D /* CLLineTextFieldView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLLineTextFieldView.h; sourceTree = "<group>"; };
+		B03B258B20D2641B007CA21D /* CLLineTextFieldView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLLineTextFieldView.m; sourceTree = "<group>"; };
+		B03B258D20D27019007CA21D /* CLZYSupperSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLZYSupperSelectView.h; sourceTree = "<group>"; };
+		B03B258E20D27019007CA21D /* CLZYSupperSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLZYSupperSelectView.m; sourceTree = "<group>"; };
 		B081E7581ECEC9DE003558DC /* CLCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCollectViewController.h; sourceTree = "<group>"; };
 		B081E7591ECEC9DE003558DC /* CLCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCollectViewController.m; sourceTree = "<group>"; };
 		B081E75B1ECEC9F9003558DC /* CLCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCollectTableViewCell.h; sourceTree = "<group>"; };
@@ -631,6 +640,8 @@
 				B0228EB51ECD49A80022D34F /* GFIndentDetialsViewController.m */,
 				B0228EB61ECD49A80022D34F /* GFIndentViewController.h */,
 				B0228EB71ECD49A80022D34F /* GFIndentViewController.m */,
+				B03B258720D260FC007CA21D /* CLSearchOrderViewController.h */,
+				B03B258820D260FC007CA21D /* CLSearchOrderViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -651,6 +662,10 @@
 			children = (
 				B0228EBE1ECD49A80022D34F /* GFIndentTableViewCell.h */,
 				B0228EBF1ECD49A80022D34F /* GFIndentTableViewCell.m */,
+				B03B258A20D2641B007CA21D /* CLLineTextFieldView.h */,
+				B03B258B20D2641B007CA21D /* CLLineTextFieldView.m */,
+				B03B258D20D27019007CA21D /* CLZYSupperSelectView.h */,
+				B03B258E20D27019007CA21D /* CLZYSupperSelectView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -941,6 +956,7 @@
 				B0228EA71ECD499D0022D34F /* GFOneIndentViewController.m in Sources */,
 				B0228E811ECD48BD0022D34F /* CLDelegateViewController.m in Sources */,
 				B0228E541ECD47E60022D34F /* CLCooperateFailViewController.m in Sources */,
+				B03B258C20D2641B007CA21D /* CLLineTextFieldView.m in Sources */,
 				B0228EC31ECD49A80022D34F /* GFIndentViewController.m in Sources */,
 				B0228EC21ECD49A80022D34F /* GFIndentDetialsViewController.m in Sources */,
 				B0228EA61ECD499D0022D34F /* GFNoIndentViewController.m in Sources */,
@@ -973,6 +989,7 @@
 				B0228E711ECD48B40022D34F /* CLWorkerModel.m in Sources */,
 				B022905D1ECD49F50022D34F /* SecondViewController.m in Sources */,
 				B0228EA31ECD499D0022D34F /* GFDeNoindentViewController.mm in Sources */,
+				B03B258F20D27019007CA21D /* CLZYSupperSelectView.m in Sources */,
 				B02290681ECD49F50022D34F /* GFButton.m in Sources */,
 				B02290751ECD49F50022D34F /* UWDatePickerView.m in Sources */,
 				B0228EA91ECD499D0022D34F /* CLIndentModel.m in Sources */,
@@ -1001,6 +1018,7 @@
 				B081E7601ECEDDA8003558DC /* CLTechModel.m in Sources */,
 				B0228E831ECD48BD0022D34F /* GFForgetPwdViewController.m in Sources */,
 				B0228E551ECD47E60022D34F /* CLCooperatingViewController.m in Sources */,
+				B03B258920D260FC007CA21D /* CLSearchOrderViewController.m in Sources */,
 				B0228EC41ECD49A80022D34F /* GFIndentModel.m in Sources */,
 				B022906A1ECD49F50022D34F /* GFNavigationView.m in Sources */,
 				B0228E561ECD47E60022D34F /* GFCooperatingSucViewController.m in Sources */,

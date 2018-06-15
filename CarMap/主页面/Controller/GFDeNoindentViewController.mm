@@ -138,7 +138,9 @@
     //    [self.mapView setZoomLevel:13];
     [mapBaseView addSubview:self.mapView];
     
-//    NSLog(@"===%f,,,%f", [self.model.techLatitude floatValue], [self.model.techLongitude floatValue]);
+    ICLog(@"===%f,,,%f", [self.model.techLatitude floatValue], [self.model.techLongitude floatValue]);
+    
+
     if([self.model.techLatitude floatValue] == 0 && [self.model.techLongitude floatValue] == 0) {
     
         // 商户大头针
