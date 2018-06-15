@@ -1806,7 +1806,49 @@ NSString* const PUBHOST = @"http://10.0.12.184:12345/api";
     
 }
 
-
+#pragma mark - 通过订单id查询流程记录列表
++ (void)merchanOrderStatusScoreGetWithParamenters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    if ([GFHttpTool isConnectionAvailable]) {
+        GFAlertView *aView = [GFAlertView initWithJinduTiaoTipName:@"加载中..."];
+        
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30.0;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/%@/status/score",HOST,parameters[@"orderId"]];
+        //        NSLog(@"token-可能是这里错了-%@-－－URLString--%@-",token,URLString);
+        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            //            NSLog(@"走出来了");
+            [aView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            //            NSLog(@"没有走出来－－－%@--",error);
+            [aView removeFromSuperview];
+            // 判断请求超时
+            NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+            if([errorStr isEqualToString:@"The request timed out."]) {
+                [GFHttpTool addAlertView:@"请求超时，请重试"];
+            }else {
+                [GFHttpTool addAlertView:@"请求失败，请重试"];
+            }
+            if(failure) {
+                failure(error);
+            }
+        }];
+        
+        
+        
+    }else{
+        
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
 
 
 

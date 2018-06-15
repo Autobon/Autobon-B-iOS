@@ -97,6 +97,10 @@
 		B081E75D1ECEC9F9003558DC /* CLCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E75C1ECEC9F9003558DC /* CLCollectTableViewCell.m */; };
 		B081E7601ECEDDA8003558DC /* CLTechModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E75F1ECEDDA8003558DC /* CLTechModel.m */; };
 		B081E7631ECEF537003558DC /* CLCollectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B081E7621ECEF537003558DC /* CLCollectListViewController.m */; };
+		B099048020D3634F009CEF90 /* CLChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B099047F20D3634F009CEF90 /* CLChooseView.m */; };
+		B099048320D36B88009CEF90 /* Commom.m in Sources */ = {isa = PBXBuildFile; fileRef = B099048220D36B88009CEF90 /* Commom.m */; };
+		B099048620D3A6BA009CEF90 /* CLOrderStatusTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B099048520D3A6BA009CEF90 /* CLOrderStatusTimeModel.m */; };
+		B099048920D3B1E5009CEF90 /* CLOrderStatusTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B099048820D3B1E5009CEF90 /* CLOrderStatusTimeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,6 +302,14 @@
 		B081E75F1ECEDDA8003558DC /* CLTechModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTechModel.m; sourceTree = "<group>"; };
 		B081E7611ECEF537003558DC /* CLCollectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCollectListViewController.h; sourceTree = "<group>"; };
 		B081E7621ECEF537003558DC /* CLCollectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCollectListViewController.m; sourceTree = "<group>"; };
+		B099047E20D3634F009CEF90 /* CLChooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLChooseView.h; sourceTree = "<group>"; };
+		B099047F20D3634F009CEF90 /* CLChooseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLChooseView.m; sourceTree = "<group>"; };
+		B099048120D36B88009CEF90 /* Commom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Commom.h; sourceTree = "<group>"; };
+		B099048220D36B88009CEF90 /* Commom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Commom.m; sourceTree = "<group>"; };
+		B099048420D3A6BA009CEF90 /* CLOrderStatusTimeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLOrderStatusTimeModel.h; sourceTree = "<group>"; };
+		B099048520D3A6BA009CEF90 /* CLOrderStatusTimeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLOrderStatusTimeModel.m; sourceTree = "<group>"; };
+		B099048720D3B1E5009CEF90 /* CLOrderStatusTimeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLOrderStatusTimeView.h; sourceTree = "<group>"; };
+		B099048820D3B1E5009CEF90 /* CLOrderStatusTimeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLOrderStatusTimeView.m; sourceTree = "<group>"; };
 		C4779D0AF22B67AE4A5F3A88 /* Pods-CarMapB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarMapB.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarMapB/Pods-CarMapB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -392,6 +404,8 @@
 				9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */,
 				B0228F9F1ECD49F40022D34F /* lib */,
 				9B9515441C6089A200445F93 /* PrefixHeader.pch */,
+				B099048120D36B88009CEF90 /* Commom.h */,
+				B099048220D36B88009CEF90 /* Commom.m */,
 				9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */,
 				9B9754481C5765B3004BDC7C /* Assets.xcassets */,
 				9BDD16241C9BF27B0017E8E9 /* address.plist */,
@@ -615,6 +629,8 @@
 				B0228E9F1ECD499D0022D34F /* GFNoIndentTableViewCell.m */,
 				B0228EA01ECD499D0022D34F /* GFNoInTableViewCell.h */,
 				B0228EA11ECD499D0022D34F /* GFNoInTableViewCell.m */,
+				B099047E20D3634F009CEF90 /* CLChooseView.h */,
+				B099047F20D3634F009CEF90 /* CLChooseView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -653,6 +669,8 @@
 				B0228EBA1ECD49A80022D34F /* GFIndentModel.m */,
 				B0228EBB1ECD49A80022D34F /* GFNewIndentModel.h */,
 				B0228EBC1ECD49A80022D34F /* GFNewIndentModel.m */,
+				B099048420D3A6BA009CEF90 /* CLOrderStatusTimeModel.h */,
+				B099048520D3A6BA009CEF90 /* CLOrderStatusTimeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -666,6 +684,8 @@
 				B03B258B20D2641B007CA21D /* CLLineTextFieldView.m */,
 				B03B258D20D27019007CA21D /* CLZYSupperSelectView.h */,
 				B03B258E20D27019007CA21D /* CLZYSupperSelectView.m */,
+				B099048720D3B1E5009CEF90 /* CLOrderStatusTimeView.h */,
+				B099048820D3B1E5009CEF90 /* CLOrderStatusTimeView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -966,6 +986,7 @@
 				B0228E581ECD47E60022D34F /* GFIWillAddViewController.m in Sources */,
 				B0228E701ECD48B40022D34F /* GFWorkerViewController.m in Sources */,
 				B0228E591ECD47E60022D34F /* GFJoinInViewController_1.m in Sources */,
+				B099048020D3634F009CEF90 /* CLChooseView.m in Sources */,
 				B02290701ECD49F50022D34F /* HZIndicatorView.m in Sources */,
 				B02290601ECD49F50022D34F /* GFAnnotation.m in Sources */,
 				B0228E6F1ECD48B40022D34F /* GFBianjiViewController.m in Sources */,
@@ -973,6 +994,7 @@
 				B081E75A1ECEC9DE003558DC /* CLCollectViewController.m in Sources */,
 				B0228E6E1ECD48B40022D34F /* GFAddWorkerViewController.m in Sources */,
 				B02290641ECD49F50022D34F /* CLTouchImageView.m in Sources */,
+				B099048620D3A6BA009CEF90 /* CLOrderStatusTimeModel.m in Sources */,
 				B02290721ECD49F50022D34F /* HZPhotoBrowserView.m in Sources */,
 				B0228EA51ECD499D0022D34F /* GFJishiDDViewController.m in Sources */,
 				B02290651ECD49F50022D34F /* CLTouchScrollView.m in Sources */,
@@ -1010,12 +1032,14 @@
 				B022906F1ECD49F50022D34F /* GFTouchImageView.m in Sources */,
 				B081E75D1ECEC9F9003558DC /* CLCollectTableViewCell.m in Sources */,
 				B02290621ECD49F50022D34F /* GFMapViewController.mm in Sources */,
+				B099048320D36B88009CEF90 /* Commom.m in Sources */,
 				B02290671ECD49F50022D34F /* GFAlertView.m in Sources */,
 				B022906C1ECD49F50022D34F /* GFTextField.m in Sources */,
 				9B97543E1C5765B3004BDC7C /* main.m in Sources */,
 				B0228EC01ECD49A80022D34F /* GFEvaluateShareViewController.m in Sources */,
 				B0228EA21ECD499D0022D34F /* CLAddPersonViewController.m in Sources */,
 				B081E7601ECEDDA8003558DC /* CLTechModel.m in Sources */,
+				B099048920D3B1E5009CEF90 /* CLOrderStatusTimeView.m in Sources */,
 				B0228E831ECD48BD0022D34F /* GFForgetPwdViewController.m in Sources */,
 				B0228E551ECD47E60022D34F /* CLCooperatingViewController.m in Sources */,
 				B03B258920D260FC007CA21D /* CLSearchOrderViewController.m in Sources */,

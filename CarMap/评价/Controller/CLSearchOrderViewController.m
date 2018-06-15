@@ -9,12 +9,24 @@
 #import "CLSearchOrderViewController.h"
 #import "GFNavigationView.h"
 #import "CLLineTextFieldView.h"
+#import "CLZYSupperSelectView.h"
+#import "CLChooseView.h"
+#import "Commom.h"
 
 
-@interface CLSearchOrderViewController ()<UITextFieldDelegate>
+@interface CLSearchOrderViewController ()<UITextFieldDelegate,CLZYSuperSelectViewDelegate>
 {
     CGFloat kWidth;
     CGFloat kHeight;
+    
+    CLChooseView *_dateChooseView;
+    
+    
+    CLLineTextFieldView *_statusTextFieldView;
+    CLLineTextFieldView *_timeTextFieldView;
+    CLLineTextFieldView *_carJiaHaoTextFieldView;
+    CLLineTextFieldView *_phoneTextFieldView;
+    
     
     
     
@@ -31,6 +43,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    
     [self _setBase];
     
     [self setViewUI];
@@ -39,55 +53,56 @@
 
 
 - (void)setViewUI{
-    CLLineTextFieldView *statusTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"状态" width:100];
-    statusTextFieldView.backgroundColor = [UIColor clearColor];
-    statusTextFieldView.titleLabel.textColor = [UIColor blackColor];
-    statusTextFieldView.textField.delegate = self;
-    statusTextFieldView.textField.tag = 1;
-    [self.view addSubview:statusTextFieldView];
-    [statusTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _statusTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"状态" width:100];
+    _statusTextFieldView.backgroundColor = [UIColor clearColor];
+    _statusTextFieldView.titleLabel.textColor = [UIColor blackColor];
+    _statusTextFieldView.textField.delegate = self;
+    _statusTextFieldView.textField.tag = 1;
+    [self.view addSubview:_statusTextFieldView];
+    [_statusTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navView.mas_bottom).offset(7);
         make.left.equalTo(self.view).offset(0);
         make.height.mas_offset(45);
         make.right.equalTo(self.view).offset(0);
     }];
-    
-    CLLineTextFieldView *timeTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"预约施工时间" width:100];
-    timeTextFieldView.backgroundColor = [UIColor clearColor];
-    timeTextFieldView.titleLabel.textColor = [UIColor blackColor];
-    timeTextFieldView.textField.delegate = self;
-    timeTextFieldView.textField.tag = 2;
-    [self.view addSubview:timeTextFieldView];
-    [timeTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(statusTextFieldView.mas_bottom).offset(0);
+
+    _timeTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"预约施工时间" width:100];
+    _timeTextFieldView.backgroundColor = [UIColor clearColor];
+    _timeTextFieldView.titleLabel.textColor = [UIColor blackColor];
+    _timeTextFieldView.textField.delegate = self;
+    _timeTextFieldView.textField.tag = 2;
+    [self.view addSubview:_timeTextFieldView];
+    [_timeTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_statusTextFieldView.mas_bottom).offset(0);
+        make.left.equalTo(self.view).offset(0);
+        make.height.mas_offset(45);
+        make.right.equalTo(self.view).offset(0);
+    }];
+
+    _carJiaHaoTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"车架号" width:100];
+    _carJiaHaoTextFieldView.backgroundColor = [UIColor clearColor];
+    _carJiaHaoTextFieldView.titleLabel.textColor = [UIColor blackColor];
+    _carJiaHaoTextFieldView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    _carJiaHaoTextFieldView.textField.delegate = self;
+    _carJiaHaoTextFieldView.textField.tag = 3;
+    [self.view addSubview:_carJiaHaoTextFieldView];
+    [_carJiaHaoTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_timeTextFieldView.mas_bottom).offset(0);
         make.left.equalTo(self.view).offset(0);
         make.height.mas_offset(45);
         make.right.equalTo(self.view).offset(0);
     }];
     
-    CLLineTextFieldView *carJiaHaoTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"车架号" width:100];
-    carJiaHaoTextFieldView.backgroundColor = [UIColor clearColor];
-    carJiaHaoTextFieldView.titleLabel.textColor = [UIColor blackColor];
-    carJiaHaoTextFieldView.textField.keyboardType = UIKeyboardTypeNumberPad;
-    carJiaHaoTextFieldView.textField.delegate = self;
-    carJiaHaoTextFieldView.textField.tag = 3;
-    [self.view addSubview:carJiaHaoTextFieldView];
-    [carJiaHaoTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(timeTextFieldView.mas_bottom).offset(0);
-        make.left.equalTo(self.view).offset(0);
-        make.height.mas_offset(45);
-        make.right.equalTo(self.view).offset(0);
-    }];
-    
-    CLLineTextFieldView *phoneTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"下单人手机号" width:100];
-    phoneTextFieldView.backgroundColor = [UIColor clearColor];
-    phoneTextFieldView.titleLabel.textColor = [UIColor blackColor];
-    carJiaHaoTextFieldView.textField.keyboardType = UIKeyboardTypeNumberPad;
-    phoneTextFieldView.textField.delegate = self;
-    phoneTextFieldView.textField.tag = 4;
-    [self.view addSubview:phoneTextFieldView];
-    [phoneTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(carJiaHaoTextFieldView.mas_bottom).offset(0);
+    _phoneTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"下单人手机号" width:100];
+    _phoneTextFieldView.backgroundColor = [UIColor clearColor];
+    _phoneTextFieldView.titleLabel.textColor = [UIColor blackColor];
+    _phoneTextFieldView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    _phoneTextFieldView.textField.delegate = self;
+    _phoneTextFieldView.textField.tag = 4;
+    [self.view addSubview:_phoneTextFieldView];
+    [_phoneTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.navView.mas_bottom).offset(7);
+        make.top.equalTo(_carJiaHaoTextFieldView.mas_bottom).offset(0);
         make.left.equalTo(self.view).offset(0);
         make.height.mas_offset(45);
         make.right.equalTo(self.view).offset(0);
@@ -103,7 +118,7 @@
     [searchButton addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(20);
-        make.top.equalTo(phoneTextFieldView.mas_bottom).offset(30);
+        make.top.equalTo(_phoneTextFieldView.mas_bottom).offset(30);
         make.right.equalTo(self.view).offset(-20);
         make.height.mas_offset(40);
     }];
@@ -115,16 +130,49 @@
 - (void)searchBtnClick{
     
     ICLog(@"search button click");
+    NSMutableDictionary *_dataDictionary = [[NSMutableDictionary alloc]init];
+    
+    if ([_statusTextFieldView.textField.text isEqualToString:@"未接单"]) {
+        _dataDictionary[@"status"] = @"1";
+    }else if([_statusTextFieldView.textField.text isEqualToString:@"施工中"]){
+        _dataDictionary[@"status"] = @"2";
+    }else if([_statusTextFieldView.textField.text isEqualToString:@"待评价"]){
+        _dataDictionary[@"status"] = @"3";
+    }else if([_statusTextFieldView.textField.text isEqualToString:@"已评价"]){
+        _dataDictionary[@"status"] = @"4";
+    }
+    
+    if(_timeTextFieldView.textField.text.length > 0){
+        _dataDictionary[@"workDate"] = _timeTextFieldView.textField.text;
+    }
+    
+    if(_carJiaHaoTextFieldView.textField.text.length > 0){
+        _dataDictionary[@"vin"] = _carJiaHaoTextFieldView.textField.text;
+    }
+    
+    if(_phoneTextFieldView.textField.text.length > 0){
+        _dataDictionary[@"phone"] = _phoneTextFieldView.textField.text;
+    }
     
     
+    
+    
+    
+    [_delegate searchOrderForDictionary:_dataDictionary];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    ICLog(@"----textField----%ld--",(long)textField.tag);
     if(textField.tag == 1){
+        NSArray *titleArray = @[@"未接单",@"施工中",@"待评价",@"已评价"];
+        [self setSelectViewWithTitle:@"选择运单状态" titleArray:titleArray];
+        
         
         return NO;
     }else if(textField.tag == 2){
+        [self chooseDate];
         
         return NO;
     }
@@ -135,7 +183,47 @@
 
 - (void)setSelectViewWithTitle:(NSString *)titleString titleArray:(NSArray *)titleArray{
     
+    CLZYSupperSelectView *chooseItemView = [[CLZYSupperSelectView alloc] initWithTitle:titleString itemArray:titleArray];
+    chooseItemView.delegate = self;
+    [self.view addSubview:chooseItemView];
+    [chooseItemView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.right.equalTo(self.view);
+    }];
+    
 }
+
+
+- (void)didAcceptSomething:(NSString *)someoneName{
+//    ICLog(@"----someoneName---%@--",someoneName);
+    
+    _statusTextFieldView.textField.text = someoneName;
+    
+}
+
+
+- (void)chooseDate{
+    
+    _dateChooseView = [[CLChooseView alloc]init];
+    [_dateChooseView setDateView];
+    [self.view addSubview:_dateChooseView];
+    _dateChooseView.frame = self.view.frame;
+    [_dateChooseView.trueButton addTarget:self action:@selector(dateTrueBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+}
+
+- (void)dateTrueBtnClick{
+//    ICLog(@"--_dateChooseView.datePickerView.date--%@--",_dateChooseView.datePickerView.date);
+    _timeTextFieldView.textField.text = [Commom dateToStringWithDate:_dateChooseView.datePickerView.date];
+    [_dateChooseView removeFromSuperview];
+    _dateChooseView = nil;
+    
+    
+}
+
 
 
 - (void)_setBase {

@@ -21,7 +21,8 @@
 
 #import "CLImageView.h"
 #import "MYImageView.h"
-
+#import "CLOrderStatusTimeModel.h"
+#import "CLOrderStatusTimeView.h"
 
 
 @interface GFIndentDetialsViewController () <HZPhotoBrowserDelegate> {
@@ -47,6 +48,8 @@
     NSMutableArray *_afterImageArray;
     
     NSString *_phoneString;
+    
+    NSMutableArray *_orderStatusArray;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -77,9 +80,39 @@
     // 界面搭建
     [self _setView];
     
-    
+    [self getOrderStatusScore];
     
 }
+
+
+- (void)getOrderStatusScore{
+    
+    _orderStatusArray = [[NSMutableArray alloc]init];
+    
+    [GFHttpTool merchanOrderStatusScoreGetWithParamenters:@{@"orderId":_model.orderID} success:^(id responseObject) {
+        ICLog(@"-----获取订单流程列表成功----%@---",responseObject);
+        BOOL status = responseObject[@"status"];
+        if(status){
+            NSArray *messageArray = responseObject[@"message"];
+            [messageArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CLOrderStatusTimeModel *orderStatusTimeModel = [[CLOrderStatusTimeModel alloc]init];
+                [orderStatusTimeModel setModelForData:obj];
+                [_orderStatusArray addObject:orderStatusTimeModel];
+            }];
+            
+            
+        }else{
+            ICLog(@"请求失败");
+        }
+        
+    } failure:^(NSError *error) {
+        ICLog(@"---获取订单流程列表失败----%@---",error);
+        
+    }];
+    
+}
+
+
 
 - (void)_setBase {
     
@@ -260,8 +293,21 @@
     
 //    [baseView addSubview:imgView];
     
+    
+    
+    UIButton *orderWorkDetailButton = [[UIButton alloc]init];
+    [orderWorkDetailButton setTitle:@"施工详情" forState:UIControlStateNormal];
+    [orderWorkDetailButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    orderWorkDetailButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    orderWorkDetailButton.layer.cornerRadius = 5;
+    [baseView addSubview:orderWorkDetailButton];
+    orderWorkDetailButton.frame = CGRectMake(20, CGRectGetMaxY(but1.frame) + jiange1 + 10, self.view.frame.size.width - 40, 40);
+    [orderWorkDetailButton addTarget:self action:@selector(orderWorkDetailBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
     // 边线
-    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(but1.frame) + jiange1, kWidth - jianjv2 * 2.0, 1)];
+    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(jianjv2, CGRectGetMaxY(orderWorkDetailButton.frame) + jiange1, kWidth - jianjv2 * 2.0, 1)];
     lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView addSubview:lineView2];
     
@@ -853,6 +899,18 @@
     
     
 //    _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 700);
+    
+}
+
+
+#pragma mark - 订单施工详情
+- (void)orderWorkDetailBtnClick{
+    ICLog(@"设置订单施工详情");
+    
+    CLOrderStatusTimeView *orderStatusTimeView = [[CLOrderStatusTimeView alloc]init];
+    [orderStatusTimeView setDetailForOrderStatusWithDataArray:_orderStatusArray];
+    [self.view addSubview:orderStatusTimeView];
+    orderStatusTimeView.frame = self.view.frame;
     
 }
 

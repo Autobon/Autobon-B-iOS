@@ -42,7 +42,7 @@
                   moduleName = "CarMapB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/inCar/Desktop/%E8%BD%A6%E9%82%BB%E9%82%A6__B%E7%AB%AF(2.0)/CarMap/%E5%8A%A0%E7%9B%9F/Controller/GFCooperationViewController.m"
-                  timestampString = "550720971.939613"
+                  timestampString = "550748922.32658"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "294"
@@ -57,7 +57,7 @@
                   moduleName = "CarMapB"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/inCar/Desktop/%E8%BD%A6%E9%82%BB%E9%82%A6__B%E7%AB%AF(2.0)/CarMap/%E5%8A%A0%E7%9B%9F/Controller/GFCooperationViewController.m"
-                  timestampString = "550720971.942156"
+                  timestampString = "550748922.329685"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "291"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/Controller/GFOneIndentViewController.m"
-            timestampString = "550661434.380613"
+            timestampString = "550743634.027276"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/Controller/GFOneIndentViewController.m"
-            timestampString = "550661434.380711"
+            timestampString = "550743634.0273499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "688"
@@ -106,23 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/Controller/GFOneIndentViewController.m"
-            timestampString = "550661434.380775"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "735"
-            endingLineNumber = "735"
-            landmarkName = "-signInButClick"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/Controller/GFOneIndentViewController.m"
-            timestampString = "550661434.3808399"
+            timestampString = "550743634.027404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "689"
@@ -138,28 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CarMap/&#x4e3b;&#x9875;&#x9762;/Controller/GFOneIndentViewController.m"
-            timestampString = "550661434.380893"
+            timestampString = "550743634.0274529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "695"
             endingLineNumber = "695"
             landmarkName = "-signInButClick"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CarMap/&#x8bc4;&#x4ef7;/Controller/GFIndentViewController.m"
-            timestampString = "550661434.3809479"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "-getNotOverList"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

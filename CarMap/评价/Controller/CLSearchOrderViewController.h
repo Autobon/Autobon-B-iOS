@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CLSearchOrderDelegate <NSObject>
+
+- (void)searchOrderForDictionary:(NSDictionary *)dataDictionary;
+
+
+
+@end
+
+
 @interface CLSearchOrderViewController : UIViewController
+
+@property (nonatomic ,assign) id <CLSearchOrderDelegate> delegate;
 
 @end

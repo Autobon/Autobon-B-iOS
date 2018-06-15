@@ -30,7 +30,7 @@
         for (int i = 0; i < itemArray.count; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitle:itemArray[itemArray.count - 1 -i] forState:UIControlStateNormal];
-            [btn setTitleColor:UIColor.cyanColor forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
             btn.backgroundColor = [UIColor whiteColor];
             btn.tag = itemArray.count - i;
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];

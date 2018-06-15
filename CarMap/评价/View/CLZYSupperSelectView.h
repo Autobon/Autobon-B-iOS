@@ -13,6 +13,8 @@
 
 - (void)didAcceptSomething:(NSString *) someoneName;
 
+
+
 @end
 
 
@@ -21,6 +23,8 @@
 @property (nonatomic, assign) id <CLZYSuperSelectViewDelegate> delegate;
 @property (nonatomic, copy) NSString *nameString;
 
+
+- (instancetype)initWithTitle:(NSString *)titleString itemArray:(NSArray *)itemArray;
 
 @end
 

@@ -25,7 +25,7 @@
 
 //#import "GFTipView.h"
 
-@interface GFIndentViewController () {
+@interface GFIndentViewController ()<CLSearchOrderDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -38,6 +38,13 @@
     
     
     NSMutableArray *_workNameArr;
+    
+    
+    
+    NSMutableDictionary *_dataDictionary;
+    
+    
+    
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -60,6 +67,9 @@
     _isAll = YES;
     
     self.modelArr = [[NSMutableArray alloc] init];
+    
+    _dataDictionary = [[NSMutableDictionary alloc]init];
+    
     
     // 基础设置
     [self _setBase];
@@ -93,13 +103,22 @@
     ICLog(@"--right search button click---");
     
     CLSearchOrderViewController *searchOrderVC = [[CLSearchOrderViewController alloc]init];
+    searchOrderVC.delegate = self;
     [self.navigationController pushViewController:searchOrderVC animated:YES];
+    
+}
+
+- (void)searchOrderForDictionary:(NSDictionary *)dataDictionary{
+    
+    _dataDictionary = [[NSMutableDictionary alloc]initWithDictionary:dataDictionary];
+    [_tableview.mj_header beginRefreshing];
     
 }
 
 
 - (void)_setView {
     
+    /*
     // 负责人横条
     CGFloat baseViewW = kWidth;
     CGFloat baseViewH = kHeight * 0.0651;
@@ -153,7 +172,7 @@
     self.lineView = [[UIView alloc] initWithFrame:CGRectMake(lineViewX, lineViewY, lineViewW, lineViewH)];
     self.lineView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [self.view addSubview:self.lineView];
-    
+    */
     
     
     
@@ -166,7 +185,7 @@
     
     [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(baseView.mas_bottom);
+        make.top.equalTo(_navView.mas_bottom);
     }];
     
     
@@ -258,11 +277,11 @@
 #pragma mark - 获取已完成订单
 - (void)getOverList {
     
-    NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
-    mDic[@"page"] = @(_page);
-    mDic[@"pageSize"] = @(_pageSize);
-    mDic[@"status"] = @"5";
-    [GFHttpTool postListFinishedDictionary:mDic success:^(id responseObject) {
+//    NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
+    _dataDictionary[@"page"] = @(_page);
+    _dataDictionary[@"pageSize"] = @(_pageSize);
+//    mDic[@"status"] = @"5";
+    [GFHttpTool postListFinishedDictionary:_dataDictionary success:^(id responseObject) {
         
         ICLog(@"===商户已完成订单列表===%@", responseObject);
         

@@ -157,7 +157,8 @@
 + (void)favoriteTechnicianGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
-
+#pragma mark - 通过订单id查询流程记录列表
++ (void)merchanOrderStatusScoreGetWithParamenters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
 
