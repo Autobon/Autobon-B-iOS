@@ -261,7 +261,7 @@
     timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     timeLab.font = [UIFont systemFontOfSize:14];
     [orderDetailBaseView addSubview:timeLab];
-    if([self.model.statusName isEqualToString:@"施工中"]){
+    if([self.model.statusString isEqualToString:@"施工中"]){
     
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
@@ -284,7 +284,7 @@
         
     }else {
         
-        timeLab.text = self.model.statusName;
+        timeLab.text = self.model.statusString;
     }
     
     // 施工项目
@@ -334,18 +334,18 @@
     
     CGFloat butImgW = (kWidth - 40) / 3.0;
     CGFloat butImgH = butImgW;
-    for(int i=0; i<self.model.photoUrlArr.count; i++) {
+    for(int i=0; i<self.model.photoArr.count; i++) {
     
         UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
         but.frame = CGRectMake((i % 3) * (butImgW + 10) + 10, (i / 3) * (butImgH + 10) + 10, butImgW, butImgH);
         but.tag = i + 1;
 //        [but setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoUrlArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [vv2 addSubview:but];
     }
     
-    NSInteger num = self.model.photoUrlArr.count - 1;
+    NSInteger num = self.model.photoArr.count - 1;
     vv2.frame = CGRectMake(-1, CGRectGetMaxY(orderDetailBaseView.frame) + 10, kWidth + 2, (num / 3 + 1) * (butImgH + 10) + 10);
     
     
@@ -366,7 +366,7 @@
 //    [self.view addSubview:aView];
 //    aView.delegate = self;
 //    [aView show];
-    if(![_model.statusName isEqualToString:@"已出发"] && ![_model.statusName isEqualToString:@"已签到"] && ![_model.statusName isEqualToString:@"施工中"]) {
+    if(![_model.statusString isEqualToString:@"已出发"] && ![_model.statusString isEqualToString:@"已签到"] && ![_model.statusString isEqualToString:@"施工中"]) {
         
         UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [self.view addSubview:aView];
@@ -451,7 +451,7 @@
     
     browser.sourceImagesContainerView = _vv2;
     
-    browser.imageCount = self.model.photoUrlArr.count;
+    browser.imageCount = self.model.photoArr.count;
     
     browser.currentImageIndex = sender.tag - 1;
     
@@ -467,7 +467,7 @@
 }
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoUrlArr[index]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoArr[index]]];
     
     return url;
 }

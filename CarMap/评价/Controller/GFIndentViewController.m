@@ -20,6 +20,7 @@
 #import "GFNothingView.h"
 #import "GFNewIndentModel.h"
 #import "CLSearchOrderViewController.h"
+#import "GFDeNoindentViewController.h"
 
 
 
@@ -437,13 +438,17 @@
 //    [GFTipView tipViewWithHeight:2 withTipViewMessage:@"gsag"];
  
     
-    GFNewIndentModel *model = (GFNewIndentModel *)self.modelArr[indexPath.row];
     
-    GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
     
-    indentDeVC.model = model;
     
-    [self.navigationController pushViewController:indentDeVC animated:YES];
+    
+//    GFNewIndentModel *model = (GFNewIndentModel *)self.modelArr[indexPath.row];
+//
+//    GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
+//
+//    indentDeVC.model = model;
+//
+//    [self.navigationController pushViewController:indentDeVC animated:YES];
 //    if ([model.status isEqualToString:@"EXPIRED"]) {
 ////        [self addAlertView:@"订单已超时"];
 //        GFIndentDetialsViewController *indentDeVC = [[GFIndentDetialsViewController alloc] init];
@@ -459,6 +464,17 @@
 //        [self.navigationController pushViewController:indentDeVC animated:YES];
 //    }
    
+    GFNewIndentModel *model = self.modelArr[indexPath.row];
+    if ([model.status isEqualToString:@"CREATED_TO_APPOINT"] || [model.status isEqualToString:@"NEWLY_CREATED"] || [model.status isEqualToString:@"TAKEN_UP"] || [model.status isEqualToString:@"IN_PROGRESS"]  || [model.status isEqualToString:@"SIGNED_IN"]  || [model.status isEqualToString:@"AT_WORK"]) {
+        GFDeNoindentViewController *indentDetailsVC = [[GFDeNoindentViewController alloc]init];
+        indentDetailsVC.model = model;
+        [self.navigationController pushViewController:indentDetailsVC animated:YES];
+    }else{
+        GFIndentDetialsViewController *indentDetailsVC = [[GFIndentDetialsViewController alloc]init];
+        indentDetailsVC.model = model;
+        [self.navigationController pushViewController:indentDetailsVC animated:YES];
+    }
+    
 }
 
 - (void)leftButClick {

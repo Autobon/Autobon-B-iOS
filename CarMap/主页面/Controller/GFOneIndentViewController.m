@@ -151,7 +151,16 @@
 
 #pragma mark - 获取商户未完成订单
 - (void)getListUnfinished{
+//    self.baseView.frame = CGRectMake(0, 0, kWidth, baseViewHH);
+//    self.scrollerView.contentSize = CGSizeMake(0, baseViewHH+50);
+//    _tipButton.hidden = YES;
+//    [self.scrollerView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_navView.mas_bottom).offset(0);
+//    }];
+//
+//    return;
     
+    /*
     [GFHttpTool dingdanPostWithDictionary:@{@"page":@"1",@"pageSize":@"1",@"status":@"1"} success:^(id responseObject) {
         
         
@@ -187,7 +196,7 @@
         
         ICLog(@"------%@", error);
     }];
-    
+    */
     /*
     [GFHttpTool postListUnfinishedDictionary:@{@"page":@"1",@"pageSize":@"1"} success:^(id responseObject) {
 //        NSLog(@"－－请求成功－－%@--",responseObject);
@@ -268,7 +277,7 @@
     [self.view sendSubviewToBack:self.scrollerView];
     [self.scrollerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(_navView.mas_bottom);
+        make.top.equalTo(_navView.mas_bottom).offset(-50);
     }];
     // 订单信息基础视图
     CGFloat baseViewW = kWidth;

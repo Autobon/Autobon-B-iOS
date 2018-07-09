@@ -11,9 +11,8 @@
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import "GFAnnotation.h"
+#import "GFNewIndentModel.h"
 
-
-@class GFNoIndentModel;
 @class GFNoIndentViewController;
 
 
@@ -22,7 +21,7 @@
 @property (nonatomic, copy) NSString *zhipai;
 @property (nonatomic, copy) NSString *jishi;
 
-@property (nonatomic, strong) GFNoIndentModel *model;
+@property (nonatomic, strong) GFNewIndentModel *model;
 
 @property (nonatomic, strong) GFNoIndentViewController *noIndentVC;
 

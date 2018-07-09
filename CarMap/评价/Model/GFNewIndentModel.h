@@ -34,7 +34,7 @@
 @property (nonatomic, copy) NSString *endTime;      // 施工结束时间
 
 @property (nonatomic, copy) NSString *status;   // 订单的状态
-
+@property (nonatomic, copy) NSString *statusString;   // 订单的状态
 @property (nonatomic, copy) NSString *createTime;   // 下单时间
 
 @property (nonatomic, copy) NSString *techAvatar;
@@ -42,6 +42,12 @@
 @property (nonatomic, copy) NSString *techPhone;
 
 @property (nonatomic, copy) NSString *contactPhone;
+
+
+@property (nonatomic, copy) NSString *techLatitude;
+@property (nonatomic, copy) NSString *techLongitude;
+@property (nonatomic, copy) NSString *latitude;
+@property (nonatomic, copy) NSString *longitude;
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dic;

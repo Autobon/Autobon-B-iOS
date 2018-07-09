@@ -135,6 +135,38 @@
             self.evaluate = [NSString stringWithFormat:@"%ld", ii];
         }
         
+        
+        
+        
+        
+        self.techLatitude = [NSString stringWithFormat:@"%@",dic[@"techLatitude"]];
+        self.techLongitude = [NSString stringWithFormat:@"%@",dic[@"techLongitude"]];
+        self.latitude = [NSString stringWithFormat:@"%@",dic[@"latitude"]];
+        self.longitude = [NSString stringWithFormat:@"%@",dic[@"longitude"]];
+        
+        
+        
+        if([self.status isEqualToString:@"CREATED_TO_APPOINT"]) {
+            self.statusString = @"待指派";
+        }else if([self.status isEqualToString:@"NEWLY_CREATED"]) {
+            self.statusString = @"未接单";
+        }else if([self.status isEqualToString:@"TAKEN_UP"]) {
+            self.statusString = @"已接单";
+        }else if([self.status isEqualToString:@"IN_PROGRESS"]) {
+            self.statusString = @"已出发";
+        }else if([self.status isEqualToString:@"SIGNED_IN"]) {
+            self.statusString = @"已签到";
+        }else if([self.status isEqualToString:@"AT_WORK"]) {
+            self.statusString = @"施工中";
+        }else if([self.status isEqualToString:@"FINISHED"]) {
+            self.statusString = @"待评价";
+        }else if([self.status isEqualToString:@"COMMENTED"]) {
+            self.statusString = @"已评价";
+        }else {
+            self.statusString = @"已撤消";
+        }
+        
+        
     }
     
     return self;
