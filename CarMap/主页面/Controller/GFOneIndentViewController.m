@@ -22,10 +22,11 @@
 
 #import "GFNoIndentViewController.h"
 
+#import "HXPhotoPicker.h"
+#import "GFIndentViewController.h"
 
 
-
-@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate> {
+@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate,HXAlbumListViewControllerDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -84,6 +85,9 @@
 
 
 @property (nonatomic, strong) UILabel *timeLab1;
+
+@property (strong, nonatomic) HXPhotoManager *manager;
+@property (strong, nonatomic) UIColor *bottomViewBgColor;
 
 
 @end
@@ -692,48 +696,35 @@
             NSInteger zuichiTime = (NSInteger)[[formatter dateFromString:self.zuichiTimeLab.text] timeIntervalSince1970];
             NSInteger cha = zuichiTime - yuyueTime;
             if(cha >= 0) {
-                ICLog(@"mDic");
+                ICLog(@"mDic---%@---",mDic);
                 [GFHttpTool postOneIndentDictionary:mDic success:^(NSDictionary *responseObject) {
                     ICLog(@"下单返回数据-----%@---",responseObject);
                     if ([responseObject[@"status"] integerValue] == 1) {
-                        /*
-                        if(_appointButton.selected) {
-                            
-                            // 刷新黑条
-                            [self getListUnfinished];
-                            
-                            CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
-                            NSDictionary *dataDictionary = responseObject[@"message"];
-                            addPerson.orderId = dataDictionary[@"id"];
-                            [self.navigationController pushViewController:addPerson animated:YES];
-                            
-                            for(UIView *mylabelview in [self.view subviews]) {
-                                
-                                [mylabelview removeFromSuperview];
-                            }
-                            
-                            [self viewDidLoad];
-                            self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-                            //                        [self.navigationController popToRootViewControllerAnimated:YES];
-                            //                        NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
-                        }else {
-                            
-                        }
-                        */
                         
+                        if(_appointButton.selected) {
+                            GFIndentViewController *indentVC = [[GFIndentViewController alloc]init];
+                            [self.navigationController pushViewController:indentVC animated:YES];
+                            
+                        }else {
                             GFAlertView *alertView = [[GFAlertView alloc]initWithMiao:3.0];
                             UIWindow *winndow = [UIApplication sharedApplication].keyWindow;
                             [winndow addSubview:alertView];
                             
-                            for(UIView *mylabelview in [self.view subviews]) {
-                                
-                                [mylabelview removeFromSuperview];
-                            }
                             
-                            [self viewDidLoad];
-                            self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-                            [self.navigationController popToRootViewControllerAnimated:YES];
-//                            NSLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
+                            ICLog(@"-滚动视图的打印--%@---", NSStringFromCGRect(self.scrollerView.frame));
+                        }
+                        
+                        
+                        for(UIView *mylabelview in [self.view subviews]) {
+                            
+                            [mylabelview removeFromSuperview];
+                        }
+                        //
+                        [self viewDidLoad];
+                        //                            self.scrollerView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+                        //                            [self.navigationController popToRootViewControllerAnimated:YES];
+                        
+                        
                         
                         
                         
@@ -840,6 +831,7 @@
 #pragma mark - 相机按钮的响应方法
 - (void)cameraBtnClick{
     
+    /*
     BOOL result = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (result) {
 //        NSLog(@"---支持使用相机---");
@@ -851,16 +843,141 @@
     }else{
 //        NSLog(@"----不支持使用相机----");
     }
+    */
     
+    self.manager = nil;
+    [self directGoPhotoViewController];
+//    [self goAlbumBtnClick];
 }
+
+
+- (void)directGoPhotoViewController {
+    HXAlbumListViewController *vc = [[HXAlbumListViewController alloc] init];
+    vc.manager = self.manager;
+    vc.delegate = self;
+    HXCustomNavigationController *nav = [[HXCustomNavigationController alloc] initWithRootViewController:vc];
+    nav.supportRotation = self.manager.configuration.supportRotation;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+
+
+- (void)albumListViewController:(HXAlbumListViewController *)albumListViewController didDoneAllImage:(NSArray<UIImage *> *)imageList{
+    NSSLog(@"%@",imageList);
+    [imageList enumerateObjectsUsingBlock:^(UIImage* obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self updataImage:obj];
+    }];
+}
+
+
+- (HXPhotoManager *)manager {
+    if (!_manager) {
+        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhotoAndVideo];
+        _manager.configuration.openCamera = YES;
+        _manager.configuration.lookLivePhoto = YES;
+        _manager.configuration.photoMaxNum = 6 - self.photoImgArr.count;
+        _manager.configuration.videoMaxNum = 1;
+        _manager.configuration.maxNum = 10;
+        _manager.configuration.videoMaxDuration = 500.f;
+        _manager.configuration.saveSystemAblum = NO;
+        //        _manager.configuration.reverseDate = YES;
+        _manager.configuration.showDateSectionHeader = NO;
+        _manager.configuration.selectTogether = NO;
+        //        _manager.configuration.rowCount = 3;
+        //        _manager.configuration.movableCropBox = YES;
+        //        _manager.configuration.movableCropBoxEditSize = YES;
+        //        _manager.configuration.movableCropBoxCustomRatio = CGPointMake(1, 1);
+        _manager.configuration.requestImageAfterFinishingSelection = YES;
+        __weak typeof(self) weakSelf = self;
+        //        _manager.configuration.replaceCameraViewController = YES;
+        _manager.configuration.shouldUseCamera = ^(UIViewController *viewController, HXPhotoConfigurationCameraType cameraType, HXPhotoManager *manager) {
+            
+            // 这里拿使用系统相机做例子
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = (id)weakSelf;
+            imagePickerController.allowsEditing = NO;
+            NSString *requiredMediaTypeImage = ( NSString *)kUTTypeImage;
+            NSString *requiredMediaTypeMovie = ( NSString *)kUTTypeMovie;
+            NSArray *arrMediaTypes;
+            if (cameraType == HXPhotoConfigurationCameraTypePhoto) {
+                arrMediaTypes=[NSArray arrayWithObjects:requiredMediaTypeImage,nil];
+            }else if (cameraType == HXPhotoConfigurationCameraTypeVideo) {
+                arrMediaTypes=[NSArray arrayWithObjects:requiredMediaTypeMovie,nil];
+            }else {
+                arrMediaTypes=[NSArray arrayWithObjects:requiredMediaTypeImage, requiredMediaTypeMovie,nil];
+            }
+            [imagePickerController setMediaTypes:arrMediaTypes];
+            // 设置录制视频的质量
+            [imagePickerController setVideoQuality:UIImagePickerControllerQualityTypeHigh];
+            //设置最长摄像时间
+            [imagePickerController setVideoMaximumDuration:60.f];
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+            imagePickerController.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+            [viewController presentViewController:imagePickerController animated:YES completion:nil];
+        };
+    }
+    return _manager;
+}
+
+
+- (void)goAlbumBtnClick {
+//    self.manager.configuration.clarityScale = 0.8;//小图清晰度
+    self.manager.configuration.themeColor = self.view.tintColor; //主题颜色
+    self.manager.configuration.cellSelectedTitleColor = nil;
+    self.manager.configuration.navBarBackgroudColor = nil; //导航栏背景颜色
+    self.manager.configuration.statusBarStyle = UIStatusBarStyleDefault;
+    self.manager.configuration.sectionHeaderTranslucent = YES;
+    self.bottomViewBgColor = nil;
+    self.manager.configuration.cellSelectedBgColor = nil;
+    self.manager.configuration.selectedTitleColor = nil;
+    self.manager.configuration.sectionHeaderSuspensionBgColor = nil;
+    self.manager.configuration.sectionHeaderSuspensionTitleColor = nil;
+    self.manager.configuration.navigationTitleColor = nil;//导航栏标题颜色
+    self.manager.configuration.hideOriginalBtn = NO;
+    self.manager.configuration.filtrationICloudAsset = NO;
+    self.manager.configuration.photoMaxNum = 6;
+    self.manager.configuration.videoMaxNum = 0;
+    self.manager.configuration.rowCount = 3;
+    self.manager.configuration.downloadICloudAsset = NO;
+    self.manager.configuration.saveSystemAblum = YES;
+    self.manager.configuration.showDateSectionHeader = NO;
+    self.manager.configuration.reverseDate = NO;
+    self.manager.configuration.navigationTitleSynchColor = NO;
+    self.manager.configuration.replaceCameraViewController = NO;
+    self.manager.configuration.openCamera = YES;
+    [self hx_presentAlbumListViewControllerWithManager:self.manager done:^(NSArray<HXPhotoModel *> *allList, NSArray<HXPhotoModel *> *photoList, NSArray<HXPhotoModel *> *videoList, BOOL original, HXAlbumListViewController *viewController) {
+        ICLog(@"all - %@",allList);
+        ICLog(@"photo - %@",photoList);
+        
+        
+        [photoList enumerateObjectsUsingBlock:^(HXPhotoModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [self updataImage:obj.previewPhoto];
+            [self updataImage:obj.thumbPhoto];
+        }];
+        
+    } cancel:^(HXAlbumListViewController *viewController) {
+        ICLog(@"取消了");
+    }];
+}
+
+
 
 #pragma mark - 图片协议方法
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     
     [self dismissViewControllerAnimated:YES completion:nil];
 
+    [self updataImage:image];
+    
+    
+}
+
+
+- (void)updataImage:(UIImage *)image{
+    
     GFImageView *imgView = [[GFImageView alloc] init];
-    imgView.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * (self.photoIndex % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * (self.photoIndex / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
+    
     imgView.image = image;
     [self.baseView addSubview:imgView];
     
@@ -873,16 +990,13 @@
     [shanchuBut addTarget:self action:@selector(shanchuButClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.addPhotoBut.hidden = NO;
-    self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex + 1) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex + 1) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
+    
     
     
     self.imgView.hidden = YES;
     self.cameraBtn.hidden = YES;
     
-    if(self.photoIndex == 5) {
     
-        self.addPhotoBut.hidden = YES;
-    }
     
     CGSize imagesize;
     if (image.size.width > image.size.height) {
@@ -896,10 +1010,10 @@
     NSData *imageData = UIImageJPEGRepresentation(imageNew,0.8);
     [GFHttpTool postOrderImage:imageData success:^(id responseObject) {
         
-            NSLog(@"上传成功－－%@--",responseObject);
+        ICLog(@"上传成功－－%@--",responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
             
-            self.photoIndex += 1;
+            
             
             _isUpOrderImage = YES;
             [_dataDictionary setObject:responseObject[@"message"] forKey:@"photo"];
@@ -907,66 +1021,77 @@
             [self.photoImgArr addObject:image];
             [self.photoImgViewArr addObject:imgView];
             
-            NSLog(@"----%@==", self.photoUrlArr);
+            
+            imgView.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * (self.photoIndex % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * (self.photoIndex / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
+            self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex + 1) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex + 1) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
+            
+            
+            if(self.photoIndex == 5) {
+                
+                self.addPhotoBut.hidden = YES;
+            }
+            
+            self.photoIndex += 1;
+            
+            ICLog(@"----%@==", self.photoUrlArr);
         }else{
             
             [self addAlertView:responseObject[@"message"]];
-//            [self.imgView setImage:nil forState:UIControlStateNormal];
+            //            [self.imgView setImage:nil forState:UIControlStateNormal];
             
-//            if(self.photoIndex > 0) {
+            //            if(self.photoIndex > 0) {
             
-                self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
-                
-                [imgView removeFromSuperview];
-//            }
+            self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
+            
+            [imgView removeFromSuperview];
+            //            }
         }
     } failure:^(NSError *error) {
         
         [self.imgView setImage:nil forState:UIControlStateNormal];
-        NSLog(@"上传失败－－%@---",error);
+        ICLog(@"上传失败－－%@---",error);
         [self addAlertView:@"图片上传失败"];
         
-//        if(self.photoIndex > 0) {
+        //        if(self.photoIndex > 0) {
         
-            self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
-            [imgView removeFromSuperview];
-    
-//        }
+        self.addPhotoBut.frame = CGRectMake((([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) % 3) + 10, CGRectGetMaxY(self.msgView.frame) + 10 + (([UIScreen mainScreen].bounds.size.width - 40) / 3.0 + 10) * ((self.photoIndex) / 3), ([UIScreen mainScreen].bounds.size.width - 40) / 3.0, ([UIScreen mainScreen].bounds.size.width - 40) / 3.0);
+        [imgView removeFromSuperview];
+        
+        //        }
     }];
     
     
     /*
-    [self.imgView setImage:image forState:UIControlStateNormal];
-    
-    CGSize imagesize;
-    if (image.size.width > image.size.height) {
-        imagesize.width = 800;
-        imagesize.height = image.size.height*800/image.size.width;
-    }else{
-        imagesize.height = 800;
-        imagesize.width = image.size.width*800/image.size.height;
-    }
-//    imagesize.width = image.size.width/2;
-//    imagesize.height = image.size.height/2;
-    UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
-    NSData *imageData = UIImageJPEGRepresentation(imageNew,0.8);
-    [GFHttpTool postOrderImage:imageData success:^(id responseObject) {
-//        NSLog(@"上传成功－－%@--",responseObject);
-        if ([responseObject[@"result"] integerValue] == 1) {
-            _isUpOrderImage = YES;
-            [_dataDictionary setObject:responseObject[@"data"] forKey:@"photo"];
-        }else{
-            [self addAlertView:responseObject[@"message"]];
-            [self.imgView setImage:nil forState:UIControlStateNormal];
-        }
-    } failure:^(NSError *error) {
-        [self.imgView setImage:nil forState:UIControlStateNormal];
-//        NSLog(@"上传失败－－%@---",error);
-//        [self addAlertView:@"图片上传失败"];
-    }];
-    */
+     [self.imgView setImage:image forState:UIControlStateNormal];
+     
+     CGSize imagesize;
+     if (image.size.width > image.size.height) {
+     imagesize.width = 800;
+     imagesize.height = image.size.height*800/image.size.width;
+     }else{
+     imagesize.height = 800;
+     imagesize.width = image.size.width*800/image.size.height;
+     }
+     //    imagesize.width = image.size.width/2;
+     //    imagesize.height = image.size.height/2;
+     UIImage *imageNew = [self imageWithImage:image scaledToSize:imagesize];
+     NSData *imageData = UIImageJPEGRepresentation(imageNew,0.8);
+     [GFHttpTool postOrderImage:imageData success:^(id responseObject) {
+     //        NSLog(@"上传成功－－%@--",responseObject);
+     if ([responseObject[@"result"] integerValue] == 1) {
+     _isUpOrderImage = YES;
+     [_dataDictionary setObject:responseObject[@"data"] forKey:@"photo"];
+     }else{
+     [self addAlertView:responseObject[@"message"]];
+     [self.imgView setImage:nil forState:UIControlStateNormal];
+     }
+     } failure:^(NSError *error) {
+     [self.imgView setImage:nil forState:UIControlStateNormal];
+     //        NSLog(@"上传失败－－%@---",error);
+     //        [self addAlertView:@"图片上传失败"];
+     }];
+     */
 }
-
 
 #pragma mark - 压缩图片尺寸
 -(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize {
