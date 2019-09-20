@@ -315,7 +315,7 @@
     } failure:^(NSError *error) {
         
         
-//        NSLog(@"商户已完成订单列表===%@", error);
+        ICLog(@"商户已完成订单列表===%@", error);
         [self.tableview.mj_header endRefreshing];
         [self.tableview.mj_footer endRefreshing];
     }];
