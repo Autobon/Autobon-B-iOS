@@ -19,7 +19,6 @@
 		9B9754471C5765B3004BDC7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754451C5765B3004BDC7C /* Main.storyboard */; };
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
-		9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B02AF661C5A22CB0044FB71 /* StoreKit.framework */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
 		B0228E541ECD47E60022D34F /* CLCooperateFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0228E3B1ECD47E60022D34F /* CLCooperateFailViewController.m */; };
 		B0228E551ECD47E60022D34F /* CLCooperatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0228E3D1ECD47E60022D34F /* CLCooperatingViewController.m */; };
@@ -155,7 +154,6 @@
 		00D3C26D5C1D2EFBF0A813D0 /* Pods-CarMapB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarMapB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarMapB/Pods-CarMapB.debug.xcconfig"; sourceTree = "<group>"; };
 		0309A2ED043AC2879BFE6EC3 /* libPods-CarMapB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarMapB.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		867E6D861D179BC9009F4938 /* WorkItemDic.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WorkItemDic.plist; sourceTree = "<group>"; };
-		9B02AF661C5A22CB0044FB71 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9B0D38941CACCA1F00D490B7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9B42F0751CBF980900F08C4E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B5EBEE41CBDD80E00E753BF /* servicedelegate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = servicedelegate.html; sourceTree = "<group>"; };
@@ -433,7 +431,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BAFCA621CB6089E000AA419 /* StoreKit.framework in Frameworks */,
 				9B0D38951CACCA1F00D490B7 /* AudioToolbox.framework in Frameworks */,
 				1849E3547811EFE43F1C5514 /* libPods-CarMapB.a in Frameworks */,
 			);
@@ -477,7 +474,6 @@
 				9BFA806F1C5F4526001651C3 /* CoreGraphics.framework */,
 				9BFA806D1C5F4519001651C3 /* QuartzCore.framework */,
 				9BFA806B1C5F450D001651C3 /* MessageUI.framework */,
-				9B02AF661C5A22CB0044FB71 /* StoreKit.framework */,
 				0309A2ED043AC2879BFE6EC3 /* libPods-CarMapB.a */,
 			);
 			name = Frameworks;
@@ -1004,7 +1000,6 @@
 				9B9754351C5765B3004BDC7C /* Sources */,
 				9B9754361C5765B3004BDC7C /* Frameworks */,
 				9B9754371C5765B3004BDC7C /* Resources */,
-				E2C144B6FD2308F8BCF464CC /* [CP] Embed Pods Frameworks */,
 				F38E276BC4F7D78B9052352E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1051,7 +1046,7 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1128,28 +1123,13 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E2C144B6FD2308F8BCF464CC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarMapB/Pods-CarMapB-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F38E276BC4F7D78B9052352E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CarMapB/Pods-CarMapB-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CarMapB/Pods-CarMapB-resources.sh",
 				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
@@ -1159,11 +1139,16 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mapapi.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKPromptResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TencentOpenApi_IOS_Bundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarMapB/Pods-CarMapB-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarMapB/Pods-CarMapB-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

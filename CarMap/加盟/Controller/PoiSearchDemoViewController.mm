@@ -167,26 +167,23 @@
     
 }
 
-
-
--(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
-{
-//    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-//    [_mapView removeAnnotations:array];
-//    array = [NSArray arrayWithArray:_mapView.overlays];
-//    [_mapView removeOverlays:array];
+- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeSearchResult *)result errorCode:(BMKSearchErrorCode)error{
+    //    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+    //    [_mapView removeAnnotations:array];
+    //    array = [NSArray arrayWithArray:_mapView.overlays];
+    //    [_mapView removeOverlays:array];
     if (error == 0) {
-//        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
+        //        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
         _workerPointAnno.coordinate = result.location;
         _workerPointAnno.title = result.address;
-//        [_mapView addAnnotation:_workerPointAnno];
+        //        [_mapView addAnnotation:_workerPointAnno];
         _mapView.centerCoordinate = result.location;
         NSString* titleStr;
         NSString* showmeg;
-//        titleStr = @"反向地理编码";
-//        showmeg = [NSString stringWithFormat:@"%@",_workerPointAnno.title];
+        //        titleStr = @"反向地理编码";
+        //        showmeg = [NSString stringWithFormat:@"%@",_workerPointAnno.title];
         
-//        NSLog(@"看看字典－－_dataDictionary--%@-",_dataDictionary);
+        //        NSLog(@"看看字典－－_dataDictionary--%@-",_dataDictionary);
         
         [_dataDictionary setObject:@(result.location.longitude) forKey:@"longitude"];
         [_dataDictionary setObject:@(result.location.latitude) forKey:@"latitude"];
@@ -197,12 +194,13 @@
         
         
         
-//        NSLog(@"看看字典－222－_dataDictionary--%@-",result.addressDetail.city);
+        //        NSLog(@"看看字典－222－_dataDictionary--%@-",result.addressDetail.city);
         
-//        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
-//        [myAlertView show];
+        //        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:titleStr message:showmeg delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
+        //        [myAlertView show];
     }
 }
+
 
 
 
@@ -213,8 +211,8 @@
     
 //    pt = (CLLocationCoordinate2D){30.481069601885,114.40935018074};
     
-    BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
-    reverseGeocodeSearchOption.reverseGeoPoint = pt;
+    BMKReverseGeoCodeSearchOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeSearchOption alloc]init];
+    reverseGeocodeSearchOption.location = pt;
     BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
     if(flag)
     {
@@ -228,17 +226,15 @@
 }
 
 
-
-- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
-{
+- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeSearchResult *)result errorCode:(BMKSearchErrorCode)error{
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
     [_mapView removeAnnotations:array];
     array = [NSArray arrayWithArray:_mapView.overlays];
     [_mapView removeOverlays:array];
     if (error == 0) {
-//        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
+        //        BMKPointAnnotation* _workerPointAnno = [[BMKPointAnnotation alloc]init];
         _workerPointAnno.coordinate = result.location;
-        _workerPointAnno.title = result.address;
+//        _workerPointAnno.title = result.address;
         [_mapView addAnnotation:_workerPointAnno];
         _mapView.centerCoordinate = result.location;
         NSString* titleStr;
@@ -251,6 +247,7 @@
         [myAlertView show];
     }
 }
+
 
 
 -(void)onClickGeocode
@@ -352,7 +349,7 @@
 
     
     
-    BMKCitySearchOption *citySearchOption = [[BMKCitySearchOption alloc]init];
+    BMKPOICitySearchOption *citySearchOption = [[BMKPOICitySearchOption alloc]init];
     citySearchOption.city= @"武汉";
     citySearchOption.keyword = _searchbar.text;
     BOOL flag = [_poisearch poiSearchInCity:citySearchOption];
@@ -463,29 +460,29 @@
 
 #pragma mark -
 #pragma mark implement BMKSearchDelegate
-- (void)onGetPoiResult:(BMKPoiSearch *)searcher result:(BMKPoiResult*)result errorCode:(BMKSearchErrorCode)error
-{
+- (void)onGetPoiResult:(BMKPoiSearch *)searcher result:(BMKPOISearchResult *)poiResult errorCode:(BMKSearchErrorCode)errorCode{
     // 清楚屏幕中所有的annotation
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-	[_mapView removeAnnotations:array];
+    [_mapView removeAnnotations:array];
     
-    if (error == BMK_SEARCH_NO_ERROR) {
+    if (errorCode == BMK_SEARCH_NO_ERROR) {
         NSMutableArray *annotations = [NSMutableArray array];
-		for (int i = 0; i < result.poiInfoList.count; i++) {
-            BMKPoiInfo* poi = [result.poiInfoList objectAtIndex:i];
+        for (int i = 0; i < poiResult.poiInfoList.count; i++) {
+            BMKPoiInfo* poi = [poiResult.poiInfoList objectAtIndex:i];
             BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
             item.coordinate = poi.pt;
             item.title = poi.name;
             [annotations addObject:item];
             
-		}
+        }
         [_mapView addAnnotations:annotations];
         [_mapView showAnnotations:annotations animated:YES];
-	} else if (error == BMK_SEARCH_AMBIGUOUS_ROURE_ADDR){
-//        NSLog(@"起始点有歧义");
+    } else if (errorCode == BMK_SEARCH_AMBIGUOUS_ROURE_ADDR){
+        //        NSLog(@"起始点有歧义");
     } else {
         // 各种情况的判断。。。
     }
 }
+
 
 @end

@@ -227,9 +227,7 @@
 
 
 
-
-- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
-{
+- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeSearchResult *)result errorCode:(BMKSearchErrorCode)error{
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
     [_mapView removeAnnotations:array];
     array = [NSArray arrayWithArray:_mapView.overlays];
@@ -237,7 +235,7 @@
     if (error == 0) {
         BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
         item.coordinate = result.location;
-        item.title = result.address;
+//        item.title = result.address;
         [_mapView addAnnotation:item];
         _mapView.centerCoordinate = result.location;
         NSString* titleStr;
@@ -251,8 +249,7 @@
     }
 }
 
--(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
-{
+- (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeSearchResult *)result errorCode:(BMKSearchErrorCode)error{
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
     [_mapView removeAnnotations:array];
     array = [NSArray arrayWithArray:_mapView.overlays];
@@ -275,6 +272,7 @@
 
 
 
+
 -(void)onClickReverseGeocode
 {
     isGeoSearch = false;
@@ -282,8 +280,8 @@
     
         pt = (CLLocationCoordinate2D){113.0, 40.0};
     
-    BMKReverseGeoCodeOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
-    reverseGeocodeSearchOption.reverseGeoPoint = pt;
+    BMKReverseGeoCodeSearchOption *reverseGeocodeSearchOption = [[BMKReverseGeoCodeSearchOption alloc]init];
+    reverseGeocodeSearchOption.location = pt;
     BOOL flag = [_geocodesearch reverseGeoCode:reverseGeocodeSearchOption];
     if(flag)
     {
