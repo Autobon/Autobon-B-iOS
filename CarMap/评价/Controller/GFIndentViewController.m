@@ -428,7 +428,7 @@
 //    GFIndentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     
-    return 115;
+    return 150;
 
 }
 

@@ -15,6 +15,7 @@
 
 
 @property (nonatomic, strong) UILabel *numberLab;
+@property (nonatomic, strong) UILabel *vinLab;
 @property (nonatomic, strong) UIImageView *photoImgView;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) UIButton *pingjiaBut;

@@ -166,6 +166,19 @@
             self.statusString = @"已撤消";
         }
         
+        if(dic[@"license"] == nil) {
+            self.license = @"";
+        }else{
+            self.license = dic[@"license"];
+        }
+        
+        
+        if(dic[@"vin"] == nil) {
+            self.vin = @"";
+        }else{
+            self.vin = dic[@"vin"];
+        }
+        
         
     }
     

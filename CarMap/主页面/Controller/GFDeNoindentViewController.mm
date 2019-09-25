@@ -256,8 +256,24 @@
         zhipaiBut.hidden = YES;
     }
     
+    
+    // 车牌号
+    UILabel *licenseLab = [[UILabel alloc] initWithFrame:CGRectMake(6,  CGRectGetMaxY(bianhaoLab.frame), 200, 30)];
+    licenseLab.text = [NSString stringWithFormat:@"车牌号：%@", self.model.license];
+    licenseLab.font = [UIFont boldSystemFontOfSize:13];
+    licenseLab.textColor = [UIColor darkGrayColor];
+    [orderDetailBaseView addSubview:licenseLab];
+    
+    // 车架号
+    UILabel *vinLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(licenseLab.frame), 200, 30)];
+    vinLab.text = [NSString stringWithFormat:@"车架号：%@", self.model.vin];
+    vinLab.font = [UIFont boldSystemFontOfSize:13];
+    vinLab.textColor = [UIColor darkGrayColor];
+    [orderDetailBaseView addSubview:vinLab];
+    
+    
     // 已施工时间
-    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(bianhaoLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(vinLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
     timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     timeLab.font = [UIFont systemFontOfSize:14];
     [orderDetailBaseView addSubview:timeLab];

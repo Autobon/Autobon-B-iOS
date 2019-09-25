@@ -66,7 +66,16 @@
         make.top.equalTo(titleLabel.mas_bottom).offset(50);
         make.left.equalTo(baseView).offset(49);
         make.width.mas_offset(1);
-        make.height.mas_offset(50 * (dataArray.count - 1));
+        if (dataArray.count > 6){
+            make.height.mas_offset(50 * 5);
+        }else if (dataArray.count == 0){
+            make.height.mas_offset(50 * 0);
+        }else{
+            make.height.mas_offset(50 * (dataArray.count - 1));
+        }
+        
+        ICLog(@"--height--%ld----",50 * (dataArray.count - 1));
+        
     }];
     
     

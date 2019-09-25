@@ -49,6 +49,10 @@
 @property (nonatomic, copy) NSString *latitude;
 @property (nonatomic, copy) NSString *longitude;
 
+@property (nonatomic, copy) NSString *license;
+@property (nonatomic, copy) NSString *vin;
+
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dic;
 

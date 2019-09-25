@@ -26,7 +26,7 @@
     CLLineTextFieldView *_timeTextFieldView;
     CLLineTextFieldView *_carJiaHaoTextFieldView;
     CLLineTextFieldView *_phoneTextFieldView;
-    
+    CLLineTextFieldView *_carNumberTextFieldView;
     
     
     
@@ -79,15 +79,31 @@
         make.right.equalTo(self.view).offset(0);
     }];
 
+    _carNumberTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"车牌号" width:100];
+    _carNumberTextFieldView.backgroundColor = [UIColor clearColor];
+    _carNumberTextFieldView.titleLabel.textColor = [UIColor blackColor];
+    _carNumberTextFieldView.textField.delegate = self;
+    _carNumberTextFieldView.textField.tag = 3;
+    [self.view addSubview:_carNumberTextFieldView];
+    [_carNumberTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_timeTextFieldView.mas_bottom).offset(0);
+        make.left.equalTo(self.view).offset(0);
+        make.height.mas_offset(45);
+        make.right.equalTo(self.view).offset(0);
+    }];
+    
+    
+    
+    
     _carJiaHaoTextFieldView = [[CLLineTextFieldView alloc]initWithTitle:@"车架号" width:100];
     _carJiaHaoTextFieldView.backgroundColor = [UIColor clearColor];
     _carJiaHaoTextFieldView.titleLabel.textColor = [UIColor blackColor];
     _carJiaHaoTextFieldView.textField.keyboardType = UIKeyboardTypeNumberPad;
     _carJiaHaoTextFieldView.textField.delegate = self;
-    _carJiaHaoTextFieldView.textField.tag = 3;
+    _carJiaHaoTextFieldView.textField.tag = 4;
     [self.view addSubview:_carJiaHaoTextFieldView];
     [_carJiaHaoTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_timeTextFieldView.mas_bottom).offset(0);
+        make.top.equalTo(_carNumberTextFieldView.mas_bottom).offset(0);
         make.left.equalTo(self.view).offset(0);
         make.height.mas_offset(45);
         make.right.equalTo(self.view).offset(0);
@@ -98,7 +114,7 @@
     _phoneTextFieldView.titleLabel.textColor = [UIColor blackColor];
     _phoneTextFieldView.textField.keyboardType = UIKeyboardTypeNumberPad;
     _phoneTextFieldView.textField.delegate = self;
-    _phoneTextFieldView.textField.tag = 4;
+    _phoneTextFieldView.textField.tag = 5;
     [self.view addSubview:_phoneTextFieldView];
     [_phoneTextFieldView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.navView.mas_bottom).offset(7);
@@ -144,6 +160,10 @@
     
     if(_timeTextFieldView.textField.text.length > 0){
         _dataDictionary[@"workDate"] = _timeTextFieldView.textField.text;
+    }
+    
+    if(_carNumberTextFieldView.textField.text.length > 0){
+        _dataDictionary[@"license"] = _carNumberTextFieldView.textField.text;
     }
     
     if(_carJiaHaoTextFieldView.textField.text.length > 0){

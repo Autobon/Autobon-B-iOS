@@ -20,7 +20,8 @@
 
     _model = model;
     
-    self.numberLab.text = [NSString stringWithFormat:@"订单编号%@", model.orderNum];
+    self.numberLab.text = [NSString stringWithFormat:@"车牌号：%@", model.license];
+    self.vinLab.text = [NSString stringWithFormat:@"车架号：%@", model.vin];
     self.timeLab.text = [NSString stringWithFormat:@"%@", model.typeName];
     self.yuyueTimeLab.text = [NSString stringWithFormat:@"预约施工时间：%@",model.agreedStartTime];
     self.contactPhoneLab.text = [NSString stringWithFormat:@"下单人手机号：%@",model.contactPhone];
@@ -119,11 +120,17 @@
         self.numberLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         [baseView addSubview:self.numberLab];
         
+        
+        self.vinLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, CGRectGetMaxY(self.numberLab.frame) + 5, numberLabW, numberLabH)];
+        self.vinLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
+        [baseView addSubview:self.vinLab];
+        
+        
         // 工作内容
         CGFloat tipLabW = 240 / 375.0 * kWidth;
         CGFloat tipLabH = 25;
         CGFloat tipLabX = jiange;
-        CGFloat tipLabY = CGRectGetMaxY(self.numberLab.frame);
+        CGFloat tipLabY = CGRectGetMaxY(self.vinLab.frame);
         self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
         self.timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         self.timeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];

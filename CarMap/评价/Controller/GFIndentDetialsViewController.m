@@ -57,6 +57,8 @@
 @property (nonatomic, strong) UILabel *bianhaoLab;
 @property (nonatomic, strong) UILabel *tiemoLab;
 @property (nonatomic, strong) UILabel *timeLab;
+@property (nonatomic, strong) UILabel *licenseLab;
+@property (nonatomic, strong) UILabel *vinLab;
 
 @property (nonatomic, strong) NSMutableArray *photoMarr;
 @property (nonatomic, strong) NSArray *curPhotoArr;
@@ -295,13 +297,25 @@
     
     
     
+    self.licenseLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, CGRectGetMaxY(but1.frame) + jiange1 + 10, bianhaoLabW, bianhaoLabH)];
+    self.licenseLab.text = [NSString stringWithFormat:@"车牌号：%@",_model.license];
+    self.licenseLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
+    [baseView addSubview:self.licenseLab];
+    
+    self.vinLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, CGRectGetMaxY(self.licenseLab.frame) + jiange1, bianhaoLabW, bianhaoLabH)];
+    self.vinLab.text = [NSString stringWithFormat:@"车架号：%@",_model.vin];
+    self.vinLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
+    [baseView addSubview:self.vinLab];
+    
+    
+    
     UIButton *orderWorkDetailButton = [[UIButton alloc]init];
     [orderWorkDetailButton setTitle:@"施工详情" forState:UIControlStateNormal];
     [orderWorkDetailButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     orderWorkDetailButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     orderWorkDetailButton.layer.cornerRadius = 5;
     [baseView addSubview:orderWorkDetailButton];
-    orderWorkDetailButton.frame = CGRectMake(20, CGRectGetMaxY(but1.frame) + jiange1 + 10, self.view.frame.size.width - 40, 40);
+    orderWorkDetailButton.frame = CGRectMake(20, CGRectGetMaxY(self.vinLab.frame) + jiange1 + 10, self.view.frame.size.width - 40, 40);
     [orderWorkDetailButton addTarget:self action:@selector(orderWorkDetailBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     
