@@ -20,6 +20,12 @@
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
+		A679CE3B233B4E7900DBD4E9 /* CLProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */; };
+		A679CE3E233B5A4900DBD4E9 /* CLProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE3D233B5A4900DBD4E9 /* CLProductTableViewCell.m */; };
+		A679CE41233B634B00DBD4E9 /* CLProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE40233B634B00DBD4E9 /* CLProductModel.m */; };
+		A6C4C9BB233C928100D63A5A /* CLPackageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4C9BA233C928100D63A5A /* CLPackageListViewController.m */; };
+		A6C4C9BE233C9BDE00D63A5A /* CLPackageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4C9BD233C9BDE00D63A5A /* CLPackageDetailViewController.m */; };
+		A6C4C9C1233CA4E500D63A5A /* CLPackageProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C4C9C0233CA4E500D63A5A /* CLPackageProductTableViewCell.m */; };
 		B0228E541ECD47E60022D34F /* CLCooperateFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0228E3B1ECD47E60022D34F /* CLCooperateFailViewController.m */; };
 		B0228E551ECD47E60022D34F /* CLCooperatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0228E3D1ECD47E60022D34F /* CLCooperatingViewController.m */; };
 		B0228E561ECD47E60022D34F /* GFCooperatingSucViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0228E3F1ECD47E60022D34F /* GFCooperatingSucViewController.m */; };
@@ -186,6 +192,18 @@
 		9BFA807F1C5F4596001651C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BFA80811C5F4744001651C3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9BFA80841C5F475B001651C3 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		A679CE39233B4E7900DBD4E9 /* CLProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductListViewController.h; sourceTree = "<group>"; };
+		A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLProductListViewController.m; sourceTree = "<group>"; };
+		A679CE3C233B5A4900DBD4E9 /* CLProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductTableViewCell.h; sourceTree = "<group>"; };
+		A679CE3D233B5A4900DBD4E9 /* CLProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLProductTableViewCell.m; sourceTree = "<group>"; };
+		A679CE3F233B634B00DBD4E9 /* CLProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductModel.h; sourceTree = "<group>"; };
+		A679CE40233B634B00DBD4E9 /* CLProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLProductModel.m; sourceTree = "<group>"; };
+		A6C4C9B9233C928100D63A5A /* CLPackageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLPackageListViewController.h; sourceTree = "<group>"; };
+		A6C4C9BA233C928100D63A5A /* CLPackageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPackageListViewController.m; sourceTree = "<group>"; };
+		A6C4C9BC233C9BDE00D63A5A /* CLPackageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLPackageDetailViewController.h; sourceTree = "<group>"; };
+		A6C4C9BD233C9BDE00D63A5A /* CLPackageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPackageDetailViewController.m; sourceTree = "<group>"; };
+		A6C4C9BF233CA4E500D63A5A /* CLPackageProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLPackageProductTableViewCell.h; sourceTree = "<group>"; };
+		A6C4C9C0233CA4E500D63A5A /* CLPackageProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPackageProductTableViewCell.m; sourceTree = "<group>"; };
 		B01832691E64300A00E203E6 /* CarMapB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CarMapB.entitlements; sourceTree = "<group>"; };
 		B0228E3A1ECD47E60022D34F /* CLCooperateFailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCooperateFailViewController.h; sourceTree = "<group>"; };
 		B0228E3B1ECD47E60022D34F /* CLCooperateFailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCooperateFailViewController.m; sourceTree = "<group>"; };
@@ -581,6 +599,12 @@
 				B081E7591ECEC9DE003558DC /* CLCollectViewController.m */,
 				B081E7611ECEF537003558DC /* CLCollectListViewController.h */,
 				B081E7621ECEF537003558DC /* CLCollectListViewController.m */,
+				A679CE39233B4E7900DBD4E9 /* CLProductListViewController.h */,
+				A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */,
+				A6C4C9B9233C928100D63A5A /* CLPackageListViewController.h */,
+				A6C4C9BA233C928100D63A5A /* CLPackageListViewController.m */,
+				A6C4C9BC233C9BDE00D63A5A /* CLPackageDetailViewController.h */,
+				A6C4C9BD233C9BDE00D63A5A /* CLPackageDetailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -592,6 +616,8 @@
 				B0228E501ECD47E60022D34F /* CLNotificationModel.m */,
 				B081E75E1ECEDDA8003558DC /* CLTechModel.h */,
 				B081E75F1ECEDDA8003558DC /* CLTechModel.m */,
+				A679CE3F233B634B00DBD4E9 /* CLProductModel.h */,
+				A679CE40233B634B00DBD4E9 /* CLProductModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -603,6 +629,10 @@
 				B0228E531ECD47E60022D34F /* GFTransformTableViewCell.m */,
 				B081E75B1ECEC9F9003558DC /* CLCollectTableViewCell.h */,
 				B081E75C1ECEC9F9003558DC /* CLCollectTableViewCell.m */,
+				A679CE3C233B5A4900DBD4E9 /* CLProductTableViewCell.h */,
+				A679CE3D233B5A4900DBD4E9 /* CLProductTableViewCell.m */,
+				A6C4C9BF233CA4E500D63A5A /* CLPackageProductTableViewCell.h */,
+				A6C4C9C0233CA4E500D63A5A /* CLPackageProductTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1064,6 +1094,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1172,19 +1203,23 @@
 				B0228EC31ECD49A80022D34F /* GFIndentViewController.m in Sources */,
 				B0228EC21ECD49A80022D34F /* GFIndentDetialsViewController.m in Sources */,
 				B0228EA61ECD499D0022D34F /* GFNoIndentViewController.m in Sources */,
+				A6C4C9BB233C928100D63A5A /* CLPackageListViewController.m in Sources */,
 				B05EC1A720F35ABB00EFB588 /* HXAlbumListViewController.m in Sources */,
 				B0228E5C1ECD47E60022D34F /* GFTransformViewController.m in Sources */,
 				B022905C1ECD49F50022D34F /* FirstViewController.m in Sources */,
 				B02290631ECD49F50022D34F /* CLImageView.m in Sources */,
+				A6C4C9BE233C9BDE00D63A5A /* CLPackageDetailViewController.m in Sources */,
 				B0228E581ECD47E60022D34F /* GFIWillAddViewController.m in Sources */,
 				B05EC1AC20F35ABB00EFB588 /* HXDatePhotoViewFlowLayout.m in Sources */,
 				B0228E701ECD48B40022D34F /* GFWorkerViewController.m in Sources */,
 				B05EC1A820F35ABB00EFB588 /* UIView+HXExtension.m in Sources */,
 				B0228E591ECD47E60022D34F /* GFJoinInViewController_1.m in Sources */,
 				B05EC1C020F35ABB00EFB588 /* HXDatePhotoEditViewController.m in Sources */,
+				A679CE3E233B5A4900DBD4E9 /* CLProductTableViewCell.m in Sources */,
 				B099048020D3634F009CEF90 /* CLChooseView.m in Sources */,
 				B05EC1A120F35ABB00EFB588 /* NSBundle+HXPhotoPicker.m in Sources */,
 				B05EC1B020F35ABB00EFB588 /* HXCustomCameraController.m in Sources */,
+				A6C4C9C1233CA4E500D63A5A /* CLPackageProductTableViewCell.m in Sources */,
 				B02290701ECD49F50022D34F /* HZIndicatorView.m in Sources */,
 				B05EC1BC20F35ABB00EFB588 /* HXCircleProgressView.m in Sources */,
 				B02290601ECD49F50022D34F /* GFAnnotation.m in Sources */,
@@ -1199,6 +1234,7 @@
 				B0228EA51ECD499D0022D34F /* GFJishiDDViewController.m in Sources */,
 				B02290651ECD49F50022D34F /* CLTouchScrollView.m in Sources */,
 				B02290341ECD49F40022D34F /* ACETelPrompt.m in Sources */,
+				A679CE41233B634B00DBD4E9 /* CLProductModel.m in Sources */,
 				B05EC19E20F35ABB00EFB588 /* HXDownloadProgressView.m in Sources */,
 				B0228EAC1ECD499D0022D34F /* GFNoIndentTableViewCell.m in Sources */,
 				B022906E1ECD49F50022D34F /* GFTitleView.m in Sources */,
@@ -1273,6 +1309,7 @@
 				B05EC1AE20F35ABB00EFB588 /* HXPhotoManager.m in Sources */,
 				B0228E841ECD48BD0022D34F /* GFSignInViewController.m in Sources */,
 				B05EC1A220F35ABB00EFB588 /* HXCollectionView.m in Sources */,
+				A679CE3B233B4E7900DBD4E9 /* CLProductListViewController.m in Sources */,
 				B0228EC61ECD49A80022D34F /* GFIndentTableViewCell.m in Sources */,
 				B0228EC11ECD49A80022D34F /* GFEvaluateViewController.m in Sources */,
 				B05EC1B320F35ABB00EFB588 /* HXPhotoView.m in Sources */,
