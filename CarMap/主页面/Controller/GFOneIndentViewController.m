@@ -19,14 +19,15 @@
 #import "GFAlertView.h"
 #import "CLAddPersonViewController.h"
 #import "GFImageView.h"
-
 #import "GFNoIndentViewController.h"
-
 #import "HXPhotoPicker.h"
 #import "GFIndentViewController.h"
+#import "CLHomeProductTableViewCell.h"
+#import "CLPackageProductTableViewCell.h"
 
 
-@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate,HXAlbumListViewControllerDelegate> {
+
+@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate,HXAlbumListViewControllerDelegate, UITableViewDelegate, UITableViewDataSource> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -56,6 +57,12 @@
     
     GFNavigationView *_navView;
     
+    UITableView *_tableView;
+    
+    NSMutableArray *_selectPackageClassButtonArray; //选择施工项目按钮数组
+    UIButton *_packageBaseViewChangeButton;
+    UIScrollView *_packageScrollView;
+    UIButton *_showSelectProductButton;     //查看已选项目按钮
 }
 
 //@property (nonatomic, strong) GFNavigationView *navView;
@@ -89,6 +96,11 @@
 @property (strong, nonatomic) HXPhotoManager *manager;
 @property (strong, nonatomic) UIColor *bottomViewBgColor;
 
+@property (nonatomic, strong) UIView *lineView;
+
+@property (nonatomic, strong) UIView *dataOrderBaseView;
+@property (nonatomic, strong) UIView *photoOrderBaseView;
+@property (nonatomic, strong) UIView *showBgView;           //弹出框背景View
 
 @end
 
@@ -125,11 +137,801 @@
     [self _setBase];
     
     // 界面搭建
-    [self _setView];
-    
+//    [self _setView];
     
     [self NSNotificationCenter];
+    
+    [self setViewForBase];
+    
+    [self setDataOrderView];
+    
+    [self setPhotoOrderView];
+    self.photoOrderBaseView.hidden = YES;
+    
 }
+
+
+
+- (void)setDataOrderView{
+    
+    
+    _dataOrderBaseView = [[UIView alloc]init];
+    [self.view addSubview:_dataOrderBaseView];
+    [_dataOrderBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom).offset(60);
+    }];
+    
+    UIView *textFieldBaseView = [[UIView alloc]init];
+    textFieldBaseView.backgroundColor = [UIColor whiteColor];
+    [_dataOrderBaseView addSubview:textFieldBaseView];
+    [textFieldBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(_dataOrderBaseView);
+        make.height.mas_offset(184);
+    }];
+    
+    
+    UILabel *vinLabel = [[UILabel alloc]init];
+    vinLabel.text = @"车架号";
+    vinLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:vinLabel];
+    [vinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(textFieldBaseView);
+        make.left.equalTo(textFieldBaseView).offset(22);
+        make.height.mas_offset(45);
+        make.width.mas_offset(90);
+    }];
+    
+    UITextField *vinTextField = [[UITextField alloc]init];
+    vinTextField.placeholder = @"未填写";
+    vinTextField.textAlignment = NSTextAlignmentRight;
+    vinTextField.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:vinTextField];
+    [vinTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(vinLabel.mas_right).offset(10);
+        make.right.equalTo(textFieldBaseView).offset(-22);
+        make.height.mas_offset(25);
+        make.centerY.equalTo(vinLabel);
+    }];
+    
+    UIView *vinLineView = [[UIView alloc]init];
+    vinLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    [textFieldBaseView addSubview:vinLineView];
+    [vinLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textFieldBaseView).offset(15);
+        make.left.equalTo(textFieldBaseView).offset(-15);
+        make.top.equalTo(vinLabel.mas_bottom).offset(5);
+        make.height.mas_offset(1);
+    }];
+    
+    UILabel *carLicenseLabel = [[UILabel alloc]init];
+    carLicenseLabel.text = @"车牌号";
+    carLicenseLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:carLicenseLabel];
+    [carLicenseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(vinLabel.mas_bottom).offset(2);
+        make.left.equalTo(textFieldBaseView).offset(22);
+        make.height.mas_offset(45);
+        make.width.mas_offset(90);
+    }];
+    
+    UITextField *carLicenseTextField = [[UITextField alloc]init];
+    carLicenseTextField.placeholder = @"未填写";
+    carLicenseTextField.textAlignment = NSTextAlignmentRight;
+    carLicenseTextField.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:carLicenseTextField];
+    [carLicenseTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(carLicenseLabel.mas_right).offset(10);
+        make.right.equalTo(textFieldBaseView).offset(-22);
+        make.height.mas_offset(25);
+        make.centerY.equalTo(carLicenseLabel);
+    }];
+    
+    UIView *carLicenseLineView = [[UIView alloc]init];
+    carLicenseLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    [textFieldBaseView addSubview:carLicenseLineView];
+    [carLicenseLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textFieldBaseView).offset(15);
+        make.left.equalTo(textFieldBaseView).offset(-15);
+        make.top.equalTo(carLicenseLabel.mas_bottom).offset(5);
+        make.height.mas_offset(1);
+    }];
+    
+    UILabel *carTypeLabel = [[UILabel alloc]init];
+    carTypeLabel.text = @"车型";
+    carTypeLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:carTypeLabel];
+    [carTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(carLicenseLabel.mas_bottom).offset(2);
+        make.left.equalTo(textFieldBaseView).offset(22);
+        make.height.mas_offset(45);
+        make.width.mas_offset(90);
+    }];
+    
+    UITextField *carTypeTextField = [[UITextField alloc]init];
+    carTypeTextField.placeholder = @"未填写";
+    carTypeTextField.textAlignment = NSTextAlignmentRight;
+    carTypeTextField.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:carTypeTextField];
+    [carTypeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(carTypeLabel.mas_right).offset(10);
+        make.right.equalTo(textFieldBaseView).offset(-22);
+        make.height.mas_offset(25);
+        make.centerY.equalTo(carTypeLabel);
+    }];
+    
+    UIView *carTypeLineView = [[UIView alloc]init];
+    carTypeLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    [textFieldBaseView addSubview:carTypeLineView];
+    [carTypeLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textFieldBaseView).offset(15);
+        make.left.equalTo(textFieldBaseView).offset(-15);
+        make.top.equalTo(carTypeLabel.mas_bottom).offset(5);
+        make.height.mas_offset(1);
+    }];
+    
+    UILabel *beginTimeLabel = [[UILabel alloc]init];
+    beginTimeLabel.text = @"预约施工时间";
+    beginTimeLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:beginTimeLabel];
+    [beginTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(carTypeLabel.mas_bottom).offset(2);
+        make.left.equalTo(textFieldBaseView).offset(22);
+        make.height.mas_offset(45);
+        make.width.mas_offset(90);
+    }];
+    
+    UITextField *beginTimenTextField = [[UITextField alloc]init];
+    beginTimenTextField.placeholder = @"未填写";
+    beginTimenTextField.textAlignment = NSTextAlignmentRight;
+    beginTimenTextField.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:beginTimenTextField];
+    [beginTimenTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(beginTimeLabel.mas_right).offset(10);
+        make.right.equalTo(textFieldBaseView).offset(-22);
+        make.height.mas_offset(25);
+        make.centerY.equalTo(beginTimeLabel);
+    }];
+    
+    UIView *beginTimeLineView = [[UIView alloc]init];
+    beginTimeLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    [textFieldBaseView addSubview:beginTimeLineView];
+    [beginTimeLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textFieldBaseView).offset(15);
+        make.left.equalTo(textFieldBaseView).offset(-15);
+        make.top.equalTo(beginTimeLabel.mas_bottom).offset(5);
+        make.height.mas_offset(1);
+    }];
+    
+    
+    UIView *packageTitleBaseView = [[UIView alloc]init];
+//    packageTitleBaseView.backgroundColor = [UIColor cyanColor];
+    [_dataOrderBaseView addSubview:packageTitleBaseView];
+    [packageTitleBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(_dataOrderBaseView);
+        make.top.equalTo(textFieldBaseView.mas_bottom).offset(0);
+        make.height.mas_offset(45);
+    }];;
+    
+    UIView *leftLittleView = [[UIView alloc]init];
+    leftLittleView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    [packageTitleBaseView addSubview:leftLittleView];
+    [leftLittleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(packageTitleBaseView);
+        make.width.mas_offset(5);
+        make.height.mas_offset(15);
+        make.centerY.equalTo(packageTitleBaseView);
+    }];
+    
+    UILabel *packageTitleLabel = [[UILabel alloc]init];
+    packageTitleLabel.text = @"选择施工项目";
+    packageTitleLabel.font = [UIFont systemFontOfSize:14];
+    [packageTitleBaseView addSubview:packageTitleLabel];
+    [packageTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(packageTitleBaseView);
+        make.left.equalTo(packageTitleBaseView).offset(30);
+    }];
+    
+    _packageBaseViewChangeButton = [[UIButton alloc]init];
+    [_packageBaseViewChangeButton setTitle:@"选择套餐" forState:UIControlStateNormal];
+    [_packageBaseViewChangeButton setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
+    _packageBaseViewChangeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_packageBaseViewChangeButton addTarget:self action:@selector(packageBaseViewChangeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [packageTitleBaseView addSubview:_packageBaseViewChangeButton];
+    [_packageBaseViewChangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(packageTitleBaseView).offset(-16);
+        make.width.mas_offset(70);
+        make.height.mas_offset(45);
+        make.centerY.equalTo(packageTitleBaseView);
+    }];
+    
+    UIView *footBaseView = [[UIView alloc]init];
+//    footBaseView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    footBaseView.backgroundColor = [UIColor whiteColor];
+    [_dataOrderBaseView addSubview:footBaseView];
+    [footBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(_dataOrderBaseView);
+        make.height.mas_offset(60);
+    }];
+    
+    
+    //已选套餐/项目
+    _showSelectProductButton = [[UIButton alloc]init];
+    _showSelectProductButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    [_showSelectProductButton setTitle:@"已选项目" forState:UIControlStateNormal];
+    _showSelectProductButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    _showSelectProductButton.layer.cornerRadius = 3;
+    [_showSelectProductButton addTarget:self action:@selector(showSelectProductBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [footBaseView addSubview:_showSelectProductButton];
+    [_showSelectProductButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_dataOrderBaseView).offset(15);
+        make.right.equalTo(_dataOrderBaseView.mas_centerX).offset(-15);
+        make.height.mas_offset(40);
+        make.centerY.equalTo(footBaseView);
+    }];
+
+    UIButton *dataOrderSubmitButton = [[UIButton alloc]init];
+    dataOrderSubmitButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    [dataOrderSubmitButton setTitle:@"一键下单" forState:UIControlStateNormal];
+    dataOrderSubmitButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    dataOrderSubmitButton.layer.cornerRadius = 3;
+    [footBaseView addSubview:dataOrderSubmitButton];
+    [dataOrderSubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_dataOrderBaseView.mas_centerX).offset(15);
+        make.right.equalTo(_dataOrderBaseView.mas_right).offset(-15);
+        make.height.mas_offset(40);
+        make.centerY.equalTo(footBaseView);
+    }];
+    
+    
+    
+    
+    UIView *leftView = [[UIView alloc]init];
+    [_dataOrderBaseView addSubview:leftView];
+    [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_dataOrderBaseView);
+        make.top.equalTo(packageTitleBaseView.mas_bottom);
+        make.bottom.equalTo(footBaseView.mas_top);
+        make.width.mas_offset(70);
+    }];
+//    leftView.backgroundColor = [UIColor cyanColor];
+    
+    _selectPackageClassButtonArray = [[NSMutableArray alloc]init];
+    UIButton *lastButton;
+    NSArray *titleStringArray = @[@"贴膜", @"美容", @"车衣", @"改色"];
+    for (int i = 0; i < 4; i++) {
+        UIButton *button = [[UIButton alloc]init];
+        [button setTitle:titleStringArray[i] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button.tag = i;
+        [button addTarget:self action:@selector(selectPackageClassBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_selectPackageClassButtonArray addObject:button];
+        if (i == 0){
+            button.backgroundColor = [UIColor whiteColor];
+        }
+//        button.backgroundColor = [UIColor redColor];
+        [leftView addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.left.equalTo(leftView);
+            make.height.mas_equalTo(leftView.mas_height).multipliedBy(0.25);
+//            make.width.equalTo(otherView.width).multipleBy(0.5);
+//            make.height.mas_offset(45);
+            if (lastButton){
+                make.top.equalTo(lastButton.mas_bottom);
+            }else{
+                make.top.equalTo(leftView.mas_top);
+            }
+            
+        }];
+        lastButton = button;
+        
+        
+        UILabel *iconLabel = [[UILabel alloc]init];
+        iconLabel.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        [button addSubview:iconLabel];
+        iconLabel.font = [UIFont systemFontOfSize:10];
+        iconLabel.layer.cornerRadius = 7;
+        iconLabel.clipsToBounds = YES;
+        iconLabel.textAlignment = NSTextAlignmentCenter;
+        iconLabel.text = @"1";
+        iconLabel.textColor = [UIColor whiteColor];
+        [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(button).offset(20);
+            make.centerY.equalTo(button).offset(-8);
+            make.width.mas_offset(14);
+            make.height.mas_offset(14);
+        }];
+        
+        
+    }
+    
+    _tableView = [[UITableView alloc]init];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+//    _tableView.separatorColor = [UIColor clearColor];
+    [_dataOrderBaseView addSubview:_tableView];
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_dataOrderBaseView);
+        make.left.equalTo(leftView.mas_right);
+        make.top.equalTo(packageTitleBaseView.mas_bottom);
+        make.bottom.equalTo(footBaseView.mas_top);
+    }];
+    
+    
+    
+    
+// 设置选择套餐滚动视图
+    _packageScrollView = [[UIScrollView alloc]init];
+    _packageScrollView.backgroundColor = [UIColor whiteColor];
+    [_dataOrderBaseView addSubview:_packageScrollView];
+    [_packageScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(_dataOrderBaseView);
+        make.top.equalTo(packageTitleBaseView.mas_bottom);
+        make.bottom.equalTo(footBaseView.mas_top);
+    }];
+    _packageScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * 10);
+    for (int i = 0; i < 10; i++) {
+        
+        UIButton *contentBaseButton = [[UIButton alloc]init];
+        contentBaseButton.backgroundColor = [UIColor whiteColor];
+        [_packageScrollView addSubview:contentBaseButton];
+        contentBaseButton.frame = CGRectMake(0, 0 + i * 45, self.view.frame.size.width, 45);
+        [contentBaseButton addTarget:self action:@selector(packageBaseViewBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *contentTitleLabel = [[UILabel alloc]init];
+        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
+        [contentBaseButton addSubview:contentTitleLabel];
+        [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(contentBaseButton).offset(25);
+            make.centerY.equalTo(contentBaseButton);
+            
+        }];
+        
+        UIButton *contentButton = [[UIButton alloc]init];
+        [contentButton setTitle:@"选择" forState:UIControlStateNormal];
+        contentButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        contentButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        contentButton.layer.cornerRadius = 14;
+        [contentBaseButton addSubview:contentButton];
+        [contentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(contentBaseButton).offset(-25);
+            make.centerY.equalTo(contentBaseButton);
+            make.height.mas_offset(28);
+            make.width.mas_offset(70);
+        }];
+    }
+    _packageScrollView.hidden = YES;
+    
+    
+}
+
+
+//选择套餐与项目切换按钮相应方法
+- (void)packageBaseViewChangeBtnClick{
+    if([_packageBaseViewChangeButton.titleLabel.text isEqualToString:@"选择套餐"]){
+        [_packageBaseViewChangeButton setTitle:@"选择项目" forState:UIControlStateNormal];
+        _packageScrollView.hidden = NO;
+        [_showSelectProductButton setTitle:@"已选套餐" forState:UIControlStateNormal];
+    }else{
+        [_packageBaseViewChangeButton setTitle:@"选择套餐" forState:UIControlStateNormal];
+        _packageScrollView.hidden = YES;
+        [_showSelectProductButton setTitle:@"已选项目" forState:UIControlStateNormal];
+    }
+    
+}
+
+
+
+
+
+
+//选择视同项目切换相应方法
+- (void)selectPackageClassBtnClick:(UIButton *) button{
+    [_selectPackageClassButtonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1];
+    }];
+    button.backgroundColor = [UIColor whiteColor];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    
+    return 50;
+    //    return self.dataArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 70;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CLHomeProductTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil){
+        cell = [[CLHomeProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ICLog(@"查看施工项目详情");
+    
+    [self showProductDetailView];
+}
+
+
+- (void)showSelectProductBtnClick{
+    if ([_showSelectProductButton.titleLabel.text isEqualToString:@"已选项目"]){
+        _showBgView = [[UIView alloc]init];
+        _showBgView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+        [self.view addSubview:_showBgView];
+        [_showBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.equalTo(self.view);
+        }];
+        
+        UIView *baseView = [[UIView alloc]init];
+        baseView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+        [_showBgView addSubview:baseView];
+        [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(self.showBgView);
+            make.height.mas_offset(400);
+        }];
+        
+        UIView *titleBaseView = [[UIView alloc]init];
+        titleBaseView.backgroundColor = [UIColor whiteColor];
+        [baseView addSubview:titleBaseView];
+        [titleBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.equalTo(baseView);
+            make.height.mas_offset(40);
+        }];
+        
+        UILabel *titleLabel = [[UILabel alloc]init];
+        titleLabel.text = @"已选项目";
+        titleLabel.font = [UIFont boldSystemFontOfSize:17];
+        [titleBaseView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(titleBaseView).offset(15);
+            make.centerY.equalTo(titleBaseView);
+        }];
+        
+        UIButton *showBgViewCancelButton = [[UIButton alloc]init];
+        [showBgViewCancelButton setImage:[UIImage imageNamed:@"clb_xq_btn_close"] forState:UIControlStateNormal];
+        [showBgViewCancelButton addTarget:self action:@selector(showBgViewCancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [titleBaseView addSubview:showBgViewCancelButton];
+        [showBgViewCancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(titleBaseView).offset(-5);
+            make.centerY.equalTo(titleBaseView).offset(0);
+            make.width.mas_offset(40);
+            make.height.mas_offset(40);
+        }];
+        
+        UIScrollView *scrollView = [[UIScrollView alloc]init];
+        scrollView.backgroundColor = [UIColor whiteColor];
+        [baseView addSubview:scrollView];
+        [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(baseView);
+            make.top.equalTo(titleBaseView.mas_bottom).offset(15);
+        }];
+        
+        
+        for (int i = 0; i < 5; i++) {
+            CLPackageProductTableViewCell *cell = [[CLPackageProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            [scrollView addSubview:cell];
+            cell.frame = CGRectMake(0, 130 * i, self.view.frame.size.width, 130);
+        }
+        
+        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 130 * 5);
+        scrollView.contentOffset = CGPointMake(0, -100);
+    }else{
+        
+        
+        _showBgView = [[UIView alloc]init];
+        _showBgView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+        [self.view addSubview:_showBgView];
+        [_showBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.equalTo(self.view);
+        }];
+        
+        UIView *baseView = [[UIView alloc]init];
+        baseView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+        [_showBgView addSubview:baseView];
+        [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(self.showBgView);
+            make.height.mas_offset(400);
+        }];
+        
+        UIView *titleBaseView = [[UIView alloc]init];
+        titleBaseView.backgroundColor = [UIColor whiteColor];
+        [baseView addSubview:titleBaseView];
+        [titleBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.equalTo(baseView);
+            make.height.mas_offset(40);
+        }];
+        
+        UILabel *titleLabel = [[UILabel alloc]init];
+        titleLabel.text = @"已选套餐";
+        titleLabel.font = [UIFont boldSystemFontOfSize:17];
+        [titleBaseView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(titleBaseView).offset(15);
+            make.centerY.equalTo(titleBaseView);
+        }];
+        
+        UIButton *showBgViewCancelButton = [[UIButton alloc]init];
+        [showBgViewCancelButton setImage:[UIImage imageNamed:@"clb_xq_btn_close"] forState:UIControlStateNormal];
+        [showBgViewCancelButton addTarget:self action:@selector(showBgViewCancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [titleBaseView addSubview:showBgViewCancelButton];
+        [showBgViewCancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(titleBaseView).offset(-5);
+            make.centerY.equalTo(titleBaseView).offset(0);
+            make.width.mas_offset(40);
+            make.height.mas_offset(40);
+        }];
+        
+        UIScrollView *scrollView = [[UIScrollView alloc]init];
+        scrollView.backgroundColor = [UIColor whiteColor];
+        [_showBgView addSubview:scrollView];
+        [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(baseView);
+            make.top.equalTo(titleBaseView.mas_bottom).offset(15);
+        }];
+        
+        for (int i = 0; i < 10; i++) {
+            
+            UIButton *contentBaseButton = [[UIButton alloc]init];
+            contentBaseButton.backgroundColor = [UIColor whiteColor];
+            [scrollView addSubview:contentBaseButton];
+            contentBaseButton.frame = CGRectMake(0, 0 + i * 45, self.view.frame.size.width, 45);
+            
+            UILabel *contentTitleLabel = [[UILabel alloc]init];
+            contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
+            [contentBaseButton addSubview:contentTitleLabel];
+            [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(contentBaseButton).offset(25);
+                make.centerY.equalTo(contentBaseButton);
+                
+            }];
+            
+            UIButton *contentButton = [[UIButton alloc]init];
+            [contentButton setTitle:@"移除" forState:UIControlStateNormal];
+            contentButton.titleLabel.font = [UIFont systemFontOfSize:15];
+            contentButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+            contentButton.layer.cornerRadius = 14;
+            [contentBaseButton addSubview:contentButton];
+            [contentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(contentBaseButton).offset(-25);
+                make.centerY.equalTo(contentBaseButton);
+                make.height.mas_offset(28);
+                make.width.mas_offset(70);
+            }];
+        }
+        scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * 10);
+        scrollView.contentOffset = CGPointMake(0, -100);
+    }
+    
+    
+}
+
+
+
+//查看套餐详情
+- (void)packageBaseViewBtnClick{
+    
+    _showBgView = [[UIView alloc]init];
+    _showBgView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    [self.view addSubview:_showBgView];
+    [_showBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+    
+    UIView *baseView = [[UIView alloc]init];
+    baseView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    [_showBgView addSubview:baseView];
+    [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.showBgView);
+        make.height.mas_offset(400);
+    }];
+    
+    UIView *titleBaseView = [[UIView alloc]init];
+    titleBaseView.backgroundColor = [UIColor whiteColor];
+    [baseView addSubview:titleBaseView];
+    [titleBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(baseView);
+        make.height.mas_offset(40);
+    }];
+    
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.text = @"套餐一";
+    titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    [titleBaseView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleBaseView).offset(15);
+        make.centerY.equalTo(titleBaseView);
+    }];
+    
+    UIButton *showBgViewCancelButton = [[UIButton alloc]init];
+    [showBgViewCancelButton setImage:[UIImage imageNamed:@"clb_xq_btn_close"] forState:UIControlStateNormal];
+    [showBgViewCancelButton addTarget:self action:@selector(showBgViewCancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [titleBaseView addSubview:showBgViewCancelButton];
+    [showBgViewCancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(titleBaseView).offset(-5);
+        make.centerY.equalTo(titleBaseView).offset(0);
+        make.width.mas_offset(40);
+        make.height.mas_offset(40);
+    }];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc]init];
+    scrollView.backgroundColor = [UIColor whiteColor];
+    [baseView addSubview:scrollView];
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(baseView);
+        make.top.equalTo(titleBaseView.mas_bottom).offset(15);
+    }];
+    
+    
+    for (int i = 0; i < 5; i++) {
+        CLPackageProductTableViewCell *cell = [[CLPackageProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        [scrollView addSubview:cell];
+        cell.frame = CGRectMake(0, 130 * i, self.view.frame.size.width, 130);
+    }
+    
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 130 * 5);
+    scrollView.contentOffset = CGPointMake(0, -100);
+    
+    
+}
+
+//查看项目详情
+- (void)showProductDetailView{
+    
+    _showBgView = [[UIView alloc]init];
+    _showBgView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    [self.view addSubview:_showBgView];
+    [_showBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+    
+    UIView *baseView = [[UIView alloc]init];
+    baseView.backgroundColor = [UIColor whiteColor];
+    [_showBgView addSubview:baseView];
+    [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.showBgView);
+        make.height.mas_offset(160);
+    }];
+    
+    CLPackageProductTableViewCell *cell = [[CLPackageProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    [baseView addSubview:cell];
+    [cell mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(baseView);
+        make.top.equalTo(baseView).offset(15);
+        make.height.mas_offset(130);
+    }];
+    
+    UIButton *showBgViewCancelButton = [[UIButton alloc]init];
+    [showBgViewCancelButton setImage:[UIImage imageNamed:@"clb_xq_btn_close"] forState:UIControlStateNormal];
+    [showBgViewCancelButton addTarget:self action:@selector(showBgViewCancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [baseView addSubview:showBgViewCancelButton];
+    [showBgViewCancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(baseView).offset(-5);
+        make.top.equalTo(baseView).offset(5);
+        make.width.mas_offset(40);
+        make.height.mas_offset(40);
+    }];
+    
+    
+}
+
+//移除弹出框
+- (void)showBgViewCancelBtnClick{
+    [_showBgView removeFromSuperview];
+    _showBgView = nil;
+}
+
+
+
+
+- (void)setViewForBase{
+    
+    UIView *headerBaseView = [[UIView alloc]init];
+    headerBaseView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:headerBaseView];
+    [headerBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+        make.height.mas_offset(50);
+    }];
+    
+    // 主负责人
+    UIButton *mainBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    mainBut.frame = CGRectMake(0, 0, self.view.frame.size.width / 2.0, 50);
+    mainBut.titleLabel.font = [UIFont boldSystemFontOfSize:14 / 320.0 * kWidth];
+    [mainBut setTitle:@"数据下单" forState:UIControlStateNormal];
+    [mainBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
+    [mainBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateSelected];
+    mainBut.selected = YES;
+    [headerBaseView addSubview:mainBut];
+    [mainBut addTarget:self action:@selector(renButClick:) forControlEvents:UIControlEventTouchUpInside];
+    mainBut.tag = 1000;
+    mainBut.userInteractionEnabled = NO;
+    // 次负责人
+    UIButton *otherBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    otherBut.frame = CGRectMake(CGRectGetMaxX(mainBut.frame), 0, kWidth / 2.0, 50);
+    otherBut.titleLabel.font = [UIFont boldSystemFontOfSize:14 / 320.0 * kWidth];
+    [otherBut setTitle:@"拍照下单" forState:UIControlStateNormal];
+    [otherBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
+    [otherBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateSelected];
+    [headerBaseView addSubview:otherBut];
+    [otherBut addTarget:self action:@selector(renButClick:) forControlEvents:UIControlEventTouchUpInside];
+    otherBut.tag = 2000;
+    // 边线
+    UIView *vv = [[UIView alloc] initWithFrame:CGRectMake(0, 50 - 1, kWidth, 1)];
+    vv.backgroundColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1];
+    [headerBaseView addSubview:vv];
+    // 下划线
+    NSString *proStr = @"数据下单";
+    NSMutableDictionary *proDic = [[NSMutableDictionary alloc] init];
+    proDic[NSFontAttributeName] = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    proDic[NSForegroundColorAttributeName] = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    CGRect proRect = [proStr boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:proDic context:nil];
+    CGFloat lineViewW = proRect.size.width + 20;
+    CGFloat lineViewH = 1.5;
+    CGFloat lineViewX = (kWidth / 2.0 - lineViewW) / 2.0;
+//    CGFloat lineViewY = CGRectGetMaxY(headerBaseView.frame) - lineViewH;
+    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(lineViewX, 45, lineViewW, lineViewH)];
+    self.lineView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    [headerBaseView addSubview:self.lineView];
+    
+    
+}
+
+- (void)renButClick:(UIButton *)sender {
+    
+    sender.selected = YES;
+    
+    if(sender.tag == 1000) {
+        
+        
+        UIButton *but = (UIButton *)[self.view viewWithTag:2000];
+        but.selected = NO;
+        
+        but.userInteractionEnabled = YES;
+        sender.userInteractionEnabled = NO;
+        
+        self.photoOrderBaseView.hidden = YES;
+        self.dataOrderBaseView.hidden = NO;
+        
+    }else {
+        
+        UIButton *but = (UIButton *)[self.view viewWithTag:1000];
+        but.selected = NO;
+        
+        
+        but.userInteractionEnabled = YES;
+        sender.userInteractionEnabled = NO;
+        
+
+        self.photoOrderBaseView.hidden = NO;
+        self.dataOrderBaseView.hidden = YES;
+    }
+    
+    CGFloat centerX = sender.center.x;
+    CGPoint oriPoint = self.lineView.center;
+    oriPoint.x = centerX;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.lineView.center = oriPoint;
+    }];
+    
+    
+    
+    
+}
+
+
+
+
 
 #pragma mark - 注册通知中心
 - (void)NSNotificationCenter{
@@ -140,7 +942,7 @@
     
     
     
-    self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1];
     
     
     
@@ -265,9 +1067,22 @@
 
 
 
-- (void)_setView {
+- (void)setPhotoOrderView {
     
-    [self getListUnfinished];
+    
+    _photoOrderBaseView = [[UIView alloc]init];
+    [self.view addSubview:_photoOrderBaseView];
+    [_photoOrderBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom).offset(60);
+    }];
+    _photoOrderBaseView.clipsToBounds = YES;
+    
+    
+    
+    
+    
+//    [self getListUnfinished];
     
     self.scrollerView = [[CLTouchScrollView alloc] init];
     self.scrollerView.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
@@ -277,11 +1092,11 @@
     self.scrollerView.contentSize = CGSizeMake(0, 1050);
     self.scrollerView.showsHorizontalScrollIndicator = NO;
     self.scrollerView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:self.scrollerView];
-    [self.view sendSubviewToBack:self.scrollerView];
+    [_photoOrderBaseView addSubview:self.scrollerView];
+    [_photoOrderBaseView sendSubviewToBack:self.scrollerView];
     [self.scrollerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(_navView.mas_bottom).offset(-50);
+        make.left.bottom.right.equalTo(_photoOrderBaseView);
+        make.top.equalTo(_photoOrderBaseView).offset(-50);
     }];
     // 订单信息基础视图
     CGFloat baseViewW = kWidth;

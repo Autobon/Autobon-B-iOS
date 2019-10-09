@@ -39,6 +39,7 @@
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
+@property (nonatomic, strong) UIScrollView *bgScrollView;
 
 @end
 
@@ -72,6 +73,39 @@
 
 - (void)_setView {
     
+    
+    // 退出登录
+    CGFloat exitViewW = kWidth;
+    CGFloat exitViewH = kHeight * 0.078;
+    CGFloat exitViewX = 0;
+    CGFloat exitViewY = kHeight - exitViewH;
+    UIView *exitView = [[UIView alloc] initWithFrame:CGRectMake(exitViewX, exitViewY, exitViewW, exitViewH)];
+    exitView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:exitView];
+    // 边线
+    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 1)];
+    lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
+    [exitView addSubview:lineView2];
+    // 按钮
+    UIButton *exitBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    exitBut.frame = CGRectMake(0, 0, kWidth, exitViewH);
+    [exitBut setTitle:@"退出登录" forState:UIControlStateNormal];
+    [exitBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
+    exitBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
+    [exitBut addTarget:self action:@selector(leaveSignin) forControlEvents:UIControlEventTouchUpInside];
+    [exitView addSubview:exitBut];
+    
+    
+    _bgScrollView = [[UIScrollView alloc]init];
+    [self.view addSubview:_bgScrollView];
+    [_bgScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom);
+        make.bottom.equalTo(exitBut.mas_top).offset(-20);
+    }];
+    
+    
+    
     // 合作商信息
 //    CGFloat baseView1W = kWidth;
     CGFloat baseView1H = kHeight * 0.167;
@@ -79,13 +113,8 @@
 //    CGFloat baseView1Y = 64;
     UIView *baseView1 = [[UIView alloc] init];
     baseView1.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:baseView1];
-    
-    [baseView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(_navView.mas_bottom);
-        make.height.mas_offset(kHeight * 0.167);
-    }];
+    [_bgScrollView addSubview:baseView1];
+    baseView1.frame = CGRectMake(0, 0, kWidth, kHeight * 0.167);
     
     CGFloat msgLabW = kWidth - (kWidth * 0.083) * 2;
     CGFloat msgLabH = kHeight * 0.03125;
@@ -123,6 +152,7 @@
     lineView4.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
     [baseView1 addSubview:lineView4];
     
+    baseView1H = kHeight * 0.07;
     // 我的订单
     UIButton *orderButton = [UIButton buttonWithType:UIButtonTypeCustom];
     orderButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
@@ -133,67 +163,50 @@
     UIButton *productButton = [UIButton buttonWithType:UIButtonTypeCustom];
     productButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [productButton addTarget:self action:@selector(productBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 *0 + kHeight * 0.078 withLeftImgName:@"collect" withCenterText:@"产品列表" withRightImgName:@"right" withBut:productButton];
+    [self setGFViewWithY:baseView1H + jiange1 *2 + kHeight * 0.078 withLeftImgName:@"collect" withCenterText:@"产品列表" withRightImgName:@"right" withBut:productButton];
     
     // 我的收藏
     UIButton *collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
     collectButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 *0 + kHeight * 0.078 * 2 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
+    [self setGFViewWithY:baseView1H + jiange1 *3 + kHeight * 0.078 * 2 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
     
     // 合作商加盟
     UIButton *joinInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     joinInButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [joinInButton addTarget:self action:@selector(joinInBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 0 + kHeight * 0.078 * 3 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
     
     // 业务员管理
     UIButton *managerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     managerButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [managerButton addTarget:self action:@selector(manageClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 0 + kHeight * 0.078 * 4 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
     
     
     //通知列表
     UIButton *notificationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     notificationBtn.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [notificationBtn addTarget:self action:@selector(notificationBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 0 + kHeight * 0.078 * 5 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
+    [self setGFViewWithY:baseView1H + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
     
     
     // 修改密码
     UIButton *changePasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
     changePasswordButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [changePasswordButton addTarget:self action:@selector(changePasswordClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 0 + kHeight * 0.078 * 6 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
     
     
     // 车邻班专职客服电话
     UIButton *phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [phoneButton addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 0 + kHeight * 0.078 * 7 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"18201306715" withBut:phoneButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 8 + kHeight * 0.078 * 7 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"18201306715" withBut:phoneButton];
     
-    // 退出登录
-    CGFloat exitViewW = kWidth;
-    CGFloat exitViewH = kHeight * 0.078;
-    CGFloat exitViewX = 0;
-    CGFloat exitViewY = kHeight - exitViewH;
-    UIView *exitView = [[UIView alloc] initWithFrame:CGRectMake(exitViewX, exitViewY, exitViewW, exitViewH)];
-    exitView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:exitView];
-    // 边线
-    UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 1)];
-    lineView2.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
-    [exitView addSubview:lineView2];
-    // 按钮
-    UIButton *exitBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    exitBut.frame = CGRectMake(0, 0, kWidth, exitViewH);
-    [exitBut setTitle:@"退出登录" forState:UIControlStateNormal];
-    [exitBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
-    exitBut.titleLabel.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
-    [exitBut addTarget:self action:@selector(leaveSignin) forControlEvents:UIControlEventTouchUpInside];
-    [exitView addSubview:exitBut];
+    self.bgScrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    self.bgScrollView.bounces = NO;
+    
 }
 
 #pragma mark - 推出登录的响应方法
@@ -223,7 +236,7 @@
     
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kWidth, kHeight * 0.078)];
     baseView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:baseView];
+    [self.bgScrollView addSubview:baseView];
     
     
     CGFloat leftImgViewW = kWidth * 0.051;
@@ -280,7 +293,7 @@
     
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0, y, kWidth, kHeight * 0.078)];
     baseView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:baseView];
+    [self.bgScrollView addSubview:baseView];
     
     
     CGFloat leftImgViewW = kWidth * 0.051;

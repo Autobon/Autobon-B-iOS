@@ -20,6 +20,7 @@
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
+		A6335753233E01420081D8C0 /* CLHomeProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */; };
 		A679CE3B233B4E7900DBD4E9 /* CLProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */; };
 		A679CE3E233B5A4900DBD4E9 /* CLProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE3D233B5A4900DBD4E9 /* CLProductTableViewCell.m */; };
 		A679CE41233B634B00DBD4E9 /* CLProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE40233B634B00DBD4E9 /* CLProductModel.m */; };
@@ -192,6 +193,8 @@
 		9BFA807F1C5F4596001651C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BFA80811C5F4744001651C3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9BFA80841C5F475B001651C3 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		A6335751233E01420081D8C0 /* CLHomeProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLHomeProductTableViewCell.h; sourceTree = "<group>"; };
+		A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLHomeProductTableViewCell.m; sourceTree = "<group>"; };
 		A679CE39233B4E7900DBD4E9 /* CLProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductListViewController.h; sourceTree = "<group>"; };
 		A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLProductListViewController.m; sourceTree = "<group>"; };
 		A679CE3C233B5A4900DBD4E9 /* CLProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductTableViewCell.h; sourceTree = "<group>"; };
@@ -772,6 +775,8 @@
 				B0228EA11ECD499D0022D34F /* GFNoInTableViewCell.m */,
 				B099047E20D3634F009CEF90 /* CLChooseView.h */,
 				B099047F20D3634F009CEF90 /* CLChooseView.m */,
+				A6335751233E01420081D8C0 /* CLHomeProductTableViewCell.h */,
+				A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1306,6 +1311,7 @@
 				B02290741ECD49F50022D34F /* MYImageView.m in Sources */,
 				B05EC19D20F35ABB00EFB588 /* HXPhotoConfiguration.m in Sources */,
 				B022905F1ECD49F50022D34F /* ViewController.m in Sources */,
+				A6335753233E01420081D8C0 /* CLHomeProductTableViewCell.m in Sources */,
 				B05EC1AE20F35ABB00EFB588 /* HXPhotoManager.m in Sources */,
 				B0228E841ECD48BD0022D34F /* GFSignInViewController.m in Sources */,
 				B05EC1A220F35ABB00EFB588 /* HXCollectionView.m in Sources */,

@@ -45,7 +45,7 @@
     _dataArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < 50; i++) {
         CLProductModel *productModel = [[CLProductModel alloc]init];
-        productModel.cellHeight = 110;
+        productModel.cellHeight = 125;
         [_dataArray addObject:productModel];
     }
     
@@ -126,10 +126,12 @@
     [cell.addButton addTarget:self action:@selector(cellAddBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     CLProductModel *productModel = _dataArray[indexPath.row];
-    if (productModel.cellHeight == 110){
+    if (productModel.cellHeight == 125){
         cell.detailButton.selected = NO;
+        cell.buttonImageView.image = [UIImage imageNamed:@"right"];
     }else{
         cell.detailButton.selected = YES;
+        cell.buttonImageView.image = [UIImage imageNamed:@"upImage"];
     }
     
     
@@ -145,11 +147,11 @@
 //查看详情按钮相应方法
 - (void)cellDetailBtnClick:(UIButton *)button{
     CLProductModel *productModel = _dataArray[button.tag];
-    if (productModel.cellHeight == 110){
-        productModel.cellHeight = 170;
+    if (productModel.cellHeight == 125){
+        productModel.cellHeight = 185;
 //        button.selected = NO;
     }else{
-        productModel.cellHeight = 110;
+        productModel.cellHeight = 125;
 //        button.selected = YES;
     }
     ICLog(@"-----cellHeight----%f---", productModel.cellHeight);

@@ -14,7 +14,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.clipsToBounds = YES;
+        self.contentView.clipsToBounds = YES;
         //编码
         UILabel *numberLabel = [[UILabel alloc]init];
         numberLabel.text = @"编码：1234657899";
@@ -103,33 +103,66 @@
         
         
         UIView *buttonBaseView = [[UIView alloc]init];
-        buttonBaseView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+        buttonBaseView.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
         [self addSubview:buttonBaseView];
         [buttonBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
             make.bottom.equalTo(self);
-            make.height.mas_offset(45);
+            make.height.mas_offset(60);
         }];
         
         _detailButton = [[UIButton alloc]init];
         [_detailButton setTitle:@"查看详情" forState:UIControlStateNormal];
         [_detailButton setTitle:@"关闭详情" forState:UIControlStateSelected];
+        _detailButton.imageEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 0);
+        _detailButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [_detailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _detailButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        _detailButton.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
         [buttonBaseView addSubview:_detailButton];
         [_detailButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.bottom.equalTo(buttonBaseView);
+            make.left.top.equalTo(buttonBaseView);
             make.right.equalTo(buttonBaseView.mas_centerX);
+            make.height.mas_offset(45);
         }];
+        
+        
+        _buttonImageView = [[UIImageView alloc]init];
+        _buttonImageView.image = [UIImage imageNamed:@"upImage"];
+        [_detailButton addSubview:_buttonImageView];
+        [_buttonImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_detailButton);
+            make.left.equalTo(_detailButton.mas_centerX).offset(50);
+            make.width.mas_offset(11);
+            make.height.mas_offset(11);
+        }];
+        
+        
+        
+        
+        
+        
         
         _addButton = [[UIButton alloc]init];
         [_addButton setTitle:@"添加至我的套餐" forState:UIControlStateNormal];
+        _addButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [_addButton setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
-        _addButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        _addButton.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
         [buttonBaseView addSubview:_addButton];
         [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.top.bottom.equalTo(buttonBaseView);
+            make.right.top.equalTo(buttonBaseView);
             make.left.equalTo(buttonBaseView.mas_centerX);
+            make.height.mas_offset(45);
+        }];
+        
+        
+        UIView *lineView = [[UIView alloc]init];
+        lineView.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
+        [buttonBaseView addSubview:lineView];
+        [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(buttonBaseView);
+            make.top.equalTo(buttonBaseView);
+            make.width.mas_offset(1);
+            make.height.mas_offset(45);
         }];
         
     }

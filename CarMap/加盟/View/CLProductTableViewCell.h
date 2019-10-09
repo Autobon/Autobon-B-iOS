@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIButton *detailButton;
 @property (nonatomic, strong) UIButton *addButton;
-
+@property (nonatomic, strong) UIImageView *buttonImageView;
 
 
 @end
