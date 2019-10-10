@@ -10,12 +10,15 @@
 #import "GFTipView.h"
 #import "CLPackageDetailViewController.h"
 #import "CLPackageProductTableViewCell.h"
+#import "CLProductModel.h"
+
 
 @interface CLPackageDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_tableView;
 }
 @property (nonatomic, strong) GFNavigationView *navView;
+@property (nonatomic, strong) NSMutableArray *productArray;
 @end
 
 @implementation CLPackageDetailViewController
@@ -27,9 +30,32 @@
     
     [self setDetailForView];
     
+    [self getPackageDetail];
+    
 }
 
-
+- (void)getPackageDetail{
+    self.productArray = [[NSMutableArray alloc]init];
+    [GFHttpTool getProductOfferSetMenuDetailWithOrderId:self.packageModel.idString success:^(id responseObject) {
+        ICLog(@"-getProductDetail--responseObject---%@-", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *productOfferArray = messageDictionary[@"productOffers"];
+            if ([productOfferArray isKindOfClass:[NSNull class]]){
+                [self addAlertView:@"清先添加施工项目"];
+                return;
+            }
+            [productOfferArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                CLProductModel *productModel = [[CLProductModel alloc]init];
+                [productModel setModelForDictionary:modelDic];
+                [self.productArray addObject:productModel];
+            }];
+        }
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        ICLog(@"--getProductDetail-error---%@-", error);
+    }];
+}
 
 
 - (void)setDetailForView{
@@ -56,6 +82,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
@@ -68,8 +95,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     
-    return 50;
-    //    return self.dataArray.count;
+//    return 50;
+        return self.productArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -82,8 +109,11 @@
     if (cell == nil){
         cell = [[CLPackageProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    
-    
+    if (self.productArray.count > indexPath.row){
+        cell.productModel = self.productArray[indexPath.row];
+    }
+    cell.removeButton.tag = indexPath.row;
+    [cell.removeButton addTarget:self action:@selector(removeProductBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,13 +123,32 @@
 }
 
 
+- (void)removeProductBtnClick:(UIButton *)button{
+    if (self.productArray.count > button.tag){
+        CLProductModel *productModel = self.productArray[button.tag];
+        NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
+        dataDict[@"setMenuId"] = self.packageModel.idString;
+        dataDict[@"offerId"] = productModel.idString;
+        [GFHttpTool postProductOfferSetMenuRemoveWithParameters:dataDict success:^(id responseObject) {
+            if ([responseObject[@"status"] integerValue] == 1) {
+                [self addAlertView:@"移除成功"];
+                [self.productArray removeObjectAtIndex:button.tag];
+                [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:button.tag inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            }else{
+                [self addAlertView:responseObject[@"message"]];
+            }
+        } failure:^(NSError *error) {
+            ICLog(@"-ProductOfferSetMenuAdd--error---%@-", error);
+        }];
+    }
+}
 
 
 // 添加导航
 - (void)setNavigation{
     self.view.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
     
-    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"套餐一" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:self.packageModel.name withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     

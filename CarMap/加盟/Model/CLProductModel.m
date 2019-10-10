@@ -10,4 +10,25 @@
 
 @implementation CLProductModel
 
+- (void)setModelForDictionary:(NSDictionary *)dictionary{
+    self.brand = dictionary[@"brand"];
+    self.code = dictionary[@"code"];
+    self.constructionCommission = [NSString stringWithFormat:@"%@", dictionary[@"constructionCommission"]];
+    self.constructionPosition = [NSString stringWithFormat:@"%@", dictionary[@"constructionPosition"]];
+    self.constructionPositionName = dictionary[@"constructionPositionName"];
+    self.coopId = [NSString stringWithFormat:@"%@", dictionary[@"coopId"]];
+    self.idString = [NSString stringWithFormat:@"%@", dictionary[@"id"]];
+    self.model = dictionary[@"model"];
+    self.name = dictionary[@"name"];
+    self.price = [NSString stringWithFormat:@"%@", dictionary[@"price"]];
+    self.scrapCost = [NSString stringWithFormat:@"%@", dictionary[@"scrapCost"]];
+    self.starLevel = [NSString stringWithFormat:@"%@", dictionary[@"starLevel"]];
+    self.type = [NSString stringWithFormat:@"%@", dictionary[@"type"]];
+    self.typeName = dictionary[@"typeName"];
+    self.warranty = [NSString stringWithFormat:@"%@", dictionary[@"warranty"]];
+    self.workingHours = [NSString stringWithFormat:@"%@", dictionary[@"workingHours"]];
+}
+
+
+
 @end

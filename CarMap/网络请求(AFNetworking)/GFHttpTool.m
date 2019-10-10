@@ -71,6 +71,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"网络无链接，请检查网络"];
     }
 }
+
 + (void)postWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
     
     if ([GFHttpTool isConnectionAvailable]) {
@@ -105,8 +106,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     }
     
 }
-
-
 
 #pragma mark - 二期合作商加盟
 // 二期
@@ -166,7 +165,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
 }
 
-
 #pragma mark - 获取验证码  
 // 二期
 + (void)codeGetParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
@@ -206,6 +204,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
    
 }
+
 #pragma mark - 注册合作商户 
 // 二期
 + (void)postRegisterParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -247,6 +246,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 登录方法 
 // 二期
 + (void)postLoginParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -306,6 +306,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 忘记密码
 + (void)postForgetPwdParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
@@ -346,6 +347,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 修改密码
 + (void)postChangePasswordParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
@@ -394,6 +396,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 上传营业执照副本
 // 二期
 + (void)postcertificateImage:(NSData *)imageData success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -444,6 +447,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 一键下单接口
 // 二期
 + (void)postOneIndentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -495,6 +499,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 商户查询技师列表（距离优先）
 // 二期
 + (void)jishiListGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
@@ -541,6 +546,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"网络无链接，请检查网络"];
     }
 }
+
 #pragma mark - 商户查询技师列表（模糊查询）
 // 二期
 + (void)jishiMohuGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
@@ -583,6 +589,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"网络无链接，请检查网络"];
     }
 }
+
 #pragma mark - 获取订单列表（包括已完成、未完成、已评价、未评价）
 // 二期
 + (void)dingdanPostWithDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
@@ -624,6 +631,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"无网络连接"];
     }
 }
+
 #pragma mark - 上传订单图片
 // 二期
 + (void)postOrderImage:(NSData *)imageData success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -676,6 +684,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
    
     
 }
+
 #pragma mark - 获取商户已完成的订单列表
 // 二期
 + (void)postListFinishedDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -725,6 +734,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 获取商户未评论订单列表
 // 二期
 + (void)postListUncommentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -770,6 +780,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"无网络连接"];
     }
 }
+
 #pragma mark - 获取商户信息
 + (void)GetInformationSuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
@@ -816,6 +827,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 订单评论
 // 二期
 + (void)postCommentDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -866,6 +878,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
    
     
 }
+
 #pragma mark - 获取技师信息
 + (void)GetTechnicianParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
@@ -911,6 +924,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     }
     
 }
+
 #pragma mark - 更新个推ID的方法
 + (void)postPushIdDictionary:(NSDictionary *)dictionary success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
@@ -946,6 +960,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     }];
     
 }
+
 #pragma mark - 获取商户订单数，，在个人信息页面的订单数
 // 二期
 + (void)postOrderCountsuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -992,6 +1007,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
+
 #pragma mark - 获取技师详情，，根据技师ID
 // 二期
 + (void)getjishiDetailOrderId:(NSInteger )jishiID success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure {
@@ -1039,7 +1055,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"无网络连接"];
     }
 }
-
 
 #pragma mark - 查询所有业务员
 + (void)postGetSaleListSuccess:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -1373,16 +1388,10 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     }
 }
 
-
-
+#pragma mark - 获取订单详情
 + (void)getOrderDetailOrderId:(NSInteger )orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     
-    
-    
-    
     if ([GFHttpTool isConnectionAvailable]) {
-        
-        
         NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         
@@ -1394,7 +1403,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         NSString *token = [userDefaultes objectForKey:@"autoken"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/technician/order/%ld",HOST,orderId];
-        
         
         [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             if(success) {
@@ -1414,22 +1422,10 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
                 failure(error);
             }
         }];
-        
-        
     }else{
-        
         [GFHttpTool addAlertView:@"无网络连接"];
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
 
 #pragma mark - 商户撤单
 // 二期
@@ -1481,9 +1477,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         
 
 }
-
-
-
 
 // 老接口，，不用了
 #pragma mark - 提交加盟信息
@@ -1635,16 +1628,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
 }
 
-
-
-
-
-
-
-
-
-
-
 #pragma mark - 商户员工收藏技师
 + (void)favoriteTechnicianPostWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
     if ([GFHttpTool isConnectionAvailable]) {
@@ -1695,7 +1678,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
-
 
 #pragma mark - 商户员工删除收藏技师
 + (void)favoriteTechnicianDeleteWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -1751,7 +1733,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     
     
 }
-
 
 #pragma mark - 商户员工查询收藏技师列表
 + (void)favoriteTechnicianGetWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
@@ -1851,6 +1832,326 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         [GFHttpTool addAlertView:@"无网络连接"];
     }
 }
+
+
+#pragma mark - 获取产品列表
++ (void)getProductOfferWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer",HOST];
+        
+        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 查看商户产品详情
++ (void)getProductOfferDetailWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/%@",HOST,orderId];
+        
+        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 获取套餐列表
++ (void)getProductOfferSetMenuWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu",HOST];
+        
+        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 查看套餐详情
++ (void)getProductOfferSetMenuDetailWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/%@",HOST,orderId];
+        ICLog(@"--URLString-----%@---token--%@---", URLString, token);
+        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 新增我的套餐
++ (void)postProductOfferSetMenuCreateWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/create",HOST];
+        
+        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 添加报价产品至套餐
++ (void)postProductOfferSetMenuAddWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/add",HOST];
+        
+        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 报价产品从套餐移除
++ (void)postProductOfferSetMenuRemoveWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/remove",HOST];
+        
+        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+#pragma mark - 删除套餐
++ (void)deleteProductOfferSetMenuWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/%@",HOST,orderId];
+        
+        [manager DELETE:URLString parameters:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+
+
+
+
+
+
+
 
 
 

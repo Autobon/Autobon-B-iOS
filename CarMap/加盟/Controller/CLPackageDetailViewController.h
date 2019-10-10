@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CLProductPackageModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CLPackageDetailViewController : UIViewController
+
+@property (nonatomic, strong) CLProductPackageModel *packageModel;
 
 @end
 

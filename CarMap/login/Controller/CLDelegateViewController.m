@@ -30,9 +30,7 @@
 //    [backBut addTarget:self action:@selector(backButClick) forControlEvents:UIControlEventTouchUpInside];
 //    UIBarButtonItem *leftBut = [[UIBarButtonItem alloc] initWithCustomView:backBut];
 //    self.navigationItem.leftBarButtonItem = leftBut;
-    
-    
-    
+
     UIWebView *webView = [[UIWebView alloc]init];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"servicedelegate" ofType:@"html"];
     NSURL* url = [NSURL fileURLWithPath:path];

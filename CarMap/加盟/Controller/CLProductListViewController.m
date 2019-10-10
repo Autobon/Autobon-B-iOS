@@ -16,7 +16,7 @@
 #import "CLTouchView.h"
 #import "CLTouchScrollView.h"
 #import "CLPackageListViewController.h"
-
+#import "CLProductPackageModel.h"
 
 
 @interface CLProductListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -26,11 +26,14 @@
     NSInteger _page;
     NSInteger _pageSize;
     
+    NSInteger _selectProductIndex;      //所选项目索引
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) CLTouchView *bgTouchView;
+@property (nonatomic, strong) NSMutableArray *packageArray;
+
 
 @end
 
@@ -42,19 +45,12 @@
     _page = 1;
     _pageSize = 10;
     
-    _dataArray = [[NSMutableArray alloc]init];
-    for (int i = 0; i < 50; i++) {
-        CLProductModel *productModel = [[CLProductModel alloc]init];
-        productModel.cellHeight = 125;
-        [_dataArray addObject:productModel];
-    }
-    
     
     [self setNavigation];
     
     [self setViewForDetail];
     
-    
+    [self getPackageList];
 }
 
 - (void)setViewForDetail{
@@ -80,7 +76,7 @@
     
     _page = 1;
     _pageSize = 4;
-//    _dataArray = [[NSMutableArray alloc] init];
+    _dataArray = [[NSMutableArray alloc] init];
     
     [self getProductList];
     
@@ -94,11 +90,68 @@
     [self getProductList];
 }
 
+
+// 获取产品列表
 - (void)getProductList {
     ICLog(@"获取产品列表");
-    [_tableView.mj_header endRefreshing];
-    [_tableView.mj_footer endRefreshing];
-    [_tableView reloadData];
+    
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
+    dataDict[@"page"] = @(_page);
+    dataDict[@"pageSize"] = @(_pageSize);
+    
+    [GFHttpTool getProductOfferWithParameters:dataDict success:^(id responseObject) {
+        ICLog(@"-getProductList--responseObject---%@-", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *listArray = messageDictionary[@"list"];
+            [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                CLProductModel *productModel = [[CLProductModel alloc]init];
+                [productModel setModelForDictionary:modelDic];
+                productModel.cellHeight = 125;
+                [_dataArray addObject:productModel];
+            }];
+        }
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        ICLog(@"-getProductList--error---%@-", error);
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+    }];
+    
+}
+
+//获取产品详情
+//- (void)getProductDetail{
+//    [GFHttpTool getProductOfferDetailWithOrderId:@"2" success:^(id responseObject) {
+//        ICLog(@"-getProductDetail--responseObject---%@-", responseObject);
+//    } failure:^(NSError *error) {
+//        ICLog(@"--getProductDetail-error---%@-", error);
+//    }];
+//}
+
+
+// 获取套餐列表
+- (void)getPackageList{
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
+    dataDict[@"page"] = @(1);
+    dataDict[@"pageSize"] = @(2000);
+    _packageArray = [[NSMutableArray alloc]init];
+    [GFHttpTool getProductOfferSetMenuWithParameters:dataDict success:^(id responseObject) {
+        ICLog(@"-getProductList--responseObject---%@-", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *listArray = messageDictionary[@"list"];
+            [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
+                [packageModel setModelForDictionary:modelDic];
+                [_packageArray addObject:packageModel];
+            }];
+        }
+    } failure:^(NSError *error) {
+        ICLog(@"-getProductList--error---%@-", error);
+    }];
 }
 
 
@@ -120,6 +173,12 @@
     if (cell == nil){
         cell = [[CLProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (self.dataArray.count > indexPath.row){
+        cell.productModel = self.dataArray[indexPath.row];
+    }
+    
     cell.detailButton.tag = indexPath.row;
     [cell.detailButton addTarget:self action:@selector(cellDetailBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     cell.addButton.tag = indexPath.row;
@@ -128,10 +187,10 @@
     CLProductModel *productModel = _dataArray[indexPath.row];
     if (productModel.cellHeight == 125){
         cell.detailButton.selected = NO;
-        cell.buttonImageView.image = [UIImage imageNamed:@"right"];
+        cell.buttonImageView.image = [UIImage imageNamed:@"sjxd_list_more"];
     }else{
         cell.detailButton.selected = YES;
-        cell.buttonImageView.image = [UIImage imageNamed:@"upImage"];
+        cell.buttonImageView.image = [UIImage imageNamed:@"tc_gbxq_btn"];
     }
     
     
@@ -163,6 +222,12 @@
 - (void)cellAddBtnClick:(UIButton *)button{
     ICLog(@"添加产品至套餐");
     
+    
+    if (_packageArray.count < 1){
+        [self addAlertView:@"获取套餐列表失败，请重试"];
+        return;
+    }
+    _selectProductIndex = button.tag;
     _bgTouchView = [[CLTouchView alloc]init];
     _bgTouchView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     [self.view addSubview:self.bgTouchView];
@@ -172,10 +237,10 @@
     
     CGFloat scrollViewHeight = 0;
     
-    if (button.tag < 7){
-        scrollViewHeight = 45 * (button.tag + 2);
+    if (self.packageArray.count < 8){
+        scrollViewHeight = 50 * self.packageArray.count;
     }else{
-        scrollViewHeight = 45 * 8;
+        scrollViewHeight = 50 * 7;
     }
     
     UIView *baseView = [[UIView alloc]init];
@@ -203,15 +268,26 @@
     [baseView addSubview:scrollView];
     
     
-    for (int i = 0; i < button.tag + 2; i++) {
+    for (int i = 0; i < self.packageArray.count; i++) {
+        
+        CLProductPackageModel *packageModel = self.packageArray[i];
         
         UIView *contentBaseView = [[UIView alloc]init];
         contentBaseView.backgroundColor = [UIColor whiteColor];
         [scrollView addSubview:contentBaseView];
-        contentBaseView.frame = CGRectMake(0, 0 + i * 45, self.view.frame.size.width, 45);
+        contentBaseView.frame = CGRectMake(0, 0 + i * 50, self.view.frame.size.width, 50);
+        
+        UIView *packageLineView = [[UIView alloc]init];
+        packageLineView.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:230/255.0];
+        [contentBaseView addSubview:packageLineView];
+        [packageLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(contentBaseView);
+            make.height.mas_offset(1);
+        }];
         
         UILabel *contentTitleLabel = [[UILabel alloc]init];
-        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
+//        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
+        contentTitleLabel.text = packageModel.name;
         [contentBaseView addSubview:contentTitleLabel];
         [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(contentBaseView).offset(25);
@@ -224,6 +300,8 @@
         contentButton.titleLabel.font = [UIFont systemFontOfSize:15];
         contentButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         contentButton.layer.cornerRadius = 14;
+        contentButton.tag = i;
+        [contentButton addTarget:self action:@selector(selectProductForPackageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [contentBaseView addSubview:contentButton];
         [contentButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(contentBaseView).offset(-25);
@@ -235,7 +313,32 @@
     }
     
     scrollView.frame = CGRectMake(0, 50, self.view.frame.size.width, scrollViewHeight);
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * (button.tag + 2));
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 50 * self.packageArray.count);
+    
+    
+    
+}
+
+
+- (void)selectProductForPackageBtnClick:(UIButton *)button{
+    CLProductModel *productModel = self.dataArray[_selectProductIndex];
+    CLProductPackageModel *packageModel = self.packageArray[button.tag];
+    
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
+    dataDict[@"setMenuId"] = packageModel.idString;
+    dataDict[@"offerId"] = productModel.idString;
+    ICLog(@"----dataDict---%@---", dataDict);
+    [GFHttpTool postProductOfferSetMenuAddWithParameters:dataDict success:^(id responseObject) {
+        ICLog(@"-ProductOfferSetMenuAdd--responseObject---%@-", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            [self addAlertView:@"添加成功"];
+        }else{
+            [self addAlertView:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        ICLog(@"-ProductOfferSetMenuAdd--error---%@-", error);
+    }];
+    
     
     
     

@@ -11,16 +11,29 @@
 @implementation CLProductTableViewCell
 
 
+
+- (void)setProductModel:(CLProductModel *)productModel{
+    _productModel = productModel;
+    self.numberLabel.text = [NSString stringWithFormat:@"编码：%@", self.productModel.code];
+    self.typeLabel.text = [NSString stringWithFormat:@"型号：%@", self.productModel.model];
+    self.brandLabel.text = [NSString stringWithFormat:@"品牌：%@", self.productModel.brand];
+    self.construcationProjectLabel.text = [NSString stringWithFormat:@"施工项目：%@", self.productModel.typeName];
+    self.constructionLocationLabel.text = [NSString stringWithFormat:@"施工部位：%@", self.productModel.constructionPositionName];
+    self.workHourLabel.text = [NSString stringWithFormat:@"工时：%@", self.productModel.workingHours];
+    self.warrantyPeriodLabel.text = [NSString stringWithFormat:@"质保期间：%@", self.productModel.warranty];
+    
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentView.clipsToBounds = YES;
         //编码
-        UILabel *numberLabel = [[UILabel alloc]init];
-        numberLabel.text = @"编码：1234657899";
-        numberLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:numberLabel];
-        [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _numberLabel = [[UILabel alloc]init];
+//        _numberLabel.text = @"编码：1234657899";
+        _numberLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_numberLabel];
+        [_numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(15);
             make.top.equalTo(self).offset(5);
             make.height.mas_offset(30);
@@ -28,73 +41,73 @@
         }];
         
         //型号
-        UILabel *typeLabel = [[UILabel alloc]init];
-        typeLabel.text = @"型号：1234657899";
-        typeLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:typeLabel];
-        [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _typeLabel = [[UILabel alloc]init];
+//        _typeLabel.text = @"型号：1234657899";
+        _typeLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_typeLabel];
+        [_typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(15);
-            make.top.equalTo(numberLabel.mas_bottom).offset(0);
+            make.top.equalTo(_numberLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.right.equalTo(self.mas_centerX);
         }];
         
         //品牌
-        UILabel *brandLabel = [[UILabel alloc]init];
-        brandLabel.text = @"品牌：1234657899";
-        brandLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:brandLabel];
-        [brandLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _brandLabel = [[UILabel alloc]init];
+//        _brandLabel.text = @"品牌：1234657899";
+        _brandLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_brandLabel];
+        [_brandLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_centerX).offset(15);
-            make.top.equalTo(numberLabel.mas_bottom).offset(0);
+            make.top.equalTo(_numberLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.right.equalTo(self);
         }];
         
         //施工项目
-        UILabel *construcationProjectLabel = [[UILabel alloc]init];
-        construcationProjectLabel.text = @"施工项目：1234657899";
-        construcationProjectLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:construcationProjectLabel];
-        [construcationProjectLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _construcationProjectLabel = [[UILabel alloc]init];
+//        _construcationProjectLabel.text = @"施工项目：1234657899";
+        _construcationProjectLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_construcationProjectLabel];
+        [_construcationProjectLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(15);
-            make.top.equalTo(typeLabel.mas_bottom).offset(0);
+            make.top.equalTo(_typeLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.right.equalTo(self.mas_centerX);
         }];
         
         //施工部位
-        UILabel *constructionLocationLabel = [[UILabel alloc]init];
-        constructionLocationLabel.text = @"施工部位：1234657899";
-        constructionLocationLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:constructionLocationLabel];
-        [constructionLocationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _constructionLocationLabel = [[UILabel alloc]init];
+//        _constructionLocationLabel.text = @"施工部位：1234657899";
+        _constructionLocationLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_constructionLocationLabel];
+        [_constructionLocationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_centerX).offset(15);
-            make.top.equalTo(typeLabel.mas_bottom).offset(0);
+            make.top.equalTo(_typeLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.right.equalTo(self);
         }];
         
         //工时
-        UILabel *workHourLabel = [[UILabel alloc]init];
-        workHourLabel.text = @"工时：1234657899";
-        workHourLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:workHourLabel];
-        [workHourLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _workHourLabel = [[UILabel alloc]init];
+//        _workHourLabel.text = @"工时：1234657899";
+        _workHourLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_workHourLabel];
+        [_workHourLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(15);
-            make.top.equalTo(construcationProjectLabel.mas_bottom).offset(0);
+            make.top.equalTo(_construcationProjectLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.right.equalTo(self.mas_centerX);
         }];
         
         //质保期间
-        UILabel *warrantyPeriodLabel = [[UILabel alloc]init];
-        warrantyPeriodLabel.text = @"质保期间：1234657899";
-        warrantyPeriodLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:warrantyPeriodLabel];
-        [warrantyPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _warrantyPeriodLabel = [[UILabel alloc]init];
+//        _warrantyPeriodLabel.text = @"质保期间：1234657899";
+        _warrantyPeriodLabel.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_warrantyPeriodLabel];
+        [_warrantyPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_centerX).offset(15);
-            make.top.equalTo(construcationProjectLabel.mas_bottom).offset(0);
+            make.top.equalTo(_construcationProjectLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.right.equalTo(self);
         }];
@@ -127,7 +140,7 @@
         
         
         _buttonImageView = [[UIImageView alloc]init];
-        _buttonImageView.image = [UIImage imageNamed:@"upImage"];
+        _buttonImageView.image = [UIImage imageNamed:@"tc_gbxq_btn"];
         [_detailButton addSubview:_buttonImageView];
         [_buttonImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_detailButton);

@@ -161,10 +161,29 @@
 + (void)merchanOrderStatusScoreGetWithParamenters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
+#pragma mark - 获取产品列表
++ (void)getProductOfferWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 查看商户产品详情
++ (void)getProductOfferDetailWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 获取套餐列表
++ (void)getProductOfferSetMenuWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 查看套餐详情
++ (void)getProductOfferSetMenuDetailWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 新增我的套餐
++ (void)postProductOfferSetMenuCreateWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 添加报价产品至套餐
++ (void)postProductOfferSetMenuAddWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 报价产品从套餐移除
++ (void)postProductOfferSetMenuRemoveWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 删除套餐
++ (void)deleteProductOfferSetMenuWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 
 
