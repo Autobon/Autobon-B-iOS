@@ -50,7 +50,7 @@
     
     [self setViewForDetail];
     
-    [self getPackageList];
+    
 }
 
 - (void)setViewForDetail{
@@ -148,6 +148,8 @@
                 [packageModel setModelForDictionary:modelDic];
                 [_packageArray addObject:packageModel];
             }];
+            
+            [self showPackageListForChoose];
         }
     } failure:^(NSError *error) {
         ICLog(@"-getProductList--error---%@-", error);
@@ -221,13 +223,18 @@
 //添加产品至套餐
 - (void)cellAddBtnClick:(UIButton *)button{
     ICLog(@"添加产品至套餐");
+    _selectProductIndex = button.tag;
+    [self getPackageList];
     
     
+}
+
+- (void)showPackageListForChoose{
     if (_packageArray.count < 1){
         [self addAlertView:@"获取套餐列表失败，请重试"];
         return;
     }
-    _selectProductIndex = button.tag;
+    
     _bgTouchView = [[CLTouchView alloc]init];
     _bgTouchView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     [self.view addSubview:self.bgTouchView];
@@ -254,7 +261,7 @@
     
     
     UILabel *titleLabel = [[UILabel alloc]init];
-//    titleLabel.backgroundColor = [UIColor redColor];
+    //    titleLabel.backgroundColor = [UIColor redColor];
     titleLabel.text = @"添加至";
     [baseView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -286,7 +293,7 @@
         }];
         
         UILabel *contentTitleLabel = [[UILabel alloc]init];
-//        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
+        //        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
         contentTitleLabel.text = packageModel.name;
         [contentBaseView addSubview:contentTitleLabel];
         [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -314,10 +321,10 @@
     
     scrollView.frame = CGRectMake(0, 50, self.view.frame.size.width, scrollViewHeight);
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 50 * self.packageArray.count);
-    
-    
-    
 }
+
+
+
 
 
 - (void)selectProductForPackageBtnClick:(UIButton *)button{

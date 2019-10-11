@@ -48,7 +48,7 @@
             make.height.mas_offset(40);
             make.width.mas_offset(40);
         }];
-        
+        _removeButton.hidden = YES;
         
         
         

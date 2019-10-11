@@ -185,6 +185,7 @@
 #pragma mark - 删除套餐
 + (void)deleteProductOfferSetMenuWithOrderId:(NSString *)orderId success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
-
+#pragma mark - 数据下单接口
++ (void)postCoopMerchantDataOrderWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 @end

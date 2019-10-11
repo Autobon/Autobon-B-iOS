@@ -71,6 +71,9 @@
         }
         
         self.remark = [NSString stringWithFormat:@"%@", dic[@"remark"]];
+        if([self.remark isEqualToString:@"(null)"]){
+            self.remark = @"无";
+        }
         self.startTime = [NSString stringWithFormat:@"%@", dic[@"startTime"]];
         NSDate *dd1 = [NSDate dateWithTimeIntervalSince1970:[self.startTime doubleValue] / 1000];
         self.startTime = [formatter stringFromDate:dd1];

@@ -104,7 +104,7 @@
         
         // 基础视图
         CGFloat baseViewW = kWidth;
-        CGFloat baseViewH = 110;
+        CGFloat baseViewH = 145;
         CGFloat baseViewX = 0;
         CGFloat baseViewY = 5;
         UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];

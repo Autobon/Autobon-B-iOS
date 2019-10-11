@@ -150,12 +150,20 @@
         [self.mapView addAnnotation:self.shanghuAnno];
         _mapView.zoomLevel = 13;
         
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 120, 150, 40)];
+        UILabel *lab = [[UILabel alloc] init];
         lab.backgroundColor = [UIColor orangeColor];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.text = @"暂无技师位置信息";
         lab.textColor = [UIColor whiteColor];
         [self.view addSubview:lab];
+        
+        [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view).offset(10);
+            make.top.equalTo(kejiView.mas_bottom).offset(10);
+            make.width.mas_offset(150);
+            make.height.mas_offset(40);
+        }];
+        
         
         self.mapView.centerCoordinate = self.shanghuAnno.coordinate;
     }else {
@@ -214,7 +222,7 @@
         a = 30;
     }
     
-    UIView *orderDetailBaseView = [[UIView alloc] initWithFrame:CGRectMake(-1, 10, [UIScreen mainScreen].bounds.size.width + 2, 205 + a)];
+    UIView *orderDetailBaseView = [[UIView alloc] initWithFrame:CGRectMake(-1, 10, [UIScreen mainScreen].bounds.size.width + 2, 255 + a)];
     orderDetailBaseView.layer.borderWidth = 1;
     orderDetailBaseView.layer.borderColor = [[UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1] CGColor];
     orderDetailBaseView.backgroundColor = [UIColor whiteColor];

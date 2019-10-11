@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLHomeProductTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) UILabel *contentTitleLabel;
+@property (nonatomic, strong) UILabel *contentValueLabel;
+@property (nonatomic, strong) UIButton *contentButton;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

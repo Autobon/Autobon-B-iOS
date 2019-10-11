@@ -16,35 +16,35 @@
     if (self){
         
         
-        UILabel *contentTitleLabel = [[UILabel alloc]init];
-        contentTitleLabel.text = @"汽车隔热膜";
-        contentTitleLabel.font = [UIFont systemFontOfSize:14];
-        [self addSubview:contentTitleLabel];
-        [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _contentTitleLabel = [[UILabel alloc]init];
+//        _contentTitleLabel.text = @"汽车隔热膜";
+        _contentTitleLabel.font = [UIFont systemFontOfSize:14];
+        [self addSubview:_contentTitleLabel];
+        [_contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(25);
             make.bottom.equalTo(self.mas_centerY).offset(-3);
             
         }];
         
-        UILabel *contentValueLabel = [[UILabel alloc]init];
-        contentValueLabel.text = @"前挡部位 -v70s";
-        contentValueLabel.font = [UIFont systemFontOfSize:12];
-        contentValueLabel.alpha = 0.8;
-        [self addSubview:contentValueLabel];
-        [contentValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _contentValueLabel = [[UILabel alloc]init];
+//        _contentValueLabel.text = @"前挡部位 -v70s";
+        _contentValueLabel.font = [UIFont systemFontOfSize:12];
+        _contentValueLabel.alpha = 0.8;
+        [self addSubview:_contentValueLabel];
+        [_contentValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(25);
             make.top.equalTo(self.mas_centerY).offset(5);
             
         }];
         
         
-        UIButton *contentButton = [[UIButton alloc]init];
-        [contentButton setTitle:@"选择" forState:UIControlStateNormal];
-        contentButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        contentButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-        contentButton.layer.cornerRadius = 14;
-        [self addSubview:contentButton];
-        [contentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        _contentButton = [[UIButton alloc]init];
+        [_contentButton setTitle:@"选择" forState:UIControlStateNormal];
+        _contentButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        _contentButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        _contentButton.layer.cornerRadius = 14;
+        [self addSubview:_contentButton];
+        [_contentButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-25);
             make.centerY.equalTo(self);
             make.height.mas_offset(28);
