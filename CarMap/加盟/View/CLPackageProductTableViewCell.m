@@ -12,6 +12,7 @@
 - (void)setProductModel:(CLProductModel *)productModel{
     _productModel = productModel;
     _nameLabel.text = self.productModel.name;
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@",self.productModel.price];
     _brandValueLabel.text = self.productModel.brand;
     _constructionPositionValueLabel.text = self.productModel.constructionPositionName;
     _modelValueLabel.text = self.productModel.model;
@@ -37,6 +38,17 @@
             make.height.mas_offset(30);
             make.right.equalTo(self.mas_centerX);
         }];
+        
+        _priceLabel = [[UILabel alloc]init];
+        _priceLabel.text = @"¥200";
+        _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        _priceLabel.font = [UIFont boldSystemFontOfSize:15];
+        [self addSubview:_priceLabel];
+        [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-15);
+            make.centerY.equalTo(_nameLabel);
+        }];
+        
         
         
         _removeButton = [[UIButton alloc]init];

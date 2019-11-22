@@ -24,6 +24,8 @@
 		A60C641E234DD0850024FC24 /* CLAddPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C641D234DD0850024FC24 /* CLAddPackageViewController.m */; };
 		A60C6421234DD5C90024FC24 /* CLPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C6420234DD5C90024FC24 /* CLPackageTableViewCell.m */; };
 		A6335753233E01420081D8C0 /* CLHomeProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */; };
+		A6583483237549550091FF1C /* CLQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6583482237549550091FF1C /* CLQuotationViewController.m */; };
+		A658348723754FFB0091FF1C /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = A658348523754FFB0091FF1C /* GraphView.m */; };
 		A679CE3B233B4E7900DBD4E9 /* CLProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */; };
 		A679CE3E233B5A4900DBD4E9 /* CLProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE3D233B5A4900DBD4E9 /* CLProductTableViewCell.m */; };
 		A679CE41233B634B00DBD4E9 /* CLProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A679CE40233B634B00DBD4E9 /* CLProductModel.m */; };
@@ -204,6 +206,10 @@
 		A60C6420234DD5C90024FC24 /* CLPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPackageTableViewCell.m; sourceTree = "<group>"; };
 		A6335751233E01420081D8C0 /* CLHomeProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLHomeProductTableViewCell.h; sourceTree = "<group>"; };
 		A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLHomeProductTableViewCell.m; sourceTree = "<group>"; };
+		A6583481237549550091FF1C /* CLQuotationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLQuotationViewController.h; sourceTree = "<group>"; };
+		A6583482237549550091FF1C /* CLQuotationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLQuotationViewController.m; sourceTree = "<group>"; };
+		A658348523754FFB0091FF1C /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		A658348623754FFB0091FF1C /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		A679CE39233B4E7900DBD4E9 /* CLProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductListViewController.h; sourceTree = "<group>"; };
 		A679CE3A233B4E7900DBD4E9 /* CLProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLProductListViewController.m; sourceTree = "<group>"; };
 		A679CE3C233B5A4900DBD4E9 /* CLProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductTableViewCell.h; sourceTree = "<group>"; };
@@ -574,6 +580,15 @@
 			path = CarMapUITests;
 			sourceTree = "<group>";
 		};
+		A658348423754FFB0091FF1C /* GraphView */ = {
+			isa = PBXGroup;
+			children = (
+				A658348623754FFB0091FF1C /* GraphView.h */,
+				A658348523754FFB0091FF1C /* GraphView.m */,
+			);
+			path = GraphView;
+			sourceTree = "<group>";
+		};
 		B0228E381ECD47E60022D34F /* 加盟 */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +634,8 @@
 				A6C4C9BD233C9BDE00D63A5A /* CLPackageDetailViewController.m */,
 				A60C641C234DD0850024FC24 /* CLAddPackageViewController.h */,
 				A60C641D234DD0850024FC24 /* CLAddPackageViewController.m */,
+				A6583481237549550091FF1C /* CLQuotationViewController.h */,
+				A6583482237549550091FF1C /* CLQuotationViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -856,6 +873,7 @@
 			children = (
 				B0228FA01ECD49F40022D34F /* ACETelPrompt.h */,
 				B0228FA11ECD49F40022D34F /* ACETelPrompt.m */,
+				A658348423754FFB0091FF1C /* GraphView */,
 				B05EC14D20F35ABB00EFB588 /* HXPhotoPicker */,
 				B0228FFB1ECD49F40022D34F /* 工具页面 */,
 				B02290041ECD49F40022D34F /* 百度地图 */,
@@ -1271,6 +1289,7 @@
 				B022905D1ECD49F50022D34F /* SecondViewController.m in Sources */,
 				B05EC1B520F35ABB00EFB588 /* NSDate+HXExtension.m in Sources */,
 				B0228EA31ECD499D0022D34F /* GFDeNoindentViewController.mm in Sources */,
+				A6583483237549550091FF1C /* CLQuotationViewController.m in Sources */,
 				B03B258F20D27019007CA21D /* CLZYSupperSelectView.m in Sources */,
 				B02290681ECD49F50022D34F /* GFButton.m in Sources */,
 				B05EC1AB20F35ABB00EFB588 /* HXDatePhotoPreviewViewController.m in Sources */,
@@ -1292,6 +1311,7 @@
 				B05EC19F20F35ABB00EFB588 /* HXPhoto3DTouchViewController.m in Sources */,
 				9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */,
 				B02290661ECD49F50022D34F /* CLTouchView.m in Sources */,
+				A658348723754FFB0091FF1C /* GraphView.m in Sources */,
 				B081E7631ECEF537003558DC /* CLCollectListViewController.m in Sources */,
 				B0228EA41ECD499D0022D34F /* GFDetailPeoViewController.m in Sources */,
 				B0228E821ECD48BD0022D34F /* GFChangePwdViewController.m in Sources */,

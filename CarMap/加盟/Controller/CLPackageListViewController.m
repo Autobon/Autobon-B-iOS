@@ -17,7 +17,7 @@
 #import "CLPackageTableViewCell.h"
 
 
-@interface CLPackageListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CLPackageListViewController ()<UITableViewDelegate,UITableViewDataSource,CLAddPackageDelegate>
 
 {
     UITableView *_tableView;
@@ -200,6 +200,7 @@
 //添加套餐
 - (void)addPackageBtnClick{
     CLAddPackageViewController *addPackageVC = [[CLAddPackageViewController alloc]init];
+    addPackageVC.delegate = self;
     [self.navigationController pushViewController:addPackageVC animated:YES];
 }
 
@@ -210,7 +211,9 @@
 }
 
 
-
+- (void)addPackageSuccess{
+    [_tableView.mj_header beginRefreshing];
+}
 
 
 /*

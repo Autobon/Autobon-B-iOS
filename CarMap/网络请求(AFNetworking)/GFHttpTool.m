@@ -2192,8 +2192,6 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
 
 
 
-
-
 #pragma mark - AlertView
 + (void)addAlertView:(NSString *)title{
     GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withShowTimw:1.0];

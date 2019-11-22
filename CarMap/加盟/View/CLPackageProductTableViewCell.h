@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIButton *removeButton;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) UILabel *brandValueLabel;
 @property (nonatomic, strong) UILabel *constructionPositionValueLabel;
 @property (nonatomic, strong) UILabel *modelValueLabel;

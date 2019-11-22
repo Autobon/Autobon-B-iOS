@@ -26,7 +26,7 @@
 #import "CLCollectViewController.h"
 #import "CLCollectListViewController.h"
 #import "CLProductListViewController.h"
-
+#import "CLQuotationViewController.h"
 
 
 
@@ -165,44 +165,50 @@
     [productButton addTarget:self action:@selector(productBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self setGFViewWithY:baseView1H + jiange1 *2 + kHeight * 0.078 withLeftImgName:@"collect" withCenterText:@"产品列表" withRightImgName:@"right" withBut:productButton];
     
+    // 当前行情
+    UIButton *quotationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    quotationButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
+    [quotationButton addTarget:self action:@selector(quotationBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setGFViewWithY:baseView1H + jiange1 *3 + kHeight * 0.078* 2  withLeftImgName:@"collect" withCenterText:@"当前行情" withRightImgName:@"right" withBut:quotationButton];
+    
     // 我的收藏
     UIButton *collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
     collectButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [collectButton addTarget:self action:@selector(collectBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 *3 + kHeight * 0.078 * 2 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
+    [self setGFViewWithY:baseView1H + jiange1 *4 + kHeight * 0.078 * 3 withLeftImgName:@"collect" withCenterText:@"我的收藏" withRightImgName:@"right" withBut:collectButton];
     
     // 合作商加盟
     UIButton *joinInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     joinInButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [joinInButton addTarget:self action:@selector(joinInBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 4 + kHeight * 0.078 * 3 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"person-1" withCenterText:@"合作商加盟" withRightImgName:@"right" withBut:joinInButton];
     
     // 业务员管理
     UIButton *managerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     managerButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [managerButton addTarget:self action:@selector(manageClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 5 + kHeight * 0.078 * 4 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"worker" withCenterText:@"业务员管理" withRightImgName:@"right" withBut:managerButton];
     
     
     //通知列表
     UIButton *notificationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     notificationBtn.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [notificationBtn addTarget:self action:@selector(notificationBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 6 + kHeight * 0.078 * 5 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
+    [self setGFViewWithY:baseView1H + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"notification" withCenterText:@"通知列表" withRightImgName:@"right" withBut:notificationBtn];
     
     
     // 修改密码
     UIButton *changePasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
     changePasswordButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [changePasswordButton addTarget:self action:@selector(changePasswordClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 7 + kHeight * 0.078 * 6 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 8 + kHeight * 0.078 * 7 withLeftImgName:@"password-1" withCenterText:@"修改密码" withRightImgName:@"right" withBut:changePasswordButton];
     
     
     // 车邻班专职客服电话
     UIButton *phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     phoneButton.frame = CGRectMake(0, 0, kWidth, kHeight * 0.078);
     [phoneButton addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setGFViewWithY:baseView1H + jiange1 * 8 + kHeight * 0.078 * 7 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"18201306715" withBut:phoneButton];
+    [self setGFViewWithY:baseView1H + jiange1 * 9 + kHeight * 0.078 * 8 withLeftImgName:@"phone-1" withCenterText:@"车邻邦专职客服电话" withRightText:@"18201306715" withBut:phoneButton];
     
     self.bgScrollView.contentSize = CGSizeMake(kWidth, kHeight);
     self.bgScrollView.bounces = NO;
@@ -337,8 +343,13 @@
     [baseView addSubview:button];
 }
 
+#pragma mark - 当前行情
+- (void)quotationBtnClick {
+    CLQuotationViewController *quotatopmVC = [[CLQuotationViewController alloc]init];
+    [self.navigationController pushViewController:quotatopmVC animated:YES];
+}
 
-#pragma mark - 我的订单
+
 - (void)orderBtnClick {
 
     GFIndentViewController *indentView = [[GFIndentViewController alloc]init];

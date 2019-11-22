@@ -10,7 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CLAddPackageDelegate <NSObject>
+
+- (void)addPackageSuccess;
+
+@end
+
+
 @interface CLAddPackageViewController : UIViewController
+
+@property (nonatomic, strong) id<CLAddPackageDelegate> delegate;
 
 @end
 

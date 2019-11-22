@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *constructionLocationLabel;     //施工部位
 @property (nonatomic, strong) UILabel *workHourLabel;     //工时
 @property (nonatomic, strong) UILabel *warrantyPeriodLabel;     //质保期间
-
+@property (nonatomic, strong) UILabel *priceLabel;
 
 
 

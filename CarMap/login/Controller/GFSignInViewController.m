@@ -196,6 +196,7 @@
 //                        [userDefaults setObject:_enterpriseTxt.text forKey:@"userEnterprise"];
                         [userDefaults setObject:_phoneTxt.text forKey:@"userPhone"];
                         [userDefaults setObject:_passwordTxt.text forKey:@"userPassword"];
+                        
                         NSDictionary *dataDictionary = responseObject[@"message"];
                         
                         
@@ -208,6 +209,9 @@
                             
                         }else{
                             NSDictionary *cooperatorDictionary = dataDictionary[@"cooperator"];
+                            NSString *orderByPhotoString = [NSString stringWithFormat:@"%@", cooperatorDictionary[@"orderByPhoto"]];
+                            [userDefaults setObject:orderByPhotoString forKey:@"cooperatorOrderByPhoto"];
+                            
                             if ([cooperatorDictionary[@"statusCode"] integerValue] == 0) {
                 // 正在审核中
                                 CLCooperatingViewController *cooperating = [[CLCooperatingViewController alloc]init];

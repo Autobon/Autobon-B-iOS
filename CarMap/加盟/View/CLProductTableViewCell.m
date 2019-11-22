@@ -15,6 +15,7 @@
 - (void)setProductModel:(CLProductModel *)productModel{
     _productModel = productModel;
     self.numberLabel.text = [NSString stringWithFormat:@"编码：%@", self.productModel.code];
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@",self.productModel.price];
     self.typeLabel.text = [NSString stringWithFormat:@"型号：%@", self.productModel.model];
     self.brandLabel.text = [NSString stringWithFormat:@"品牌：%@", self.productModel.brand];
     self.construcationProjectLabel.text = [NSString stringWithFormat:@"施工项目：%@", self.productModel.typeName];
@@ -38,6 +39,16 @@
             make.top.equalTo(self).offset(5);
             make.height.mas_offset(30);
             make.right.equalTo(self.mas_centerX);
+        }];
+        
+        _priceLabel = [[UILabel alloc]init];
+        _priceLabel.text = @"¥200";
+        _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        _priceLabel.font = [UIFont boldSystemFontOfSize:15];
+        [self addSubview:_priceLabel];
+        [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-15);
+            make.centerY.equalTo(_numberLabel);
         }];
         
         //型号

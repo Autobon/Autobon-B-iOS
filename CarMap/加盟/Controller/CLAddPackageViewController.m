@@ -47,7 +47,7 @@
 }
 
 - (void)submitBtnClick{
-    
+    [self.view endEditing:YES];
     if (_nameTxt.text.length < 1) {
         [self addAlertView:@"请输入套餐名"];
         return;
@@ -60,6 +60,10 @@
         ICLog(@"-ProductOfferSetMenuAdd--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
             [self addAlertView:@"添加成功"];
+            if (_delegate != nil){
+                [_delegate addPackageSuccess];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];
         }
@@ -92,7 +96,9 @@
     [tipView tipViewShow];
 }
 
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 
 /*

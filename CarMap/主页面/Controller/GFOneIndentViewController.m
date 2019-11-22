@@ -117,7 +117,8 @@
 @property (nonatomic, strong) NSMutableArray *selectProductArray;       //已选中施工项目
 @property (nonatomic, strong) NSMutableArray *selectProductIdArray;       //已选中施工项目Id
 @property (nonatomic, strong) NSMutableArray *packageProductArray;
-
+@property (nonatomic, strong) NSMutableArray *selectPackageArray;       //已选中施工套餐
+@property (nonatomic, strong) NSMutableArray *selectPackageIdArray;       //已选中施工套餐Id
 
 
 @end
@@ -150,6 +151,8 @@
     self.photoIndex = 0;
     
     self.shijianNum = 1;
+    self.selectPackageArray = [[NSMutableArray alloc]init];
+    self.selectPackageIdArray = [[NSMutableArray alloc]init];
     
     // 基础设置
     [self _setBase];
@@ -167,22 +170,61 @@
     self.photoOrderBaseView.hidden = YES;
     
     [self getProductList:0];
+    [self getAllProductList];
     
     self.selectProductArray = [[NSMutableArray alloc]init];
     self.selectProductIdArray = [[NSMutableArray alloc]init];
     
+    
+    [self setSaveDataForView];
+    
 }
 
 
+- (void)setSaveDataForView{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
+    
+    if (dataDictionary){
+        ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
+        _orderDataCarLicenseTextField.text = dataDictionary[@"license"];
+        _orderDataVinTextField.text = dataDictionary[@"vin"];
+        _orderDataCarTypeTextField.text = dataDictionary[@"vehicleModel"];
+        _orderDataBeginTimeTextField.text = dataDictionary[@"agreedStartTime"];
+        _orderDataEndTimeTextField.text = dataDictionary[@"agreedEndTime"];
+        self.selectProductIdArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"offerIds"]];
+        NSMutableArray *labelStringArray = dataDictionary[@"labelStringArray"];
+        [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *objLabel, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *labelString = labelStringArray[idx];
+            objLabel.text = labelString;
+            if ([labelString integerValue] > 0){
+                objLabel.hidden = false;
+            }
+        }];
+    }else{
+        ICLog(@"---暂未存储数据---");
+    }
+}
+
 
 - (void)setDataOrderView{
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *orderByPhotoString = [userDefaults objectForKey:@"cooperatorOrderByPhoto"];
     
     
     _dataOrderBaseView = [[UIView alloc]init];
     [self.view addSubview:_dataOrderBaseView];
     [_dataOrderBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(_navView.mas_bottom).offset(60);
+        
+        if ([orderByPhotoString isEqualToString:@"1"]){
+            ICLog(@"支持数据下单");
+            make.top.equalTo(_navView.mas_bottom).offset(45);
+        }else{
+            ICLog(@"不支持数据下单");
+            make.top.equalTo(_navView.mas_bottom).offset(0);
+        }
     }];
     
     UIView *textFieldBaseView = [[UIView alloc]init];
@@ -190,18 +232,18 @@
     [_dataOrderBaseView addSubview:textFieldBaseView];
     [textFieldBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(_dataOrderBaseView);
-        make.height.mas_offset(184);
+        make.height.mas_offset(212);
     }];
     
     
     UILabel *vinLabel = [[UILabel alloc]init];
-    vinLabel.text = @"车架号";
+    vinLabel.text = @"车架号后七位";
     vinLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:vinLabel];
     [vinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(textFieldBaseView);
         make.left.equalTo(textFieldBaseView).offset(22);
-        make.height.mas_offset(45);
+        make.height.mas_offset(40);
         make.width.mas_offset(90);
     }];
 //    UIView *vinLineView = [[UIView alloc]init];
@@ -244,7 +286,7 @@
     [carLicenseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(vinLabel.mas_bottom).offset(2);
         make.left.equalTo(textFieldBaseView).offset(22);
-        make.height.mas_offset(45);
+        make.height.mas_offset(40);
         make.width.mas_offset(90);
     }];
     
@@ -277,7 +319,7 @@
     [carTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(carLicenseLabel.mas_bottom).offset(2);
         make.left.equalTo(textFieldBaseView).offset(22);
-        make.height.mas_offset(45);
+        make.height.mas_offset(40);
         make.width.mas_offset(90);
     }];
     
@@ -303,29 +345,53 @@
         make.height.mas_offset(1);
     }];
     
-//    UILabel *beginTimeLabel = [[UILabel alloc]init];
-//    beginTimeLabel.text = @"预约施工时间";
-//    beginTimeLabel.font = [UIFont systemFontOfSize:14];
-//    [textFieldBaseView addSubview:beginTimeLabel];
-//    [beginTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(carTypeLabel.mas_bottom).offset(2);
-//        make.left.equalTo(textFieldBaseView).offset(22);
-//        make.height.mas_offset(45);
-//        make.width.mas_offset(90);
-//    }];
+    UILabel *beginTimeLabel = [[UILabel alloc]init];
+    beginTimeLabel.text = @"预约施工时间";
+    beginTimeLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:beginTimeLabel];
+    [beginTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(carTypeLabel.mas_bottom).offset(2);
+        make.left.equalTo(textFieldBaseView).offset(22);
+        make.height.mas_offset(40);
+        make.width.mas_offset(90);
+    }];
     
     _orderDataBeginTimeTextField = [[UITextField alloc]init];
     _orderDataBeginTimeTextField.placeholder = @"预约施工时间";
-    _orderDataBeginTimeTextField.textAlignment = NSTextAlignmentLeft;
+    _orderDataBeginTimeTextField.textAlignment = NSTextAlignmentRight;
     _orderDataBeginTimeTextField.font = [UIFont systemFontOfSize:14];
     _orderDataBeginTimeTextField.delegate = self;
     _orderDataBeginTimeTextField.tag = 1;
     [textFieldBaseView addSubview:_orderDataBeginTimeTextField];
     [_orderDataBeginTimeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textFieldBaseView.mas_centerX).offset(0);
+        make.right.equalTo(textFieldBaseView).offset(-22);
+        make.height.mas_offset(40);
+        make.centerY.equalTo(beginTimeLabel);
+    }];
+    
+    
+    
+    UIView *beginTimeLineView = [[UIView alloc]init];
+    beginTimeLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+    [textFieldBaseView addSubview:beginTimeLineView];
+    [beginTimeLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textFieldBaseView).offset(15);
+        make.right.equalTo(textFieldBaseView).offset(-15);
+        make.top.equalTo(_orderDataBeginTimeTextField.mas_bottom).offset(5);
+        make.height.mas_offset(1);
+    }];
+    
+    
+    UILabel *endTimeLabel = [[UILabel alloc]init];
+    endTimeLabel.text = @"预约结束时间";
+    endTimeLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:endTimeLabel];
+    [endTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(beginTimeLabel.mas_bottom).offset(2);
         make.left.equalTo(textFieldBaseView).offset(22);
-        make.right.equalTo(textFieldBaseView.mas_centerX).offset(0);
-        make.height.mas_offset(45);
-        make.top.equalTo(carTypeLabel.mas_bottom).offset(2);
+        make.height.mas_offset(40);
+        make.width.mas_offset(90);
     }];
     
     _orderDataEndTimeTextField = [[UITextField alloc]init];
@@ -338,20 +404,19 @@
     [_orderDataEndTimeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(textFieldBaseView.mas_centerX).offset(0);
         make.right.equalTo(textFieldBaseView).offset(-22);
-        make.height.mas_offset(45);
-        make.top.equalTo(carTypeLabel.mas_bottom).offset(2);
+        make.height.mas_offset(40);
+        make.centerY.equalTo(endTimeLabel);
     }];
     
-    UIView *beginTimeLineView = [[UIView alloc]init];
-    beginTimeLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
-    [textFieldBaseView addSubview:beginTimeLineView];
-    [beginTimeLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(textFieldBaseView).offset(15);
-        make.left.equalTo(textFieldBaseView).offset(-15);
-        make.top.equalTo(_orderDataBeginTimeTextField.mas_bottom).offset(5);
-        make.height.mas_offset(1);
-    }];
-    
+//    UIView *endTimeLineView = [[UIView alloc]init];
+//    endTimeLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+//    [textFieldBaseView addSubview:endTimeLineView];
+//    [endTimeLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(textFieldBaseView).offset(15);
+//        make.right.equalTo(textFieldBaseView).offset(-15);
+//        make.top.equalTo(_orderDataEndTimeTextField.mas_bottom).offset(5);
+//        make.height.mas_offset(1);
+//    }];
     
     _packageTitleBaseView = [[UIView alloc]init];
 //    packageTitleBaseView.backgroundColor = [UIColor cyanColor];
@@ -359,7 +424,7 @@
     [_packageTitleBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(_dataOrderBaseView);
         make.top.equalTo(textFieldBaseView.mas_bottom).offset(0);
-        make.height.mas_offset(45);
+        make.height.mas_offset(40);
     }];;
     
     UIView *leftLittleView = [[UIView alloc]init];
@@ -425,6 +490,7 @@
     dataOrderSubmitButton.titleLabel.font = [UIFont systemFontOfSize:15];
     dataOrderSubmitButton.layer.cornerRadius = 3;
     [dataOrderSubmitButton addTarget:self action:@selector(orderDataSubmitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [dataOrderSubmitButton addTarget:self action:@selector(saveOrderData) forControlEvents:UIControlEventTouchUpInside];
     [_footBaseView addSubview:dataOrderSubmitButton];
     [dataOrderSubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_dataOrderBaseView.mas_centerX).offset(15);
@@ -531,6 +597,8 @@
     }];
     _packageScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * self.packageArray.count);
     _packageSelectButtonArray = [[NSMutableArray alloc]init];
+    self.selectPackageIdArray = [[NSMutableArray alloc]init];
+    self.selectPackageArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < self.packageArray.count; i++) {
         CLProductPackageModel *productModel = self.packageArray[i];
         
@@ -567,11 +635,26 @@
         [contentButton addTarget:self action:@selector(scrollViewPackageSelectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_packageSelectButtonArray addObject:contentButton];
         
-        if ([_selectPackageModel.idString isEqualToString:productModel.idString]){
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
+        NSArray *packageIdArray;
+        if (dataDictionary){
+            ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
+            packageIdArray = dataDictionary[@"packageIdArray"];
+            if (packageIdArray){
+                self.selectPackageIdArray = [[NSMutableArray alloc]initWithArray:packageIdArray];
+            }
+        }
+        if ([packageIdArray containsObject:productModel.idString]){
             [contentButton setTitle:@"已选择" forState:UIControlStateNormal];
+            contentButton.selected = YES;
             [contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             contentButton.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
+            [self.selectPackageArray addObject:productModel];
+            ICLog(@"-----self.selectPackageArray----%@---", self.selectPackageArray);
         }
+        
+        
         
     }
     
@@ -579,36 +662,44 @@
 
 #pragma mark - 选择套餐按钮相应方法
 - (void)scrollViewPackageSelectBtnClick:(UIButton *)button{
-    
-    if (button.tag == _selectPackageIndex){
+    ICLog(@"选择套餐按钮相应方法");
+    [self.view endEditing:YES];
+    if (button.selected == YES){
+        button.selected = NO;
         [button setTitle:@"选择" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-        _selectPackageIndex = -5;
+//        _selectPackageIndex = -5;
+        CLProductPackageModel *packageModel = self.packageArray[button.tag];
+        [_selectPackageArray removeObject:packageModel];
+        [_selectPackageIdArray removeObject:packageModel.idString];
         return;
     }
     
-    if (_selectPackageIndex > -1){
-        UIButton *selectButton = _packageSelectButtonArray[_selectPackageIndex];
-        [selectButton setTitle:@"选择" forState:UIControlStateNormal];
-        [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        selectButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-    }
+//    if (_selectPackageIndex > -1){
+//        UIButton *selectButton = _packageSelectButtonArray[_selectPackageIndex];
+//        [selectButton setTitle:@"选择" forState:UIControlStateNormal];
+//        [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        selectButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+//    }
     [button setTitle:@"已选择" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
-    
-    _selectPackageIndex = button.tag;
+    button.selected = YES;
+//    _selectPackageIndex = button.tag;
     CLProductPackageModel *packageModel = self.packageArray[button.tag];
-    _selectPackageModel = packageModel;
+//    _selectPackageModel = packageModel;
+    [_selectPackageArray addObject:packageModel];
+    [_selectPackageIdArray addObject:packageModel.idString];
     
-    
+    [self saveOrderData];
 }
 
 
 
 //选择套餐与项目切换按钮相应方法
 - (void)packageBaseViewChangeBtnClick{
+    [self.view endEditing:YES];
     if([_packageBaseViewChangeButton.titleLabel.text isEqualToString:@"选择套餐"]){
         [_packageBaseViewChangeButton setTitle:@"选择项目" forState:UIControlStateNormal];
         [_showSelectProductButton setTitle:@"已选套餐" forState:UIControlStateNormal];
@@ -661,7 +752,6 @@
         CLProductModel *productModel = self.productArray[indexPath.row];
         cell.contentTitleLabel.text = productModel.typeName;
         cell.contentValueLabel.text = productModel.constructionPositionName;
-        
         if ([self.selectProductIdArray containsObject:productModel.idString]){
             ICLog(@"已存在");
             [cell.contentButton setTitle:@"已选择" forState:UIControlStateNormal];
@@ -686,6 +776,7 @@
 
 #pragma mark - 选择项目按钮相应方法
 - (void)productSelectBtnClick:(UIButton *)button{
+    [self.view endEditing:YES];
     if (_productArray.count > button.tag){
         CLProductModel *productModel = self.productArray[button.tag];
         if ([self.selectProductIdArray containsObject:productModel.idString]){
@@ -723,14 +814,14 @@
     }
     
     
-    
+    [self saveOrderData];
     
 }
 
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [self.view endEditing:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ICLog(@"查看施工项目详情");
     if (self.productArray.count > indexPath.row){
@@ -809,7 +900,7 @@
         scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 130 * self.selectProductArray.count);
         scrollView.contentOffset = CGPointMake(0, -100);
     }else{
-        if (_selectPackageModel == nil){
+        if (self.selectPackageIdArray.count < 1){
             [self addAlertView:@"请先选择套餐"];
             return;
         }
@@ -865,21 +956,23 @@
             make.top.equalTo(titleBaseView.mas_bottom).offset(15);
         }];
         
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < self.selectPackageArray.count; i++) {
             
             UIButton *contentBaseButton = [[UIButton alloc]init];
             contentBaseButton.backgroundColor = [UIColor whiteColor];
             [scrollView addSubview:contentBaseButton];
             contentBaseButton.frame = CGRectMake(0, 0 + i * 45, self.view.frame.size.width, 45);
             
+            CLProductPackageModel *productModel = self.selectPackageArray[i];
+            
             UILabel *contentTitleLabel = [[UILabel alloc]init];
 //            contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
-            contentTitleLabel.text = _selectPackageModel.name;
+            contentTitleLabel.text = productModel.name;
+//            contentTitleLabel.text = _selectPackageModel.name;
             [contentBaseButton addSubview:contentTitleLabel];
             [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(contentBaseButton).offset(25);
                 make.centerY.equalTo(contentBaseButton);
-                
             }];
             
 //            UIButton *contentButton = [[UIButton alloc]init];
@@ -1033,18 +1126,29 @@
 
 - (void)setViewForBase{
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *orderByPhotoString = [userDefaults objectForKey:@"cooperatorOrderByPhoto"];
+    if ([orderByPhotoString isEqualToString:@"1"]){
+        ICLog(@"支持数据下单");
+        
+    }else{
+        ICLog(@"不支持数据下单");
+        return;
+    }
+    
+    
     UIView *headerBaseView = [[UIView alloc]init];
     headerBaseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:headerBaseView];
     [headerBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.equalTo(_navView.mas_bottom);
-        make.height.mas_offset(50);
+        make.height.mas_offset(40);
     }];
     
     // 主负责人
     UIButton *mainBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    mainBut.frame = CGRectMake(0, 0, self.view.frame.size.width / 2.0, 50);
+    mainBut.frame = CGRectMake(0, 0, self.view.frame.size.width / 2.0, 40);
     mainBut.titleLabel.font = [UIFont boldSystemFontOfSize:14 / 320.0 * kWidth];
     [mainBut setTitle:@"数据下单" forState:UIControlStateNormal];
     [mainBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
@@ -1056,7 +1160,7 @@
     mainBut.userInteractionEnabled = NO;
     // 次负责人
     UIButton *otherBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    otherBut.frame = CGRectMake(CGRectGetMaxX(mainBut.frame), 0, kWidth / 2.0, 50);
+    otherBut.frame = CGRectMake(CGRectGetMaxX(mainBut.frame), 0, kWidth / 2.0, 40);
     otherBut.titleLabel.font = [UIFont boldSystemFontOfSize:14 / 320.0 * kWidth];
     [otherBut setTitle:@"拍照下单" forState:UIControlStateNormal];
     [otherBut setTitleColor:[UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1] forState:UIControlStateNormal];
@@ -1065,7 +1169,7 @@
     [otherBut addTarget:self action:@selector(renButClick:) forControlEvents:UIControlEventTouchUpInside];
     otherBut.tag = 2000;
     // 边线
-    UIView *vv = [[UIView alloc] initWithFrame:CGRectMake(0, 50 - 1, kWidth, 1)];
+    UIView *vv = [[UIView alloc] initWithFrame:CGRectMake(0, 40 - 1, kWidth, 1)];
     vv.backgroundColor = [UIColor colorWithRed:238 / 255.0 green:238 / 255.0 blue:238 / 255.0 alpha:1];
     [headerBaseView addSubview:vv];
     // 下划线
@@ -1078,7 +1182,7 @@
     CGFloat lineViewH = 1.5;
     CGFloat lineViewX = (kWidth / 2.0 - lineViewW) / 2.0;
 //    CGFloat lineViewY = CGRectGetMaxY(headerBaseView.frame) - lineViewH;
-    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(lineViewX, 45, lineViewW, lineViewH)];
+    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(lineViewX, 35, lineViewW, lineViewH)];
     self.lineView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [headerBaseView addSubview:self.lineView];
     
@@ -1639,13 +1743,65 @@
 }
 
 
+#pragma mark - 一键存储按钮
+- (void)saveOrderData{
+    NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc]init];
+    if(_orderDataVinTextField.text.length >0){
+        dataDictionary[@"license"] = _orderDataCarLicenseTextField.text;
+    }
+    if(_orderDataVinTextField.text.length > 0){
+        dataDictionary[@"vin"] = _orderDataVinTextField.text;
+    }
+    if (_orderDataCarTypeTextField.text.length > 0){
+        dataDictionary[@"vehicleModel"] = _orderDataCarTypeTextField.text;
+    }
+    if (_orderDataBeginTimeTextField.text.length > 0){
+        dataDictionary[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
+    }
+    if (_orderDataEndTimeTextField.text.length > 0){
+        dataDictionary[@"agreedEndTime"] = _orderDataEndTimeTextField.text;
+    }
+    
+    ICLog(@"---selectProductIdArray----%@----", _selectProductIdArray);
+    
+//    if (self.selectProductIdArray.count > 0){
+//        NSString *offerIdString = @"";
+//        for (int i = 0; i < self.selectProductIdArray.count; i++) {
+//            if (i == 0){
+//                offerIdString = self.selectProductIdArray[0];
+//            }else{
+//                offerIdString = [NSString stringWithFormat:@"%@,%@", offerIdString, self.selectProductIdArray[i]];
+//            }
+//        }
+        dataDictionary[@"offerIds"] = self.selectProductIdArray;
+//    }
+    ICLog(@"---_selectPackageIndex----%ld----", (long)_selectPackageIndex);
+    if (self.selectPackageIdArray.count > 0){
+//        CLProductPackageModel *packageModel = self.packageArray[_selectPackageIndex];
+        dataDictionary[@"packageIdArray"] = self.selectPackageIdArray;
+    }
+    
+    NSMutableArray *labelStringArray = [[NSMutableArray alloc]init];
+    [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *objLabel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [labelStringArray addObject:objLabel.text];
+    }];
+    dataDictionary[@"labelStringArray"] = labelStringArray;
+    
+    ICLog(@"-存储字段---dataDictionary----%@----", dataDictionary);
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:dataDictionary forKey:@"homeOrderData"];
+    
+}
+
+
 #pragma mark - 数据一键下单按钮相应方法
 - (void)orderDataSubmitBtnClick{
     if(_orderDataVinTextField.text.length < 1){
         [self addAlertView:@"请填写车架号"];
         return;
-    }else if (_orderDataCarLicenseTextField.text.length < 1){
-        [self addAlertView:@"请填写车牌号"];
+    }else if(_orderDataVinTextField.text.length != 7){
+        [self addAlertView:@"请填写车架号后七位"];
         return;
     }else if (_orderDataCarTypeTextField.text.length < 1){
         [self addAlertView:@"请填写车型"];
@@ -1674,19 +1830,37 @@
         dataDict[@"offerIds"] = offerIdString;
         
     } else {    //选择套餐
-        if (_selectPackageIndex < 0){
+//        if (_selectPackageIndex < 0){
+//            [self addAlertView:@"请选择套餐"];
+//            return;
+//        }
+//        CLProductPackageModel *packageModel = self.packageArray[_selectPackageIndex];
+//        dataDict[@"offerIds"] = packageModel.productOfferIds;
+        
+        if (self.selectPackageIdArray.count < 1){
             [self addAlertView:@"请选择套餐"];
             return;
         }
-        CLProductPackageModel *packageModel = self.packageArray[_selectPackageIndex];
-        dataDict[@"offerIds"] = packageModel.productOfferIds;
+        NSString *menuIdString = @"";
+        for (int i = 0; i < self.selectPackageIdArray.count; i++) {
+            if (i == 0){
+                menuIdString = self.selectPackageIdArray[0];
+            }else{
+                menuIdString = [NSString stringWithFormat:@"%@,%@", menuIdString, self.selectPackageIdArray[i]];
+            }
+        }
+        dataDict[@"setMenuIds"] = menuIdString;
+        
     }
     dataDict[@"vin"] = _orderDataVinTextField.text;
-    dataDict[@"license"] = _orderDataCarLicenseTextField.text;
+    if (_orderDataCarLicenseTextField.text.length > 1){
+        dataDict[@"license"] = _orderDataCarLicenseTextField.text;
+    }
     dataDict[@"vehicleModel"] = _orderDataCarTypeTextField.text;
     dataDict[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
     dataDict[@"agreedEndTime"] = _orderDataEndTimeTextField.text;
     ICLog(@"------dataDict-----%@----", dataDict);
+    
     [GFHttpTool postCoopMerchantDataOrderWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"---下单成功---%@---", responseObject);
         if ([responseObject[@"status"] integerValue] == 1){
@@ -1697,11 +1871,12 @@
             _orderDataBeginTimeTextField.text = @"";
             _orderDataEndTimeTextField.text = @"";
             
-            
             _selectPackageIndex = -5;
             _selectPackageModel = nil;
             [self.selectProductIdArray removeAllObjects];
             [self.selectProductArray removeAllObjects];
+            [self.selectPackageIdArray removeAllObjects];
+            [self.selectPackageArray removeAllObjects];
             [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 obj.text = @"0";
                 obj.hidden = YES;
@@ -1713,6 +1888,8 @@
                 obj.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
             }];
             
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults removeObjectForKey:@"homeOrderData"];
             
         }else{
             [self addAlertView:responseObject[@"message"]];
@@ -2365,7 +2542,7 @@
 // 获取产品列表
 - (void)getProductList:(NSInteger )type{
     ICLog(@"获取产品列表");
-    
+    [self.view endEditing:YES];
 //    type  1 隔热膜   2 隐形车衣   3 车身改色   4 美容清洁
     _productArray = [[NSMutableArray alloc]init];
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
@@ -2400,6 +2577,34 @@
     
 }
 
+// 获取产品列表
+- (void)getAllProductList{
+    ICLog(@"获取产品列表");
+    [self.view endEditing:YES];
+    //    type  1 隔热膜   2 隐形车衣   3 车身改色   4 美容清洁
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
+    dataDict[@"page"] = @(1);
+    dataDict[@"pageSize"] = @(2000);
+    
+    ICLog(@"----dataDict----%@----",dataDict);
+    [GFHttpTool getProductOfferWithParameters:dataDict success:^(id responseObject) {
+        ICLog(@"-getProductList--responseObject---%@-", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *listArray = messageDictionary[@"list"];
+            [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                CLProductModel *productModel = [[CLProductModel alloc]init];
+                [productModel setModelForDictionary:modelDic];
+                if ([_selectProductIdArray containsObject:productModel.idString]) {
+                    [_selectProductArray addObject:productModel];
+                }
+            }];
+        }
+    } failure:^(NSError *error) {
+        ICLog(@"-getProductList--error---%@-", error);
+    }];
+    
+}
 
 
 
@@ -2412,13 +2617,27 @@
     [GFHttpTool getProductOfferSetMenuWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
+            NSString *packageId;
+            if (dataDictionary){
+                ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
+                packageId = dataDictionary[@"packageId"];
+            }
             NSDictionary *messageDictionary = responseObject[@"message"];
             NSArray *listArray = messageDictionary[@"list"];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
                 CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
                 [packageModel setModelForDictionary:modelDic];
                 [_packageArray addObject:packageModel];
+                if ([packageId isEqualToString:packageModel.idString]){
+                    _selectPackageIndex = idx;
+                    _selectPackageModel = packageModel;
+                    ICLog(@"---_selectPackageIndex--%ld----", _selectPackageIndex);
+                }
             }];
+            
+            
             
             [self setPackageScrollBaseView];
             
@@ -2430,6 +2649,7 @@
 
 #pragma mark - 获取套餐详情
 - (void)getPackageDetail:(CLProductPackageModel *)packageModel{
+    [self.view endEditing:YES];
     self.packageProductArray = [[NSMutableArray alloc]init];
     [GFHttpTool getProductOfferSetMenuDetailWithOrderId:packageModel.idString success:^(id responseObject) {
         ICLog(@"-getProductDetail--responseObject---%@-", responseObject);
