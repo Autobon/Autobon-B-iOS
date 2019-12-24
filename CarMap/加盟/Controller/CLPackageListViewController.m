@@ -183,7 +183,7 @@
         viewHeight = 88;
     }
     _navView.rightBut.frame = CGRectMake(self.view.frame.size.width - 90, viewHeight - 44, 90, 44);
-    [_navView.rightBut setTitle:@"添加套餐" forState:UIControlStateNormal];
+    [_navView.rightBut setTitle:@"新增套餐" forState:UIControlStateNormal];
     [_navView.rightBut addTarget:self action:@selector(addPackageBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     

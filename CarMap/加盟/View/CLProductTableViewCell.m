@@ -38,7 +38,7 @@
             make.left.equalTo(self).offset(15);
             make.top.equalTo(self).offset(5);
             make.height.mas_offset(30);
-            make.right.equalTo(self.mas_centerX);
+            make.right.equalTo(self).offset(-100);
         }];
         
         _priceLabel = [[UILabel alloc]init];
@@ -126,10 +126,10 @@
         
         
         
-        UIView *buttonBaseView = [[UIView alloc]init];
-        buttonBaseView.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
-        [self addSubview:buttonBaseView];
-        [buttonBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _buttonBaseView = [[UIView alloc]init];
+        _buttonBaseView.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
+        [self addSubview:_buttonBaseView];
+        [_buttonBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
             make.bottom.equalTo(self);
             make.height.mas_offset(60);
@@ -142,10 +142,10 @@
         _detailButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [_detailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _detailButton.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
-        [buttonBaseView addSubview:_detailButton];
+        [_buttonBaseView addSubview:_detailButton];
         [_detailButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.equalTo(buttonBaseView);
-            make.right.equalTo(buttonBaseView.mas_centerX);
+            make.left.top.equalTo(self.buttonBaseView);
+            make.right.equalTo(self.buttonBaseView.mas_centerX);
             make.height.mas_offset(45);
         }];
         
@@ -171,20 +171,20 @@
         _addButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [_addButton setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
         _addButton.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
-        [buttonBaseView addSubview:_addButton];
+        [_buttonBaseView addSubview:_addButton];
         [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.top.equalTo(buttonBaseView);
-            make.left.equalTo(buttonBaseView.mas_centerX);
+            make.right.top.equalTo(self.buttonBaseView);
+            make.left.equalTo(self.buttonBaseView.mas_centerX);
             make.height.mas_offset(45);
         }];
         
         
         UIView *lineView = [[UIView alloc]init];
         lineView.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
-        [buttonBaseView addSubview:lineView];
+        [_buttonBaseView addSubview:lineView];
         [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(buttonBaseView);
-            make.top.equalTo(buttonBaseView);
+            make.centerX.equalTo(self.buttonBaseView);
+            make.top.equalTo(self.buttonBaseView);
             make.width.mas_offset(1);
             make.height.mas_offset(45);
         }];

@@ -94,9 +94,13 @@
         [self addSubview:upLine];
         
         
-        UIView *downLine = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height * 0.078 - 1, [UIScreen mainScreen].bounds.size.width, 1)];
+        UIView *downLine = [[UIView alloc] init];
         downLine.backgroundColor = [UIColor colorWithRed:229 / 255.0 green:230 / 255.0 blue:231 / 255.0 alpha:1];
         [self addSubview:downLine];
+        [downLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(self);
+            make.height.mas_offset(1);
+        }];
         
         self.frame = CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.078);
         

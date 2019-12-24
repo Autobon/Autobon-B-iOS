@@ -11,7 +11,7 @@
 #import "CLPackageDetailViewController.h"
 #import "CLPackageProductTableViewCell.h"
 #import "CLProductModel.h"
-
+#import "CLEditPackageViewController.h"
 
 @interface CLPackageDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -19,12 +19,14 @@
 }
 @property (nonatomic, strong) GFNavigationView *navView;
 @property (nonatomic, strong) NSMutableArray *productArray;
+@property (nonatomic ) BOOL isEdit;
 @end
 
 @implementation CLPackageDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isEdit = NO;
     
     [self setNavigation];
     
@@ -112,6 +114,15 @@
     if (self.productArray.count > indexPath.row){
         cell.productModel = self.productArray[indexPath.row];
     }
+    if (self.isEdit){
+        [cell.removeButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_offset(40);
+        }];
+    }else{
+        [cell.removeButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_offset(0);
+        }];
+    }
     cell.removeButton.tag = indexPath.row;
     [cell.removeButton addTarget:self action:@selector(removeProductBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
@@ -148,15 +159,38 @@
 - (void)setNavigation{
     self.view.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
     
-    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:self.packageModel.name withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:@"" withRightImgHightName:nil withCenterTitle:self.packageModel.name withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    
     
     [self.view addSubview:_navView];
     
+    CGFloat viewHeight = 64;
+    if ([UIScreen mainScreen].bounds.size.height > 800) {
+        viewHeight = 88;
+    }
+    _navView.rightBut.frame = CGRectMake(self.view.frame.size.width - 90, viewHeight - 44, 90, 44);
+    [_navView.rightBut setTitle:@"编辑" forState:UIControlStateNormal];
+    [_navView.rightBut addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     
 }
+//编辑按钮相应方法
+- (void)editBtnClick:(UIButton *)button{
+    ICLog(@"---编辑按钮相应方法---");
+    CLEditPackageViewController *editPackageVC = [[CLEditPackageViewController alloc]init];
+    editPackageVC.packageModel = self.packageModel;
+    [self.navigationController pushViewController:editPackageVC animated:YES];
+    return;
+    if ([button.titleLabel.text isEqualToString:@"编辑"]){
+        [button setTitle:@"完成" forState:UIControlStateNormal];
+        self.isEdit = YES;
+    }else{
+        [button setTitle:@"编辑" forState:UIControlStateNormal];
+        self.isEdit = NO;
+    }
+    [_tableView reloadData];
+}
+
 - (void)backBtnClick{
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -25,6 +25,7 @@
 #import "CLHomeProductTableViewCell.h"
 #import "CLPackageProductTableViewCell.h"
 #import "CLProductPackageModel.h"
+#import "Commom.h"
 
 
 @interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate,HXAlbumListViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
@@ -162,7 +163,7 @@
     
     [self NSNotificationCenter];
     
-    [self setViewForBase];
+//    [self setViewForBase];
     
     [self setDataOrderView];
     
@@ -217,14 +218,15 @@
     [self.view addSubview:_dataOrderBaseView];
     [_dataOrderBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
+        make.top.equalTo(_navView.mas_bottom).offset(0);
         
-        if ([orderByPhotoString isEqualToString:@"1"]){
-            ICLog(@"支持数据下单");
-            make.top.equalTo(_navView.mas_bottom).offset(45);
-        }else{
-            ICLog(@"不支持数据下单");
-            make.top.equalTo(_navView.mas_bottom).offset(0);
-        }
+//        if ([orderByPhotoString isEqualToString:@"1"]){
+//            ICLog(@"支持数据下单");
+//            make.top.equalTo(_navView.mas_bottom).offset(45);
+//        }else{
+//            ICLog(@"不支持数据下单");
+//            make.top.equalTo(_navView.mas_bottom).offset(0);
+//        }
     }];
     
     UIView *textFieldBaseView = [[UIView alloc]init];
@@ -260,6 +262,9 @@
     _orderDataVinTextField.placeholder = @"未填写";
     _orderDataVinTextField.textAlignment = NSTextAlignmentRight;
     _orderDataVinTextField.font = [UIFont systemFontOfSize:14];
+    _orderDataVinTextField.keyboardType = UIKeyboardTypeNumberPad;
+    _orderDataVinTextField.tag = 3;
+    _orderDataVinTextField.delegate = self;
     [textFieldBaseView addSubview:_orderDataVinTextField];
     [_orderDataVinTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(vinLabel.mas_right).offset(10);
@@ -294,6 +299,8 @@
     _orderDataCarLicenseTextField.placeholder = @"未填写";
     _orderDataCarLicenseTextField.textAlignment = NSTextAlignmentRight;
     _orderDataCarLicenseTextField.font = [UIFont systemFontOfSize:14];
+    _orderDataCarLicenseTextField.tag = 4;
+    _orderDataCarLicenseTextField.delegate = self;
     [textFieldBaseView addSubview:_orderDataCarLicenseTextField];
     [_orderDataCarLicenseTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(carLicenseLabel.mas_right).offset(10);
@@ -750,8 +757,8 @@
     
     if(self.productArray.count > indexPath.row){
         CLProductModel *productModel = self.productArray[indexPath.row];
-        cell.contentTitleLabel.text = productModel.typeName;
-        cell.contentValueLabel.text = productModel.constructionPositionName;
+        cell.contentTitleLabel.text = productModel.constructionPositionName;
+        cell.contentValueLabel.text = productModel.model;
         if ([self.selectProductIdArray containsObject:productModel.idString]){
             ICLog(@"已存在");
             [cell.contentButton setTitle:@"已选择" forState:UIControlStateNormal];
@@ -1797,20 +1804,25 @@
 
 #pragma mark - 数据一键下单按钮相应方法
 - (void)orderDataSubmitBtnClick{
+    
+    
+    
     if(_orderDataVinTextField.text.length < 1){
         [self addAlertView:@"请填写车架号"];
         return;
-    }else if(_orderDataVinTextField.text.length != 7){
+    }else if(![Commom validateInt:_orderDataVinTextField.text]){
         [self addAlertView:@"请填写车架号后七位"];
         return;
+    }else if(_orderDataCarLicenseTextField.text.length > 0){
+        if(![Commom validateCarLicense:[_orderDataCarLicenseTextField.text uppercaseString]]){
+            [self addAlertView:@"请检查车牌号"];
+            return;
+        }
     }else if (_orderDataCarTypeTextField.text.length < 1){
         [self addAlertView:@"请填写车型"];
         return;
     }else if (_orderDataBeginTimeTextField.text.length < 1){
         [self addAlertView:@"请选择预约开始时间"];
-        return;
-    }else if (_orderDataEndTimeTextField.text.length < 1){
-        [self addAlertView:@"请选择最迟交车时间"];
         return;
     }
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
@@ -1854,7 +1866,7 @@
     }
     dataDict[@"vin"] = _orderDataVinTextField.text;
     if (_orderDataCarLicenseTextField.text.length > 1){
-        dataDict[@"license"] = _orderDataCarLicenseTextField.text;
+        dataDict[@"license"] = [_orderDataCarLicenseTextField.text uppercaseString];
     }
     dataDict[@"vehicleModel"] = _orderDataCarTypeTextField.text;
     dataDict[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
@@ -1906,6 +1918,8 @@
     
 //    CLAddPersonViewController *addPerson = [[CLAddPersonViewController alloc]init];
 //    [self.navigationController pushViewController:addPerson animated:YES];
+    
+    
     
     
     NSMutableDictionary *mDic = [[NSMutableDictionary alloc] init];
@@ -2690,12 +2704,28 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     [self.view endEditing:YES];
     
-    UIButton *button = [[UIButton alloc]init];
-    button.tag = textField.tag;
-    [self xuanzeshijianClick:button];
-    
-    return NO;
+    if (textField.tag < 3){
+        UIButton *button = [[UIButton alloc]init];
+        button.tag = textField.tag;
+        [self xuanzeshijianClick:button];
+        
+        return NO;
+    }
+    return true;
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    ICLog(@"range.length----%ld---", range.length);
+    if (textField.tag == 3 && textField.text.length > 6 && range.length== 0) {
+        return NO;
+    }if (textField.tag == 4 && textField.text.length > 7 && range.length== 0) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];

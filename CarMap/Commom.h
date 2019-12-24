@@ -17,4 +17,9 @@
 
 + (NSDate *)timeIntervalToDateWithTimeInterval:(double )timeInterval;
 
++ (BOOL) validateCarLicense: (NSString *)carLicense;
+
+#pragma mark - 整数正则表达式
++ (BOOL) validateInt: (NSString *)intString;
+
 @end

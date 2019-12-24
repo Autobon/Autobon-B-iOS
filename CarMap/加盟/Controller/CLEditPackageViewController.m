@@ -1,30 +1,29 @@
 //
-//  CLAddPackageViewController.m
+//  CLEditPackageViewController.m
 //  CarMapB
 //
-//  Created by inCarL on 2019/10/9.
+//  Created by inCarL on 2019/12/24.
 //  Copyright © 2019 mll. All rights reserved.
 //
-#import "GFNavigationView.h"
-#import "GFHttpTool.h"
-#import "GFTipView.h"
-#import "CLAddPackageViewController.h"
+
+#import "CLEditPackageViewController.h"
 #import "GFTextField.h"
 #import "CLProductSelectTableViewCell.h"
 #import "MJRefresh.h"
 #import "CLProductModel.h"
+#import "GFNavigationView.h"
+#import "GFHttpTool.h"
+#import "GFTipView.h"
 
 
-@interface CLAddPackageViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface CLEditPackageViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_tableView;
     
     NSInteger _page;
     NSInteger _pageSize;
-    
+    NSMutableArray *_offerIdArray;
 }
-
 
 @property (nonatomic, strong) GFNavigationView *navView;
 @property (nonatomic, strong) GFTextField *nameTxt;
@@ -32,20 +31,27 @@
 
 @end
 
-@implementation CLAddPackageViewController
+@implementation CLEditPackageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSArray *offerIds = [self.packageModel.productOfferIds componentsSeparatedByString:@","];
+    _offerIdArray = [[NSMutableArray alloc] initWithArray:offerIds];
+    
     [self setNavigation];
     
     [self setDetailForView];
 }
 
+
+
 - (void)setDetailForView{
     
     // 请输入套餐名
     self.nameTxt = [[GFTextField alloc] initWithY: 100 withPlaceholder:@"请输入套餐名"];
+    self.nameTxt.text = self.packageModel.name;
     [self.view addSubview:self.nameTxt];
     [self.nameTxt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
@@ -75,7 +81,7 @@
     _tableView.dataSource = self;
     //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
-//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
+    //    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
     _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     [self.view addSubview:_tableView];
     
@@ -85,7 +91,7 @@
         make.bottom.equalTo(submitButton.mas_top).offset(-10);
     }];
     
-//    [_tableView.mj_header beginRefreshing];
+    //    [_tableView.mj_header beginRefreshing];
     [self headRefresh];
     
 }
@@ -160,19 +166,20 @@
     if (cell == nil){
         cell = [[CLProductSelectTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.buttonBaseView.hidden = YES;
+    //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //    cell.buttonBaseView.hidden = YES;
     if (self.dataArray.count > indexPath.row){
         cell.productModel = self.dataArray[indexPath.row];
-        if (cell.productModel.isSelect == YES){
+        if ([_offerIdArray containsObject:cell.productModel.idString]){
             cell.selectButton.selected = YES;
         }else{
             cell.selectButton.selected = false;
         }
+
     }
     
     
-   
+    
     
     
     return cell;
@@ -183,8 +190,14 @@
     if (self.dataArray.count > indexPath.row){
         CLProductModel *productModel = self.dataArray[indexPath.row];
         CLProductSelectTableViewCell *cell = (CLProductSelectTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        productModel.isSelect = !productModel.isSelect;
-        cell.selectButton.selected = productModel.isSelect;
+        if ([_offerIdArray containsObject:productModel.idString]){
+            [_offerIdArray removeObject:productModel.idString];
+            cell.selectButton.selected = NO;
+        }else{
+            [_offerIdArray addObject:productModel.idString];
+            cell.selectButton.selected = YES;
+        }
+//        [tableView reloadData];
         
     }
     
@@ -198,11 +211,9 @@
     }
     
     NSString *offerIds = @"";
-    for (int i = 0; i < self.dataArray.count; i++) {
-        CLProductModel *productModel = self.dataArray[i];
-        if (productModel.isSelect == YES){
-            offerIds = [NSString stringWithFormat:@"%@,%@", offerIds, productModel.idString];
-        }
+    for (int i = 0; i < _offerIdArray.count; i++) {
+        NSString *offerIdString = _offerIdArray[i];
+        offerIds = [NSString stringWithFormat:@"%@,%@", offerIds, offerIdString];
     }
     ICLog(@"---offerIds---%@---", offerIds);
     if (offerIds.length < 1){
@@ -216,13 +227,13 @@
     dataDict[@"offerIds"] = offerIds;
     ICLog(@"----dataDict---%@---", dataDict);
     
-    [GFHttpTool postCreateMenuSetProductOfferWithParameters:dataDict success:^(id responseObject) {
+    [GFHttpTool postUpdateMenuSetProductOfferWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-ProductOfferSetMenuAdd--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
-            [self addAlertView:@"添加成功"];
-            if (_delegate != nil){
-                [_delegate addPackageSuccess];
-            }
+            [self addAlertView:@"编辑成功"];
+//            if (_delegate != nil){
+//                [_delegate addPackageSuccess];
+//            }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self addAlertView:responseObject[@"message"]];
@@ -236,7 +247,7 @@
 - (void)setNavigation{
     self.view.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
     
-    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"新增套餐" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"编辑套餐" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     [_navView.leftBut addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -259,7 +270,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-
 
 /*
 #pragma mark - Navigation

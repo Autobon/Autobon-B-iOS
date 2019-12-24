@@ -188,6 +188,10 @@
 #pragma mark - 数据下单接口
 + (void)postCoopMerchantDataOrderWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 新增我的套餐
++ (void)postCreateMenuSetProductOfferWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 修改套餐
++ (void)postUpdateMenuSetProductOfferWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 @end

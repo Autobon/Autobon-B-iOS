@@ -75,7 +75,7 @@
 - (void)headRefresh {
     
     _page = 1;
-    _pageSize = 4;
+    _pageSize = 20;
     _dataArray = [[NSMutableArray alloc] init];
     
     [self getProductList];
@@ -85,7 +85,7 @@
 - (void)footRefresh {
     
     _page = _page + 1;
-    _pageSize = 4;
+    _pageSize = 20;
     
     [self getProductList];
 }

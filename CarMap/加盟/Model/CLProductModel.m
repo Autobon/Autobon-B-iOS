@@ -27,6 +27,7 @@
     self.typeName = dictionary[@"typeName"];
     self.warranty = [NSString stringWithFormat:@"%@", dictionary[@"warranty"]];
     self.workingHours = [NSString stringWithFormat:@"%@", dictionary[@"workingHours"]];
+    self.isSelect = NO;
 }
 
 

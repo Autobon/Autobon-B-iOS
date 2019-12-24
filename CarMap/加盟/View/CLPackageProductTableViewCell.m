@@ -11,12 +11,12 @@
 @implementation CLPackageProductTableViewCell
 - (void)setProductModel:(CLProductModel *)productModel{
     _productModel = productModel;
-    _nameLabel.text = self.productModel.name;
+    _nameLabel.text = self.productModel.code;
     _priceLabel.text = [NSString stringWithFormat:@"¥%@",self.productModel.price];
-    _brandValueLabel.text = self.productModel.brand;
+    _brandValueLabel.text = self.productModel.typeName;
     _constructionPositionValueLabel.text = self.productModel.constructionPositionName;
     _modelValueLabel.text = self.productModel.model;
-    _codeValueLabel.text = self.productModel.code;
+    _codeValueLabel.text = self.productModel.brand;
     _workHourValueLabel.text = self.productModel.workingHours;
     _warrantyPeriodValueLabel.text = self.productModel.warranty;
     
@@ -36,19 +36,8 @@
             make.left.equalTo(self).offset(15);
             make.top.equalTo(self).offset(5);
             make.height.mas_offset(30);
-            make.right.equalTo(self.mas_centerX);
+            make.right.equalTo(self).offset(-100);
         }];
-        
-        _priceLabel = [[UILabel alloc]init];
-        _priceLabel.text = @"¥200";
-        _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-        _priceLabel.font = [UIFont boldSystemFontOfSize:15];
-        [self addSubview:_priceLabel];
-        [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-15);
-            make.centerY.equalTo(_nameLabel);
-        }];
-        
         
         
         _removeButton = [[UIButton alloc]init];
@@ -58,9 +47,23 @@
             make.centerY.equalTo(self.nameLabel);
             make.right.equalTo(self).offset(-15);
             make.height.mas_offset(40);
-            make.width.mas_offset(40);
+            make.width.mas_offset(0);
         }];
-        _removeButton.hidden = YES;
+        
+        
+        _priceLabel = [[UILabel alloc]init];
+        _priceLabel.text = @"¥200";
+        _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        _priceLabel.font = [UIFont boldSystemFontOfSize:15];
+        [self addSubview:_priceLabel];
+        [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.removeButton.mas_left).offset(0);
+            make.centerY.equalTo(_nameLabel);
+        }];
+        
+        
+        
+        
         
         
         
@@ -69,7 +72,7 @@
         
         //型号
         UILabel *brandLabel = [[UILabel alloc]init];
-        brandLabel.text = @"品        牌";
+        brandLabel.text = @"施工项目";
         brandLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:brandLabel];
         [brandLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,7 +91,7 @@
             make.left.equalTo(brandLabel.mas_right).offset(15);
             make.centerY.equalTo(brandLabel);
             make.height.mas_offset(30);
-            make.right.equalTo(self.mas_centerX);
+            make.right.equalTo(self.mas_centerX).offset(0);
         }];
         
         
@@ -101,7 +104,7 @@
         constructionPositionLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:constructionPositionLabel];
         [constructionPositionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_centerX).offset(-30);
+            make.left.equalTo(self.mas_centerX).offset(0);
             make.top.equalTo(_nameLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.width.mas_offset(65);
@@ -120,7 +123,7 @@
         
         
         
-        //品牌
+        //型号
         UILabel *modelLabel = [[UILabel alloc]init];
         modelLabel.text = @"型        号";
         modelLabel.font = [UIFont systemFontOfSize:15];
@@ -141,24 +144,24 @@
             make.left.equalTo(modelLabel.mas_right).offset(15);
             make.centerY.equalTo(modelLabel);
             make.height.mas_offset(30);
-            make.right.equalTo(self.mas_centerX);
+            make.right.equalTo(self.mas_centerX).offset(0);
         }];
         
         
         
         //编码
         UILabel *codeTitleLabel = [[UILabel alloc]init];
-        codeTitleLabel.text = @"编        码";
+        codeTitleLabel.text = @"品        牌";
         codeTitleLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:codeTitleLabel];
         [codeTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_centerX).offset(-30);
+            make.left.equalTo(self.mas_centerX).offset(0);
             make.top.equalTo(brandLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.width.mas_offset(65);
         }];
         _codeValueLabel = [[UILabel alloc]init];
-        _codeValueLabel.text = @"GRM-WG-V70-001";
+        _codeValueLabel.text = @"GR-001";
         _codeValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _codeValueLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_codeValueLabel];
@@ -189,7 +192,7 @@
             make.left.equalTo(workHourLabel.mas_right).offset(15);
             make.centerY.equalTo(workHourLabel);
             make.height.mas_offset(30);
-            make.right.equalTo(self.mas_centerX);
+            make.right.equalTo(self.mas_centerX).offset(0);
         }];
         
         //质保期间
@@ -198,7 +201,7 @@
         warrantyPeriodLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:warrantyPeriodLabel];
         [warrantyPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_centerX).offset(-30);
+            make.left.equalTo(self.mas_centerX).offset(0);
             make.top.equalTo(modelLabel.mas_bottom).offset(0);
             make.height.mas_offset(30);
             make.width.mas_offset(65);

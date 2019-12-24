@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CLProductModel : NSObject
 
 @property (nonatomic) CGFloat cellHeight;
+@property (nonatomic) BOOL isSelect;
 
 @property (nonatomic ,strong) NSString *brand;
 @property (nonatomic ,strong) NSString *code;

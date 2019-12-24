@@ -30,4 +30,31 @@
     return date;
 }
 
+#pragma mark - 车牌号正则表达式
++ (BOOL) validateCarLicense: (NSString *)carLicense
+{
+    BOOL flag;
+    if (carLicense.length <= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex = @"^([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})$";
+    NSPredicate *carLicensePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [carLicensePredicate evaluateWithObject:carLicense];
+}
+
+#pragma mark - 整数正则表达式
++ (BOOL) validateInt: (NSString *)intString
+{
+    BOOL flag;
+    if (intString.length <= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex = @"^\\d{7}$";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicate evaluateWithObject:intString];
+}
+
+
 @end
