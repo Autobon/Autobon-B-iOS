@@ -364,7 +364,7 @@
     }];
     
     _orderDataBeginTimeTextField = [[UITextField alloc]init];
-    _orderDataBeginTimeTextField.placeholder = @"预约施工时间";
+    _orderDataBeginTimeTextField.placeholder = @"请选择";
     _orderDataBeginTimeTextField.textAlignment = NSTextAlignmentRight;
     _orderDataBeginTimeTextField.font = [UIFont systemFontOfSize:14];
     _orderDataBeginTimeTextField.delegate = self;
@@ -391,7 +391,7 @@
     
     
     UILabel *endTimeLabel = [[UILabel alloc]init];
-    endTimeLabel.text = @"预约结束时间";
+    endTimeLabel.text = @"最迟交车时间";
     endTimeLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:endTimeLabel];
     [endTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -402,7 +402,7 @@
     }];
     
     _orderDataEndTimeTextField = [[UITextField alloc]init];
-    _orderDataEndTimeTextField.placeholder = @"最迟交车时间";
+    _orderDataEndTimeTextField.placeholder = @"请选择";
     _orderDataEndTimeTextField.textAlignment = NSTextAlignmentRight;
     _orderDataEndTimeTextField.font = [UIFont systemFontOfSize:14];
     _orderDataEndTimeTextField.delegate = self;
@@ -454,17 +454,23 @@
     }];
     
     _packageBaseViewChangeButton = [[UIButton alloc]init];
-    [_packageBaseViewChangeButton setTitle:@"选择套餐" forState:UIControlStateNormal];
+    [_packageBaseViewChangeButton setTitle:@"套餐组合" forState:UIControlStateNormal];
+    [_packageBaseViewChangeButton setImage:[UIImage imageNamed:@"clb_btn_xztc"] forState:UIControlStateNormal];
+    _packageBaseViewChangeButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     [_packageBaseViewChangeButton setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
     _packageBaseViewChangeButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [_packageBaseViewChangeButton addTarget:self action:@selector(packageBaseViewChangeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_packageTitleBaseView addSubview:_packageBaseViewChangeButton];
     [_packageBaseViewChangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_packageTitleBaseView).offset(-16);
-        make.width.mas_offset(70);
+        make.width.mas_offset(100);
         make.height.mas_offset(45);
         make.centerY.equalTo(_packageTitleBaseView);
     }];
+    
+    
+    
+    
     
     _footBaseView = [[UIView alloc]init];
 //    footBaseView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
@@ -522,7 +528,7 @@
     _selectPackageClassButtonArray = [[NSMutableArray alloc]init];
     _selectPackageClassLabelArray = [[NSMutableArray alloc]init];
     UIButton *lastButton;
-    NSArray *titleStringArray = @[@"贴膜", @"美容", @"车衣", @"改色"];
+    NSArray *titleStringArray = @[@"隔热膜", @"美容", @"车衣", @"改色"];
     for (int i = 0; i < 4; i++) {
         UIButton *button = [[UIButton alloc]init];
         [button setTitle:titleStringArray[i] forState:UIControlStateNormal];
@@ -707,13 +713,15 @@
 //选择套餐与项目切换按钮相应方法
 - (void)packageBaseViewChangeBtnClick{
     [self.view endEditing:YES];
-    if([_packageBaseViewChangeButton.titleLabel.text isEqualToString:@"选择套餐"]){
+    if([_packageBaseViewChangeButton.titleLabel.text isEqualToString:@"套餐组合"]){
         [_packageBaseViewChangeButton setTitle:@"选择项目" forState:UIControlStateNormal];
+        [_packageBaseViewChangeButton setImage:[UIImage imageNamed:@"clb_btn_xzxm"] forState:UIControlStateNormal];
         [_showSelectProductButton setTitle:@"已选套餐" forState:UIControlStateNormal];
         [self getPackageList];
         _packageScrollView.hidden = NO;
     }else{
-        [_packageBaseViewChangeButton setTitle:@"选择套餐" forState:UIControlStateNormal];
+        [_packageBaseViewChangeButton setTitle:@"套餐组合" forState:UIControlStateNormal];
+        [_packageBaseViewChangeButton setImage:[UIImage imageNamed:@"clb_btn_xztc"] forState:UIControlStateNormal];
         _packageScrollView.hidden = YES;
         [_showSelectProductButton setTitle:@"已选项目" forState:UIControlStateNormal];
     }
@@ -2625,10 +2633,11 @@
 // 获取套餐列表
 - (void)getPackageList{
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
-    dataDict[@"page"] = @(1);
-    dataDict[@"pageSize"] = @(2000);
+//    dataDict[@"page"] = @(1);
+//    dataDict[@"pageSize"] = @(2000);
+//    dataDict[@"type"] = @"2";
     _packageArray = [[NSMutableArray alloc]init];
-    [GFHttpTool getProductOfferSetMenuWithParameters:dataDict success:^(id responseObject) {
+    [GFHttpTool getProductOfferMenuListWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -2638,8 +2647,8 @@
                 ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
                 packageId = dataDictionary[@"packageId"];
             }
-            NSDictionary *messageDictionary = responseObject[@"message"];
-            NSArray *listArray = messageDictionary[@"list"];
+//            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *listArray = responseObject[@"message"];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
                 CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
                 [packageModel setModelForDictionary:modelDic];

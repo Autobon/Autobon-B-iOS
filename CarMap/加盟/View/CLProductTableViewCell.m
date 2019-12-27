@@ -21,7 +21,7 @@
     self.construcationProjectLabel.text = [NSString stringWithFormat:@"施工项目：%@", self.productModel.typeName];
     self.constructionLocationLabel.text = [NSString stringWithFormat:@"施工部位：%@", self.productModel.constructionPositionName];
     self.workHourLabel.text = [NSString stringWithFormat:@"工时：%@", self.productModel.workingHours];
-    self.warrantyPeriodLabel.text = [NSString stringWithFormat:@"质保期间：%@", self.productModel.warranty];
+    self.warrantyPeriodLabel.text = [NSString stringWithFormat:@"质保期间：%@月", self.productModel.warranty];
     
 }
 

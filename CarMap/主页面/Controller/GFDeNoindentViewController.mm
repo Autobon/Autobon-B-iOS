@@ -107,6 +107,10 @@
 // 界面布局
 - (void)_setDeInView{
     
+    if([self.model.techLatitude floatValue] == 0 && [self.model.techLongitude floatValue] == 0) {
+        self.jishi = @"无";
+    }
+    
     
     UIView *mapBaseView = [[UIView alloc] init];
     mapBaseView.layer.borderWidth = 1;
@@ -150,6 +154,7 @@
         [self.mapView addAnnotation:self.shanghuAnno];
         _mapView.zoomLevel = 13;
         
+        /*
         UILabel *lab = [[UILabel alloc] init];
         lab.backgroundColor = [UIColor orangeColor];
         lab.textAlignment = NSTextAlignmentCenter;
@@ -163,7 +168,7 @@
             make.width.mas_offset(150);
             make.height.mas_offset(40);
         }];
-        
+        */
         
         self.mapView.centerCoordinate = self.shanghuAnno.coordinate;
     }else {
@@ -197,13 +202,13 @@
     [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
         make.top.equalTo(mapBaseView.mas_bottom);
+        if([self.jishi isEqualToString:@"无"]) {
+            mapBaseView.hidden = YES;
+            make.top.equalTo(_navView.mas_bottom);
+        }
     }];
     
-    if([self.jishi isEqualToString:@"无"]) {
     
-        mapBaseView.hidden = YES;
-        _scrollView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64);
-    }
     
     
     
@@ -363,8 +368,13 @@
         UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
         but.frame = CGRectMake((i % 3) * (butImgW + 10) + 10, (i / 3) * (butImgH + 10) + 10, butImgW, butImgH);
         but.tag = i + 1;
+        but.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
 //        [but setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoArr[i]]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"userImage"]];
+        [but sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BaseHttp, self.model.photoArr[i]]] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if(error){
+                [but setImage:[UIImage imageNamed:@"load_image_failed"] forState:UIControlStateNormal];
+            }
+        }];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [vv2 addSubview:but];
     }
@@ -392,7 +402,7 @@
 //    [aView show];
     if(![_model.statusString isEqualToString:@"已出发"] && ![_model.statusString isEqualToString:@"已签到"] && ![_model.statusString isEqualToString:@"施工中"]) {
         
-        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定删除该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定撤销该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [self.view addSubview:aView];
         aView.delegate = self;
         [aView show];

@@ -18,7 +18,7 @@
     _modelValueLabel.text = self.productModel.model;
     _codeValueLabel.text = self.productModel.brand;
     _workHourValueLabel.text = self.productModel.workingHours;
-    _warrantyPeriodValueLabel.text = self.productModel.warranty;
+    _warrantyPeriodValueLabel.text = [NSString stringWithFormat:@"%@月", self.productModel.warranty];
     
 }
 

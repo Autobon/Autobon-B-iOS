@@ -53,7 +53,7 @@
 //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
-    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+//    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     [self.view addSubview:_tableView];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,14 +86,14 @@
     ICLog(@"获取产品列表");
     
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
-    dataDict[@"page"] = @(_page);
-    dataDict[@"pageSize"] = @(_pageSize);
-    
-    [GFHttpTool getProductOfferSetMenuWithParameters:dataDict success:^(id responseObject) {
+//    dataDict[@"page"] = @(_page);
+//    dataDict[@"pageSize"] = @(_pageSize);
+//    dataDict[@"type"] = @"2";
+    [GFHttpTool getProductOfferMenuListWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
-            NSDictionary *messageDictionary = responseObject[@"message"];
-            NSArray *listArray = messageDictionary[@"list"];
+//            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *listArray = responseObject[@"message"];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
                 CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
                 [packageModel setModelForDictionary:modelDic];
@@ -101,12 +101,12 @@
             }];
         }
         [_tableView.mj_header endRefreshing];
-        [_tableView.mj_footer endRefreshing];
+//        [_tableView.mj_footer endRefreshing];
         [_tableView reloadData];
     } failure:^(NSError *error) {
         ICLog(@"-getProductList--error---%@-", error);
         [_tableView.mj_header endRefreshing];
-        [_tableView.mj_footer endRefreshing];
+//        [_tableView.mj_footer endRefreshing];
     }];
     
 }
@@ -177,7 +177,7 @@
 // 添加导航
 - (void)setNavigation{
     
-    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:@"" withRightImgHightName:nil withCenterTitle:@"我的套餐" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    _navView = [[GFNavigationView alloc] initWithLeftImgName:@"back" withLeftImgHightName:@"backClick" withRightImgName:@"" withRightImgHightName:nil withCenterTitle:@"套餐组合" withFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     CGFloat viewHeight = 64;
     if ([UIScreen mainScreen].bounds.size.height > 800) {
         viewHeight = 88;

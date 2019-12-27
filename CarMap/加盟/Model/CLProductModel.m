@@ -15,7 +15,10 @@
     self.code = dictionary[@"code"];
     self.constructionCommission = [NSString stringWithFormat:@"%@", dictionary[@"constructionCommission"]];
     self.constructionPosition = [NSString stringWithFormat:@"%@", dictionary[@"constructionPosition"]];
-    self.constructionPositionName = dictionary[@"constructionPositionName"];
+    self.constructionPositionName = [NSString stringWithFormat:@"%@", dictionary[@"constructionPositionName"]];
+    if ([self.constructionPositionName isEqualToString:@"<null>"]){
+        self.constructionPositionName = @"无";
+    }
     self.coopId = [NSString stringWithFormat:@"%@", dictionary[@"coopId"]];
     self.idString = [NSString stringWithFormat:@"%@", dictionary[@"id"]];
     self.model = dictionary[@"model"];

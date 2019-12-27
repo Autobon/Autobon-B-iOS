@@ -26,7 +26,7 @@
 
 //#import "GFTipView.h"
 
-@interface GFIndentViewController ()<CLSearchOrderDelegate> {
+@interface GFIndentViewController ()<CLSearchOrderDelegate,UIAlertViewDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -394,9 +394,28 @@
     if(self.modelArr.count - 1 >= indexPath.row) {
     
         cell.model = (GFNewIndentModel *)self.modelArr[indexPath.row];
+        [cell.removeOrderButton addTarget:self action:@selector(removeOrderBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.removeOrderButton.tag = indexPath.row;
     }
     
     return cell;
+}
+
+- (void)removeOrderBtnClick:(UIButton *)button{
+    GFNewIndentModel *indentModel = (GFNewIndentModel *)self.modelArr[button.tag];
+    if(![indentModel.statusString isEqualToString:@"已出发"] && ![indentModel.statusString isEqualToString:@"已签到"] && ![indentModel.statusString isEqualToString:@"施工中"]) {
+        
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"确定撤销该订单！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [self.view addSubview:aView];
+        aView.delegate = self;
+        aView.tag = button.tag;
+        [aView show];
+    }else {
+        
+        UIAlertView *aView = [[UIAlertView alloc] initWithTitle:@"注意" message:@"已开始施工的订单不可撤销" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [self.view addSubview:aView];
+        [aView show];
+    }
 }
 
 #pragma mark - AlertView
@@ -404,6 +423,44 @@
     GFTipView *tipView = [[GFTipView alloc]initWithNormalHeightWithMessage:title withViewController:self withShowTimw:1.0];
     [tipView tipViewShow];
 }
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonInde {
+    
+    //    NSLog(@"=====++++=%ld===", buttonInde);
+    if(buttonInde == 1) {
+        GFNewIndentModel *indentModel = (GFNewIndentModel *)self.modelArr[alertView.tag];
+        [GFHttpTool postCanceledOrder:indentModel.orderID Success:^(id responseObject) {
+            
+            //            NSLog(@"==撤单返回的信息==%@", responseObject);
+            
+            if([responseObject[@"status"] integerValue] == 1) {
+                
+                [self addAlertView:@"撤单成功！"];
+                [self.tableview.mj_header beginRefreshing];
+            }else {
+                
+                if([responseObject[@"message"] isKindOfClass:[NSNull class]]) {
+                    
+                    [self addAlertView:@"撤单失败，请重试或联系上头"];
+                }else {
+                    
+                    [self addAlertView:responseObject[@"message"]];
+                }
+            }
+            
+            //            [[NSNotificationCenter defaultCenter]postNotificationName:@"FINISHED" object:self userInfo:nil];
+            
+            
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+    }
+}
+
+
 
 #pragma mark - 去评价按钮
 - (void)judgeBtnClick:(UIButton *)button{

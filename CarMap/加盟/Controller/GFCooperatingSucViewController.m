@@ -96,10 +96,15 @@
      licenceName.text = [NSString stringWithFormat:@"营业执照名：%@",_dataDictionary[@"fullname"]];
      licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
      [scrollView addSubview:licenceName];
+    
+    CGSize licenseSize = [licenceName.text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(self.view.frame.size.width-30, MAXFLOAT)];
+    licenceName.numberOfLines = 0;
+    licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, licenseSize.height + 13);
+    
      
      UILabel *licenceNumber = [[UILabel alloc]init];
      licenceNumber.text = [NSString stringWithFormat:@"营业执照号：%@",_dataDictionary[@"businessLicense"]];
-     licenceNumber.frame = CGRectMake(15, licenceName.frame.origin.y + 35, self.view.frame.size.width-30, 30);
+     licenceNumber.frame = CGRectMake(15, CGRectGetMaxY(licenceName.frame) + 5, self.view.frame.size.width-30, 30);
      [scrollView addSubview:licenceNumber];
      
      

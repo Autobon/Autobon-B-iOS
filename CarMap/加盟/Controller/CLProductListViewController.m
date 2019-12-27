@@ -135,14 +135,15 @@
 // 获取套餐列表
 - (void)getPackageList{
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
-    dataDict[@"page"] = @(1);
-    dataDict[@"pageSize"] = @(2000);
+//    dataDict[@"page"] = @(1);
+//    dataDict[@"pageSize"] = @(2000);
+    dataDict[@"type"] = @"2";
     _packageArray = [[NSMutableArray alloc]init];
-    [GFHttpTool getProductOfferSetMenuWithParameters:dataDict success:^(id responseObject) {
+    [GFHttpTool getProductOfferMenuListWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
-            NSDictionary *messageDictionary = responseObject[@"message"];
-            NSArray *listArray = messageDictionary[@"list"];
+//            NSDictionary *messageDictionary = responseObject[@"message"];
+            NSArray *listArray = responseObject[@"message"];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
                 CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
                 [packageModel setModelForDictionary:modelDic];
@@ -231,7 +232,7 @@
 
 - (void)showPackageListForChoose{
     if (_packageArray.count < 1){
-        [self addAlertView:@"获取套餐列表失败，请重试"];
+        [self addAlertView:@"商户未添加套餐，请先添加套餐"];
         return;
     }
     
@@ -365,7 +366,7 @@
     }
     
     _navView.rightBut.frame = CGRectMake(self.view.frame.size.width - 90, viewHeight - 44, 90, 44);
-    [_navView.rightBut setTitle:@"我的套餐" forState:UIControlStateNormal];
+    [_navView.rightBut setTitle:@"套餐组合" forState:UIControlStateNormal];
     [_navView.rightBut addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     

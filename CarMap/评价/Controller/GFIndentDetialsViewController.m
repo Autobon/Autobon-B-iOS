@@ -272,9 +272,13 @@
         UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
         but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , imgViewY + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
         but.tag = i + 1;
-        [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+        but.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
         NSString *ss = [NSString stringWithFormat:@"%@%@",BaseHttp ,self.model.photoArr[i]];
-        [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
+        [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if(error){
+                [but setImage:[UIImage imageNamed:@"load_image_failed"] forState:UIControlStateNormal];
+            }
+        }];
         [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
         [baseView addSubview:but];
         
@@ -572,9 +576,13 @@
             UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
             but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , CGRectGetMaxY(beforeLab.frame) + jiange4 + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
             but.tag = i + 1;
-            [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+            but.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
             NSString *ss = [NSString stringWithFormat:@"%@%@",BaseHttp, self.model.beforePhotosArr[i]];
-            [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
+            [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                if(error){
+                    [but setImage:[UIImage imageNamed:@"load_image_failed"] forState:UIControlStateNormal];
+                }
+            }];
             [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
             [baseView addSubview:but];
             
@@ -637,9 +645,13 @@
             UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
             but.frame = CGRectMake((i % 3) * (imgViewW + 10) + 10 , CGRectGetMaxY(afPhotoLab.frame) + jiange4 + (i / 3) * (imgViewH + 10), imgViewW, imgViewH);
             but.tag = i + 1;
-            [but setBackgroundImage:[UIImage imageNamed:@"orderImage"] forState:UIControlStateNormal];
+            but.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
             NSString *ss = [NSString stringWithFormat:@"%@%@",BaseHttp, self.model.afterPhotosArr[i]];
-            [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"orderImage"]];
+            [but sd_setImageWithURL:[NSURL URLWithString: ss] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                if(error){
+                    [but setImage:[UIImage imageNamed:@"load_image_failed"] forState:UIControlStateNormal];
+                }
+            }];
             [but addTarget:self action:@selector(butClick:) forControlEvents:UIControlEventTouchUpInside];
             [baseView addSubview:but];
             

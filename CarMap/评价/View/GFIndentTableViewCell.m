@@ -31,37 +31,44 @@
         self.removeOrderButton.hidden = NO;
         self.pingjiaBut.hidden = YES;
         self.statusLabel.text = @"待指派";
+        self.statusLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }else if([model.status isEqualToString:@"NEWLY_CREATED"]) {
-        self.appointButton.hidden = NO;
+        self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = NO;
         self.pingjiaBut.hidden = YES;
         self.statusLabel.text = @"未接单";
+        self.statusLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }else if([model.status isEqualToString:@"TAKEN_UP"]) {
         self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = YES;
         self.pingjiaBut.hidden = YES;
         self.statusLabel.text = @"已接单";
+        self.statusLabel.textColor = [UIColor blackColor];
     }else if([model.status isEqualToString:@"IN_PROGRESS"]) {
         self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = YES;
         self.pingjiaBut.hidden = YES;
         self.statusLabel.text = @"已出发";
+        self.statusLabel.textColor = [UIColor blackColor];
     }else if([model.status isEqualToString:@"SIGNED_IN"]) {
         self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = YES;
         self.pingjiaBut.hidden = YES;
         self.statusLabel.text = @"已签到";
+        self.statusLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     }else if([model.status isEqualToString:@"AT_WORK"]) {
         self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = YES;
         self.pingjiaBut.hidden = YES;
         self.statusLabel.text = @"施工中";
+        self.statusLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     }else if([_model.status isEqualToString:@"FINISHED"]) {
         self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = YES;
         self.pingjiaBut.hidden = NO;
-        self.statusLabel.text = @" ";
+        self.statusLabel.text = @"待评价";
         [self.pingjiaBut setTitle:@"去评价" forState:UIControlStateNormal];
+        self.statusLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         self.pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] CGColor];
         [self.pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1] forState:UIControlStateNormal];
         self.pingjiaBut.enabled = YES;
@@ -74,15 +81,18 @@
         self.pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] CGColor];
         [self.pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] forState:UIControlStateNormal];
         self.pingjiaBut.enabled = NO;
+        self.statusLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     }else {
         self.appointButton.hidden = YES;
         self.removeOrderButton.hidden = YES;
         self.pingjiaBut.hidden = NO;
-        self.statusLabel.text = @" ";
+        self.statusLabel.text = @"已撤消";
         [self.pingjiaBut setTitle:@"已撤消" forState:UIControlStateNormal];
+        self.pingjiaBut.hidden = YES;
         self.pingjiaBut.layer.borderColor = [[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] CGColor];
         [self.pingjiaBut setTitleColor:[UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:0.5] forState:UIControlStateNormal];
         self.pingjiaBut.enabled = NO;
+        self.statusLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }
 }
 
@@ -207,11 +217,10 @@
         
         _statusLabel = [[UILabel alloc]init];
         _statusLabel.font = [UIFont systemFontOfSize:14];
-        _statusLabel.alpha = 0.5;
         _statusLabel.text = @"待指派";
         _statusLabel.textAlignment = NSTextAlignmentRight;
         [baseView addSubview:_statusLabel];
-        _statusLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, CGRectGetMaxY(_numberLab.frame) + 15, 50, 20);
+        _statusLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, CGRectGetMaxY(_numberLab.frame) + 30, 50, 20);
         
         
         

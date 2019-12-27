@@ -194,4 +194,6 @@
 #pragma mark - 修改套餐
 + (void)postUpdateMenuSetProductOfferWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 查询商户产品报价套餐列表
++ (void)getProductOfferMenuListWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 @end
