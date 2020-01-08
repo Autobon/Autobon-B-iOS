@@ -11,13 +11,13 @@
 @implementation CLPackageProductTableViewCell
 - (void)setProductModel:(CLProductModel *)productModel{
     _productModel = productModel;
-    _nameLabel.text = self.productModel.code;
+    _nameLabel.text = [NSString stringWithFormat:@"%@", self.productModel.code];
     _priceLabel.text = [NSString stringWithFormat:@"¥%@",self.productModel.price];
-    _brandValueLabel.text = self.productModel.typeName;
-    _constructionPositionValueLabel.text = self.productModel.constructionPositionName;
-    _modelValueLabel.text = self.productModel.model;
-    _codeValueLabel.text = self.productModel.brand;
-    _workHourValueLabel.text = self.productModel.workingHours;
+    _brandValueLabel.text = [NSString stringWithFormat:@"%@", self.productModel.typeName];
+    _constructionPositionValueLabel.text = [NSString stringWithFormat:@"%@", self.productModel.constructionPositionName];
+    _modelValueLabel.text = [NSString stringWithFormat:@"%@", self.productModel.model];
+    _codeValueLabel.text = [NSString stringWithFormat:@"%@", self.productModel.brand];
+    _workHourValueLabel.text = [NSString stringWithFormat:@"%@", self.productModel.workingHours];
     _warrantyPeriodValueLabel.text = [NSString stringWithFormat:@"%@月", self.productModel.warranty];
     
 }

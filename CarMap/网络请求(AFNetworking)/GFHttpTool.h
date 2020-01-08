@@ -196,4 +196,14 @@
 
 #pragma mark - 查询商户产品报价套餐列表
 + (void)getProductOfferMenuListWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 商户创建暂存订单
++ (void)postCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 商户获取暂存订单
++ (void)getCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+#pragma mark - 商户删除暂存订单
++ (void)deleteCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
 @end

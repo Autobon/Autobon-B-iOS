@@ -26,9 +26,10 @@
 #import "CLPackageProductTableViewCell.h"
 #import "CLProductPackageModel.h"
 #import "Commom.h"
+#import "CLSavedOrderViewController.h"
+#import "CLPreOrderModel.h"
 
-
-@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate,HXAlbumListViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+@interface GFOneIndentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UWDatePickerViewDelegate,HXAlbumListViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,CLSelectSaveOrderDelegate> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -74,7 +75,8 @@
     UITextField *_orderDataCarLicenseTextField;
     UITextField *_orderDataCarTypeTextField;
     UITextField *_orderDataBeginTimeTextField;
-    UITextField *_orderDataEndTimeTextField;
+//    UITextField *_orderDataEndTimeTextField;
+    UITextField *_orderRemarkTextField;
 }
 
 //@property (nonatomic, strong) GFNavigationView *navView;
@@ -101,8 +103,6 @@
 // 最迟交车时间
 @property (nonatomic, strong) UILabel *zuichiTimeLab;
 
-
-
 @property (nonatomic, strong) UILabel *timeLab1;
 
 @property (strong, nonatomic) HXPhotoManager *manager;
@@ -120,7 +120,7 @@
 @property (nonatomic, strong) NSMutableArray *packageProductArray;
 @property (nonatomic, strong) NSMutableArray *selectPackageArray;       //已选中施工套餐
 @property (nonatomic, strong) NSMutableArray *selectPackageIdArray;       //已选中施工套餐Id
-
+@property (nonatomic, strong) CLPreOrderModel *preOrderModel;
 
 @end
 
@@ -171,13 +171,13 @@
     self.photoOrderBaseView.hidden = YES;
     
     [self getProductList:0];
-    [self getAllProductList];
+//    [self getAllProductList];
     
     self.selectProductArray = [[NSMutableArray alloc]init];
     self.selectProductIdArray = [[NSMutableArray alloc]init];
     
     
-    [self setSaveDataForView];
+//    [self setSaveDataForView];
     
 }
 
@@ -192,7 +192,7 @@
         _orderDataVinTextField.text = dataDictionary[@"vin"];
         _orderDataCarTypeTextField.text = dataDictionary[@"vehicleModel"];
         _orderDataBeginTimeTextField.text = dataDictionary[@"agreedStartTime"];
-        _orderDataEndTimeTextField.text = dataDictionary[@"agreedEndTime"];
+//        _orderDataEndTimeTextField.text = dataDictionary[@"agreedEndTime"];
         self.selectProductIdArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"offerIds"]];
         NSMutableArray *labelStringArray = dataDictionary[@"labelStringArray"];
         [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *objLabel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -389,7 +389,7 @@
         make.height.mas_offset(1);
     }];
     
-    
+    /*
     UILabel *endTimeLabel = [[UILabel alloc]init];
     endTimeLabel.text = @"最迟交车时间";
     endTimeLabel.font = [UIFont systemFontOfSize:14];
@@ -405,8 +405,8 @@
     _orderDataEndTimeTextField.placeholder = @"请选择";
     _orderDataEndTimeTextField.textAlignment = NSTextAlignmentRight;
     _orderDataEndTimeTextField.font = [UIFont systemFontOfSize:14];
-    _orderDataEndTimeTextField.delegate = self;
-    _orderDataEndTimeTextField.tag = 2;
+//    _orderDataEndTimeTextField.delegate = self;
+//    _orderDataEndTimeTextField.tag = 2;
     [textFieldBaseView addSubview:_orderDataEndTimeTextField];
     [_orderDataEndTimeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(textFieldBaseView.mas_centerX).offset(0);
@@ -414,6 +414,33 @@
         make.height.mas_offset(40);
         make.centerY.equalTo(endTimeLabel);
     }];
+    */
+    
+    UILabel *remarkLabel = [[UILabel alloc]init];
+    remarkLabel.text = @"备注";
+    remarkLabel.font = [UIFont systemFontOfSize:14];
+    [textFieldBaseView addSubview:remarkLabel];
+    [remarkLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(beginTimeLabel.mas_bottom).offset(2);
+        make.left.equalTo(textFieldBaseView).offset(22);
+        make.height.mas_offset(40);
+        make.width.mas_offset(40);
+    }];
+    
+    _orderRemarkTextField = [[UITextField alloc]init];
+    _orderRemarkTextField.placeholder = @"请输入(最多200字)";
+    _orderRemarkTextField.textAlignment = NSTextAlignmentRight;
+    _orderRemarkTextField.font = [UIFont systemFontOfSize:14];
+    _orderRemarkTextField.delegate = self;
+    _orderRemarkTextField.tag = 33;
+    [textFieldBaseView addSubview:_orderRemarkTextField];
+    [_orderRemarkTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(remarkLabel.mas_right).offset(10);
+        make.right.equalTo(textFieldBaseView).offset(-22);
+        make.height.mas_offset(40);
+        make.centerY.equalTo(remarkLabel);
+    }];
+    
     
 //    UIView *endTimeLineView = [[UIView alloc]init];
 //    endTimeLineView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0];
@@ -482,21 +509,87 @@
     }];
     
     
+    UIButton *saveOrderButton = [[UIButton alloc]init];
+    [saveOrderButton setTitle:@"暂存订单" forState:UIControlStateNormal];
+    [saveOrderButton setTitleColor:[UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [saveOrderButton addTarget:self action:@selector(saveOrderBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    saveOrderButton.titleLabel.font = [UIFont systemFontOfSize:9];
+    saveOrderButton.titleEdgeInsets = UIEdgeInsetsMake(25, 0, 0, 0);
+    [_footBaseView addSubview:saveOrderButton];
+    [saveOrderButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_footBaseView);
+        make.centerY.equalTo(_footBaseView);
+        make.height.mas_offset(40);
+        make.width.mas_offset(self.view.frame.size.width * 0.2);
+    }];
+    
+    UIImageView *saveOrderImageView = [[UIImageView alloc]init];
+    saveOrderImageView.image = [UIImage imageNamed:@"saveOrder"];
+    [saveOrderButton addSubview:saveOrderImageView];
+    [saveOrderImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(saveOrderButton);
+        make.top.equalTo(saveOrderButton).offset(5);
+        make.width.mas_offset(18);
+        make.height.mas_offset(18);
+    }];
+    
+    
+    
+    UIButton *savedOrderButton = [[UIButton alloc]init];
+    [savedOrderButton setTitle:@"已存订单" forState:UIControlStateNormal];
+    [savedOrderButton setTitleColor:[UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1.0] forState:UIControlStateNormal];
+    savedOrderButton.titleLabel.font = [UIFont systemFontOfSize:9];
+    savedOrderButton.titleEdgeInsets = UIEdgeInsetsMake(25, 0, 0, 0);
+    [savedOrderButton addTarget:self action:@selector(savedOrderBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_footBaseView addSubview:savedOrderButton];
+    [savedOrderButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_footBaseView).offset(self.view.frame.size.width * 0.2);
+        make.centerY.equalTo(_footBaseView);
+        make.height.mas_offset(40);
+        make.width.mas_offset(self.view.frame.size.width * 0.2);
+    }];
+    UIImageView *savedOrderImageView = [[UIImageView alloc]init];
+    savedOrderImageView.image = [UIImage imageNamed:@"haveSaved"];
+    [savedOrderButton addSubview:savedOrderImageView];
+    [savedOrderImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(savedOrderButton);
+        make.top.equalTo(savedOrderButton).offset(5);
+        make.width.mas_offset(18);
+        make.height.mas_offset(18);
+    }];
+    
     //已选套餐/项目
     _showSelectProductButton = [[UIButton alloc]init];
-    _showSelectProductButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+//    _showSelectProductButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [_showSelectProductButton setTitle:@"已选项目" forState:UIControlStateNormal];
-    _showSelectProductButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    _showSelectProductButton.layer.cornerRadius = 3;
+    [_showSelectProductButton setTitleColor:[UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1.0] forState:UIControlStateNormal];
+    _showSelectProductButton.titleLabel.font = [UIFont systemFontOfSize:9];
+    _showSelectProductButton.titleEdgeInsets = UIEdgeInsetsMake(25, 0, 0, 0);
+//    _showSelectProductButton.layer.cornerRadius = 3;
     [_showSelectProductButton addTarget:self action:@selector(showSelectProductBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_footBaseView addSubview:_showSelectProductButton];
     [_showSelectProductButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_dataOrderBaseView).offset(15);
-        make.right.equalTo(_dataOrderBaseView.mas_centerX).offset(-15);
-        make.height.mas_offset(40);
+//        make.left.equalTo(_dataOrderBaseView).offset(15);
+//        make.right.equalTo(_dataOrderBaseView.mas_centerX).offset(-15);
+//        make.height.mas_offset(40);
+//        make.centerY.equalTo(_footBaseView);
+        make.left.equalTo(_footBaseView).offset(self.view.frame.size.width * 0.4);
         make.centerY.equalTo(_footBaseView);
+        make.height.mas_offset(40);
+        make.width.mas_offset(self.view.frame.size.width * 0.2);
     }];
-
+    
+    UIImageView *haveSelectImageView = [[UIImageView alloc]init];
+    haveSelectImageView.image = [UIImage imageNamed:@"saveOrder"];
+    [_showSelectProductButton addSubview:haveSelectImageView];
+    [haveSelectImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_showSelectProductButton);
+        make.top.equalTo(_showSelectProductButton).offset(5);
+        make.width.mas_offset(18);
+        make.height.mas_offset(18);
+    }];
+    
+    
     UIButton *dataOrderSubmitButton = [[UIButton alloc]init];
     dataOrderSubmitButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [dataOrderSubmitButton setTitle:@"一键下单" forState:UIControlStateNormal];
@@ -506,30 +599,31 @@
 //    [dataOrderSubmitButton addTarget:self action:@selector(saveOrderData) forControlEvents:UIControlEventTouchUpInside];
     [_footBaseView addSubview:dataOrderSubmitButton];
     [dataOrderSubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_dataOrderBaseView.mas_centerX).offset(15);
-        make.right.equalTo(_dataOrderBaseView.mas_right).offset(-15);
-        make.height.mas_offset(40);
+        make.right.equalTo(_dataOrderBaseView).offset(-10);
+        make.width.mas_offset(self.view.frame.size.width * 0.4 - 20);
+        make.height.mas_offset(35);
         make.centerY.equalTo(_footBaseView);
     }];
     
     
     
     
-    UIView *leftView = [[UIView alloc]init];
-    [_dataOrderBaseView addSubview:leftView];
-    [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIScrollView *leftScrollView = [[UIScrollView alloc]init];
+    [_dataOrderBaseView addSubview:leftScrollView];
+    [leftScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_dataOrderBaseView);
         make.top.equalTo(_packageTitleBaseView.mas_bottom);
         make.bottom.equalTo(_footBaseView.mas_top);
         make.width.mas_offset(70);
     }];
+    leftScrollView.contentSize = CGSizeMake(70, 45 * 6);
 //    leftView.backgroundColor = [UIColor cyanColor];
     
     _selectPackageClassButtonArray = [[NSMutableArray alloc]init];
     _selectPackageClassLabelArray = [[NSMutableArray alloc]init];
-    UIButton *lastButton;
-    NSArray *titleStringArray = @[@"隔热膜", @"美容", @"车衣", @"改色"];
-    for (int i = 0; i < 4; i++) {
+//    UIButton *lastButton;
+    NSArray *titleStringArray = @[@"隔热膜", @"车衣", @"改色", @"美容", @"安全膜", @"其他"];
+    for (int i = 0; i < 6; i++) {
         UIButton *button = [[UIButton alloc]init];
         [button setTitle:titleStringArray[i] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -541,21 +635,23 @@
             button.backgroundColor = [UIColor whiteColor];
         }
 //        button.backgroundColor = [UIColor redColor];
-        [leftView addSubview:button];
+        [leftScrollView addSubview:button];
+        button.frame = CGRectMake(0, 45 * i, 70, 45);
+        /*
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.left.equalTo(leftView);
-            make.height.mas_equalTo(leftView.mas_height).multipliedBy(0.25);
+            make.right.left.equalTo(leftScrollView);
+            make.height.mas_equalTo(leftScrollView.mas_height).multipliedBy(0.25);
 //            make.width.equalTo(otherView.width).multipleBy(0.5);
 //            make.height.mas_offset(45);
             if (lastButton){
                 make.top.equalTo(lastButton.mas_bottom);
             }else{
-                make.top.equalTo(leftView.mas_top);
+                make.top.equalTo(leftScrollView.mas_top);
             }
             
         }];
         lastButton = button;
-        
+        */
         
         UILabel *iconLabel = [[UILabel alloc]init];
         iconLabel.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -588,10 +684,181 @@
     [_dataOrderBaseView addSubview:_tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_dataOrderBaseView);
-        make.left.equalTo(leftView.mas_right);
+        make.left.equalTo(leftScrollView.mas_right);
         make.top.equalTo(_packageTitleBaseView.mas_bottom);
         make.bottom.equalTo(_footBaseView.mas_top);
     }];
+    
+}
+
+#pragma mark - 暂存订单
+- (void)saveOrderBtnClick{
+    ICLog(@"暂存订单");
+    BOOL isCanSave = NO;
+    NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc]init];
+    if (_orderDataVinTextField.text.length < 1){
+//        dataDictionary[@"vin"] = @"";
+    }else{
+        dataDictionary[@"vin"] = _orderDataVinTextField.text;
+        isCanSave = YES;
+    }
+    if (_orderDataCarLicenseTextField.text.length < 1){
+//        dataDictionary[@"license"] = @"";
+    }else{
+        dataDictionary[@"license"] = _orderDataCarLicenseTextField.text;
+        isCanSave = YES;
+    }
+    if (_orderDataCarTypeTextField.text.length < 1){
+//        dataDictionary[@"vehicleModel"] = @"";
+    }else{
+        dataDictionary[@"vehicleModel"] = _orderDataCarTypeTextField.text;
+        isCanSave = YES;
+    }
+    if (_orderDataBeginTimeTextField.text.length < 1){
+//        dataDictionary[@"agreedStartTime"] = @"";
+    }else{
+        dataDictionary[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
+        isCanSave = YES;
+    }
+    if (_orderRemarkTextField.text.length < 1){
+//        dataDictionary[@"remark"] = @"";
+    }else{
+        dataDictionary[@"remark"] = _orderRemarkTextField.text;
+        isCanSave = YES;
+    }
+    
+    if (_packageScrollView == nil || _packageScrollView.hidden == YES){  //选择项目
+        if (self.selectProductIdArray.count < 1){
+//            dataDictionary[@"productOfferId"] = @"";
+        }else{
+            NSString *offerIdString = @"";
+            for (int i = 0; i < self.selectProductIdArray.count; i++) {
+                if (i == 0){
+                    offerIdString = self.selectProductIdArray[0];
+                }else{
+                    offerIdString = [NSString stringWithFormat:@"%@,%@", offerIdString, self.selectProductIdArray[i]];
+                }
+            }
+            dataDictionary[@"productOfferId"] = offerIdString;
+            isCanSave = YES;
+            
+            
+            __block NSString *markString = @"";
+            [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx == 0){
+                    markString = obj.text;
+                }else{
+                    markString = [NSString stringWithFormat:@"%@,%@",markString,obj.text];
+                }
+            }];
+            dataDictionary[@"mark"] = markString;
+            
+        }
+        
+    } else {    //选择套餐
+        if (self.selectPackageIdArray.count < 1){
+            
+//            dataDictionary[@"productOfferSetMenuId"] = @"";
+        }else{
+            NSString *menuIdString = @"";
+            for (int i = 0; i < self.selectPackageIdArray.count; i++) {
+                if (i == 0){
+                    menuIdString = self.selectPackageIdArray[0];
+                }else{
+                    menuIdString = [NSString stringWithFormat:@"%@,%@", menuIdString, self.selectPackageIdArray[i]];
+                }
+            }
+            dataDictionary[@"productOfferSetMenuId"] = menuIdString;
+            isCanSave = YES;
+        }
+    }
+    
+    ICLog(@"---dataDict---%@--", dataDictionary);
+    if(isCanSave == NO){
+        [self addAlertView:@"无暂存内容"];
+        return;
+    }
+    
+    [GFHttpTool postCoopMerchantOrderPreWithParameters:dataDictionary success:^(id responseObject) {
+        ICLog(@"暂存成功---%@---", responseObject);
+        _orderDataVinTextField.text = @"";
+        _orderDataCarLicenseTextField.text = @"";
+        _orderDataCarTypeTextField.text = @"";
+        _orderDataBeginTimeTextField.text = @"";
+        _orderRemarkTextField.text = @"";
+        
+        _selectPackageIndex = -5;
+        _selectPackageModel = nil;
+        [self.selectProductIdArray removeAllObjects];
+        [self.selectProductArray removeAllObjects];
+        [self.selectPackageIdArray removeAllObjects];
+        [self.selectPackageArray removeAllObjects];
+        [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.text = @"0";
+            obj.hidden = YES;
+        }];
+        [_tableView reloadData];
+        [_packageSelectButtonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj setTitle:@"选择" forState:UIControlStateNormal];
+            [obj setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            obj.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        ICLog(@"暂存失败---%@---", error);
+    }];
+    
+    
+    
+    
+    
+    
+}
+
+#pragma mark - 已存订单
+- (void)savedOrderBtnClick{
+    ICLog(@"查看已存订单");
+    CLSavedOrderViewController *savedOrderVC = [[CLSavedOrderViewController alloc]init];
+    savedOrderVC.delegate = self;
+    [self.navigationController pushViewController:savedOrderVC animated:YES];
+}
+#pragma mark - CLSelectSaveOrderDelegate
+- (void)selectSaveOrderModel:(CLPreOrderModel *)preOrderModel{
+    ICLog(@"填充数据");
+    _orderDataCarLicenseTextField.text = preOrderModel.license;
+    _orderDataVinTextField.text = preOrderModel.vin;
+    _orderDataCarTypeTextField.text = preOrderModel.vehicleModel;
+    _orderDataBeginTimeTextField.text = preOrderModel.agreedStartTime;
+    _orderRemarkTextField.text = preOrderModel.remark;
+    if (preOrderModel.productOfferSetMenus){    //套餐
+        for (int i = 0; i < preOrderModel.productOfferSetMenus.count; i++) {
+            NSDictionary *menuDict = preOrderModel.productOfferSetMenus[i];
+            [self.selectPackageIdArray addObject:[NSString stringWithFormat:@"%@", menuDict[@"id"]]];
+        }
+        [_packageBaseViewChangeButton setTitle:@"套餐组合" forState:UIControlStateNormal];
+        [self packageBaseViewChangeBtnClick];
+    }else if (preOrderModel.productOffers){     //项目
+        for (int i = 0; i < preOrderModel.productOffers.count; i++) {
+            NSDictionary *productDict = preOrderModel.productOffers[i];
+            [self.selectProductIdArray addObject:[NSString stringWithFormat:@"%@", productDict[@"id"]]];
+        }
+        NSArray *labelStringArray = [preOrderModel.mark componentsSeparatedByString:@","];
+        [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *objLabel, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *labelString = labelStringArray[idx];
+            objLabel.text = labelString;
+            if ([labelString integerValue] > 0){
+                objLabel.hidden = false;
+            }
+        }];
+        [_packageBaseViewChangeButton setTitle:@"选择项目" forState:UIControlStateNormal];
+        [self packageBaseViewChangeBtnClick];
+        [self getAllProductList];
+        [_tableView reloadData];
+        
+    }
+    self.preOrderModel = preOrderModel;
+    
     
 }
 
@@ -610,7 +877,7 @@
     }];
     _packageScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * self.packageArray.count);
     _packageSelectButtonArray = [[NSMutableArray alloc]init];
-    self.selectPackageIdArray = [[NSMutableArray alloc]init];
+//    self.selectPackageIdArray = [[NSMutableArray alloc]init];
     self.selectPackageArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < self.packageArray.count; i++) {
         CLProductPackageModel *productModel = self.packageArray[i];
@@ -648,17 +915,18 @@
         [contentButton addTarget:self action:@selector(scrollViewPackageSelectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_packageSelectButtonArray addObject:contentButton];
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
-        NSArray *packageIdArray;
-        if (dataDictionary){
-            ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
-            packageIdArray = dataDictionary[@"packageIdArray"];
-            if (packageIdArray){
-                self.selectPackageIdArray = [[NSMutableArray alloc]initWithArray:packageIdArray];
-            }
-        }
-        if ([packageIdArray containsObject:productModel.idString]){
+//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//        NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
+//        NSArray *packageIdArray;
+//        if (dataDictionary){
+//            ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
+//            packageIdArray = dataDictionary[@"packageIdArray"];
+//            if (packageIdArray){
+//                self.selectPackageIdArray = [[NSMutableArray alloc]initWithArray:packageIdArray];
+//            }
+//        }
+        
+        if ([self.selectPackageIdArray containsObject:productModel.idString]){
             [contentButton setTitle:@"已选择" forState:UIControlStateNormal];
             contentButton.selected = YES;
             [contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -666,9 +934,6 @@
             [self.selectPackageArray addObject:productModel];
             ICLog(@"-----self.selectPackageArray----%@---", self.selectPackageArray);
         }
-        
-        
-        
     }
     
 }
@@ -705,7 +970,7 @@
     [_selectPackageArray addObject:packageModel];
     [_selectPackageIdArray addObject:packageModel.idString];
     
-    [self saveOrderData];
+//    [self saveOrderData];
 }
 
 
@@ -829,7 +1094,7 @@
     }
     
     
-    [self saveOrderData];
+//    [self saveOrderData];
     
 }
 
@@ -1654,7 +1919,7 @@
             if (self.shijianNum == 1){
                 _orderDataBeginTimeTextField.text = date;
             }else if(self.shijianNum == 2){
-                _orderDataEndTimeTextField.text = date;
+//                _orderDataEndTimeTextField.text = date;
             }
         }else{  //拍照下单
             if(self.shijianNum == 1 && _suo == 0) {
@@ -1773,9 +2038,9 @@
     if (_orderDataBeginTimeTextField.text.length > 0){
         dataDictionary[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
     }
-    if (_orderDataEndTimeTextField.text.length > 0){
-        dataDictionary[@"agreedEndTime"] = _orderDataEndTimeTextField.text;
-    }
+//    if (_orderDataEndTimeTextField.text.length > 0){
+//        dataDictionary[@"agreedEndTime"] = _orderDataEndTimeTextField.text;
+//    }
     
     ICLog(@"---selectProductIdArray----%@----", _selectProductIdArray);
     
@@ -1878,7 +2143,7 @@
     }
     dataDict[@"vehicleModel"] = _orderDataCarTypeTextField.text;
     dataDict[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
-    dataDict[@"agreedEndTime"] = _orderDataEndTimeTextField.text;
+    dataDict[@"remark"] = _orderRemarkTextField.text;
     ICLog(@"------dataDict-----%@----", dataDict);
     
     [GFHttpTool postCoopMerchantDataOrderWithParameters:dataDict success:^(id responseObject) {
@@ -1889,7 +2154,7 @@
             _orderDataCarLicenseTextField.text = @"";
             _orderDataCarTypeTextField.text = @"";
             _orderDataBeginTimeTextField.text = @"";
-            _orderDataEndTimeTextField.text = @"";
+            _orderRemarkTextField.text = @"";
             
             _selectPackageIndex = -5;
             _selectPackageModel = nil;
@@ -1910,7 +2175,7 @@
             
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults removeObjectForKey:@"homeOrderData"];
-            
+            [self deleteSaveOrderBtnClick];
         }else{
             [self addAlertView:responseObject[@"message"]];
         }
@@ -1918,6 +2183,19 @@
         ICLog(@"---error---%@---", error);
     }];
     
+}
+
+
+- (void)deleteSaveOrderBtnClick{
+    ICLog(@"删除订单");
+    if(self.preOrderModel){
+        [GFHttpTool deleteCoopMerchantOrderPreWithParameters:@{@"orderPreIds": _preOrderModel.idString} success:^(id responseObject) {
+            ICLog(@"删除成功---%@--", responseObject);
+            self.preOrderModel = nil;
+        } failure:^(NSError *error) {
+            ICLog(@"删除失败---%@--", error);
+        }];
+    }
 }
 
 
@@ -2565,7 +2843,7 @@
 - (void)getProductList:(NSInteger )type{
     ICLog(@"获取产品列表");
     [self.view endEditing:YES];
-//    type  1 隔热膜   2 隐形车衣   3 车身改色   4 美容清洁
+//    type  1 隔热膜   2 隐形车衣   3 车身改色   4 美容清洁    5 安全膜 99 其他
     _productArray = [[NSMutableArray alloc]init];
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
     dataDict[@"page"] = @(1);
@@ -2573,11 +2851,15 @@
     if (type == 0){
         dataDict[@"type"] = @"1";
     }else if(type == 1){
-        dataDict[@"type"] = @"4";
-    }else if (type == 2){
         dataDict[@"type"] = @"2";
-    }else if (type == 3){
+    }else if (type == 2){
         dataDict[@"type"] = @"3";
+    }else if (type == 3){
+        dataDict[@"type"] = @"4";
+    }else if (type == 4){
+        dataDict[@"type"] = @"5";
+    }else if (type == 5){
+        dataDict[@"type"] = @"99";
     }
     ICLog(@"----dataDict----%@----",dataDict);
     [GFHttpTool getProductOfferWithParameters:dataDict success:^(id responseObject) {
@@ -2607,7 +2889,7 @@
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
     dataDict[@"page"] = @(1);
     dataDict[@"pageSize"] = @(2000);
-    
+    self.selectProductArray = [[NSMutableArray alloc]init];
     ICLog(@"----dataDict----%@----",dataDict);
     [GFHttpTool getProductOfferWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);
@@ -2638,26 +2920,26 @@
 //    dataDict[@"type"] = @"2";
     _packageArray = [[NSMutableArray alloc]init];
     [GFHttpTool getProductOfferMenuListWithParameters:dataDict success:^(id responseObject) {
-        ICLog(@"-getProductList--responseObject---%@-", responseObject);
+        ICLog(@"-getProductOfferMenu--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
-            NSString *packageId;
-            if (dataDictionary){
-                ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
-                packageId = dataDictionary[@"packageId"];
-            }
+//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//            NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
+//            NSString *packageId;
+//            if (dataDictionary){
+//                ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
+//                packageId = dataDictionary[@"packageId"];
+//            }
 //            NSDictionary *messageDictionary = responseObject[@"message"];
             NSArray *listArray = responseObject[@"message"];
             [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
                 CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
                 [packageModel setModelForDictionary:modelDic];
                 [_packageArray addObject:packageModel];
-                if ([packageId isEqualToString:packageModel.idString]){
-                    _selectPackageIndex = idx;
-                    _selectPackageModel = packageModel;
-                    ICLog(@"---_selectPackageIndex--%ld----", _selectPackageIndex);
-                }
+//                if ([packageId isEqualToString:packageModel.idString]){
+//                    _selectPackageIndex = idx;
+//                    _selectPackageModel = packageModel;
+//                    ICLog(@"---_selectPackageIndex--%ld----", _selectPackageIndex);
+//                }
             }];
             
             
@@ -2728,6 +3010,8 @@
     if (textField.tag == 3 && textField.text.length > 6 && range.length== 0) {
         return NO;
     }if (textField.tag == 4 && textField.text.length > 7 && range.length== 0) {
+        return NO;
+    }if (textField.tag == 33 && textField.text.length > 199 && range.length== 0) {
         return NO;
     }else{
         return YES;

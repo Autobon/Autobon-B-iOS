@@ -2326,8 +2326,126 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
     }
 }
 
-
-
+#pragma mark - 商户创建暂存订单
++ (void)postCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"加载中..."];
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre",HOST];
+        
+        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            [alertView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [alertView removeFromSuperview];
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+#pragma mark - 商户获取暂存订单
++ (void)getCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"加载中..."];
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre",HOST];
+        
+        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            [alertView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [alertView removeFromSuperview];
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
+#pragma mark - 商户删除暂存订单
++ (void)deleteCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure{
+    
+    if ([GFHttpTool isConnectionAvailable]) {
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        GFAlertView *alertView = [GFAlertView initWithJinduTiaoTipName:@"加载中..."];
+        // 请求超时时间设置
+        [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+        manager.requestSerializer.timeoutInterval = 30;
+        [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        NSString *token = [userDefaultes objectForKey:@"autoken"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre",HOST];
+        
+        [manager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+            [alertView removeFromSuperview];
+            if(success) {
+                success(responseObject);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [alertView removeFromSuperview];
+            if(failure) {
+                
+                // 判断请求超时
+                NSString *errorStr = error.userInfo[@"NSLocalizedDescription"];
+                if([errorStr isEqualToString:@"The request timed out."]) {
+                    [GFHttpTool addAlertView:@"请求超时，请重试"];
+                }else {
+                    [GFHttpTool addAlertView:@"请求失败，请重试"];
+                }
+                
+                failure(error);
+            }
+        }];
+    }else{
+        [GFHttpTool addAlertView:@"无网络连接"];
+    }
+}
 
 
 #pragma mark - AlertView

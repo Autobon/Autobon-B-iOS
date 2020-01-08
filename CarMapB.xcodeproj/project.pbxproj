@@ -24,6 +24,9 @@
 		A60C641E234DD0850024FC24 /* CLAddPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C641D234DD0850024FC24 /* CLAddPackageViewController.m */; };
 		A60C6421234DD5C90024FC24 /* CLPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C6420234DD5C90024FC24 /* CLPackageTableViewCell.m */; };
 		A6335753233E01420081D8C0 /* CLHomeProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */; };
+		A6472E6923C430AF007FE382 /* CLSavedOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6472E6823C430AF007FE382 /* CLSavedOrderViewController.m */; };
+		A6472E6C23C46209007FE382 /* CLPreOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6472E6B23C46209007FE382 /* CLPreOrderTableViewCell.m */; };
+		A6472E6F23C47116007FE382 /* CLPreOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6472E6E23C47116007FE382 /* CLPreOrderModel.m */; };
 		A6583483237549550091FF1C /* CLQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6583482237549550091FF1C /* CLQuotationViewController.m */; };
 		A658348723754FFB0091FF1C /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = A658348523754FFB0091FF1C /* GraphView.m */; };
 		A66A067323B1AB3A00C576C6 /* CLProductSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A66A067223B1AB3A00C576C6 /* CLProductSelectTableViewCell.m */; };
@@ -208,6 +211,12 @@
 		A60C6420234DD5C90024FC24 /* CLPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPackageTableViewCell.m; sourceTree = "<group>"; };
 		A6335751233E01420081D8C0 /* CLHomeProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLHomeProductTableViewCell.h; sourceTree = "<group>"; };
 		A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLHomeProductTableViewCell.m; sourceTree = "<group>"; };
+		A6472E6723C430AF007FE382 /* CLSavedOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSavedOrderViewController.h; sourceTree = "<group>"; };
+		A6472E6823C430AF007FE382 /* CLSavedOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLSavedOrderViewController.m; sourceTree = "<group>"; };
+		A6472E6A23C46209007FE382 /* CLPreOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLPreOrderTableViewCell.h; sourceTree = "<group>"; };
+		A6472E6B23C46209007FE382 /* CLPreOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPreOrderTableViewCell.m; sourceTree = "<group>"; };
+		A6472E6D23C47116007FE382 /* CLPreOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLPreOrderModel.h; sourceTree = "<group>"; };
+		A6472E6E23C47116007FE382 /* CLPreOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLPreOrderModel.m; sourceTree = "<group>"; };
 		A6583481237549550091FF1C /* CLQuotationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLQuotationViewController.h; sourceTree = "<group>"; };
 		A6583482237549550091FF1C /* CLQuotationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLQuotationViewController.m; sourceTree = "<group>"; };
 		A658348523754FFB0091FF1C /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
@@ -789,6 +798,8 @@
 				B0228E911ECD499D0022D34F /* GFNoIndentViewController.m */,
 				B0228E921ECD499D0022D34F /* GFOneIndentViewController.h */,
 				B0228E931ECD499D0022D34F /* GFOneIndentViewController.m */,
+				A6472E6723C430AF007FE382 /* CLSavedOrderViewController.h */,
+				A6472E6823C430AF007FE382 /* CLSavedOrderViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -802,6 +813,8 @@
 				B0228E981ECD499D0022D34F /* CLIndentModel.m */,
 				B0228E991ECD499D0022D34F /* GFNoIndentModel.h */,
 				B0228E9A1ECD499D0022D34F /* GFNoIndentModel.m */,
+				A6472E6D23C47116007FE382 /* CLPreOrderModel.h */,
+				A6472E6E23C47116007FE382 /* CLPreOrderModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -819,6 +832,8 @@
 				B099047F20D3634F009CEF90 /* CLChooseView.m */,
 				A6335751233E01420081D8C0 /* CLHomeProductTableViewCell.h */,
 				A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */,
+				A6472E6A23C46209007FE382 /* CLPreOrderTableViewCell.h */,
+				A6472E6B23C46209007FE382 /* CLPreOrderTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1281,6 +1296,7 @@
 				B099048620D3A6BA009CEF90 /* CLOrderStatusTimeModel.m in Sources */,
 				B02290721ECD49F50022D34F /* HZPhotoBrowserView.m in Sources */,
 				B0228EA51ECD499D0022D34F /* GFJishiDDViewController.m in Sources */,
+				A6472E6923C430AF007FE382 /* CLSavedOrderViewController.m in Sources */,
 				B02290651ECD49F50022D34F /* CLTouchScrollView.m in Sources */,
 				B02290341ECD49F40022D34F /* ACETelPrompt.m in Sources */,
 				A679CE41233B634B00DBD4E9 /* CLProductModel.m in Sources */,
@@ -1299,7 +1315,9 @@
 				A60C641E234DD0850024FC24 /* CLAddPackageViewController.m in Sources */,
 				B022905D1ECD49F50022D34F /* SecondViewController.m in Sources */,
 				B05EC1B520F35ABB00EFB588 /* NSDate+HXExtension.m in Sources */,
+				A6472E6F23C47116007FE382 /* CLPreOrderModel.m in Sources */,
 				B0228EA31ECD499D0022D34F /* GFDeNoindentViewController.mm in Sources */,
+				A6472E6C23C46209007FE382 /* CLPreOrderTableViewCell.m in Sources */,
 				A6583483237549550091FF1C /* CLQuotationViewController.m in Sources */,
 				B03B258F20D27019007CA21D /* CLZYSupperSelectView.m in Sources */,
 				B02290681ECD49F50022D34F /* GFButton.m in Sources */,

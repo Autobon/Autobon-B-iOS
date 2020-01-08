@@ -25,6 +25,13 @@
     return [dateFormatter stringFromDate:date];
 }
 
++ (NSString *)dateToHHMMStringWithDate:(NSDate *)date{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
+    
+    return [dateFormatter stringFromDate:date];
+}
+
 + (NSDate *)timeIntervalToDateWithTimeInterval:(double )timeInterval{
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     return date;
