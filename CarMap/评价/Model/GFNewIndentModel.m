@@ -39,10 +39,13 @@
         self.contactPhone = [NSString stringWithFormat:@"%@",dic[@"contactPhone"]];
         
         NSArray *typeArr = [self.type componentsSeparatedByString:@","];
-        NSArray *arr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁"];
+        NSArray *arr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁", @"安全膜", @"其他"];
         for(int i=0; i<typeArr.count; i++) {
         
             NSInteger index = [typeArr[i] integerValue] - 1;
+            if (index > arr.count - 1){
+                index = arr.count - 1;
+            }
             if(i == 0) {
             
                 self.typeName = arr[index];

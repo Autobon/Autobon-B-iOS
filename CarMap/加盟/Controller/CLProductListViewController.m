@@ -33,7 +33,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) CLTouchView *bgTouchView;
 @property (nonatomic, strong) NSMutableArray *packageArray;
-
+@property (nonatomic, strong) NSString *isMainString;
 
 @end
 
@@ -44,6 +44,8 @@
     
     _page = 1;
     _pageSize = 10;
+    
+    _isMainString = [[NSUserDefaults standardUserDefaults] objectForKey:@"userIsMain"];
     
     
     [self setNavigation];
@@ -194,6 +196,10 @@
     }else{
         cell.detailButton.selected = YES;
         cell.buttonImageView.image = [UIImage imageNamed:@"tc_gbxq_btn"];
+    }
+    
+    if (![self.isMainString isEqualToString:@"1"]){
+        cell.priceLabel.hidden = YES;
     }
     
     

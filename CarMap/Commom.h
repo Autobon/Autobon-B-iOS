@@ -17,6 +17,8 @@
 
 + (NSString *)dateToHHMMStringWithDate:(NSDate *)date;
 
++ (NSDate *)stringHHMMToDateWithDate:(NSString *)dateString;
+
 + (NSDate *)timeIntervalToDateWithTimeInterval:(double )timeInterval;
 
 + (BOOL) validateCarLicense: (NSString *)carLicense;

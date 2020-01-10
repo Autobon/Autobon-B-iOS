@@ -22,17 +22,20 @@
         self.orderID = [NSString stringWithFormat:@"%@", dic[@"id"]];
         self.type = [NSString stringWithFormat:@"%@", dic[@"type"]];
         NSArray *typeIdArr = [self.type componentsSeparatedByString:@","];
-        NSArray *arr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁"];
+        NSArray *arr = @[@"隔热膜", @"隐形车衣", @"车身改色", @"美容清洁",@"安全膜",@"其他"];
         
         self.techId = [NSString stringWithFormat:@"%@", dic[@"techId"]];
         for(int i= 0; i<typeIdArr.count; i++) {
-        
+            NSInteger typeIndex = [typeIdArr[i] integerValue] - 1;
+            if (typeIndex > arr.count - 1){
+                typeIndex = arr.count - 1;
+            }
             if(i == 0) {
             
-                self.typeName = arr[[typeIdArr[i] integerValue] - 1];
+                self.typeName = arr[typeIndex];
             }else {
                 
-                self.typeName = [NSString stringWithFormat:@"%@,%@", self.typeName, arr[[typeIdArr[i] integerValue] - 1]];
+                self.typeName = [NSString stringWithFormat:@"%@,%@", self.typeName, arr[typeIndex]];
             }
         }
         self.status = [NSString stringWithFormat:@"%@", dic[@"status"]];

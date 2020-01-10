@@ -205,5 +205,9 @@
 
 #pragma mark - 商户删除暂存订单
 + (void)deleteCoopMerchantOrderPreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+#pragma mark - 评价订单多个技师
++ (void)postCoopMerchantOrderCommentMoreWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+#pragma mark - 获取订单技师列表
++ (void)getMerchantOrderTechWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
 @end

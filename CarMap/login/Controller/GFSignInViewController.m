@@ -230,6 +230,8 @@
                             }else if ([cooperatorDictionary[@"statusCode"] integerValue] == 1){
                                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                                 [userDefaults setObject:cooperatorDictionary[@"fullname"] forKey:@"userFullname"];
+                                NSDictionary *coopAccountDictionary = dataDictionary[@"coopAccount"];
+                                [userDefaults setObject:[NSString stringWithFormat:@"%@", coopAccountDictionary[@"main"]] forKey:@"userIsMain"];
                                 GFOneIndentViewController *oneIndentView = [[GFOneIndentViewController alloc]init];
 //                                CLAddPersonViewController *oneIndentView = [[CLAddPersonViewController alloc]init];
                                 UIWindow *window = [UIApplication sharedApplication].keyWindow;

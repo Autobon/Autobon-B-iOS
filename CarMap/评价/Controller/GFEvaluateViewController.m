@@ -17,10 +17,10 @@
 #import "GFTipView.h"
 #import "GFIndentViewController.h"
 #import "ACETelPrompt.h"
+#import "CLEvaluateTechTableViewCell.h"
 
 
-
-@interface GFEvaluateViewController ()<UITextViewDelegate> {
+@interface GFEvaluateViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource> {
     
     CGFloat kWidth;
     CGFloat kHeight;
@@ -44,7 +44,10 @@
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
-
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic) NSInteger selectCell;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *techCommentArray;
 @end
 
 @implementation GFEvaluateViewController
@@ -52,16 +55,139 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _star = 5;
-    _scrollView = [[CLTouchScrollView alloc]initWithFrame:self.view.bounds];
+//    _scrollView = [[CLTouchScrollView alloc]initWithFrame:self.view.bounds];
 //    _scrollView.backgroundColor = [UIColor cyanColor];
-    _scrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:_scrollView];
+//    _scrollView.showsVerticalScrollIndicator = NO;
+//    [self.view addSubview:_scrollView];
     // 基础设置
     [self _setBase];
     
     // 界面搭建
-    [self _setView];
+//    [self _setView];
+    
+    [self getTechList];
+    
+    self.selectCell = -1;
+    _tableView = [[UITableView alloc]init];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.navView.mas_bottom);
+        make.bottom.equalTo(self.view).offset(-100);
+    }];
+    
+    UIButton *submitBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    submitBut.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    submitBut.layer.cornerRadius = 5;
+    [submitBut setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBut addTarget:self action:@selector(submitCommentBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:submitBut];
+    [submitBut mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(30);
+        make.right.equalTo(self.view).offset(-30);
+        make.bottom.equalTo(self.view).offset(-30);
+        make.height.mas_offset(40);
+    }];
 }
+
+//批量提交方法
+- (void)submitCommentBtnClick{
+    [self.view endEditing:YES];
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
+    dataDict[@"orderId"] = self.orderId;
+    dataDict[@"comments"] = self.techCommentArray;
+    ICLog(@"dataDict---%@",dataDict);
+    
+    [GFHttpTool postCoopMerchantOrderCommentMoreWithParameters:dataDict success:^(id responseObject) {
+        ICLog(@"评价成功---%@--", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            GFEvaluateShareViewController *shareView = [[GFEvaluateShareViewController alloc]init];
+            shareView.orderId = _orderId;
+            NSDictionary *commentDict = self.techCommentArray[0];
+            shareView.star = [commentDict[@"star"] integerValue];
+            shareView.isPush = _isPush;
+            [self.navigationController pushViewController:shareView animated:YES];
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        ICLog(@"评价失败---%@--", error);
+    }];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CLEvaluateTechTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil){
+        cell = [[CLEvaluateTechTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    if (indexPath.row < _dataArray.count){
+        NSDictionary *techDict = _dataArray[indexPath.row];
+        cell.modelDict = techDict;
+        NSMutableDictionary *commentDcit = _techCommentArray[indexPath.row];
+        cell.commentDict = commentDcit;
+    }
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == self.selectCell){
+        return 450;
+    }
+    return 100;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.view endEditing:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CLEvaluateTechTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (self.selectCell == indexPath.row){
+        self.selectCell = -1;
+        cell.rightImageView.image = [UIImage imageNamed:@"right-close"];
+    }else{
+        self.selectCell = indexPath.row;
+        cell.rightImageView.image = [UIImage imageNamed:@"right-down"];
+    }
+    [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+
+- (void)getTechList{
+    [GFHttpTool getMerchantOrderTechWithParameters:@{@"id": self.orderId} success:^(id responseObject) {
+        ICLog(@"获取技师列表成功---%@--", responseObject);
+        if ([responseObject[@"status"] integerValue] == 1) {
+            NSArray *messageArray = responseObject[@"message"];
+            self.dataArray = [[NSMutableArray alloc]initWithArray:messageArray];
+            self.techCommentArray = [[NSMutableArray alloc]init];
+            for (int i = 0; i < self.dataArray.count; i++) {
+                NSDictionary *techDict = self.dataArray[i];
+                NSMutableDictionary *commentDictionary = [[NSMutableDictionary alloc]init];
+                commentDictionary[@"techId"] = techDict[@"id"];
+                commentDictionary[@"star"] = @"5";
+                commentDictionary[@"arriveOnTime"] = @(true);
+                commentDictionary[@"completeOnTime"] = @(true);
+                commentDictionary[@"professional"] = @(true);
+                commentDictionary[@"dressNeatly"] = @(true);
+                commentDictionary[@"carProtect"] = @(true);
+                commentDictionary[@"goodAttitude"] = @(true);
+                commentDictionary[@"advice"] = @"";
+                [self.techCommentArray addObject:commentDictionary];
+            }
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        ICLog(@"获取技师列表失败----%@--", error);
+    }];
+    
+}
+
 
 - (void)_setBase {
     
@@ -74,7 +200,7 @@
     jianjv3 = kHeight * 0.02865;
     jianjv4 = kHeight * 0.02;
     
-    self.view.backgroundColor = [UIColor colorWithRed:252 / 255.0 green:252 / 255.0 blue:252 / 255.0 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:230 / 255.0 green:230 / 255.0 blue:230 / 255.0 alpha:1];
     
     // 导航栏
     self.navView = [[GFNavigationView alloc] initWithLeftImgName:@"back.png" withLeftImgHightName:@"backClick.png" withRightImgName:nil withRightImgHightName:nil withCenterTitle:@"评价" withFrame:CGRectMake(0, 0, kWidth, 64)];

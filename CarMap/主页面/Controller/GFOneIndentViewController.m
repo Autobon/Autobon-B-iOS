@@ -2143,6 +2143,11 @@
     }
     dataDict[@"vehicleModel"] = _orderDataCarTypeTextField.text;
     dataDict[@"agreedStartTime"] = _orderDataBeginTimeTextField.text;
+    NSDate *startTimeDate = [Commom stringHHMMToDateWithDate:_orderDataBeginTimeTextField.text];
+    NSInteger time = (NSInteger)[startTimeDate timeIntervalSince1970] + 3 * 60 * 60;
+    NSDate *endTimeDate = [Commom timeIntervalToDateWithTimeInterval:time];
+    NSString *endTimeString = [Commom dateToHHMMStringWithDate:endTimeDate];
+    dataDict[@"agreedEndTime"] = endTimeString;
     dataDict[@"remark"] = _orderRemarkTextField.text;
     ICLog(@"------dataDict-----%@----", dataDict);
     
@@ -2817,7 +2822,7 @@
     
     [GFHttpTool postOrderCountsuccess:^(id responseObject) {
         
-//        NSLog(@"===%@==", responseObject);
+        NSLog(@"===%@==", responseObject);
         
         if ([responseObject[@"status"] integerValue] == 1) {
             GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
