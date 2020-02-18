@@ -14,7 +14,7 @@
 
 - (void)setProductModel:(CLProductModel *)productModel{
     _productModel = productModel;
-    _priceLabel.text = [NSString stringWithFormat:@"¥%@",self.productModel.price];
+    _priceLabel.text = [NSString stringWithFormat:@"¥%@(元)",self.productModel.price];
     self.typeLabel.text = [NSString stringWithFormat:@"型号：%@", self.productModel.model];
     self.brandLabel.text = [NSString stringWithFormat:@"品牌：%@", self.productModel.brand];
     self.construcationProjectLabel.text = [NSString stringWithFormat:@"施工项目：%@", self.productModel.typeName];
@@ -29,7 +29,6 @@
         
         
         _priceLabel = [[UILabel alloc]init];
-        _priceLabel.text = @"¥200";
         _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _priceLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_priceLabel];
@@ -102,8 +101,10 @@
         }];
         
         
-        
-        
+        NSString *isMainString = [[NSUserDefaults standardUserDefaults] objectForKey:@"userIsMain"];
+        if (![isMainString isEqualToString:@"1"]){
+            _priceLabel.hidden = YES;
+        }
         
         
     }

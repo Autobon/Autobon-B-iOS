@@ -8,6 +8,7 @@
 
 
 #import "UWDatePickerView.h"
+#import "Commom.h"
 
 @interface UWDatePickerView ()
 
@@ -61,15 +62,24 @@
  */
 - (NSString *)timeFormat
 {
+    
+    
+    
     NSDate *selected = [self.datePickerView  date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
     //设置时间格式，转换成24小时的,
-//    [dateFormatter setDateFormat:@"YYYY-MM-DD HH:MM:SS"];
+//    [dateFormatter setDateFormat:@"YYYY-MM-DD HH:MM"];
     
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+//    ICLog(@"--selected--%@---",selected);
+//    ICLog(@"--date--%@---",[NSDate date]);
     
-    NSString *currentOlderOneDateStr = [dateFormatter stringFromDate:selected];
-    return currentOlderOneDateStr;
+//    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    
+//    NSString *currentOlderOneDateStr = [dateFormatter stringFromDate:selected];
+    NSString *dateString = [Commom dateToHHMMStringWithDate:selected];
+    
+    return dateString;
    
 }
 

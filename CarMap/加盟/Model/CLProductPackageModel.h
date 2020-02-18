@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *coopId;
 @property (nonatomic, strong) NSString *productOfferIds;
+@property (nonatomic, strong) NSString *type;
+
 
 -(void)setModelForDictionary:(NSDictionary *)dictionary;
 

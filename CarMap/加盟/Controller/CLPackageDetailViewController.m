@@ -172,6 +172,11 @@
     [_navView.rightBut setTitle:@"编辑" forState:UIControlStateNormal];
     [_navView.rightBut addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    if ([self.packageModel.type isEqualToString:@"1"]){
+        _navView.rightBut.hidden = YES;
+    }
+    
+    
     
 }
 //编辑按钮相应方法

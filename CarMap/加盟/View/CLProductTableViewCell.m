@@ -54,7 +54,6 @@
         }];
         
         _priceLabel = [[UILabel alloc]init];
-        _priceLabel.text = @"¥200";
         _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _priceLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_priceLabel];

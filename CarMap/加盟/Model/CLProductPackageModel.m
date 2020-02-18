@@ -15,6 +15,7 @@
     self.name = dictionary[@"name"];
     self.coopId = [NSString stringWithFormat:@"%@", dictionary[@"coopId"]];
     self.productOfferIds = dictionary[@"productOfferIds"];
+    self.type = [NSString stringWithFormat:@"%@", dictionary[@"type"]];
 }
 
 

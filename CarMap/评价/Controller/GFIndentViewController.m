@@ -21,7 +21,7 @@
 #import "GFNewIndentModel.h"
 #import "CLSearchOrderViewController.h"
 #import "GFDeNoindentViewController.h"
-
+#import "CLAddPersonViewController.h"
 
 
 //#import "GFTipView.h"
@@ -396,10 +396,23 @@
         cell.model = (GFNewIndentModel *)self.modelArr[indexPath.row];
         [cell.removeOrderButton addTarget:self action:@selector(removeOrderBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         cell.removeOrderButton.tag = indexPath.row;
+        [cell.appointButton addTarget:self action:@selector(appointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.appointButton.tag = indexPath.row;
     }
     
     return cell;
 }
+
+- (void)appointBtnClick:(UIButton *)button {
+    if (button.tag < self.modelArr.count){
+         GFNewIndentModel *indentModel = (GFNewIndentModel *)self.modelArr[button.tag];
+        CLAddPersonViewController *vc = [[CLAddPersonViewController alloc] init];
+        vc.orderId = indentModel.orderID;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+}
+
 
 - (void)removeOrderBtnClick:(UIButton *)button{
     GFNewIndentModel *indentModel = (GFNewIndentModel *)self.modelArr[button.tag];

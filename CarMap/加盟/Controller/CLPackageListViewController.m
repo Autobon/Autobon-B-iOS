@@ -53,7 +53,7 @@
 //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 添加刷新
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefresh)];
-//    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
+    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footRefresh)];
     [self.view addSubview:_tableView];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,27 +86,29 @@
     ICLog(@"获取产品列表");
     
     NSMutableDictionary *dataDict = [[NSMutableDictionary alloc]init];
-//    dataDict[@"page"] = @(_page);
-//    dataDict[@"pageSize"] = @(_pageSize);
+    dataDict[@"page"] = @(_page);
+    dataDict[@"pageSize"] = @(_pageSize);
 //    dataDict[@"type"] = @"2";
-    [GFHttpTool getProductOfferMenuListWithParameters:dataDict success:^(id responseObject) {
+    [GFHttpTool getProductOfferSetMenuWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);
         if ([responseObject[@"status"] integerValue] == 1) {
-//            NSDictionary *messageDictionary = responseObject[@"message"];
-            NSArray *listArray = responseObject[@"message"];
-            [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
-                CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
-                [packageModel setModelForDictionary:modelDic];
-                [_packageArray addObject:packageModel];
-            }];
+            NSDictionary *messageDictionary = responseObject[@"message"];
+            if ([messageDictionary isKindOfClass:[NSDictionary class]]){
+                NSArray *listArray = messageDictionary[@"list"];
+                [listArray enumerateObjectsUsingBlock:^(NSDictionary *modelDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                    CLProductPackageModel *packageModel = [[CLProductPackageModel alloc]init];
+                    [packageModel setModelForDictionary:modelDic];
+                    [_packageArray addObject:packageModel];
+                }];
+            }
         }
         [_tableView.mj_header endRefreshing];
-//        [_tableView.mj_footer endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         [_tableView reloadData];
     } failure:^(NSError *error) {
         ICLog(@"-getProductList--error---%@-", error);
         [_tableView.mj_header endRefreshing];
-//        [_tableView.mj_footer endRefreshing];
+        [_tableView.mj_footer endRefreshing];
     }];
     
 }
@@ -135,6 +137,11 @@
         cell.packageNameLabel.text = packageModel.name;
         cell.deleteButton.tag = indexPath.row;
         [cell.deleteButton addTarget:self action:@selector(deletePackageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        if ([packageModel.type isEqualToString:@"1"]){
+            cell.deleteButton.hidden = YES;
+        }else{
+            cell.deleteButton.hidden = NO;
+        }
     }
     
 //    cell.textLabel.text = [NSString stringWithFormat:@"套餐%ld", indexPath.row + 1];
