@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *carModelValueLabel;
 @property (nonatomic, strong) UILabel *beginTimeValueLabel;
 @property (nonatomic, strong) UIButton *orderButton;
+@property (nonatomic, strong) UIButton *editButton;
 @property (nonatomic, strong) UIButton *deleteButton;
 
 @end

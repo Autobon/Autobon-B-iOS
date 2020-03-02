@@ -25,5 +25,6 @@
 
 #pragma mark - 整数正则表达式
 + (BOOL) validateInt: (NSString *)intString;
++ (BOOL) validateLetterInt: (NSString *)intString;
 
 @end

@@ -84,8 +84,25 @@
     
     [self getOrderStatusScore];
     
+    [self getOrderDetail];
+    
 }
 
+- (void)getOrderDetail{
+    
+    [GFHttpTool getOrderDetailOrderId:[self.model.orderID integerValue] success:^(id responseObject) {
+        ICLog(@"获取订单详情成功----%@--", responseObject);
+        NSString *statusString = [NSString stringWithFormat:@"%@", responseObject[@"status"]];
+        if ([statusString isEqualToString:@"1"]){
+//            _orderDetailDict = responseObject[@"message"];
+            // 界面布局
+//            [self _setDeInView];
+        }
+    } failure:^(NSError *error) {
+        ICLog(@"获取订单详情失败----%@--", error);
+    }];
+    
+}
 
 - (void)getOrderStatusScore{
     

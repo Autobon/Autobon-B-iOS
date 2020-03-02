@@ -70,5 +70,18 @@
     return [predicate evaluateWithObject:intString];
 }
 
+#pragma mark - 整数正则表达式
++ (BOOL) validateLetterInt: (NSString *)intString
+{
+    BOOL flag;
+    if (intString.length <= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex = @"^[0-9a-zA-Z]{7}$";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicate evaluateWithObject:intString];
+}
+
 
 @end

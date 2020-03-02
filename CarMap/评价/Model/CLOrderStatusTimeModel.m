@@ -19,7 +19,7 @@
     NSDate *date = [Commom timeIntervalToDateWithTimeInterval:self.recordTime];
     
     self.recordDateString = [Commom dateToDetailStringWithDate:date];
-    ICLog(@"------recordTime---%f---recordDateString---%@----",self.recordTime,self.recordDateString);
+//    ICLog(@"------recordTime---%f---recordDateString---%@----",self.recordTime,self.recordDateString);
     self.orderId = [NSString stringWithFormat:@"%@",dataDictionary[@"orderId"]];
     self.status = [dataDictionary[@"status"] intValue];
     if (self.status == 0) {

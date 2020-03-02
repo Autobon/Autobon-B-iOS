@@ -1402,7 +1402,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         
         NSString *token = [userDefaultes objectForKey:@"autoken"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
-        NSString *URLString = [NSString stringWithFormat:@"%@/technician/order/%ld",HOST,orderId];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/%ld",HOST,orderId];
         
         [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             if(success) {
@@ -2176,7 +2176,7 @@ NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
         
         NSString *token = [userDefaultes objectForKey:@"autoken"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
-        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/data/order",HOST];
+        NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/data/order2",HOST];
         
         [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];

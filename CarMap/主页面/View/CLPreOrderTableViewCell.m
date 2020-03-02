@@ -119,7 +119,7 @@
         
         _orderButton = [[UIButton alloc]init];
         _orderButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
-        [_orderButton setTitle:@"去下订单" forState:UIControlStateNormal];
+        [_orderButton setTitle:@"一键下单" forState:UIControlStateNormal];
         _orderButton.titleLabel.font = [UIFont systemFontOfSize:14];
         _orderButton.layer.cornerRadius = 15;
         [baseView addSubview:_orderButton];
@@ -127,8 +127,23 @@
             make.right.equalTo(baseView).offset(-10);
             make.top.equalTo(beginTimeTitleLabel.mas_bottom).offset(10);
             make.height.mas_offset(30);
-            make.width.mas_offset(90);
+            make.width.mas_offset(80);
         }];
+        
+        
+        _editButton = [[UIButton alloc]init];
+        _editButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        [_editButton setTitle:@"重新编辑" forState:UIControlStateNormal];
+        _editButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        _editButton.layer.cornerRadius = 15;
+        [baseView addSubview:_editButton];
+        [_editButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_orderButton.mas_left).offset(-10);
+            make.top.equalTo(beginTimeTitleLabel.mas_bottom).offset(10);
+            make.height.mas_offset(30);
+            make.width.mas_offset(80);
+        }];
+        
         
         _deleteButton = [[UIButton alloc]init];
         _deleteButton.backgroundColor = [UIColor colorWithRed:220 / 255.0 green:220 / 255.0 blue:220 / 255.0 alpha:1];
@@ -138,10 +153,10 @@
         _deleteButton.layer.cornerRadius = 15;
         [baseView addSubview:_deleteButton];
         [_deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(_orderButton.mas_left).offset(-20);
+            make.right.equalTo(_editButton.mas_left).offset(-10);
             make.top.equalTo(beginTimeTitleLabel.mas_bottom).offset(10);
             make.height.mas_offset(30);
-            make.width.mas_offset(90);
+            make.width.mas_offset(80);
         }];
         
         
