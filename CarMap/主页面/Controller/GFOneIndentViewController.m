@@ -252,7 +252,7 @@
     _searchbar.layer.cornerRadius = 15;
     _searchbar.layer.borderWidth = 1.0;
     _searchbar.layer.borderColor = [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]CGColor];
-    _searchbar.placeholder = @"输入型号或部位进行搜索";
+    _searchbar.placeholder = @"请输入型号或部位进行搜索";
     UITextField * searchField = [_searchbar valueForKey:@"_searchField"];
     searchField.font = [UIFont systemFontOfSize:14];
     [searchBaseView addSubview:_searchbar];
@@ -778,11 +778,25 @@
 }
 
 
+
 #pragma mark - 暂存订单
 - (void)saveOrderBtnClick{
-    ICLog(@"暂存订单");
-    BOOL isCanSave = NO;
     NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc]init];
+    if (_preOrderModel != nil){
+        ICLog(@"编辑暂存订单");
+        dataDictionary[@"vin"] = @"";
+        dataDictionary[@"license"] = @"";
+        dataDictionary[@"vehicleModel"] = @"";
+        dataDictionary[@"agreedStartTime"] = @"";
+        dataDictionary[@"remark"] = @"";
+        dataDictionary[@"productOfferId"] = @"";
+        dataDictionary[@"mark"] = @"";
+        dataDictionary[@"productOfferSetMenuId"] = @"";
+    }else{
+        ICLog(@"新增暂存订单");
+    }
+    BOOL isCanSave = NO;
+    
     if (_orderDataVinTextField.text.length < 1){
 //        dataDictionary[@"vin"] = @"";
     }else{
@@ -911,35 +925,71 @@
         return;
     }
     
-    [GFHttpTool postCoopMerchantOrderPreWithParameters:dataDictionary success:^(id responseObject) {
-        ICLog(@"暂存成功---%@---", responseObject);
-        _orderDataVinTextField.text = @"";
-        _orderDataCarLicenseTextField.text = @"";
-        _orderDataCarTypeTextField.text = @"";
-        _orderDataBeginTimeTextField.text = @"";
-        _orderRemarkTextField.text = @"";
-        
-        _selectPackageIndex = -5;
-        _selectPackageModel = nil;
-        [self.selectProductIdArray removeAllObjects];
-        [self.selectProductArray removeAllObjects];
-        [self.selectPackageIdArray removeAllObjects];
-        [self.selectPackageArray removeAllObjects];
-        [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.text = @"0";
-            obj.hidden = YES;
+    if (_preOrderModel != nil){
+        dataDictionary[@"id"] = _preOrderModel.idString;
+        [GFHttpTool postMerchantOrderPreWithParameters:dataDictionary success:^(id responseObject) {
+            ICLog(@"编辑暂存成功---%@---", responseObject);
+            _orderDataVinTextField.text = @"";
+            _orderDataCarLicenseTextField.text = @"";
+            _orderDataCarTypeTextField.text = @"";
+            _orderDataBeginTimeTextField.text = @"";
+            _orderRemarkTextField.text = @"";
+            
+            _selectPackageIndex = -5;
+            _selectPackageModel = nil;
+            _preOrderModel = nil;
+            [self.selectProductIdArray removeAllObjects];
+            [self.selectProductArray removeAllObjects];
+            [self.selectPackageIdArray removeAllObjects];
+            [self.selectPackageArray removeAllObjects];
+            [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.text = @"0";
+                obj.hidden = YES;
+            }];
+            [_tableView reloadData];
+            [_packageSelectButtonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj setTitle:@"选择" forState:UIControlStateNormal];
+                [obj setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                obj.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+            }];
+            
+            [self addAlertView:@"暂存订单成功"];
+        } failure:^(NSError *error) {
+             ICLog(@"编辑暂存失败---%@---", error);
         }];
-        [_tableView reloadData];
-        [_packageSelectButtonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj setTitle:@"选择" forState:UIControlStateNormal];
-            [obj setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            obj.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    }else{
+        [GFHttpTool postCoopMerchantOrderPreWithParameters:dataDictionary success:^(id responseObject) {
+            ICLog(@"暂存成功---%@---", responseObject);
+            _orderDataVinTextField.text = @"";
+            _orderDataCarLicenseTextField.text = @"";
+            _orderDataCarTypeTextField.text = @"";
+            _orderDataBeginTimeTextField.text = @"";
+            _orderRemarkTextField.text = @"";
+            
+            _selectPackageIndex = -5;
+            _selectPackageModel = nil;
+            [self.selectProductIdArray removeAllObjects];
+            [self.selectProductArray removeAllObjects];
+            [self.selectPackageIdArray removeAllObjects];
+            [self.selectPackageArray removeAllObjects];
+            [_selectPackageClassLabelArray enumerateObjectsUsingBlock:^(UILabel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.text = @"0";
+                obj.hidden = YES;
+            }];
+            [_tableView reloadData];
+            [_packageSelectButtonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj setTitle:@"选择" forState:UIControlStateNormal];
+                [obj setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                obj.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+            }];
+            
+            [self addAlertView:@"暂存订单成功"];
+        } failure:^(NSError *error) {
+            ICLog(@"暂存失败---%@---", error);
         }];
-        
-        [self addAlertView:@"暂存订单成功"];
-    } failure:^(NSError *error) {
-        ICLog(@"暂存失败---%@---", error);
-    }];
+    }
+    
+    
     
     
     
@@ -1146,11 +1196,13 @@
 //        [_showSelectProductButton setTitle:@"已选套餐" forState:UIControlStateNormal];
         [self getPackageList];
         _packageScrollView.hidden = NO;
+        _searchbar.placeholder = @"请输入套餐名称进行搜索";
     }else{
         [_packageBaseViewChangeButton setTitle:@"套餐组合" forState:UIControlStateNormal];
         [_packageBaseViewChangeButton setImage:[UIImage imageNamed:@"clb_btn_xztc"] forState:UIControlStateNormal];
         _packageScrollView.hidden = YES;
 //        [_showSelectProductButton setTitle:@"已选项目" forState:UIControlStateNormal];
+        _searchbar.placeholder = @"请输入型号或部位进行搜索";
     }
     
 }
@@ -3195,7 +3247,12 @@
     }else if (type == 5){
         dataDict[@"type"] = @"99";
     }
-    dataDict[@"modelPosition"] = _searchbar.text;
+    if (type == _selectType){
+        dataDict[@"modelPosition"] = _searchbar.text;
+    }else{
+        _searchbar.text = @"";
+    }
+    
     ICLog(@"----dataDict----%@----",dataDict);
     [GFHttpTool getProductOfferWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"-getProductList--responseObject---%@-", responseObject);

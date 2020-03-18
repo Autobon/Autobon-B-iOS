@@ -50,6 +50,7 @@
     NSString *_phoneString;
     
     NSMutableArray *_orderStatusArray;
+    NSDictionary *_orderDetailDict;
 }
 
 @property (nonatomic, strong) GFNavigationView *navView;
@@ -80,7 +81,7 @@
     [self _setBase];
     
     // 界面搭建
-    [self _setView];
+//    [self _setView];
     
     [self getOrderStatusScore];
     
@@ -94,9 +95,9 @@
         ICLog(@"获取订单详情成功----%@--", responseObject);
         NSString *statusString = [NSString stringWithFormat:@"%@", responseObject[@"status"]];
         if ([statusString isEqualToString:@"1"]){
-//            _orderDetailDict = responseObject[@"message"];
+            _orderDetailDict = responseObject[@"message"];
             // 界面布局
-//            [self _setDeInView];
+            [self _setView];
         }
     } failure:^(NSError *error) {
         ICLog(@"获取订单详情失败----%@--", error);
@@ -328,6 +329,153 @@
     self.vinLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.vinLab];
     
+    UIView *topLineView = [[UIView alloc]init];
+    topLineView.frame = CGRectMake(0, CGRectGetMaxY(self.vinLab.frame), 320, 10);
+    [baseView addSubview:topLineView];
+    
+    UIView *lastView = topLineView;
+#pragma mark - 报价产品
+    NSArray *productOfferShowsArray = _orderDetailDict[@"productOfferShows"];
+    if ([productOfferShowsArray isKindOfClass:[NSNull class]]){
+        productOfferShowsArray = [[NSArray alloc]init];
+    }
+    if (productOfferShowsArray.count > 0){
+        UIView *titleBaseView = [[UIView alloc]init];
+        titleBaseView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
+        titleBaseView.frame = CGRectMake(1, CGRectGetMaxY(lastView.frame), [UIScreen mainScreen].bounds.size.width + 2, 40);
+        [baseView addSubview:titleBaseView];
+        
+        UIView *leftLittleView = [[UIView alloc]init];
+        leftLittleView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        [titleBaseView addSubview:leftLittleView];
+        leftLittleView.frame = CGRectMake(0, 12, 6, 16);
+        
+        
+        UILabel *menusTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+        menusTitleLab.textColor = [UIColor darkGrayColor];
+        menusTitleLab.font = [UIFont systemFontOfSize:14];
+        menusTitleLab.text = [NSString stringWithFormat:@"报价产品"];
+        [titleBaseView addSubview:menusTitleLab];
+        
+        
+        UIView *titleImageBaseView = [[UIView alloc]init];
+        titleImageBaseView.backgroundColor = [UIColor whiteColor];
+        [baseView addSubview:titleImageBaseView];
+        titleImageBaseView.frame = CGRectMake(1, CGRectGetMaxY(titleBaseView.frame), [UIScreen mainScreen].bounds.size.width, 40);
+        
+        UIImageView *titleImageView = [[UIImageView alloc]init];
+        titleImageView.image = [UIImage imageNamed:@"cpin"];
+        [titleImageBaseView addSubview:titleImageView];
+        titleImageView.frame = CGRectMake(20, 12, 15, 15);
+        
+        UILabel *titleImageLabel = [[UILabel alloc]init];
+        titleImageLabel.text = @"型号+部位";
+        titleImageLabel.font = [UIFont boldSystemFontOfSize:14];
+        [titleImageBaseView addSubview:titleImageLabel];
+        titleImageLabel.frame = CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30);
+        
+        UIView *titleLineView = [[UIView alloc]init];
+        titleLineView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
+        [titleImageBaseView addSubview:titleLineView];
+        titleLineView.frame = CGRectMake(15, 39, [UIScreen mainScreen].bounds.size.width - 30, 1);
+        
+        lastView = titleImageBaseView;
+        for (int i = 0; i < productOfferShowsArray.count; i++) {
+            
+            UIView *titleBaseView = [[UIView alloc]init];
+            titleBaseView.backgroundColor = [UIColor whiteColor];
+            [baseView addSubview:titleBaseView];
+            titleBaseView.frame = CGRectMake(1, CGRectGetMaxY(lastView.frame), [UIScreen mainScreen].bounds.size.width, 40);
+            lastView = titleBaseView;
+            
+            
+            NSDictionary *productDict = productOfferShowsArray[i];
+            UILabel *menusNameLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30)];
+            menusNameLab.textColor = [UIColor darkGrayColor];
+            menusNameLab.font = [UIFont systemFontOfSize:14];
+            menusNameLab.text = [NSString stringWithFormat:@"%@/%@", productDict[@"model"], productDict[@"constructionPositionName"]];
+            [titleBaseView addSubview:menusNameLab];
+            
+            UIView *lineView = [[UIView alloc]init];
+            lineView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
+            [titleBaseView addSubview:lineView];
+            lineView.frame = CGRectMake(15, 39, [UIScreen mainScreen].bounds.size.width - 30, 1);
+        }
+    }
+    
+    
+    
+#pragma mark - 施工套餐
+    NSArray *setMenusArray = _orderDetailDict[@"setMenus"];
+    if ([setMenusArray isKindOfClass:[NSNull class]]){
+        setMenusArray = [[NSArray alloc]init];
+    }
+    if (setMenusArray.count > 0){
+        
+        UIView *titleBaseView = [[UIView alloc]init];
+        titleBaseView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
+        titleBaseView.frame = CGRectMake(1, CGRectGetMaxY(lastView.frame), [UIScreen mainScreen].bounds.size.width + 2, 40);
+        [baseView addSubview:titleBaseView];
+        
+        UIView *leftLittleView = [[UIView alloc]init];
+        leftLittleView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+        [titleBaseView addSubview:leftLittleView];
+        leftLittleView.frame = CGRectMake(0, 12, 6, 16);
+        
+        
+        UILabel *menusTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+        menusTitleLab.textColor = [UIColor darkGrayColor];
+        menusTitleLab.font = [UIFont systemFontOfSize:14];
+        menusTitleLab.text = [NSString stringWithFormat:@"组合套餐"];
+        [titleBaseView addSubview:menusTitleLab];
+        
+        
+        UIView *titleImageBaseView = [[UIView alloc]init];
+        titleImageBaseView.backgroundColor = [UIColor whiteColor];
+        [baseView addSubview:titleImageBaseView];
+        titleImageBaseView.frame = CGRectMake(1, CGRectGetMaxY(titleBaseView.frame), [UIScreen mainScreen].bounds.size.width, 40);
+        
+        UIImageView *titleImageView = [[UIImageView alloc]init];
+        titleImageView.image = [UIImage imageNamed:@"tchan"];
+        [titleImageBaseView addSubview:titleImageView];
+        titleImageView.frame = CGRectMake(20, 12, 15, 15);
+        
+        UILabel *titleImageLabel = [[UILabel alloc]init];
+        titleImageLabel.text = @"套餐名称";
+        titleImageLabel.font = [UIFont boldSystemFontOfSize:14];
+        [titleImageBaseView addSubview:titleImageLabel];
+        titleImageLabel.frame = CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30);
+        
+        UIView *titleLineView = [[UIView alloc]init];
+        titleLineView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
+        [titleImageBaseView addSubview:titleLineView];
+        titleLineView.frame = CGRectMake(15, 39, [UIScreen mainScreen].bounds.size.width - 30, 1);
+        
+        lastView = titleImageBaseView;
+        
+        for (int i = 0; i < setMenusArray.count; i++) {
+            
+            UIView *titleBaseView = [[UIView alloc]init];
+            titleBaseView.backgroundColor = [UIColor whiteColor];
+            [baseView addSubview:titleBaseView];
+            titleBaseView.frame = CGRectMake(1, CGRectGetMaxY(lastView.frame), [UIScreen mainScreen].bounds.size.width, 40);
+            lastView = titleBaseView;
+            
+            
+            NSDictionary *menusDict = setMenusArray[i];
+            UILabel *menusNameLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30)];
+            menusNameLab.textColor = [UIColor darkGrayColor];
+            menusNameLab.font = [UIFont systemFontOfSize:14];
+            menusNameLab.text = [NSString stringWithFormat:@"%@", menusDict[@"name"]];
+            [titleBaseView addSubview:menusNameLab];
+            
+            UIView *lineView = [[UIView alloc]init];
+            lineView.backgroundColor = [UIColor colorWithRed:245 / 255.0 green:245 / 255.0 blue:245 / 255.0 alpha:1];
+            [titleBaseView addSubview:lineView];
+            lineView.frame = CGRectMake(15, 39, [UIScreen mainScreen].bounds.size.width - 30, 1);
+            
+        }
+    }
     
     
     UIButton *orderWorkDetailButton = [[UIButton alloc]init];
@@ -336,7 +484,7 @@
     orderWorkDetailButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     orderWorkDetailButton.layer.cornerRadius = 5;
     [baseView addSubview:orderWorkDetailButton];
-    orderWorkDetailButton.frame = CGRectMake(20, CGRectGetMaxY(self.vinLab.frame) + jiange1 + 10, self.view.frame.size.width - 40, 40);
+    orderWorkDetailButton.frame = CGRectMake(20, CGRectGetMaxY(lastView.frame) + jiange1 + 10, self.view.frame.size.width - 40, 40);
     [orderWorkDetailButton addTarget:self action:@selector(orderWorkDetailBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     

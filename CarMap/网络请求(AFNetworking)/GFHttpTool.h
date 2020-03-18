@@ -210,4 +210,8 @@
 #pragma mark - 获取订单技师列表
 + (void)getMerchantOrderTechWithParameters:(NSDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 修改暂存订单
++ (void)postMerchantOrderPreWithParameters:(NSMutableDictionary *)parameters success:(void(^)(id responseObject))success failure:(void(^)(NSError *error))failure;
+
+
 @end

@@ -83,5 +83,18 @@
     return [predicate evaluateWithObject:intString];
 }
 
+#pragma mark - 特殊字符正则表达式
++ (BOOL) validateSpecialString: (NSString *)string
+{
+    BOOL flag;
+    if (string.length <= 0) {
+        flag = NO;
+        return flag;
+    }
+    NSString *regex = @"[-()（）—”“$&@%^*?+?=|{}?【】？??￥!！.<>/:;：；、,，。//n//r]";
+    NSPredicate *carLicensePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [carLicensePredicate evaluateWithObject:string];
+}
+
 
 @end
