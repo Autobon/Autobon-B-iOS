@@ -25,6 +25,7 @@
 		A60C6421234DD5C90024FC24 /* CLPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C6420234DD5C90024FC24 /* CLPackageTableViewCell.m */; };
 		A632DF9923C5BD5600CF2C56 /* CLEvaluateTechTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A632DF9823C5BD5600CF2C56 /* CLEvaluateTechTableViewCell.m */; };
 		A6335753233E01420081D8C0 /* CLHomeProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */; };
+		A6341045244F20D900005CFF /* UITextField+PlaceholderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A6341043244F20D800005CFF /* UITextField+PlaceholderColor.m */; };
 		A6472E6923C430AF007FE382 /* CLSavedOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6472E6823C430AF007FE382 /* CLSavedOrderViewController.m */; };
 		A6472E6C23C46209007FE382 /* CLPreOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6472E6B23C46209007FE382 /* CLPreOrderTableViewCell.m */; };
 		A6472E6F23C47116007FE382 /* CLPreOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6472E6E23C47116007FE382 /* CLPreOrderModel.m */; };
@@ -214,6 +215,8 @@
 		A632DF9823C5BD5600CF2C56 /* CLEvaluateTechTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLEvaluateTechTableViewCell.m; sourceTree = "<group>"; };
 		A6335751233E01420081D8C0 /* CLHomeProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLHomeProductTableViewCell.h; sourceTree = "<group>"; };
 		A6335752233E01420081D8C0 /* CLHomeProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLHomeProductTableViewCell.m; sourceTree = "<group>"; };
+		A6341043244F20D800005CFF /* UITextField+PlaceholderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceholderColor.m"; sourceTree = "<group>"; };
+		A6341044244F20D800005CFF /* UITextField+PlaceholderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceholderColor.h"; sourceTree = "<group>"; };
 		A6472E6723C430AF007FE382 /* CLSavedOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLSavedOrderViewController.h; sourceTree = "<group>"; };
 		A6472E6823C430AF007FE382 /* CLSavedOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLSavedOrderViewController.m; sourceTree = "<group>"; };
 		A6472E6A23C46209007FE382 /* CLPreOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLPreOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -903,6 +906,8 @@
 			children = (
 				B0228FA01ECD49F40022D34F /* ACETelPrompt.h */,
 				B0228FA11ECD49F40022D34F /* ACETelPrompt.m */,
+				A6341044244F20D800005CFF /* UITextField+PlaceholderColor.h */,
+				A6341043244F20D800005CFF /* UITextField+PlaceholderColor.m */,
 				A658348423754FFB0091FF1C /* GraphView */,
 				B05EC14D20F35ABB00EFB588 /* HXPhotoPicker */,
 				B0228FFB1ECD49F40022D34F /* 工具页面 */,
@@ -1332,6 +1337,7 @@
 				B0228EA91ECD499D0022D34F /* CLIndentModel.m in Sources */,
 				B05EC1AF20F35ABB00EFB588 /* HXDatePhotoViewPresentTransition.m in Sources */,
 				B02290611ECD49F50022D34F /* GFAnnotationView.m in Sources */,
+				A6341045244F20D900005CFF /* UITextField+PlaceholderColor.m in Sources */,
 				A60C641B234DB6DF0024FC24 /* CLProductPackageModel.m in Sources */,
 				B02290691ECD49F50022D34F /* GFImageView.m in Sources */,
 				A632DF9923C5BD5600CF2C56 /* CLEvaluateTechTableViewCell.m in Sources */,

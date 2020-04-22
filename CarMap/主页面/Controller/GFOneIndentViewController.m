@@ -218,7 +218,7 @@
 
 - (void)setDataOrderView{
     
-    
+    /*
     UIView *searchBaseView = [[UIView alloc]init];
     searchBaseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:searchBaseView];
@@ -265,7 +265,7 @@
         make.right.equalTo(searchButton.mas_left).offset(-15);
         make.height.mas_offset(30);
     }];
-    
+    */
     
     
     
@@ -280,7 +280,7 @@
     [self.view addSubview:_dataOrderBaseView];
     [_dataOrderBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.top.equalTo(searchBaseView.mas_bottom).offset(10);
+        make.top.equalTo(_navView.mas_bottom).offset(0);
         
 //        if ([orderByPhotoString isEqualToString:@"1"]){
 //            ICLog(@"支持数据下单");
@@ -321,7 +321,7 @@
     
     
     _orderDataVinTextField = [[UITextField alloc]init];
-    _orderDataVinTextField.placeholder = @"未填写";
+    [_orderDataVinTextField setTextFieldPlaceholderString:@"未填写"];
     _orderDataVinTextField.textAlignment = NSTextAlignmentRight;
     _orderDataVinTextField.font = [UIFont systemFontOfSize:14];
     _orderDataVinTextField.keyboardType = UIKeyboardTypeASCIICapable;
@@ -358,7 +358,7 @@
     }];
     
     _orderDataCarLicenseTextField = [[UITextField alloc]init];
-    _orderDataCarLicenseTextField.placeholder = @"未填写";
+    [_orderDataCarLicenseTextField setTextFieldPlaceholderString:@"未填写"];
     _orderDataCarLicenseTextField.textAlignment = NSTextAlignmentRight;
     _orderDataCarLicenseTextField.font = [UIFont systemFontOfSize:14];
     _orderDataCarLicenseTextField.tag = 4;
@@ -393,7 +393,7 @@
     }];
     
     _orderDataCarTypeTextField = [[UITextField alloc]init];
-    _orderDataCarTypeTextField.placeholder = @"未填写";
+    [_orderDataCarTypeTextField setTextFieldPlaceholderString:@"未填写"];
     _orderDataCarTypeTextField.textAlignment = NSTextAlignmentRight;
     _orderDataCarTypeTextField.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:_orderDataCarTypeTextField];
@@ -426,7 +426,7 @@
     }];
     
     _orderDataBeginTimeTextField = [[UITextField alloc]init];
-    _orderDataBeginTimeTextField.placeholder = @"请选择";
+    [_orderDataBeginTimeTextField setTextFieldPlaceholderString:@"请选择"];
     _orderDataBeginTimeTextField.textAlignment = NSTextAlignmentRight;
     _orderDataBeginTimeTextField.font = [UIFont systemFontOfSize:14];
     _orderDataBeginTimeTextField.delegate = self;
@@ -490,7 +490,7 @@
     }];
     
     _orderRemarkTextField = [[UITextField alloc]init];
-    _orderRemarkTextField.placeholder = @"请输入(最多200字)";
+    [_orderRemarkTextField setTextFieldPlaceholderString:@"请输入(最多200字)"];
     _orderRemarkTextField.textAlignment = NSTextAlignmentRight;
     _orderRemarkTextField.font = [UIFont systemFontOfSize:14];
     _orderRemarkTextField.delegate = self;
@@ -557,8 +557,59 @@
         make.centerY.equalTo(_packageTitleBaseView);
     }];
     
+// 搜索模块
+    UIView *searchBaseView = [[UIView alloc]init];
+    searchBaseView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:searchBaseView];
+    [searchBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(_packageTitleBaseView.mas_bottom).offset(0);
+        make.height.mas_offset(45);
+    }];
+    
+    UIView *searchLineView = [[UIView alloc] init];
+    searchLineView.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1];
+    [searchBaseView addSubview:searchLineView];
+    searchLineView.frame = CGRectMake(0, 44, self.view.frame.size.width, 1);
     
     
+    UIButton *searchButton = [[UIButton alloc]init];
+    [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    [searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [searchButton setTitleColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [searchButton addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    searchButton.titleLabel.font = [UIFont systemFontOfSize:13];
+    searchButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
+    searchButton.layer.cornerRadius = 15;
+    [self.view addSubview:searchButton];
+    
+    [searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-15);
+        make.centerY.equalTo(searchBaseView).offset(0);
+        make.width.mas_offset(60);
+        make.height.mas_offset(30);
+    }];
+    
+    _searchbar = [[UISearchBar alloc]init];
+    //    searchbar.backgroundColor = [UIColor whiteColor];
+    _searchbar.barTintColor = [UIColor whiteColor];
+    //    searchbar.barStyle = UIBarStyleDefault;
+    _searchbar.layer.cornerRadius = 15;
+    _searchbar.layer.borderWidth = 1.0;
+    _searchbar.layer.borderColor = [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]CGColor];
+    _searchbar.placeholder = @"请输入型号或部位进行搜索";
+    UITextField * searchField = [_searchbar valueForKey:@"_searchField"];
+    searchField.font = [UIFont systemFontOfSize:14];
+    [searchBaseView addSubview:_searchbar];
+    _searchbar.delegate = self;
+    _searchbar.clipsToBounds = YES;
+    
+    [_searchbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(15);
+        make.centerY.equalTo(searchBaseView).offset(0);
+        make.right.equalTo(searchButton.mas_left).offset(-15);
+        make.height.mas_offset(30);
+    }];
     
     
     _footBaseView = [[UIView alloc]init];
@@ -569,10 +620,6 @@
         make.left.bottom.right.equalTo(_dataOrderBaseView);
         make.height.mas_offset(60);
     }];
-    
-    
-    
-    
     
     
     UIButton *savedOrderButton = [[UIButton alloc]init];
@@ -683,7 +730,7 @@
     [_dataOrderBaseView addSubview:leftScrollView];
     [leftScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_dataOrderBaseView);
-        make.top.equalTo(_packageTitleBaseView.mas_bottom);
+        make.top.equalTo(searchBaseView.mas_bottom);
         make.bottom.equalTo(_footBaseView.mas_top);
         make.width.mas_offset(70);
     }];
@@ -756,7 +803,7 @@
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_dataOrderBaseView);
         make.left.equalTo(leftScrollView.mas_right);
-        make.top.equalTo(_packageTitleBaseView.mas_bottom);
+        make.top.equalTo(searchBaseView.mas_bottom);
         make.bottom.equalTo(_footBaseView.mas_top);
     }];
     
@@ -800,12 +847,24 @@
     if (_orderDataVinTextField.text.length < 1){
 //        dataDictionary[@"vin"] = @"";
     }else{
+        if(_orderDataVinTextField.text.length < 7){
+            [self addAlertView:@"车架号只能为后七位"];
+            return;
+        }else if(![Commom validateLetterInt:_orderDataVinTextField.text]){
+            [self addAlertView:@"车架号只能由数字和字母组成"];
+            return;
+        }
         dataDictionary[@"vin"] = _orderDataVinTextField.text;
+
         isCanSave = YES;
     }
     if (_orderDataCarLicenseTextField.text.length < 1){
 //        dataDictionary[@"license"] = @"";
     }else{
+        if(![Commom validateCarLicense:[_orderDataCarLicenseTextField.text uppercaseString]]){
+            [self addAlertView:@"请检查车牌号"];
+            return;
+        }
         dataDictionary[@"license"] = _orderDataCarLicenseTextField.text;
         isCanSave = YES;
     }
@@ -2381,10 +2440,21 @@
 #pragma mark - 一键存储按钮
 - (void)saveOrderData{
     NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc]init];
-    if(_orderDataVinTextField.text.length >0){
+    if(_orderDataCarLicenseTextField.text.length >0){
+        if(![Commom validateCarLicense:[_orderDataCarLicenseTextField.text uppercaseString]]){
+            [self addAlertView:@"请检查车牌号"];
+            return;
+        }
         dataDictionary[@"license"] = _orderDataCarLicenseTextField.text;
     }
     if(_orderDataVinTextField.text.length > 0){
+        if(_orderDataVinTextField.text.length < 7){
+            [self addAlertView:@"车架号只能为后七位"];
+            return;
+        }else if(![Commom validateLetterInt:_orderDataVinTextField.text]){
+            [self addAlertView:@"车架号只能由数字和字母组成"];
+            return;
+        }
         dataDictionary[@"vin"] = _orderDataVinTextField.text;
     }
     if (_orderDataCarTypeTextField.text.length > 0){
@@ -2433,23 +2503,29 @@
 #pragma mark - 数据一键下单按钮相应方法
 - (void)orderDataSubmitBtnClick{
     
-    
+//    ICLog(@"---(%@)--%ld--", _orderDataCarTypeTextField.text, _orderDataCarTypeTextField.text.length);
+//    ICLog(@"---(%@)--%ld--", _orderDataBeginTimeTextField.text, _orderDataBeginTimeTextField.text.length);
     
     if(_orderDataVinTextField.text.length < 1){
-        [self addAlertView:@"请填写车架号"];
+        [self addAlertView:@"请填写车架号后七位"];
+        return;
+    }else if(_orderDataVinTextField.text.length < 7){
+        [self addAlertView:@"车架号只能为后七位"];
         return;
     }else if(![Commom validateLetterInt:_orderDataVinTextField.text]){
-        [self addAlertView:@"请填写车架号后七位"];
+        [self addAlertView:@"车架号只能由数字和字母组成"];
         return;
     }else if(_orderDataCarLicenseTextField.text.length > 0){
         if(![Commom validateCarLicense:[_orderDataCarLicenseTextField.text uppercaseString]]){
             [self addAlertView:@"请检查车牌号"];
             return;
         }
-    }else if (_orderDataCarTypeTextField.text.length < 1){
+    }
+    
+    if (_orderDataCarTypeTextField.text.length < 1 || [_orderDataCarTypeTextField.text isEqualToString:@""]){
         [self addAlertView:@"请填写车型"];
         return;
-    }else if (_orderDataBeginTimeTextField.text.length < 1){
+    }else if (_orderDataBeginTimeTextField.text.length < 1 || [_orderDataBeginTimeTextField.text isEqualToString:@""]){
         [self addAlertView:@"请选择预约开始时间"];
         return;
     }
@@ -2507,7 +2583,10 @@
             offerIdString = [NSString stringWithFormat:@"%@,%@", offerIdString, self.selectProductIdArray[i]];
         }
     }
-    dataDict[@"offerIds"] = offerIdString;      //施工项目
+    if (offerIdString.length > 0){
+        dataDict[@"offerIds"] = offerIdString;      //施工项目
+    }
+    
     
     NSString *menuIdString = @"";
     for (int i = 0; i < self.selectPackageIdArray.count; i++) {
@@ -2517,7 +2596,10 @@
             menuIdString = [NSString stringWithFormat:@"%@,%@", menuIdString, self.selectPackageIdArray[i]];
         }
     }
-    dataDict[@"setMenuIds"] = menuIdString;     //套餐
+    if (menuIdString.length > 0){
+        dataDict[@"setMenuIds"] = menuIdString;     //套餐
+    }
+    
     dataDict[@"vin"] = _orderDataVinTextField.text;
     if (_orderDataCarLicenseTextField.text.length > 1){
         dataDict[@"license"] = [_orderDataCarLicenseTextField.text uppercaseString];
@@ -2532,6 +2614,7 @@
     dataDict[@"remark"] = _orderRemarkTextField.text;
     ICLog(@"------dataDict-----%@----", dataDict);
 
+    
     [GFHttpTool postCoopMerchantDataOrderWithParameters:dataDict success:^(id responseObject) {
         ICLog(@"---下单成功---%@---", responseObject);
         if ([responseObject[@"status"] integerValue] == 1){
@@ -3420,7 +3503,14 @@
     }
 }
 
-
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    //    ICLog(@"text----%@---%d-", text, [Commom validateSpecialString:text]);
+    if (range.length== 0){
+        return [Commom validateSpecialString:text];
+    }
+    return YES;
+    
+}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];

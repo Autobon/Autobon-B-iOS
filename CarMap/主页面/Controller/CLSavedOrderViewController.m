@@ -149,6 +149,22 @@
     }
 }
 
+- (void)deleteOrderForNewBtnClick:(UIButton *)button{
+    ICLog(@"删除订单");
+    if (button.tag < _dataArray.count){
+        CLPreOrderModel *preOrderModel = _dataArray[button.tag];
+        [GFHttpTool deleteCoopMerchantOrderPreWithParameters:@{@"orderPreIds": preOrderModel.idString} success:^(id responseObject) {
+            ICLog(@"删除成功---%@--", responseObject);
+            [_dataArray removeObjectAtIndex:button.tag];
+            [_tableView reloadData];
+        } failure:^(NSError *error) {
+            ICLog(@"删除失败---%@--", error);
+        }];
+        
+    }
+}
+
+
 - (void)editBtnClick:(UIButton *)button{
     if (button.tag < _dataArray.count){
         CLPreOrderModel *preOrderModel = _dataArray[button.tag];
@@ -162,21 +178,27 @@
         CLPreOrderModel *preOrderModel = _dataArray[button.tag];
         ICLog(@"一键下单");
         
-        if (preOrderModel.vin.length < 1){
+        
+        if(preOrderModel.vin.length < 1){
             [self addAlertView:@"请填写车架号"];
             return;
+        }else if(preOrderModel.vin.length < 7){
+            [self addAlertView:@"车架号只能为后七位"];
+            return;
         }else if(![Commom validateLetterInt:preOrderModel.vin]){
-            [self addAlertView:@"请填写车架号"];
+            [self addAlertView:@"车架号只能由数字和字母组成"];
             return;
         }else if(preOrderModel.license.length > 0){
             if(![Commom validateCarLicense:[preOrderModel.license uppercaseString]]){
-                [self addAlertView:@"请填写车牌号"];
+                [self addAlertView:@"请检查车牌号"];
                 return;
             }
-        }else if (preOrderModel.vehicleModel.length < 1){
+        }
+        
+        if (preOrderModel.vehicleModel.length < 1 || [preOrderModel.vehicleModel isEqualToString:@""]){
             [self addAlertView:@"请填写车型"];
             return;
-        }else if (preOrderModel.agreedStartTime.length < 1){
+        }else if (preOrderModel.vehicleModel.length < 1 || [preOrderModel.vehicleModel isEqualToString:@""]){
             [self addAlertView:@"请选择预约开始时间"];
             return;
         }
@@ -230,7 +252,7 @@
             if ([responseObject[@"status"] integerValue] == 1){
                 [self addAlertView:@"下单完成"];
                 
-                [self deleteOrderBtnClick:button];
+                [self deleteOrderForNewBtnClick:button];
             }else{
                 [self addAlertView:responseObject[@"message"]];
             }

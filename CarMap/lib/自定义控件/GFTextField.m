@@ -86,7 +86,8 @@
         
         self.leftView = vv;
         self.leftViewMode = UITextFieldViewModeAlways;
-        self.placeholder = placeholder;
+//        self.placeholder = placeholder;
+        [self setTextFieldPlaceholderString:placeholder];
         self.backgroundColor = [UIColor whiteColor];
         
         UIView *upLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 1)];
@@ -103,8 +104,9 @@
         }];
         
         self.frame = CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.078);
+        self.font = [UIFont systemFontOfSize:(15 / 320.0 * [UIScreen mainScreen].bounds.size.width)];
+//        [self setValue:[UIFont systemFontOfSize:(15 / 320.0 * [UIScreen mainScreen].bounds.size.width)] forKeyPath:@"_placeholderLabel.font"];
         
-        [self setValue:[UIFont systemFontOfSize:(15 / 320.0 * [UIScreen mainScreen].bounds.size.width)] forKeyPath:@"_placeholderLabel.font"];
         
         
     }

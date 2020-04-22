@@ -169,6 +169,7 @@
                 [self addAlertView:@"移除成功"];
                 [_packageArray removeObjectAtIndex:button.tag];
                 [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:button.tag inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                [self performSelector:@selector(tableViewRoload) withObject:nil afterDelay:0.3];
             }else{
                 [self addAlertView:responseObject[@"message"]];
             }
@@ -177,6 +178,10 @@
         }];
     }
     
+}
+
+-(void)tableViewRoload{
+    [_tableView reloadData];
 }
 
 

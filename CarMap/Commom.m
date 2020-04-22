@@ -91,9 +91,10 @@
         flag = NO;
         return flag;
     }
-    NSString *regex = @"[-()（）—”“$&@%^*?+?=|{}?【】？??￥!！.<>/:;：；、,，。//n//r]";
-    NSPredicate *carLicensePredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [carLicensePredicate evaluateWithObject:string];
+    NSString *regex = @"[-()（）—”“$&@%^*?+?=|{}?【】？??￥!！.<>/:;：；、,，。 ]";
+//    NSString *regex = @"[+ /?%#&=？]";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return ![predicate evaluateWithObject:string];
 }
 
 

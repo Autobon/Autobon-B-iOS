@@ -250,7 +250,9 @@
 - (UIView *)messageButView:(NSString *)messageStr withSelected:(BOOL)select withX:(CGFloat)x withY:(CGFloat)y{
     
     UIButton *imgBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    imgBut.frame = CGRectMake(0, 0, 17, 17);
+    imgBut.frame = CGRectMake(0, 0, 150, 17);
+    imgBut.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 130);
+//    imgBut.backgroundColor = [UIColor cyanColor];
 //    [imgBut setImage:[UIImage imageNamed:@"over.png"] forState:UIControlStateSelected];
 //    [imgBut setImage:[UIImage imageNamed:@"overClick.png"] forState:UIControlStateNormal];
     [imgBut setImage:[UIImage imageNamed:@"over.png"] forState:UIControlStateNormal];
@@ -273,12 +275,11 @@
     lab.font = [UIFont systemFontOfSize:15];
     lab.text = messageStr;
     
-    CGFloat baseViewW = labX + labW;
+//    CGFloat baseViewW = labX + labW;
     CGFloat baseViewH = labH;
     CGFloat baseViewX = x;
     CGFloat baseViewY = y;
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, baseViewW, baseViewH)];
-    
+    UIButton *baseView = [[UIButton alloc] initWithFrame:CGRectMake(baseViewX, baseViewY, 150, baseViewH)];
     [baseView addSubview:imgBut];
     [baseView addSubview:lab];
     

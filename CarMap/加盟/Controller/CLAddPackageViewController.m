@@ -13,9 +13,9 @@
 #import "CLProductSelectTableViewCell.h"
 #import "MJRefresh.h"
 #import "CLProductModel.h"
+#import "Commom.h"
 
-
-@interface CLAddPackageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CLAddPackageViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 {
     UITableView *_tableView;
@@ -46,6 +46,7 @@
     
     // 请输入套餐名
     self.nameTxt = [[GFTextField alloc] initWithY: 100 withPlaceholder:@"请输入套餐名"];
+    self.nameTxt.delegate = self;
     [self.view addSubview:self.nameTxt];
     [self.nameTxt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
@@ -197,6 +198,13 @@
         return;
     }
     
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData *textFieldData = [_nameTxt.text dataUsingEncoding:enc];
+    if (textFieldData.length > 32){
+        [self addAlertView:@"套餐名称最长32位字符或16位汉字"];
+        return;
+    }
+    
     NSString *offerIds = @"";
     for (int i = 0; i < self.dataArray.count; i++) {
         CLProductModel *productModel = self.dataArray[i];
@@ -259,6 +267,41 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (range.length == 0){
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSData *textFieldData = [textField.text dataUsingEncoding:enc];
+        if (textFieldData.length == 32){
+            return NO;
+        }
+        
+        NSData *stringData = [string dataUsingEncoding:enc];
+        if (textFieldData.length + stringData.length > 32){
+            if (string.length > 1){
+                if (32 - textFieldData.length < stringData.length){
+                    NSData *data = [stringData subdataWithRange:NSMakeRange(0, 32 - textFieldData.length)];
+                    
+                    ICLog(@"data---%@--stringData--%@--", data, stringData);
+                    NSMutableData *textData = [[NSMutableData alloc] initWithData:textFieldData];
+                    [textData appendData:data];
+                    NSString * str = [[NSString alloc]initWithData:textData encoding:enc];
+                    if (str != nil && str.length > 1){
+                        textField.text = str;
+                    }
+                }
+            }
+            
+            return NO;
+        }
+        return [Commom validateSpecialString:string];
+    }
+    return YES;
+    
+}
+
+
 
 
 /*
