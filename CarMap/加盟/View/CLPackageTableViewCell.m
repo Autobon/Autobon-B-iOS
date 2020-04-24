@@ -15,7 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _packageNameLabel = [[UILabel alloc]init];
+        _packageNameLabel = [[UILabel alloc] init];
         _packageNameLabel.font = [UIFont boldSystemFontOfSize:17];
         [self addSubview:_packageNameLabel];
         [_packageNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

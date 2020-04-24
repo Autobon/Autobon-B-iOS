@@ -28,7 +28,7 @@
 
 - (UILabel *)setLabel{
     if (_setLabel == nil) {
-        _setLabel = [[UILabel alloc]init];
+        _setLabel = [[UILabel alloc] init];
     }
     return _setLabel;
 }
@@ -64,7 +64,8 @@
     self.photoUrlArr = [[NSMutableArray alloc] init];
     
     //加盟状态
-    UILabel *settingLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, 100, 30)];
+    UILabel *settingLabel = [[UILabel alloc] init];
+    settingLabel.frame = CGRectMake(15, 20, 100, 30);
     settingLabel.text = @"加盟状态：";
     [scrollView addSubview:settingLabel];
     
@@ -80,7 +81,8 @@
     [scrollView addSubview:lineView];
     
     
-    UILabel *idImageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 160, 20)];
+    UILabel *idImageLabel = [[UILabel alloc] init];
+    idImageLabel.frame = CGRectMake(0, 0, 160, 20);
     idImageLabel.center = lineView.center;
     idImageLabel.text = @"加盟信息";
     idImageLabel.textAlignment = NSTextAlignmentCenter;
@@ -92,7 +94,7 @@
     
      // 营业执照名，号；法人姓名，身份证号
      
-     UILabel *licenceName = [[UILabel alloc]init];
+     UILabel *licenceName = [[UILabel alloc] init];
      licenceName.text = [NSString stringWithFormat:@"营业执照名：%@",_dataDictionary[@"fullname"]];
      licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
      [scrollView addSubview:licenceName];
@@ -102,19 +104,19 @@
     licenceName.frame = CGRectMake(15, lineView.frame.origin.y + 31 , self.view.frame.size.width-30, licenseSize.height + 13);
     
      
-     UILabel *licenceNumber = [[UILabel alloc]init];
+     UILabel *licenceNumber = [[UILabel alloc] init];
      licenceNumber.text = [NSString stringWithFormat:@"营业执照号：%@",_dataDictionary[@"businessLicense"]];
      licenceNumber.frame = CGRectMake(15, CGRectGetMaxY(licenceName.frame) + 5, self.view.frame.size.width-30, 30);
      [scrollView addSubview:licenceNumber];
      
      
-     UILabel *legalEntity = [[UILabel alloc]init];
+     UILabel *legalEntity = [[UILabel alloc] init];
      legalEntity.text = [NSString stringWithFormat:@"法人的姓名：%@",_dataDictionary[@"corporationName"]];
      legalEntity.frame = CGRectMake(15, licenceNumber.frame.origin.y + 35, self.view.frame.size.width-30, 30);
      [scrollView addSubview:legalEntity];
      
      
-     UILabel *legalEntityId = [[UILabel alloc]init];
+     UILabel *legalEntityId = [[UILabel alloc] init];
      legalEntityId.text = [NSString stringWithFormat:@"法人身份证：%@",_dataDictionary[@"corporationIdNo"]];
      legalEntityId.frame = CGRectMake(15, legalEntity.frame.origin.y + 35, self.view.frame.size.width-30, 30);
      [scrollView addSubview:legalEntityId];
@@ -126,7 +128,8 @@
      [scrollView addSubview:lineView2];
      
      
-     UILabel *licenceDuplicate = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 160, 20)];
+     UILabel *licenceDuplicate = [[UILabel alloc] init];
+     licenceDuplicate.frame = CGRectMake(0, 0, 160, 20);
      licenceDuplicate.center = lineView2.center;
      licenceDuplicate.text = @"营业执照副本";
      licenceDuplicate.textAlignment = NSTextAlignmentCenter;
@@ -164,13 +167,14 @@
      [scrollView addSubview:lineView3];
      
      
-     UILabel *legalEntityIdLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 160, 20)];
+     UILabel *legalEntityIdLabel = [[UILabel alloc] init];
+     legalEntityIdLabel.frame = CGRectMake(0, 0, 160, 20);
      legalEntityIdLabel.center = lineView3.center;
      legalEntityIdLabel.text = @"法人身份证正面照";
      legalEntityIdLabel.textAlignment = NSTextAlignmentCenter;
      legalEntityIdLabel.backgroundColor = [UIColor whiteColor];
      legalEntityIdLabel.font = [UIFont systemFontOfSize:16];
-    legalEntityIdLabel.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+     legalEntityIdLabel.textColor = [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
      
      [scrollView addSubview:legalEntityIdLabel];
      
@@ -196,7 +200,8 @@
      [scrollView addSubview:lineView4];
      
      
-     UILabel *invoiceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 160, 20)];
+     UILabel *invoiceLabel = [[UILabel alloc] init];
+     invoiceLabel.frame = CGRectMake(0, 0, 160, 20);
      invoiceLabel.center = lineView4.center;
      invoiceLabel.text = @"发票信息";
      invoiceLabel.textAlignment = NSTextAlignmentCenter;
@@ -207,18 +212,18 @@
      
      
      // 发票抬头，纳税识别号，邮政编号
-     UILabel *invoiceName = [[UILabel alloc]init];
+     UILabel *invoiceName = [[UILabel alloc] init];
      invoiceName.text = [NSString stringWithFormat:@"发票抬头名：%@",_dataDictionary[@"invoiceHeader"]];
      invoiceName.frame = CGRectMake(15, lineView4.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
      [scrollView addSubview:invoiceName];
      
      
-     UILabel *payNumber = [[UILabel alloc]init];
+     UILabel *payNumber = [[UILabel alloc] init];
      payNumber.text = [NSString stringWithFormat:@"纳税识别号：%@",_dataDictionary[@"taxIdNo"]];
      payNumber.frame = CGRectMake(15, invoiceName.frame.origin.y + 35 , self.view.frame.size.width-30, 30);
      [scrollView addSubview:payNumber];
      
-     UILabel *postcode = [[UILabel alloc]init];
+     UILabel *postcode = [[UILabel alloc] init];
      postcode.text = [NSString stringWithFormat:@"邮政编码号：%@",_dataDictionary[@"postcode"]];
      postcode.frame = CGRectMake(15, payNumber.frame.origin.y + 31 , self.view.frame.size.width-30, 30);
      [scrollView addSubview:postcode];
@@ -232,7 +237,7 @@
      // 邮寄地址，商户位置
      
      
-     UILabel *addressLabel = [[UILabel alloc]init];
+     UILabel *addressLabel = [[UILabel alloc] init];
      addressLabel.text = [NSString stringWithFormat:@"邮寄地址：%@%@%@%@",_dataDictionary[@"province"],_dataDictionary[@"city"],_dataDictionary[@"district"],_dataDictionary[@"address"]];
      CGSize detailSize = [addressLabel.text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(self.view.frame.size.width-30, MAXFLOAT)];
      addressLabel.numberOfLines = 0;
@@ -240,7 +245,7 @@
      [scrollView addSubview:addressLabel];
      
      
-     UILabel *placeLabel = [[UILabel alloc]init];
+     UILabel *placeLabel = [[UILabel alloc] init];
      placeLabel.text = [NSString stringWithFormat:@"商户位置：%@%@%@%@",_dataDictionary[@"province"],_dataDictionary[@"city"],_dataDictionary[@"district"],_dataDictionary[@"address"]];
      placeLabel.numberOfLines = 0;
      detailSize = [placeLabel.text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(self.view.frame.size.width-30, MAXFLOAT)];

@@ -52,7 +52,8 @@
         CGFloat nameLabH = 20;
         CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
         CGFloat nameLabY = kHeight * 0.04;
-        UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];
+        UILabel *nameLab = [[UILabel alloc] init];
+        nameLab.frame = CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH);
         nameLab.text = @"技师姓名";
         nameLab.font = [UIFont systemFontOfSize:14];
         [iconView addSubview:nameLab];

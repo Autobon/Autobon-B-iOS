@@ -37,7 +37,7 @@
         make.height.mas_offset(360);
     }];
     
-    UILabel *titleLabel = [[UILabel alloc]init];
+    UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"订单施工时间详情";
     titleLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     titleLabel.font = [UIFont systemFontOfSize:15];
@@ -82,7 +82,7 @@
     
     NSArray *titleArray = @[@"未接单",@"已接单",@"已出发",@"已签到",@"施工中",@"已完成"];
     for (int i = 0; i < 6; i++) {
-        UILabel *label = [[UILabel alloc]init];
+        UILabel *label = [[UILabel alloc] init];
         label.text = titleArray[i];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:14];
@@ -101,7 +101,7 @@
     }
     
     for (int i = 0; i < 5; i++) {
-        UILabel *label = [[UILabel alloc]init];
+        UILabel *label = [[UILabel alloc] init];
         label.text = [NSString stringWithFormat:@"用时 00时 00钟 00秒"];
         label.font = [UIFont systemFontOfSize:14];
         [self addSubview:label];

@@ -38,20 +38,23 @@
         
         lineWidth = 2;
         
-//        _maxLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, 25, 16)];
+//        _maxLabel = [[UILabel alloc] init];
+//        _maxLabel.frame = CGRectMake(2, 2, 25, 16);
 //        [_maxLabel setAdjustsFontSizeToFitWidth:YES];
 //        [_maxLabel setBackgroundColor:[UIColor clearColor]];
 //        [_maxLabel setTextColor:[UIColor blackColor]];
 //        [_maxLabel setText:@"10"];
 //        [self addSubview:_maxLabel];
 //
-//        _zeroLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, CGRectGetMidY(self.frame) - 7.5, 25, 16)];
+//        _zeroLabel = [[UILabel alloc] init];
+//        _zeroLabel.frame = CGRectMake(2, CGRectGetMidY(self.frame) - 7.5, 25, 16);
 //        [_zeroLabel setAdjustsFontSizeToFitWidth:YES];
 //        [_zeroLabel setBackgroundColor:[UIColor clearColor]];
 //        [_zeroLabel setTextColor:[UIColor blackColor]];
 //        [self addSubview:_zeroLabel];
 //
-//        _minLanel = [[UILabel alloc] initWithFrame:CGRectMake(2, CGRectGetHeight(self.frame)-15, 25, 16)];
+//        _minLanel = [[UILabel alloc] init];
+//        _minLanel.frame = CGRectMake(2, CGRectGetHeight(self.frame)-15, 25, 16);
 //        [_minLanel setAdjustsFontSizeToFitWidth:YES];
 //        [_minLanel setBackgroundColor:[UIColor clearColor]];
 //        [_minLanel setTextColor:[UIColor blackColor]];

@@ -94,7 +94,8 @@
 //        [vv addSubview:ii];
         
         // 订单编号
-        self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 30)];
+        self.bianhaoLab = [[UILabel alloc] init];
+        self.bianhaoLab.frame = CGRectMake(10, 10, 200, 30);
         self.bianhaoLab.text = @"我就不信这么多字还满足不了";
         self.bianhaoLab.font = [UIFont boldSystemFontOfSize:13];
         self.bianhaoLab.textColor = [UIColor darkGrayColor];
@@ -125,14 +126,16 @@
         [self.zhipaiBut addTarget:self action:@selector(zhipaiButClick:) forControlEvents:UIControlEventTouchUpInside];
         
         // 施工项目
-        self.proLab = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bianhaoLab.frame) + 5, 250, 30)];
+        self.proLab = [[UILabel alloc] init];
+        self.proLab.frame = CGRectMake(10, CGRectGetMaxY(self.bianhaoLab.frame) + 5, 250, 30);
         self.proLab.textColor = [UIColor grayColor];
         self.proLab.font = [UIFont systemFontOfSize:12];
         self.proLab.text = @"隔热膜，隐形车衣，美容清洁，车身改色";
         [vv addSubview:self.proLab];
         
         // 订单状态
-        self.statusLab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 5 - 75, self.proLab.frame.origin.y, 75, 30)];
+        self.statusLab = [[UILabel alloc] init];
+        self.statusLab.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 5 - 75, self.proLab.frame.origin.y, 75, 30);
         self.statusLab.font = [UIFont systemFontOfSize:14];
         self.statusLab.textAlignment = NSTextAlignmentRight;
         self.statusLab.text = @"给你五个字";

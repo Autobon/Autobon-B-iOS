@@ -233,7 +233,8 @@
     CGFloat agreeLabH = kHeight * 0.024;
     CGFloat agreeLabX = 0;
     CGFloat agreeLabY = CGRectGetMaxY(okBut.frame) + jiange2 * 1.5 + 5;
-    UILabel *agreeLab = [[UILabel alloc] initWithFrame:CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH)];
+    UILabel *agreeLab = [[UILabel alloc] init];
+    agreeLab.frame = CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH);
     [_scView addSubview:agreeLab];
     agreeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     agreeLab.textAlignment = NSTextAlignmentCenter;

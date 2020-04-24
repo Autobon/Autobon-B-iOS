@@ -179,6 +179,7 @@
     
     // tableView视图
     self.tableview = [[UITableView alloc] init];
+    self.tableview.backgroundColor = [UIColor clearColor];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     [self.view addSubview:self.tableview];

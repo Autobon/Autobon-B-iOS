@@ -163,7 +163,8 @@
     CGFloat agreeLabH = kHeight * 0.024;
     CGFloat agreeLabX = 0;
     CGFloat agreeLabY = CGRectGetMaxY(signUpBut.frame) + jiange4;
-    UILabel *agreeLab = [[UILabel alloc] initWithFrame:CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH)];
+    UILabel *agreeLab = [[UILabel alloc] init];
+    agreeLab.frame = CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH);
     [self.view addSubview:agreeLab];
     agreeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     agreeLab.textAlignment = NSTextAlignmentCenter;
@@ -403,7 +404,8 @@
     CGFloat msgLabH = tipViewH;
     CGFloat msgLabX = 0;
     CGFloat msgLabY = 0;
-    UILabel *msgLab = [[UILabel alloc] initWithFrame:CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH)];
+    UILabel *msgLab = [[UILabel alloc] init];
+    msgLab.frame = CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH);
     msgLab.text = messageStr;
     [tipView addSubview:msgLab];
     msgLab.textAlignment = NSTextAlignmentCenter;

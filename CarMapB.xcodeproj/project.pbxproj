@@ -20,6 +20,8 @@
 		9B9754491C5765B3004BDC7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B9754481C5765B3004BDC7C /* Assets.xcassets */; };
 		9B9754571C5765B3004BDC7C /* CarMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9754561C5765B3004BDC7C /* CarMapUITests.m */; };
 		9BDD16251C9BF27B0017E8E9 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BDD16241C9BF27B0017E8E9 /* address.plist */; };
+		A608AF5324500912000694C6 /* UILabel+TextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A608AF5124500912000694C6 /* UILabel+TextColor.m */; };
+		A608AF56245026FB000694C6 /* UITextField+TextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A608AF55245026FB000694C6 /* UITextField+TextColor.m */; };
 		A60C641B234DB6DF0024FC24 /* CLProductPackageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C641A234DB6DF0024FC24 /* CLProductPackageModel.m */; };
 		A60C641E234DD0850024FC24 /* CLAddPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C641D234DD0850024FC24 /* CLAddPackageViewController.m */; };
 		A60C6421234DD5C90024FC24 /* CLPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A60C6420234DD5C90024FC24 /* CLPackageTableViewCell.m */; };
@@ -205,6 +207,10 @@
 		9BFA807F1C5F4596001651C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BFA80811C5F4744001651C3 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		9BFA80841C5F475B001651C3 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		A608AF5124500912000694C6 /* UILabel+TextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TextColor.m"; sourceTree = "<group>"; };
+		A608AF5224500912000694C6 /* UILabel+TextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TextColor.h"; sourceTree = "<group>"; };
+		A608AF54245026FB000694C6 /* UITextField+TextColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+TextColor.h"; sourceTree = "<group>"; };
+		A608AF55245026FB000694C6 /* UITextField+TextColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+TextColor.m"; sourceTree = "<group>"; };
 		A60C6419234DB6DF0024FC24 /* CLProductPackageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLProductPackageModel.h; sourceTree = "<group>"; };
 		A60C641A234DB6DF0024FC24 /* CLProductPackageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLProductPackageModel.m; sourceTree = "<group>"; };
 		A60C641C234DD0850024FC24 /* CLAddPackageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLAddPackageViewController.h; sourceTree = "<group>"; };
@@ -908,6 +914,10 @@
 				B0228FA11ECD49F40022D34F /* ACETelPrompt.m */,
 				A6341044244F20D800005CFF /* UITextField+PlaceholderColor.h */,
 				A6341043244F20D800005CFF /* UITextField+PlaceholderColor.m */,
+				A608AF5224500912000694C6 /* UILabel+TextColor.h */,
+				A608AF5124500912000694C6 /* UILabel+TextColor.m */,
+				A608AF54245026FB000694C6 /* UITextField+TextColor.h */,
+				A608AF55245026FB000694C6 /* UITextField+TextColor.m */,
 				A658348423754FFB0091FF1C /* GraphView */,
 				B05EC14D20F35ABB00EFB588 /* HXPhotoPicker */,
 				B0228FFB1ECD49F40022D34F /* 工具页面 */,
@@ -1351,6 +1361,7 @@
 				B02290711ECD49F50022D34F /* HZPhotoBrowser.m in Sources */,
 				B05EC19F20F35ABB00EFB588 /* HXPhoto3DTouchViewController.m in Sources */,
 				9B9754411C5765B3004BDC7C /* AppDelegate.mm in Sources */,
+				A608AF5324500912000694C6 /* UILabel+TextColor.m in Sources */,
 				B02290661ECD49F50022D34F /* CLTouchView.m in Sources */,
 				A658348723754FFB0091FF1C /* GraphView.m in Sources */,
 				B081E7631ECEF537003558DC /* CLCollectListViewController.m in Sources */,
@@ -1385,6 +1396,7 @@
 				B0228E561ECD47E60022D34F /* GFCooperatingSucViewController.m in Sources */,
 				B0228E5F1ECD47E60022D34F /* GFTransformTableViewCell.m in Sources */,
 				B05EC1AD20F35ABB00EFB588 /* HXDatePhotoViewController.m in Sources */,
+				A608AF56245026FB000694C6 /* UITextField+TextColor.m in Sources */,
 				B0228E721ECD48B40022D34F /* GFWorkerTableViewCell.m in Sources */,
 				B05EC1BA20F35ABB00EFB588 /* UIButton+HXExtension.m in Sources */,
 				B02290741ECD49F50022D34F /* MYImageView.m in Sources */,

@@ -126,12 +126,14 @@
         CGFloat numberLabH = 25;
         CGFloat numberLabX = jiange;
         CGFloat numberLabY = 10;
-        self.numberLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, numberLabY-5, numberLabW, numberLabH)];
+        self.numberLab = [[UILabel alloc] init];
+        self.numberLab.frame = CGRectMake(numberLabX, numberLabY-5, numberLabW, numberLabH);
         self.numberLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         [baseView addSubview:self.numberLab];
         
         
-        self.vinLab = [[UILabel alloc] initWithFrame:CGRectMake(numberLabX, CGRectGetMaxY(self.numberLab.frame) + 5, numberLabW, numberLabH)];
+        self.vinLab = [[UILabel alloc] init];
+        self.vinLab.frame = CGRectMake(numberLabX, CGRectGetMaxY(self.numberLab.frame) + 5, numberLabW, numberLabH);
         self.vinLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         [baseView addSubview:self.vinLab];
         
@@ -141,7 +143,8 @@
         CGFloat tipLabH = 25;
         CGFloat tipLabX = jiange;
         CGFloat tipLabY = CGRectGetMaxY(self.vinLab.frame);
-        self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH)];
+        self.timeLab = [[UILabel alloc] init];
+        self.timeLab.frame = CGRectMake(tipLabX, tipLabY, tipLabW, tipLabH);
         self.timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         self.timeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         [baseView addSubview:self.timeLab];
@@ -151,7 +154,8 @@
         CGFloat timeLabH = 25;
         CGFloat timeLabX = numberLabX;
         CGFloat timeLabY = CGRectGetMaxY(self.timeLab.frame);
-        UILabel *yuyueTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
+        UILabel *yuyueTimeLab = [[UILabel alloc] init];
+        yuyueTimeLab.frame = CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH);
         yuyueTimeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         yuyueTimeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
         [baseView addSubview:yuyueTimeLab];
@@ -163,7 +167,8 @@
         CGFloat contactPhoneLabH = 25;
         CGFloat contactPhoneLabX = numberLabX;
         CGFloat contactPhoneLabY = CGRectGetMaxY(self.yuyueTimeLab.frame);
-        UILabel *contactPhoneLab = [[UILabel alloc] initWithFrame:CGRectMake(contactPhoneLabX, contactPhoneLabY, contactPhoneLabW, contactPhoneLabH)];
+        UILabel *contactPhoneLab = [[UILabel alloc] init];
+        contactPhoneLab.frame = CGRectMake(contactPhoneLabX, contactPhoneLabY, contactPhoneLabW, contactPhoneLabH);
         contactPhoneLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
         contactPhoneLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
         [baseView addSubview:contactPhoneLab];
@@ -215,7 +220,7 @@
         
         
         
-        _statusLabel = [[UILabel alloc]init];
+        _statusLabel = [[UILabel alloc] init];
         _statusLabel.font = [UIFont systemFontOfSize:14];
         _statusLabel.text = @"待指派";
         _statusLabel.textAlignment = NSTextAlignmentRight;

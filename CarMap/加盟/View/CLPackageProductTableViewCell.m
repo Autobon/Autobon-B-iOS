@@ -26,9 +26,10 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
         self.clipsToBounds = YES;
         //编码
-        _nameLabel = [[UILabel alloc]init];
+        _nameLabel = [[UILabel alloc] init];
         _nameLabel.text = @"汽车隔热膜";
         _nameLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_nameLabel];
@@ -51,7 +52,7 @@
         }];
         
         
-        _priceLabel = [[UILabel alloc]init];
+        _priceLabel = [[UILabel alloc] init];
         _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _priceLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_priceLabel];
@@ -70,7 +71,7 @@
         
         
         //型号
-        UILabel *brandLabel = [[UILabel alloc]init];
+        UILabel *brandLabel = [[UILabel alloc] init];
         brandLabel.text = @"施工项目";
         brandLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:brandLabel];
@@ -81,7 +82,7 @@
             make.width.mas_offset(65);
         }];
         
-        _brandValueLabel = [[UILabel alloc]init];
+        _brandValueLabel = [[UILabel alloc] init];
         _brandValueLabel.text = @"威固";
         _brandValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _brandValueLabel.font = [UIFont systemFontOfSize:15];
@@ -98,7 +99,7 @@
         
         
         //施工部位
-        UILabel *constructionPositionLabel = [[UILabel alloc]init];
+        UILabel *constructionPositionLabel = [[UILabel alloc] init];
         constructionPositionLabel.text = @"施工部位";
         constructionPositionLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:constructionPositionLabel];
@@ -108,7 +109,7 @@
             make.height.mas_offset(30);
             make.width.mas_offset(65);
         }];
-        _constructionPositionValueLabel = [[UILabel alloc]init];
+        _constructionPositionValueLabel = [[UILabel alloc] init];
         _constructionPositionValueLabel.text = @"前风挡";
         _constructionPositionValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _constructionPositionValueLabel.font = [UIFont systemFontOfSize:15];
@@ -123,7 +124,7 @@
         
         
         //型号
-        UILabel *modelLabel = [[UILabel alloc]init];
+        UILabel *modelLabel = [[UILabel alloc] init];
         modelLabel.text = @"型        号";
         modelLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:modelLabel];
@@ -134,7 +135,7 @@
             make.width.mas_offset(65);
         }];
         
-        _modelValueLabel = [[UILabel alloc]init];
+        _modelValueLabel = [[UILabel alloc] init];
         _modelValueLabel.text = @"V70";
         _modelValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _modelValueLabel.font = [UIFont systemFontOfSize:15];
@@ -149,7 +150,7 @@
         
         
         //编码
-        UILabel *codeTitleLabel = [[UILabel alloc]init];
+        UILabel *codeTitleLabel = [[UILabel alloc] init];
         codeTitleLabel.text = @"品        牌";
         codeTitleLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:codeTitleLabel];
@@ -159,7 +160,7 @@
             make.height.mas_offset(30);
             make.width.mas_offset(65);
         }];
-        _codeValueLabel = [[UILabel alloc]init];
+        _codeValueLabel = [[UILabel alloc] init];
         _codeValueLabel.text = @"GR-001";
         _codeValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _codeValueLabel.font = [UIFont systemFontOfSize:15];
@@ -172,7 +173,7 @@
         }];
         
         //工时
-        UILabel *workHourLabel = [[UILabel alloc]init];
+        UILabel *workHourLabel = [[UILabel alloc] init];
         workHourLabel.text = @"工        时";
         workHourLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:workHourLabel];
@@ -182,7 +183,7 @@
             make.height.mas_offset(30);
             make.width.mas_offset(65);
         }];
-        _workHourValueLabel = [[UILabel alloc]init];
+        _workHourValueLabel = [[UILabel alloc] init];
         _workHourValueLabel.text = @"70";
         _workHourValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _workHourValueLabel.font = [UIFont systemFontOfSize:15];
@@ -195,7 +196,7 @@
         }];
         
         //质保期间
-        UILabel *warrantyPeriodLabel = [[UILabel alloc]init];
+        UILabel *warrantyPeriodLabel = [[UILabel alloc] init];
         warrantyPeriodLabel.text = @"质保期间";
         warrantyPeriodLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:warrantyPeriodLabel];
@@ -205,7 +206,7 @@
             make.height.mas_offset(30);
             make.width.mas_offset(65);
         }];
-        _warrantyPeriodValueLabel = [[UILabel alloc]init];
+        _warrantyPeriodValueLabel = [[UILabel alloc] init];
         _warrantyPeriodValueLabel.text = @"60月";
         _warrantyPeriodValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _warrantyPeriodValueLabel.font = [UIFont systemFontOfSize:15];

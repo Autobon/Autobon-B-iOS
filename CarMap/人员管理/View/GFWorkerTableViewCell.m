@@ -40,14 +40,16 @@
         [baseView addSubview:lineView2];
         
         // 左边lab
-        self.leftLab = [[UILabel alloc] initWithFrame:CGRectMake(jianjv1, 0, kwidth - jianjv1 * 2, kHeight * 0.078)];
+        self.leftLab = [[UILabel alloc] init];
+        self.leftLab.frame = CGRectMake(jianjv1, 0, kwidth - jianjv1 * 2, kHeight * 0.078);
         self.leftLab.font = [UIFont systemFontOfSize:15 / 320.0 * kwidth];
         self.leftLab.textAlignment = NSTextAlignmentLeft;
         [baseView addSubview:self.leftLab];
         self.leftLab.text = @"左边";
         
         // 中间Lab
-        self.centerLab = [[UILabel alloc] initWithFrame:CGRectMake(jianjv1, 0, kwidth - jianjv1 * 2, kHeight * 0.078)];
+        self.centerLab = [[UILabel alloc] init];
+        self.centerLab.frame = CGRectMake(jianjv1, 0, kwidth - jianjv1 * 2, kHeight * 0.078);
         self.centerLab.font = [UIFont systemFontOfSize:15 / 320.0 * kwidth];
         self.centerLab.textAlignment = NSTextAlignmentCenter;
         [baseView addSubview:self.centerLab];

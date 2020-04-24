@@ -28,7 +28,7 @@
         self.contentView.clipsToBounds = YES;
         
         
-        _priceLabel = [[UILabel alloc]init];
+        _priceLabel = [[UILabel alloc] init];
         _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         _priceLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_priceLabel];
@@ -39,7 +39,7 @@
         }];
         
         //施工项目
-        _construcationProjectLabel = [[UILabel alloc]init];
+        _construcationProjectLabel = [[UILabel alloc] init];
         //        _construcationProjectLabel.text = @"施工项目：1234657899";
         _construcationProjectLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_construcationProjectLabel];
@@ -51,7 +51,7 @@
         }];
         
         //施工部位
-        _constructionLocationLabel = [[UILabel alloc]init];
+        _constructionLocationLabel = [[UILabel alloc] init];
         //        _constructionLocationLabel.text = @"施工部位：1234657899";
         _constructionLocationLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_constructionLocationLabel];
@@ -63,7 +63,7 @@
         }];
         
         //型号
-        _typeLabel = [[UILabel alloc]init];
+        _typeLabel = [[UILabel alloc] init];
         //        _typeLabel.text = @"型号：1234657899";
         _typeLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_typeLabel];
@@ -75,7 +75,7 @@
         }];
         
         //品牌
-        _brandLabel = [[UILabel alloc]init];
+        _brandLabel = [[UILabel alloc] init];
         //        _brandLabel.text = @"品牌：1234657899";
         _brandLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_brandLabel];

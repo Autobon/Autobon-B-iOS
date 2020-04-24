@@ -28,7 +28,8 @@
         UIView *vv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, strRect.size.width + 20, 50)];
         
         // 添加lab
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, strRect.size.width, 50)];
+        UILabel *lab = [[UILabel alloc] init];
+        lab.frame = CGRectMake(10, 0, strRect.size.width, 50);
         lab.text = string;
         lab.textAlignment = NSTextAlignmentCenter;
         lab.textColor = [UIColor colorWithRed:88 / 255.0 green:89 / 255.0 blue:90 / 255.0 alpha:1];
@@ -39,7 +40,7 @@
         self.leftViewMode = UITextFieldViewModeAlways;
         
         self.backgroundColor = [UIColor whiteColor];
-        
+        self.textColor = [UIColor blackColor];
 
     }
 
@@ -69,6 +70,7 @@
         self.leftViewMode = UITextFieldViewModeAlways;
         
         self.backgroundColor = [UIColor whiteColor];
+        self.textColor = [UIColor blackColor];
     }
     
     
@@ -87,6 +89,7 @@
         self.leftView = vv;
         self.leftViewMode = UITextFieldViewModeAlways;
 //        self.placeholder = placeholder;
+        self.textColor = [UIColor blackColor];
         [self setTextFieldPlaceholderString:placeholder];
         self.backgroundColor = [UIColor whiteColor];
         
@@ -105,6 +108,7 @@
         
         self.frame = CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.078);
         self.font = [UIFont systemFontOfSize:(15 / 320.0 * [UIScreen mainScreen].bounds.size.width)];
+        self.textColor = [UIColor blackColor];
 //        [self setValue:[UIFont systemFontOfSize:(15 / 320.0 * [UIScreen mainScreen].bounds.size.width)] forKeyPath:@"_placeholderLabel.font"];
         
         

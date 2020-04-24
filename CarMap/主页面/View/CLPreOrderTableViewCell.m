@@ -26,7 +26,7 @@
         }];
         
         // 车架号
-        UILabel *vinTitleLabel = [[UILabel alloc]init];
+        UILabel *vinTitleLabel = [[UILabel alloc] init];
         vinTitleLabel.text = @"车架号：";
         vinTitleLabel.alpha = 0.8;
         vinTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -37,7 +37,7 @@
             make.height.mas_offset(20);
         }];
         
-        _vinValueLabel = [[UILabel alloc]init];
+        _vinValueLabel = [[UILabel alloc] init];
         _vinValueLabel.text = @"SE123654894321";
         _vinValueLabel.alpha = 0.8;
         _vinValueLabel.font = [UIFont systemFontOfSize:13];
@@ -49,7 +49,7 @@
         }];
         
         // 车牌号
-        UILabel *licneseTitleLabel = [[UILabel alloc]init];
+        UILabel *licneseTitleLabel = [[UILabel alloc] init];
         licneseTitleLabel.text = @"车牌号：";
         licneseTitleLabel.alpha = 0.8;
         licneseTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -60,7 +60,7 @@
             make.height.mas_offset(20);
         }];
         
-        _licenseValueLabel = [[UILabel alloc]init];
+        _licenseValueLabel = [[UILabel alloc] init];
         _licenseValueLabel.text = @"京A123456";
         _licenseValueLabel.alpha = 0.8;
         _licenseValueLabel.font = [UIFont systemFontOfSize:13];
@@ -72,7 +72,7 @@
         }];
         
         // 车型
-        UILabel *carModelTitleLabel = [[UILabel alloc]init];
+        UILabel *carModelTitleLabel = [[UILabel alloc] init];
         carModelTitleLabel.text = @"车    型：";
         carModelTitleLabel.alpha = 0.8;
         carModelTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -83,7 +83,7 @@
             make.height.mas_offset(20);
         }];
         
-        _carModelValueLabel = [[UILabel alloc]init];
+        _carModelValueLabel = [[UILabel alloc] init];
         _carModelValueLabel.text = @"奥迪A6";
         _carModelValueLabel.alpha = 0.8;
         _carModelValueLabel.font = [UIFont systemFontOfSize:13];
@@ -95,7 +95,7 @@
         }];
         
         // 预约时间
-        UILabel *beginTimeTitleLabel = [[UILabel alloc]init];
+        UILabel *beginTimeTitleLabel = [[UILabel alloc] init];
         beginTimeTitleLabel.text = @"预约时间：";
         beginTimeTitleLabel.alpha = 0.8;
         beginTimeTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -106,7 +106,7 @@
             make.height.mas_offset(20);
         }];
         
-        _beginTimeValueLabel = [[UILabel alloc]init];
+        _beginTimeValueLabel = [[UILabel alloc] init];
         _beginTimeValueLabel.text = @"2019-12-10 12:30";
         _beginTimeValueLabel.alpha = 0.8;
         _beginTimeValueLabel.font = [UIFont systemFontOfSize:13];

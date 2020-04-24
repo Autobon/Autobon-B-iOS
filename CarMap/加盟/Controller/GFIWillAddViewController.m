@@ -49,7 +49,8 @@
     
     
     // 还未提交加盟信息
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, kHeight * 0.2 + 64, kWidth, kHeight * 0.0261)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(0, kHeight * 0.2 + 64, kWidth, kHeight * 0.0261);
     lab.text = @"还未提交加盟信息";
     lab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:lab];

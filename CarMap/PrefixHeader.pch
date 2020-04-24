@@ -9,7 +9,7 @@
 
 #import "Masonry.h"
 #import "UITextField+PlaceholderColor.h"
-
+#import "UITextField+TextColor.h"
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
@@ -25,8 +25,8 @@
 #define TextSize 15
 
 
-#define BaseHttp @"http://47.93.17.218:12345"
-//#define BaseHttp @"http://10.0.12.170:12345"
+//#define BaseHttp @"http://47.93.17.218:12345"
+#define BaseHttp @"http://118.31.41.230:7123"
 
 #ifdef DEBUG
 

@@ -305,7 +305,7 @@
         make.bottom.equalTo(baseView.mas_top);
     }];
     
-    UILabel *titleLabel = [[UILabel alloc]init];
+    UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"详情";
     titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [baseView addSubview:titleLabel];
@@ -331,7 +331,7 @@
     }];
     
     // 车架号
-    UILabel *vinTitleLabel = [[UILabel alloc]init];
+    UILabel *vinTitleLabel = [[UILabel alloc] init];
     vinTitleLabel.text = @"车架号：";
     vinTitleLabel.alpha = 0.8;
     vinTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -342,7 +342,7 @@
         make.height.mas_offset(20);
     }];
     
-    UILabel *vinValueLabel = [[UILabel alloc]init];
+    UILabel *vinValueLabel = [[UILabel alloc] init];
     vinValueLabel.text = preOrderModel.vin;
     vinValueLabel.alpha = 0.8;
     vinValueLabel.font = [UIFont systemFontOfSize:13];
@@ -354,7 +354,7 @@
     }];
     
     // 车牌号
-    UILabel *licneseTitleLabel = [[UILabel alloc]init];
+    UILabel *licneseTitleLabel = [[UILabel alloc] init];
     licneseTitleLabel.text = @"车牌号：";
     licneseTitleLabel.alpha = 0.8;
     licneseTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -365,7 +365,7 @@
         make.height.mas_offset(20);
     }];
     
-    UILabel *licenseValueLabel = [[UILabel alloc]init];
+    UILabel *licenseValueLabel = [[UILabel alloc] init];
     licenseValueLabel.text = preOrderModel.license;
     licenseValueLabel.alpha = 0.8;
     licenseValueLabel.font = [UIFont systemFontOfSize:13];
@@ -377,7 +377,7 @@
     }];
     
     // 车型
-    UILabel *carModelTitleLabel = [[UILabel alloc]init];
+    UILabel *carModelTitleLabel = [[UILabel alloc] init];
     carModelTitleLabel.text = @"车    型：";
     carModelTitleLabel.alpha = 0.8;
     carModelTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -388,7 +388,7 @@
         make.height.mas_offset(20);
     }];
     
-    UILabel *carModelValueLabel = [[UILabel alloc]init];
+    UILabel *carModelValueLabel = [[UILabel alloc] init];
     carModelValueLabel.text = preOrderModel.vehicleModel;
     carModelValueLabel.alpha = 0.8;
     carModelValueLabel.font = [UIFont systemFontOfSize:13];
@@ -400,7 +400,7 @@
     }];
     
     // 预约时间
-    UILabel *beginTimeTitleLabel = [[UILabel alloc]init];
+    UILabel *beginTimeTitleLabel = [[UILabel alloc] init];
     beginTimeTitleLabel.text = @"预约时间：";
     beginTimeTitleLabel.alpha = 0.8;
     beginTimeTitleLabel.font = [UIFont systemFontOfSize:13];
@@ -411,7 +411,7 @@
         make.height.mas_offset(20);
     }];
     
-    UILabel *beginTimeValueLabel = [[UILabel alloc]init];
+    UILabel *beginTimeValueLabel = [[UILabel alloc] init];
     beginTimeValueLabel.text = preOrderModel.agreedStartTime;
     beginTimeValueLabel.alpha = 0.8;
     beginTimeValueLabel.font = [UIFont systemFontOfSize:13];
@@ -481,7 +481,7 @@
         for (int i = 0; i < preOrderModel.productOffers.count; i++) {
             NSDictionary *productDict = preOrderModel.productOffers[i];
             //型号
-            UILabel *codeLabel = [[UILabel alloc]init];
+            UILabel *codeLabel = [[UILabel alloc] init];
             codeLabel.text = [NSString stringWithFormat:@"型号：%@", productDict[@"model"]];
             codeLabel.font = [UIFont systemFontOfSize:14];
             codeLabel.alpha = 0.8;
@@ -489,7 +489,7 @@
             codeLabel.frame = CGRectMake(20, 10 + 40 * i, self.view.frame.size.width/2 - 40, 35);
             
             //施工部位
-            UILabel *positionLabel = [[UILabel alloc]init];
+            UILabel *positionLabel = [[UILabel alloc] init];
             positionLabel.text = [NSString stringWithFormat:@"部位：%@", productDict[@"constructionPositionName"]];
             positionLabel.font = [UIFont systemFontOfSize:14];
             positionLabel.alpha = 0.8;
@@ -518,7 +518,7 @@
     if (preOrderModel.productOfferSetMenus){    //套餐
         for (int i = 0; i < preOrderModel.productOfferSetMenus.count; i++) {
             NSDictionary *menuDict = preOrderModel.productOfferSetMenus[i];
-            UILabel *nameLabel = [[UILabel alloc]init];
+            UILabel *nameLabel = [[UILabel alloc] init];
             nameLabel.text = [NSString stringWithFormat:@"%@", menuDict[@"name"]];
             nameLabel.font = [UIFont systemFontOfSize:14];
             nameLabel.alpha = 0.8;
@@ -555,7 +555,7 @@
     if (preOrderModel.productOfferSetMenus){    //套餐
         for (int i = 0; i < preOrderModel.productOfferSetMenus.count; i++) {
             NSDictionary *menuDict = preOrderModel.productOfferSetMenus[i];
-            UILabel *nameLabel = [[UILabel alloc]init];
+            UILabel *nameLabel = [[UILabel alloc] init];
             nameLabel.text = [NSString stringWithFormat:@"%@", menuDict[@"name"]];
             nameLabel.font = [UIFont systemFontOfSize:14];
             nameLabel.alpha = 0.8;
@@ -578,7 +578,7 @@
         for (int i = 0; i < preOrderModel.productOffers.count; i++) {
             NSDictionary *productDict = preOrderModel.productOffers[i];
             //型号
-            UILabel *codeLabel = [[UILabel alloc]init];
+            UILabel *codeLabel = [[UILabel alloc] init];
             codeLabel.text = [NSString stringWithFormat:@"型号：%@", productDict[@"model"]];
             codeLabel.font = [UIFont systemFontOfSize:14];
             codeLabel.alpha = 0.8;
@@ -586,7 +586,7 @@
             codeLabel.frame = CGRectMake(20, 10 + 40 * i, self.view.frame.size.width/2 - 40, 35);
             
             //施工部位
-            UILabel *positionLabel = [[UILabel alloc]init];
+            UILabel *positionLabel = [[UILabel alloc] init];
             positionLabel.text = [NSString stringWithFormat:@"部位：%@", productDict[@"constructionPositionName"]];
             positionLabel.font = [UIFont systemFontOfSize:14];
             positionLabel.alpha = 0.8;

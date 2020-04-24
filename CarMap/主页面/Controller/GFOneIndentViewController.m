@@ -300,7 +300,7 @@
     }];
     
     
-    UILabel *vinLabel = [[UILabel alloc]init];
+    UILabel *vinLabel = [[UILabel alloc] init];
     vinLabel.text = @"车架号后七位";
     vinLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:vinLabel];
@@ -346,7 +346,7 @@
         make.height.mas_offset(1);
     }];
     
-    UILabel *carLicenseLabel = [[UILabel alloc]init];
+    UILabel *carLicenseLabel = [[UILabel alloc] init];
     carLicenseLabel.text = @"车牌号";
     carLicenseLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:carLicenseLabel];
@@ -381,7 +381,7 @@
         make.height.mas_offset(1);
     }];
     
-    UILabel *carTypeLabel = [[UILabel alloc]init];
+    UILabel *carTypeLabel = [[UILabel alloc] init];
     carTypeLabel.text = @"车型";
     carTypeLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:carTypeLabel];
@@ -414,7 +414,7 @@
         make.height.mas_offset(1);
     }];
     
-    UILabel *beginTimeLabel = [[UILabel alloc]init];
+    UILabel *beginTimeLabel = [[UILabel alloc] init];
     beginTimeLabel.text = @"预约施工时间";
     beginTimeLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:beginTimeLabel];
@@ -452,7 +452,7 @@
     }];
     
     /*
-    UILabel *endTimeLabel = [[UILabel alloc]init];
+    UILabel *endTimeLabel = [[UILabel alloc] init];
     endTimeLabel.text = @"最迟交车时间";
     endTimeLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:endTimeLabel];
@@ -478,7 +478,7 @@
     }];
     */
     
-    UILabel *remarkLabel = [[UILabel alloc]init];
+    UILabel *remarkLabel = [[UILabel alloc] init];
     remarkLabel.text = @"备注";
     remarkLabel.font = [UIFont systemFontOfSize:14];
     [textFieldBaseView addSubview:remarkLabel];
@@ -533,7 +533,7 @@
         make.centerY.equalTo(_packageTitleBaseView);
     }];
     
-    UILabel *packageTitleLabel = [[UILabel alloc]init];
+    UILabel *packageTitleLabel = [[UILabel alloc] init];
     packageTitleLabel.text = @"选择施工项目";
     packageTitleLabel.font = [UIFont systemFontOfSize:14];
     [_packageTitleBaseView addSubview:packageTitleLabel];
@@ -597,9 +597,17 @@
     _searchbar.layer.cornerRadius = 15;
     _searchbar.layer.borderWidth = 1.0;
     _searchbar.layer.borderColor = [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]CGColor];
-    _searchbar.placeholder = @"请输入型号或部位进行搜索";
-    UITextField * searchField = [_searchbar valueForKey:@"_searchField"];
-    searchField.font = [UIFont systemFontOfSize:14];
+    
+    if (@available(iOS 13.0, *)) {
+        _searchbar.searchTextField.placeholder = @"请输入型号或部位进行搜索";
+        _searchbar.searchTextField.font = [UIFont systemFontOfSize:14];
+        _searchbar.searchTextField.textColor = [UIColor blackColor];
+    } else {
+        _searchbar.placeholder = @"请输入型号或部位进行搜索";
+        UITextField * searchField = [_searchbar valueForKey:@"_searchField"];
+        searchField.font = [UIFont systemFontOfSize:14];
+    }
+    
     [searchBaseView addSubview:_searchbar];
     _searchbar.delegate = self;
     _searchbar.clipsToBounds = YES;
@@ -771,7 +779,7 @@
         lastButton = button;
         */
         
-        UILabel *iconLabel = [[UILabel alloc]init];
+        UILabel *iconLabel = [[UILabel alloc] init];
         iconLabel.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         [button addSubview:iconLabel];
         iconLabel.font = [UIFont systemFontOfSize:10];
@@ -796,6 +804,7 @@
     }
     
     _tableView = [[UITableView alloc]init];
+    _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
 //    _tableView.separatorColor = [UIColor clearColor];
@@ -1160,7 +1169,7 @@
         contentBaseButton.tag = i;
         [contentBaseButton addTarget:self action:@selector(packageBaseViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel *contentTitleLabel = [[UILabel alloc]init];
+        UILabel *contentTitleLabel = [[UILabel alloc] init];
         contentTitleLabel.text = productModel.name;
 //        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
         [contentBaseButton addSubview:contentTitleLabel];
@@ -1414,7 +1423,7 @@
             make.height.mas_offset(40);
         }];
         
-        UILabel *titleLabel = [[UILabel alloc]init];
+        UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.text = @"已选项目";
         titleLabel.font = [UIFont boldSystemFontOfSize:17];
         [titleBaseView addSubview:titleLabel];
@@ -1481,7 +1490,7 @@
             make.height.mas_offset(40);
         }];
         
-        UILabel *titleLabel = [[UILabel alloc]init];
+        UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.text = @"已选套餐";
         titleLabel.font = [UIFont boldSystemFontOfSize:17];
         [titleBaseView addSubview:titleLabel];
@@ -1518,7 +1527,7 @@
             
             CLProductPackageModel *productModel = self.selectPackageArray[i];
             
-            UILabel *contentTitleLabel = [[UILabel alloc]init];
+            UILabel *contentTitleLabel = [[UILabel alloc] init];
 //            contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
             contentTitleLabel.text = productModel.name;
 //            contentTitleLabel.text = _selectPackageModel.name;
@@ -1649,7 +1658,7 @@
             
             CLProductPackageModel *productModel = self.selectPackageArray[i];
             
-            UILabel *contentTitleLabel = [[UILabel alloc]init];
+            UILabel *contentTitleLabel = [[UILabel alloc] init];
             contentTitleLabel.text = productModel.name;
             [contentBaseButton addSubview:contentTitleLabel];
             [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1720,7 +1729,7 @@
         make.height.mas_offset(40);
     }];
     
-    UILabel *titleLabel = [[UILabel alloc]init];
+    UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = packageModel.name;
     titleLabel.font = [UIFont boldSystemFontOfSize:17];
     [titleBaseView addSubview:titleLabel];
@@ -2198,6 +2207,7 @@
     CGFloat txtViewX = jianjv1;
     CGFloat txtViewY = CGRectGetMaxY(lineView1.frame) + kHeight * 0.024;
     self.txtView = [[UITextView alloc] initWithFrame:CGRectMake(txtViewX, txtViewY, txtViewW, txtViewH)];
+    self.txtView.backgroundColor = [UIColor clearColor];
     self.txtView.text = @"订单备注(请填写本车提成，最多200字)";
     self.txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     self.txtView.delegate = self;
@@ -2266,14 +2276,16 @@
     vv.backgroundColor = [UIColor whiteColor];
     [self.baseView addSubview:vv];
     
-    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(1, 0, [UIScreen mainScreen].bounds.size.width * 0.4, vv.frame.size.height)];
+    UILabel *titleLab = [[UILabel alloc] init];
+    titleLab.frame = CGRectMake(1, 0, [UIScreen mainScreen].bounds.size.width * 0.4, vv.frame.size.height);
     titleLab.text = titleName;
     titleLab.textAlignment = NSTextAlignmentCenter;
     titleLab.font = [UIFont systemFontOfSize:16];
     titleLab.textColor = [UIColor grayColor];
     [vv addSubview:titleLab];
     
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(titleLab.frame), 0, [UIScreen mainScreen].bounds.size.width * 0.6, 40)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(CGRectGetMaxX(titleLab.frame), 0, [UIScreen mainScreen].bounds.size.width * 0.6, 40);
     lab.textColor = [UIColor grayColor];
     [vv addSubview:lab];
     
@@ -2911,6 +2923,7 @@
     vc.delegate = self;
     HXCustomNavigationController *nav = [[HXCustomNavigationController alloc] initWithRootViewController:vc];
     nav.supportRotation = self.manager.configuration.supportRotation;
+    nav.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
 }
 
@@ -3224,7 +3237,8 @@
     
     
     // 下单成功
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(but.frame) + 5, baseViewW, kHeight * 0.04)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(0, CGRectGetMaxY(but.frame) + 5, baseViewW, kHeight * 0.04);
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     lab.text = @"下单成功！";
@@ -3236,7 +3250,8 @@
     CGFloat timeLabH = butH;
     CGFloat timeLabX = (baseViewW - timeLabW) / 2.0;
     CGFloat timeLabY = CGRectGetMaxY(lab.frame) + 20;
-    self.timeLab1 = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
+    self.timeLab1 = [[UILabel alloc] init];
+    self.timeLab1.frame = CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH);
     self.timeLab1.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     [baseView addSubview:self.timeLab1];
     
@@ -3290,7 +3305,7 @@
         
         if ([responseObject[@"status"] integerValue] == 1) {
             GFPartnersMessageViewController *partnerView = [[GFPartnersMessageViewController alloc]init];
-            partnerView.muLab = [[UILabel alloc]init];
+            partnerView.muLab = [[UILabel alloc] init];
             partnerView.muLab.text = [NSString stringWithFormat:@"%@",responseObject[@"message"]];
 //            NSLog(@"--获取商户订单信息－－%@--",partnerView.muLab.text);
             [self.navigationController pushViewController:partnerView animated:YES];

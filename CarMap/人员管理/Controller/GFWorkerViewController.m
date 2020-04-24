@@ -296,7 +296,8 @@
     baseView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:baseView];
     
-    UILabel *leftLab = [[UILabel alloc] initWithFrame:CGRectMake(jianjv1, 0, kWidth, baseViewH)];
+    UILabel *leftLab = [[UILabel alloc] init];
+    leftLab.frame = CGRectMake(jianjv1, 0, kWidth, baseViewH);
     leftLab.text = leftStr;
     leftLab.textAlignment = NSTextAlignmentLeft;
     leftLab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];

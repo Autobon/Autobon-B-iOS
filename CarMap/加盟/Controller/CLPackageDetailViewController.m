@@ -71,7 +71,7 @@
 //        make.height.mas_offset(50);
 //    }];
 //
-//    UILabel *titleLabel = [[UILabel alloc]init];
+//    UILabel *titleLabel = [[UILabel alloc] init];
 //    titleLabel.text = @"套餐一";
 //    titleLabel.font = [UIFont boldSystemFontOfSize:17];
 //    [headerBaseView addSubview:titleLabel];

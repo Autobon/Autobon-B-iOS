@@ -98,7 +98,8 @@
     
     
     // "密码由8~18位英文字母与数字组成"
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kWidth * 0.075, CGRectGetMaxY(self.xinPwdtxt.frame) + 10, kWidth - 50, kHeight * 0.021)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(kWidth * 0.075, CGRectGetMaxY(self.xinPwdtxt.frame) + 10, kWidth - 50, kHeight * 0.021);
     lab.text = @"密码由8~18位英文字母与数字组成";
     lab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     lab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
@@ -203,7 +204,8 @@
     CGFloat msgLabH = tipViewH;
     CGFloat msgLabX = 0;
     CGFloat msgLabY = 0;
-    UILabel *msgLab = [[UILabel alloc] initWithFrame:CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH)];
+    UILabel *msgLab = [[UILabel alloc] init];
+    msgLab.frame = CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH);
     msgLab.text = messageStr;
     [tipView addSubview:msgLab];
     msgLab.textAlignment = NSTextAlignmentCenter;

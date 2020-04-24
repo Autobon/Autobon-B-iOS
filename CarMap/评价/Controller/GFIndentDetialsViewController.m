@@ -188,7 +188,8 @@
     CGFloat bianhaoLabH = kHeight * 0.026;
     CGFloat bianhaoLabX = jianjv1;
     CGFloat bianhaoLabY = jiange2;
-    self.bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, bianhaoLabY, bianhaoLabW, bianhaoLabH)];
+    self.bianhaoLab = [[UILabel alloc] init];
+    self.bianhaoLab.frame = CGRectMake(bianhaoLabX, bianhaoLabY, bianhaoLabW, bianhaoLabH);
     self.bianhaoLab.text = [NSString stringWithFormat:@"订单编号：%@",_model.orderNum];
     self.bianhaoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.bianhaoLab];
@@ -198,7 +199,8 @@
     CGFloat tiemoLabH = bianhaoLabH;
     CGFloat tiemoLabX = bianhaoLabX;
     CGFloat tiemoLabY = CGRectGetMaxY(self.bianhaoLab.frame);
-    self.tiemoLab = [[UILabel alloc] initWithFrame:CGRectMake(tiemoLabX, tiemoLabY, tiemoLabW, tiemoLabH)];
+    self.tiemoLab = [[UILabel alloc] init];
+    self.tiemoLab.frame = CGRectMake(tiemoLabX, tiemoLabY, tiemoLabW, tiemoLabH);
     self.tiemoLab.text = _model.typeName;
     self.tiemoLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     self.tiemoLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -215,7 +217,8 @@
     CGFloat timeLabH = bianhaoLabH;
     CGFloat timeLabX = bianhaoLabX;
     CGFloat timeLabY = CGRectGetMaxY(self.tiemoLab.frame);
-    self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH)];
+    self.timeLab = [[UILabel alloc] init];
+    self.timeLab.frame = CGRectMake(timeLabX, timeLabY, timeLabW, timeLabH);
     self.timeLab.text = [NSString stringWithFormat:@"预约施工时间：%@",_model.agreedStartTime];
     self.timeLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     self.timeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
@@ -319,12 +322,14 @@
     
     
     
-    self.licenseLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, CGRectGetMaxY(but1.frame) + jiange1 + 10, bianhaoLabW, bianhaoLabH)];
+    self.licenseLab = [[UILabel alloc] init];
+    self.licenseLab.frame = CGRectMake(bianhaoLabX, CGRectGetMaxY(but1.frame) + jiange1 + 10, bianhaoLabW, bianhaoLabH);
     self.licenseLab.text = [NSString stringWithFormat:@"车牌号：%@",_model.license];
     self.licenseLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.licenseLab];
     
-    self.vinLab = [[UILabel alloc] initWithFrame:CGRectMake(bianhaoLabX, CGRectGetMaxY(self.licenseLab.frame) + jiange1, bianhaoLabW, bianhaoLabH)];
+    self.vinLab = [[UILabel alloc] init];
+    self.vinLab.frame = CGRectMake(bianhaoLabX, CGRectGetMaxY(self.licenseLab.frame) + jiange1, bianhaoLabW, bianhaoLabH);
     self.vinLab.text = [NSString stringWithFormat:@"车架号：%@",_model.vin];
     self.vinLab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
     [baseView addSubview:self.vinLab];
@@ -351,7 +356,8 @@
         leftLittleView.frame = CGRectMake(0, 12, 6, 16);
         
         
-        UILabel *menusTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+        UILabel *menusTitleLab = [[UILabel alloc] init];
+        menusTitleLab.frame = CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30);
         menusTitleLab.textColor = [UIColor darkGrayColor];
         menusTitleLab.font = [UIFont systemFontOfSize:14];
         menusTitleLab.text = [NSString stringWithFormat:@"报价产品"];
@@ -368,7 +374,7 @@
         [titleImageBaseView addSubview:titleImageView];
         titleImageView.frame = CGRectMake(20, 12, 15, 15);
         
-        UILabel *titleImageLabel = [[UILabel alloc]init];
+        UILabel *titleImageLabel = [[UILabel alloc] init];
         titleImageLabel.text = @"型号+部位";
         titleImageLabel.font = [UIFont boldSystemFontOfSize:14];
         [titleImageBaseView addSubview:titleImageLabel];
@@ -390,7 +396,8 @@
             
             
             NSDictionary *productDict = productOfferShowsArray[i];
-            UILabel *menusNameLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30)];
+            UILabel *menusNameLab = [[UILabel alloc] init];
+            menusNameLab.frame = CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30);
             menusNameLab.textColor = [UIColor darkGrayColor];
             menusNameLab.font = [UIFont systemFontOfSize:14];
             menusNameLab.text = [NSString stringWithFormat:@"%@--%@", productDict[@"model"], productDict[@"constructionPositionName"]];
@@ -423,7 +430,8 @@
         leftLittleView.frame = CGRectMake(0, 12, 6, 16);
         
         
-        UILabel *menusTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+        UILabel *menusTitleLab = [[UILabel alloc] init];
+        menusTitleLab.frame = CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30);
         menusTitleLab.textColor = [UIColor darkGrayColor];
         menusTitleLab.font = [UIFont systemFontOfSize:14];
         menusTitleLab.text = [NSString stringWithFormat:@"组合套餐"];
@@ -440,7 +448,7 @@
         [titleImageBaseView addSubview:titleImageView];
         titleImageView.frame = CGRectMake(20, 12, 15, 15);
         
-        UILabel *titleImageLabel = [[UILabel alloc]init];
+        UILabel *titleImageLabel = [[UILabel alloc] init];
         titleImageLabel.text = @"套餐名称";
         titleImageLabel.font = [UIFont boldSystemFontOfSize:14];
         [titleImageBaseView addSubview:titleImageLabel];
@@ -463,7 +471,8 @@
             
             
             NSDictionary *menusDict = setMenusArray[i];
-            UILabel *menusNameLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30)];
+            UILabel *menusNameLab = [[UILabel alloc] init];
+            menusNameLab.frame = CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30);
             menusNameLab.textColor = [UIColor darkGrayColor];
             menusNameLab.font = [UIFont systemFontOfSize:14];
             menusNameLab.text = [NSString stringWithFormat:@"%@", menusDict[@"name"]];
@@ -499,7 +508,8 @@
     CGFloat lab4H = kHeight * 0.026;
     CGFloat lab4X = jianjv2;
     CGFloat lab4Y = CGRectGetMaxY(lineView2.frame) + jiange4;
-    UILabel *lab4 = [[UILabel alloc] initWithFrame:CGRectMake(lab4X, lab4Y, lab4W, lab4H)];
+    UILabel *lab4 = [[UILabel alloc] init];
+    lab4.frame = CGRectMake(lab4X, lab4Y, lab4W, lab4H);
 //    lab4.backgroundColor = [UIColor redColor];
     [baseView addSubview:lab4];
     lab4.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -513,7 +523,8 @@
     CGFloat contLab4H = fenRect4.size.height;
     CGFloat contLab4X = CGRectGetMaxX(lab4.frame);
     CGFloat contLab4Y = lab4Y;
-    UILabel *contLab4 = [[UILabel alloc] initWithFrame:CGRectMake(contLab4X, contLab4Y, contLab4W, contLab4H)];
+    UILabel *contLab4 = [[UILabel alloc] init];
+    contLab4.frame = CGRectMake(contLab4X, contLab4Y, contLab4W, contLab4H);
     contLab4.numberOfLines = 0;
     contLab4.text = lab4Str;
     contLab4.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -530,7 +541,8 @@
     CGFloat lab5H = kHeight * 0.026;
     CGFloat lab5X = jianjv2;
     CGFloat lab5Y = CGRectGetMaxY(contLab4.frame) + jiange4 * 2;
-    UILabel *lab5 = [[UILabel alloc] initWithFrame:CGRectMake(lab5X, lab5Y, lab5W, lab5H)];
+    UILabel *lab5 = [[UILabel alloc] init];
+    lab5.frame = CGRectMake(lab5X, lab5Y, lab5W, lab5H);
 //    lab5.backgroundColor = [UIColor redColor];
     [baseView addSubview:lab5];
 //    lab5.backgroundColor = [UIColor redColor];
@@ -545,7 +557,8 @@
     CGFloat contLab5H = fenRect5.size.height;
     CGFloat contLab5X = CGRectGetMaxX(lab5.frame);
     CGFloat contLab5Y = lab5Y;
-    UILabel *contLab5 = [[UILabel alloc] initWithFrame:CGRectMake(contLab5X, contLab5Y, contLab5W, contLab5H)];
+    UILabel *contLab5 = [[UILabel alloc] init];
+    contLab5.frame = CGRectMake(contLab5X, contLab5Y, contLab5W, contLab5H);
     contLab5.numberOfLines = 0;
     contLab5.text = lab5Str;
     contLab5.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -563,7 +576,8 @@
     CGFloat lab55H = kHeight * 0.026;
     CGFloat lab55X = jianjv2;
     CGFloat lab55Y = CGRectGetMaxY(contLab5.frame) + jiange4 * 2;
-    UILabel *lab55 = [[UILabel alloc] initWithFrame:CGRectMake(lab55X, lab55Y, lab55W, lab55H)];
+    UILabel *lab55 = [[UILabel alloc] init];
+    lab55.frame = CGRectMake(lab55X, lab55Y, lab55W, lab55H);
     //    lab5.backgroundColor = [UIColor redColor];
     [baseView addSubview:lab55];
     //    lab5.backgroundColor = [UIColor redColor];
@@ -578,7 +592,8 @@
     CGFloat contLab55H = fenRect55.size.height;
     CGFloat contLab55X = CGRectGetMaxX(lab55.frame);
     CGFloat contLab55Y = lab55Y;
-    UILabel *contLab55 = [[UILabel alloc] initWithFrame:CGRectMake(contLab55X, contLab55Y, contLab55W, contLab55H)];
+    UILabel *contLab55 = [[UILabel alloc] init];
+    contLab55.frame = CGRectMake(contLab55X, contLab55Y, contLab55W, contLab55H);
     contLab55.numberOfLines = 0;
     contLab55.text = lab55Str;
     contLab55.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -596,7 +611,8 @@
     CGFloat lab56H = kHeight * 0.026;
     CGFloat lab56X = jianjv2;
     CGFloat lab56Y = CGRectGetMaxY(contLab55.frame) + jiange4 * 2;
-    UILabel *lab56 = [[UILabel alloc] initWithFrame:CGRectMake(lab56X, lab56Y, lab56W, lab56H)];
+    UILabel *lab56 = [[UILabel alloc] init];
+    lab56.frame = CGRectMake(lab56X, lab56Y, lab56W, lab56H);
     //    lab5.backgroundColor = [UIColor redColor];
     [baseView addSubview:lab56];
     lab56.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -610,7 +626,8 @@
     CGFloat contLab56H = fenRect56.size.height;
     CGFloat contLab56X = CGRectGetMaxX(lab56.frame);
     CGFloat contLab56Y = lab56Y;
-    UILabel *contLab56 = [[UILabel alloc] initWithFrame:CGRectMake(contLab56X, contLab56Y, contLab56W, contLab56H)];
+    UILabel *contLab56 = [[UILabel alloc] init];
+    contLab56.frame = CGRectMake(contLab56X, contLab56Y, contLab56W, contLab56H);
     contLab56.numberOfLines = 0;
     contLab56.text = lab56Str;
     contLab56.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -627,7 +644,8 @@
     CGFloat lab6H = kHeight * 0.026;
     CGFloat lab6X = jianjv2;
     CGFloat lab6Y = CGRectGetMaxY(lineView44.frame) + jiange4;
-    UILabel *lab6 = [[UILabel alloc] initWithFrame:CGRectMake(lab6X, lab6Y, lab6W, lab6H)];
+    UILabel *lab6 = [[UILabel alloc] init];
+    lab6.frame = CGRectMake(lab6X, lab6Y, lab6W, lab6H);
     [baseView addSubview:lab6];
     lab6.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     // 获取项目
@@ -642,7 +660,8 @@
     CGFloat contLab6H = fenRect6.size.height;
     CGFloat contLab6X = CGRectGetMaxX(lab6.frame);
     CGFloat contLab6Y = lab6Y;
-    UILabel *contLab6 = [[UILabel alloc] initWithFrame:CGRectMake(contLab6X, contLab6Y, contLab6W, contLab6H)];
+    UILabel *contLab6 = [[UILabel alloc] init];
+    contLab6.frame = CGRectMake(contLab6X, contLab6Y, contLab6W, contLab6H);
     contLab6.numberOfLines = 0;
     contLab6.text = lab6Str;
     contLab6.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
@@ -658,7 +677,8 @@
     CGFloat lab7H = kHeight * 0.026;
     CGFloat lab7X = jianjv2;
     CGFloat lab7Y = CGRectGetMaxY(lineView10.frame) + jiange4;
-    UILabel *lab7 = [[UILabel alloc] initWithFrame:CGRectMake(lab7X, lab7Y, lab7W, lab7H)];
+    UILabel *lab7 = [[UILabel alloc] init];
+    lab7.frame = CGRectMake(lab7X, lab7Y, lab7W, lab7H);
     [baseView addSubview:lab7];
     lab7.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     lab7.text = @"施工人员: ";
@@ -684,7 +704,8 @@
     CGFloat contLab7H = fenRect7.size.height;
     CGFloat contLab7X = CGRectGetMaxX(lab7.frame);
     CGFloat contLab7Y = lab7Y;
-    UILabel *contLab7 = [[UILabel alloc] initWithFrame:CGRectMake(contLab7X, contLab7Y, contLab7W, contLab7H)];
+    UILabel *contLab7 = [[UILabel alloc] init];
+    contLab7.frame = CGRectMake(contLab7X, contLab7Y, contLab7W, contLab7H);
     contLab7.numberOfLines = 0;
     contLab7.text = lab7Str;
     if(lab7Str.length == 0) {
@@ -708,7 +729,8 @@
     CGFloat beforeLabH = kHeight * 0.026;
     CGFloat beforeLabX = jianjv2;
     CGFloat beforeLabY = CGRectGetMaxY(lineView11.frame) + jiange4;
-    UILabel *beforeLab = [[UILabel alloc] initWithFrame:CGRectMake(beforeLabX, beforeLabY, beforeLabW, beforeLabH)];
+    UILabel *beforeLab = [[UILabel alloc] init];
+    beforeLab.frame = CGRectMake(beforeLabX, beforeLabY, beforeLabW, beforeLabH);
     beforeLab.text = @"施工前照片";
     beforeLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:beforeLab];
@@ -777,7 +799,8 @@
     CGFloat afPhotoLabH = beforeLabH;
     CGFloat afPhotoLabX = beforeLabX;
     CGFloat afPhotoLabY = CGRectGetMaxY(lineView12.frame) + jiange4;
-    UILabel *afPhotoLab = [[UILabel alloc] initWithFrame:CGRectMake(afPhotoLabX, afPhotoLabY, afPhotoLabW, afPhotoLabH)];
+    UILabel *afPhotoLab = [[UILabel alloc] init];
+    afPhotoLab.frame = CGRectMake(afPhotoLabX, afPhotoLabY, afPhotoLabW, afPhotoLabH);
     afPhotoLab.text = @"施工后照片";
     afPhotoLab.font = [UIFont systemFontOfSize:13 / 320.0 * kWidth];
     [baseView addSubview:afPhotoLab];
@@ -909,7 +932,8 @@
     CGFloat nameLabH = 20;
     CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
     CGFloat nameLabY = kHeight * 0.04;
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];
+    UILabel *nameLab = [[UILabel alloc] init];
+    nameLab.frame = CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH);
     nameLab.text = nameStr;
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
 //    nameLab.backgroundColor = [UIColor blueColor];
@@ -938,7 +962,8 @@
     CGFloat indentLabH = indentRect.size.height;
     CGFloat indentLabX = nameLabX;
     CGFloat indentLabY = CGRectGetMaxY(nameLab.frame) + kHeight * 0.0183;
-    UILabel *indentLab = [[UILabel alloc] initWithFrame:CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH)];
+    UILabel *indentLab = [[UILabel alloc] init];
+    indentLab.frame = CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH);
     indentLab.text = indentStr;
     indentLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
 //    indentLab.backgroundColor = [UIColor blueColor];
@@ -949,7 +974,8 @@
     CGFloat numLabH = indentLabH;
     CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
     CGFloat numLabY = indentLabY;
-    UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(numLabX, numLabY, numLabW, numLabH)];
+    UILabel *numLab = [[UILabel alloc] init];
+    numLab.frame = CGRectMake(numLabX, numLabY, numLabW, numLabH);
 //    numLab.text = @"200";
     numLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -1277,7 +1303,8 @@
     CGFloat nameLabH = nameRect.size.height;
     CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
     CGFloat nameLabY = kHeight * 0.04;
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];
+    UILabel *nameLab = [[UILabel alloc] init];
+    nameLab.frame = CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH);
     nameLab.text = nameStr;
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
     //    nameLab.backgroundColor = [UIColor blueColor];
@@ -1292,7 +1319,8 @@
     CGFloat indentLabH = indentRect.size.height;
     CGFloat indentLabX = nameLabX;
     CGFloat indentLabY = CGRectGetMaxY(nameLab.frame) + kHeight * 0.0183;
-    UILabel *indentLab = [[UILabel alloc] initWithFrame:CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH)];
+    UILabel *indentLab = [[UILabel alloc] init];
+    indentLab.frame = CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH);
     indentLab.text = indentStr;
     indentLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     //    indentLab.backgroundColor = [UIColor blueColor];
@@ -1328,7 +1356,8 @@
     CGFloat numLabH = indentLabH;
     CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
     CGFloat numLabY = indentLabY;
-    UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(numLabX, numLabY, numLabW, numLabH)];
+    UILabel *numLab = [[UILabel alloc] init];
+    numLab.frame = CGRectMake(numLabX, numLabY, numLabW, numLabH);
     numLab.text = @"200";
     numLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];

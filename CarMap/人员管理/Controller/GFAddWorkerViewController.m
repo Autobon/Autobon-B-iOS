@@ -159,7 +159,8 @@
     [self.view addSubview:self.signInBut];
     
     // 点击“提交”
-    self.lab = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021)];
+    self.lab = [[UILabel alloc] init];
+    self.lab.frame = CGRectMake(0, CGRectGetMaxY(self.signInBut.frame) + 15, kWidth, kHeight * 0.021);
     self.lab.text = @"业务员初始密码为123456";
     self.lab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     self.lab.font = [UIFont systemFontOfSize:11 / 320.0 * kWidth];
@@ -245,7 +246,8 @@
     CGFloat labH = kWidth * 0.051;
     CGFloat labX = jiange1 / 2.0 + kWidth * 0.051;
     CGFloat labY = 0;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(labX, labY, labW, labH)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(labX, labY, labW, labH);
     lab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     lab.text = messageStr;
     

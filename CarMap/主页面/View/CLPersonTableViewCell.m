@@ -62,12 +62,14 @@
         
         
         // 姓名
-        _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(5, 8, 60, 30)];
+        _nameLab = [[UILabel alloc] init];
+        _nameLab.frame = CGRectMake(5, 8, 60, 30);
         _nameLab.font = [UIFont systemFontOfSize:18];
         [vv addSubview:_nameLab];
         
         // 订单数
-        _danshuLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_nameLab.frame), 13, 50, 20)];
+        _danshuLab = [[UILabel alloc] init];
+        _danshuLab.frame = CGRectMake(CGRectGetMaxX(_nameLab.frame), 13, 50, 20);
         _danshuLab.textColor = [UIColor whiteColor];
         _danshuLab.textAlignment = NSTextAlignmentCenter;
         _danshuLab.font = [UIFont systemFontOfSize:13.5];
@@ -80,7 +82,8 @@
         _jvliImgView.contentMode = UIViewContentModeScaleAspectFit;
         _jvliImgView.image = [UIImage imageNamed:@"distance"];
         [vv addSubview:_jvliImgView];
-        _jvliLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_jvliImgView.frame) + 5, 13, 120, 20)];
+        _jvliLab = [[UILabel alloc] init];
+        _jvliLab.frame = CGRectMake(CGRectGetMaxX(_jvliImgView.frame) + 5, 13, 120, 20);
         _jvliLab.font = [UIFont systemFontOfSize:14];
         _jvliLab.textColor = [UIColor darkGrayColor];
         [vv addSubview:_jvliLab];
@@ -98,26 +101,30 @@
         [vv addSubview:_zhipaiBut];
         
         // 隔热层
-        _gereLab = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_nameLab.frame) + 13, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25)];
+        _gereLab = [[UILabel alloc] init];
+        _gereLab.frame = CGRectMake(10, CGRectGetMaxY(_nameLab.frame) + 13, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25);
         _gereLab.font = [UIFont systemFontOfSize:14];
         _gereLab.textColor = [UIColor darkGrayColor];
         [vv addSubview:_gereLab];
         
         // 车身改色
-        _gaiseLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_gereLab.frame) + 10, _gereLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25)];
+        _gaiseLab = [[UILabel alloc] init];
+        _gaiseLab.frame = CGRectMake(CGRectGetMaxX(_gereLab.frame) + 10, _gereLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25);
         _gaiseLab.font = [UIFont systemFontOfSize:14];
         _gaiseLab.textAlignment = NSTextAlignmentRight;
         _gaiseLab.textColor = [UIColor darkGrayColor];
         [vv addSubview:_gaiseLab];
         
         // 隐形车衣
-        _cheyiLab = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_gereLab.frame) + 5, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25)];
+        _cheyiLab = [[UILabel alloc] init];
+        _cheyiLab.frame = CGRectMake(10, CGRectGetMaxY(_gereLab.frame) + 5, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25);
         _cheyiLab.font = [UIFont systemFontOfSize:14];
         _cheyiLab.textColor = [UIColor darkGrayColor];
         [vv addSubview:_cheyiLab];
         
         // 美容清洁
-        _meirongLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_cheyiLab.frame) + 10, _cheyiLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25)];
+        _meirongLab = [[UILabel alloc] init];
+        _meirongLab.frame = CGRectMake(CGRectGetMaxX(_cheyiLab.frame) + 10, _cheyiLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 25);
         _meirongLab.textAlignment = NSTextAlignmentRight;
         _meirongLab.font = [UIFont systemFontOfSize:14];
         _meirongLab.textColor = [UIColor darkGrayColor];
@@ -165,11 +172,13 @@
     self.backgroundColor = [UIColor whiteColor];
     
     // 姓名
-    _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 30)];
+    _nameLab = [[UILabel alloc] init];
+    _nameLab.frame = CGRectMake(10, 10, 60, 30);
     [self.contentView addSubview:_nameLab];
     
     // 订单数
-    _danshuLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_nameLab.frame), 10, 50, 25)];
+    _danshuLab = [[UILabel alloc] init];
+    _danshuLab.frame = CGRectMake(CGRectGetMaxX(_nameLab.frame), 10, 50, 25);
     _danshuLab.backgroundColor = [UIColor colorWithRed:31 / 255.0 green:185 / 255.0 blue:235/ 255.0 alpha:1];
     [self.contentView addSubview:_danshuLab];
     
@@ -184,22 +193,26 @@
     [self.contentView addSubview:_zhipaiBut];
     
     // 隔热层
-    _gereLab = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_nameLab.frame) + 5, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30)];
+    _gereLab = [[UILabel alloc] init];
+    _gaiseLab.frame = CGRectMake(10, CGRectGetMaxY(_nameLab.frame) + 5, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30);
     _gereLab.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:_gereLab];
     
     // 车身改色
-    _gaiseLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_gereLab.frame), _gereLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30)];
+    _gaiseLab = [[UILabel alloc] init];
+    _gaiseLab.frame = CGRectMake(CGRectGetMaxX(_gereLab.frame), _gereLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30);
     _gaiseLab.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:_gaiseLab];
     
     // 隐形车衣
-    _cheyiLab = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_gereLab.frame) + 5, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30)];
+    _cheyiLab = [[UILabel alloc] init];
+    _cheyiLab.frame = CGRectMake(10, CGRectGetMaxY(_gereLab.frame) + 5, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30);
     _cheyiLab.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:_cheyiLab];
     
     // 美容清洁
-    _meirongLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_cheyiLab.frame), _cheyiLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30)];
+    _meirongLab = [[UILabel alloc] init];
+    _meirongLab.frame = CGRectMake(CGRectGetMaxX(_cheyiLab.frame), _cheyiLab.frame.origin.y, [UIScreen mainScreen].bounds.size.width / 2.0 - 20, 30);
     _meirongLab.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:_meirongLab];
     
@@ -215,12 +228,14 @@
     [self addSubview:_headImage];
     
     
-    _userNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 10, 200, 40)];
+    _userNameLabel = [[UILabel alloc] init];
+    _userNameLabel.frame = CGRectMake(120, 10, 200, 40);
 //    _userNameLabel.text = @"林峰";
     _userNameLabel.textColor = [UIColor colorWithRed:60/255.0 green:60/255.0 blue:60/255.0 alpha:1.0];
     [self addSubview:_userNameLabel];
     
-   _identityLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 50, 120, 40)];
+    _identityLabel = [[UILabel alloc] init];
+    _identityLabel.frame = CGRectMake(120, 50, 120, 40);
 //    _identityLabel.text = @"15836163101";
     _identityLabel.textColor = [UIColor colorWithRed:60/255.0 green:60/255.0 blue:60/255.0 alpha:1.0];
     [self addSubview:_identityLabel];

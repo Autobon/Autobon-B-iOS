@@ -120,7 +120,8 @@
     CGFloat msgLabH = kHeight * 0.03125;
     CGFloat msgLabX = kWidth * 0.083;
     CGFloat msgLabY = 0.0365 * kHeight;
-    UILabel *msgLab = [[UILabel alloc] initWithFrame:CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH)];
+    UILabel *msgLab = [[UILabel alloc] init];
+    msgLab.frame = CGRectMake(msgLabX, msgLabY, msgLabW, msgLabH);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     msgLab.text = [userDefaults objectForKey:@"userFullname"];
     msgLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
@@ -131,7 +132,8 @@
     CGFloat shuLabH = kHeight * 0.026;
     CGFloat shuLabX = msgLabX;
     CGFloat shuLabY = CGRectGetMaxY(msgLab.frame) + kHeight * 0.0234;
-    UILabel *shuLab = [[UILabel alloc] initWithFrame:CGRectMake(shuLabX, shuLabY, shuLabW, shuLabH)];
+    UILabel *shuLab = [[UILabel alloc] init];
+    shuLab.frame = CGRectMake(shuLabX, shuLabY, shuLabW, shuLabH);
     shuLab.text = @"订单数";
     shuLab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView1 addSubview:shuLab];
@@ -258,7 +260,8 @@
     CGFloat labH = baseView.frame.size.height;
     CGFloat labX = CGRectGetMaxX(leftImgView.frame) + jianjv - 2;
     CGFloat labY = 0;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(labX, labY, labW, labH)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(labX, labY, labW, labH);
     lab.text = centerStr;
     lab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView addSubview:lab];
@@ -315,7 +318,8 @@
     CGFloat labH = baseView.frame.size.height;
     CGFloat labX = CGRectGetMaxX(leftImgView.frame) + jianjv - 2;
     CGFloat labY = 0;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(labX, labY, labW, labH)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(labX, labY, labW, labH);
     lab.text = centerStr;
     lab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     [baseView addSubview:lab];
@@ -324,7 +328,8 @@
     CGFloat righntImgViewH = labH;
     CGFloat righntImgViewX = kWidth - jianjv - righntImgViewW;
     CGFloat righntImgViewY = 0;
-    UILabel *righntImgView = [[UILabel alloc] initWithFrame:CGRectMake(righntImgViewX, righntImgViewY, righntImgViewW, righntImgViewH)];
+    UILabel *righntImgView = [[UILabel alloc] init];
+    righntImgView.frame = CGRectMake(righntImgViewX, righntImgViewY, righntImgViewW, righntImgViewH);
     righntImgView.text = rightStr;
     righntImgView.textAlignment = NSTextAlignmentRight;
     righntImgView.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];

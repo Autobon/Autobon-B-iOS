@@ -96,7 +96,8 @@
     CGFloat nameLabH = 20;
     CGFloat nameLabX = CGRectGetMaxX(iconImgView.frame) + kWidth * 0.0463;
     CGFloat nameLabY = kHeight * 0.04;
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH)];
+    UILabel *nameLab = [[UILabel alloc] init];
+    nameLab.frame = CGRectMake(nameLabX, nameLabY, nameLabW, nameLabH);
     nameLab.text = nameStr;
     nameLab.font = [UIFont systemFontOfSize:16 / 320.0 * kWidth];
 //    nameLab.backgroundColor = [UIColor blueColor];
@@ -139,7 +140,8 @@
     CGFloat indentLabH = indentRect.size.height;
     CGFloat indentLabX = nameLabX;
     CGFloat indentLabY = CGRectGetMaxY(nameLab.frame) + kHeight * 0.0183;
-    UILabel *indentLab = [[UILabel alloc] initWithFrame:CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH)];
+    UILabel *indentLab = [[UILabel alloc] init];
+    indentLab.frame = CGRectMake(indentLabX, indentLabY, indentLabW, indentLabH);
     indentLab.text = indentStr;
     indentLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
 //    indentLab.backgroundColor = [UIColor blueColor];
@@ -150,7 +152,8 @@
     CGFloat numLabH = indentLabH;
     CGFloat numLabX = CGRectGetMaxX(indentLab.frame) + 5 / 320.0 * kWidth;
     CGFloat numLabY = indentLabY;
-    UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(numLabX, numLabY, numLabW, numLabH)];
+    UILabel *numLab = [[UILabel alloc] init];
+    numLab.frame = CGRectMake(numLabX, numLabY, numLabW, numLabH);
 //    numLab.text = @"200";
     numLab.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
     numLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -244,7 +247,8 @@
     CGFloat thankLabH = kHeight * 0.073;
     CGFloat thankLabX = (kWidth - thankLabW) / 2.0;
     CGFloat thankLabY = CGRectGetMaxY(iconView.frame) + kHeight * 0.183;
-    UILabel *thankLab = [[UILabel alloc] initWithFrame:CGRectMake(thankLabX, thankLabY, thankLabW, thankLabH)];
+    UILabel *thankLab = [[UILabel alloc] init];
+    thankLab.frame = CGRectMake(thankLabX, thankLabY, thankLabW, thankLabH);
     thankLab.numberOfLines = 0;
     thankLab.font = [UIFont systemFontOfSize:14 / 320.0 * kWidth];
     thankLab.text = @"感谢您对本次技师提交的评价，赶快分享赢现金红包！";

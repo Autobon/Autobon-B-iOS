@@ -237,6 +237,7 @@
 //    baseView2.backgroundColor = [UIColor greenColor];
     [self.scrollerView addSubview:baseView2];
     _txtView = [[UITextView alloc] initWithFrame:CGRectMake(kWidth * 0.075, kHeight * 0.026, kWidth - (kWidth * 0.075) * 2, baseView2H - (kHeight * 0.026) * 2)];
+    _txtView.backgroundColor = [UIColor clearColor];
     _txtView.text = @"请填写发票邮寄地址";
     _txtView.textColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
 //    txtView.backgroundColor = [UIColor redColor];
@@ -277,7 +278,8 @@
     CGFloat agreeLabH = kHeight * 0.024;
     CGFloat agreeLabX = 0;
     CGFloat agreeLabY = CGRectGetMaxY(joinInBut.frame) + jiange2 * 1.5;
-    UILabel *agreeLab = [[UILabel alloc] initWithFrame:CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH)];
+    UILabel *agreeLab = [[UILabel alloc] init];
+    agreeLab.frame = CGRectMake(agreeLabX, agreeLabY, agreeLabW, agreeLabH);
     [self.scrollerView addSubview:agreeLab];
     agreeLab.textColor = [UIColor colorWithRed:143 / 255.0 green:144 / 255.0 blue:145 / 255.0 alpha:1];
     agreeLab.textAlignment = NSTextAlignmentCenter;

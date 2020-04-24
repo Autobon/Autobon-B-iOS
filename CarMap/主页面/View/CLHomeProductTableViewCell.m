@@ -14,9 +14,9 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self){
+        self.backgroundColor = [UIColor clearColor];
         
-        
-        _contentTitleLabel = [[UILabel alloc]init];
+        _contentTitleLabel = [[UILabel alloc] init];
 //        _contentTitleLabel.text = @"汽车隔热膜";
         _contentTitleLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:_contentTitleLabel];
@@ -26,7 +26,7 @@
             
         }];
         
-        _contentValueLabel = [[UILabel alloc]init];
+        _contentValueLabel = [[UILabel alloc] init];
 //        _contentValueLabel.text = @"前挡部位 -v70s";
         _contentValueLabel.font = [UIFont systemFontOfSize:12];
         _contentValueLabel.alpha = 0.8;

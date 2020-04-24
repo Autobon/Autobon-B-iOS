@@ -52,7 +52,8 @@
     [self.view addSubview:iconImgView];
     
     // 姓名
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 75 + 24, 150, 40)];
+    UILabel *nameLab = [[UILabel alloc] init];
+    nameLab.frame = CGRectMake(CGRectGetMaxX(iconImgView.frame) + 10, 75 + 24, 150, 40);
     nameLab.font = [UIFont systemFontOfSize:20];
     nameLab.text = _model.name;
     nameLab.textColor = [UIColor darkGrayColor];
@@ -78,14 +79,16 @@
     }
     
     // 总单数
-    UILabel *numLab = [[UILabel alloc] initWithFrame:CGRectMake(starX + (starW + 1) * 5 + 3, starY + 1, 35, 17)];
+    UILabel *numLab = [[UILabel alloc] init];
+    numLab.frame = CGRectMake(starX + (starW + 1) * 5 + 3, starY + 1, 35, 17);
     numLab.textColor = [UIColor orangeColor];
     numLab.text = _model.orderCount;
     numLab.font = [UIFont systemFontOfSize:13];
     numLab.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:numLab];
     [numLab sizeToFit];
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(numLab.frame) + 1, starY+ 1, 20, 17)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(CGRectGetMaxX(numLab.frame) + 1, starY+ 1, 20, 17);
     lab.text = @"单";
     lab.textColor = [UIColor darkGrayColor];
     lab.font = [UIFont systemFontOfSize:13];
@@ -131,14 +134,16 @@
     //    CGFloat maxY = 0;
     //    for(int i=0; i<3; i++) {
     //
-    //        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lineView1.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 40)];
+    //        UILabel *lab = [[UILabel alloc] init];
+//            lab.frame = CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lineView1.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 40);
     //        lab.textAlignment = NSTextAlignmentCenter;
     //        lab.text = textArr[i];
     //        lab.font = [UIFont systemFontOfSize:16];
     //        lab.textColor = [UIColor darkGrayColor];
     //        [self.view addSubview:lab];
     //
-    //        UILabel *downLab = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lab.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 10)];
+    //        UILabel *downLab = [[UILabel alloc] init];
+//            downLab.frame = CGRectMake([UIScreen mainScreen].bounds.size.width / 3.0 * i, CGRectGetMaxY(lab.frame), [UIScreen mainScreen].bounds.size.width / 3.0, 10);
     //        downLab.textAlignment = NSTextAlignmentCenter;
     //        downLab.text = labArr[i];
     //        downLab.font = [UIFont systemFontOfSize:10];
@@ -193,7 +198,8 @@
     UIView *vv = [[UIView alloc] initWithFrame:CGRectMake(0, y, [UIScreen mainScreen].bounds.size.width, 30)];
     [self.view addSubview:vv];
     
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, 30)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(10, 0, 80, 30);
     lab.font = [UIFont systemFontOfSize:14];
     lab.text = title;
     lab.textColor = [UIColor darkGrayColor];
@@ -213,7 +219,8 @@
         [vv addSubview:imgView];
     }
     
-    UILabel *ll = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 110, 0, 100, 30)];
+    UILabel *ll = [[UILabel alloc] init];
+    ll.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 110, 0, 100, 30);
     ll.font = [UIFont systemFontOfSize:14];
     ll.text = nianxian;
     ll.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];

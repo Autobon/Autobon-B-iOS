@@ -252,7 +252,8 @@
     [_scrollView addSubview:orderDetailBaseView];
     
     // 订单编号
-    UILabel *bianhaoLab = [[UILabel alloc] initWithFrame:CGRectMake(6, 10, 200, 30)];
+    UILabel *bianhaoLab = [[UILabel alloc] init];
+    bianhaoLab.frame = CGRectMake(6, 10, 200, 30);
     bianhaoLab.text = [NSString stringWithFormat:@"订单编号：%@", self.model.orderNum];
     bianhaoLab.font = [UIFont boldSystemFontOfSize:13];
     bianhaoLab.textColor = [UIColor darkGrayColor];
@@ -289,14 +290,16 @@
     
     
     // 车牌号
-    UILabel *licenseLab = [[UILabel alloc] initWithFrame:CGRectMake(6,  CGRectGetMaxY(bianhaoLab.frame), 200, 30)];
+    UILabel *licenseLab = [[UILabel alloc] init];
+    licenseLab.frame = CGRectMake(6,  CGRectGetMaxY(bianhaoLab.frame), 200, 30);
     licenseLab.text = [NSString stringWithFormat:@"车牌号：%@", self.model.license];
     licenseLab.font = [UIFont boldSystemFontOfSize:13];
     licenseLab.textColor = [UIColor darkGrayColor];
     [orderDetailBaseView addSubview:licenseLab];
     
     // 车架号
-    UILabel *vinLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(licenseLab.frame), 200, 30)];
+    UILabel *vinLab = [[UILabel alloc] init];
+    vinLab.frame = CGRectMake(6, CGRectGetMaxY(licenseLab.frame), 200, 30);
     vinLab.text = [NSString stringWithFormat:@"车架号：%@", self.model.vin];
     vinLab.font = [UIFont boldSystemFontOfSize:13];
     vinLab.textColor = [UIColor darkGrayColor];
@@ -304,7 +307,8 @@
     
     
     // 已施工时间
-    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(vinLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *timeLab = [[UILabel alloc] init];
+    timeLab.frame = CGRectMake(6, CGRectGetMaxY(vinLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30);
     timeLab.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
     timeLab.font = [UIFont systemFontOfSize:14];
     [orderDetailBaseView addSubview:timeLab];
@@ -335,7 +339,8 @@
     }
     
     // 施工项目
-    UILabel *proLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(timeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *proLab = [[UILabel alloc] init];
+    proLab.frame = CGRectMake(6, CGRectGetMaxY(timeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30);
     proLab.textColor = [UIColor darkGrayColor];
     proLab.font = [UIFont systemFontOfSize:14];
     proLab.text = [NSString stringWithFormat:@"施工项目：%@", self.model.typeName];
@@ -360,7 +365,8 @@
         leftLittleView.frame = CGRectMake(0, 12, 6, 16);
         
         
-        UILabel *menusTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+        UILabel *menusTitleLab = [[UILabel alloc] init];
+        menusTitleLab.frame = CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30);
         menusTitleLab.textColor = [UIColor darkGrayColor];
         menusTitleLab.font = [UIFont systemFontOfSize:14];
         menusTitleLab.text = [NSString stringWithFormat:@"报价产品"];
@@ -377,7 +383,7 @@
         [titleImageBaseView addSubview:titleImageView];
         titleImageView.frame = CGRectMake(20, 12, 15, 15);
         
-        UILabel *titleImageLabel = [[UILabel alloc]init];
+        UILabel *titleImageLabel = [[UILabel alloc] init];
         titleImageLabel.text = @"型号+部位";
         titleImageLabel.font = [UIFont boldSystemFontOfSize:14];
         [titleImageBaseView addSubview:titleImageLabel];
@@ -399,7 +405,8 @@
             
             
             NSDictionary *productDict = productOfferShowsArray[i];
-            UILabel *menusNameLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30)];
+            UILabel *menusNameLab = [[UILabel alloc] init];
+            menusNameLab.frame = CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30);
             menusNameLab.textColor = [UIColor darkGrayColor];
             menusNameLab.font = [UIFont systemFontOfSize:14];
             menusNameLab.text = [NSString stringWithFormat:@"%@--%@", productDict[@"model"], productDict[@"constructionPositionName"]];
@@ -432,7 +439,8 @@
         leftLittleView.frame = CGRectMake(0, 12, 6, 16);
         
         
-        UILabel *menusTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30)];
+        UILabel *menusTitleLab = [[UILabel alloc] init];
+        menusTitleLab.frame = CGRectMake(20, 5, [UIScreen mainScreen].bounds.size.width - 40, 30);
         menusTitleLab.textColor = [UIColor darkGrayColor];
         menusTitleLab.font = [UIFont systemFontOfSize:14];
         menusTitleLab.text = [NSString stringWithFormat:@"组合套餐"];
@@ -449,7 +457,7 @@
         [titleImageBaseView addSubview:titleImageView];
         titleImageView.frame = CGRectMake(20, 12, 15, 15);
         
-        UILabel *titleImageLabel = [[UILabel alloc]init];
+        UILabel *titleImageLabel = [[UILabel alloc] init];
         titleImageLabel.text = @"套餐名称";
         titleImageLabel.font = [UIFont boldSystemFontOfSize:14];
         [titleImageBaseView addSubview:titleImageLabel];
@@ -472,7 +480,8 @@
             
             
             NSDictionary *menusDict = setMenusArray[i];
-            UILabel *menusNameLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30)];
+            UILabel *menusNameLab = [[UILabel alloc] init];
+            menusNameLab.frame = CGRectMake(40, 5, [UIScreen mainScreen].bounds.size.width - 60, 30);
             menusNameLab.textColor = [UIColor darkGrayColor];
             menusNameLab.font = [UIFont systemFontOfSize:14];
             menusNameLab.text = [NSString stringWithFormat:@"%@", menusDict[@"name"]];
@@ -494,28 +503,32 @@
     [orderDetailBaseView addSubview:lineBaseView];
     
     // 预约施工时间
-    UILabel *yuyueTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(lineBaseView.frame) + 10, [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *yuyueTimeLab = [[UILabel alloc] init];
+    yuyueTimeLab.frame = CGRectMake(6, CGRectGetMaxY(lineBaseView.frame) + 10, [UIScreen mainScreen].bounds.size.width - 10, 30);
     yuyueTimeLab.textColor = [UIColor darkGrayColor];
     yuyueTimeLab.font = [UIFont systemFontOfSize:14];
     yuyueTimeLab.text = [NSString stringWithFormat:@"预约施工时间：%@", self.model.agreedStartTime];
     [orderDetailBaseView addSubview:yuyueTimeLab];
     
     // 最迟交车时间
-    UILabel *zuicheTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(yuyueTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *zuicheTimeLab = [[UILabel alloc] init];
+    zuicheTimeLab.frame = CGRectMake(6, CGRectGetMaxY(yuyueTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30);
     zuicheTimeLab.textColor = [UIColor darkGrayColor];
     zuicheTimeLab.font = [UIFont systemFontOfSize:14];
     zuicheTimeLab.text = [NSString stringWithFormat:@"最迟交车时间：%@", self.model.agreedEndTime];
     [orderDetailBaseView addSubview:zuicheTimeLab];
     
     // 订单创建时间
-    UILabel *xiadanTimeLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(zuicheTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30)];
+    UILabel *xiadanTimeLab = [[UILabel alloc] init];
+    xiadanTimeLab.frame = CGRectMake(6, CGRectGetMaxY(zuicheTimeLab.frame), [UIScreen mainScreen].bounds.size.width - 10, 30);
     xiadanTimeLab.textColor = [UIColor darkGrayColor];
     xiadanTimeLab.font = [UIFont systemFontOfSize:14];
     xiadanTimeLab.text = [NSString stringWithFormat:@"订单创建时间：%@", self.model.createTime];
     [orderDetailBaseView addSubview:xiadanTimeLab];
     
     // 下单备注
-    UILabel *beizhuLab = [[UILabel alloc] initWithFrame:CGRectMake(6, CGRectGetMaxY(xiadanTimeLab.frame) + 5, [UIScreen mainScreen].bounds.size.width - 10, fenRect.size.height)];
+    UILabel *beizhuLab = [[UILabel alloc] init];
+    beizhuLab.frame = CGRectMake(6, CGRectGetMaxY(xiadanTimeLab.frame) + 5, [UIScreen mainScreen].bounds.size.width - 10, fenRect.size.height);
     beizhuLab.textColor = [UIColor darkGrayColor];
     beizhuLab.font = [UIFont systemFontOfSize:14];
     beizhuLab.numberOfLines = 0;

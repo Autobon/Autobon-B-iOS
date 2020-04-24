@@ -55,7 +55,7 @@
             make.height.mas_offset(70);
         }];
         
-        _nameLabel = [[UILabel alloc]init];
+        _nameLabel = [[UILabel alloc] init];
         _nameLabel.text = @"";
         [headerView addSubview:_nameLabel];
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,7 +64,7 @@
             make.height.mas_offset(20);
         }];
         
-        UILabel *orderNumerTitleLabel = [[UILabel alloc]init];
+        UILabel *orderNumerTitleLabel = [[UILabel alloc] init];
         orderNumerTitleLabel.text = @"订单数";
         orderNumerTitleLabel.font = [UIFont systemFontOfSize:11];
         [headerView addSubview:orderNumerTitleLabel];
@@ -74,7 +74,7 @@
             make.height.mas_offset(20);
         }];
         
-        _orderNumberValueLabel = [[UILabel alloc]init];
+        _orderNumberValueLabel = [[UILabel alloc] init];
         _orderNumberValueLabel.text = @"";
         _orderNumberValueLabel.font = [UIFont systemFontOfSize:11];
         _orderNumberValueLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
@@ -151,6 +151,7 @@
         CGFloat otherLabX = jiange2;
         CGFloat otherLabY = CGRectGetMaxY(lineView2.frame) + jianjv4;
         _otherTextView = [[UITextView alloc] initWithFrame:CGRectMake(otherLabX, otherLabY, otherLabW, otherLabH)];
+        _otherTextView.backgroundColor = [UIColor clearColor];
         _otherTextView.delegate = self;
         _otherTextView.font = [UIFont systemFontOfSize:15 / 320.0 * kWidth];
         _otherTextView.text = @"其他意见和建议";
@@ -271,7 +272,8 @@
     CGFloat labH = 20;
     CGFloat labX = 20;
     CGFloat labY = 0;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(labX, labY, labW, labH)];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.frame = CGRectMake(labX, labY, labW, labH);
     lab.font = [UIFont systemFontOfSize:15];
     lab.text = messageStr;
     

@@ -57,6 +57,7 @@
 
 - (void)setViewForDetail{
     _tableView = [[UITableView alloc]init];
+    _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
@@ -267,7 +268,7 @@
     
     
     
-    UILabel *titleLabel = [[UILabel alloc]init];
+    UILabel *titleLabel = [[UILabel alloc] init];
     //    titleLabel.backgroundColor = [UIColor redColor];
     titleLabel.text = @"添加至";
     [baseView addSubview:titleLabel];
@@ -299,7 +300,7 @@
             make.height.mas_offset(1);
         }];
         
-        UILabel *contentTitleLabel = [[UILabel alloc]init];
+        UILabel *contentTitleLabel = [[UILabel alloc] init];
         //        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
         contentTitleLabel.text = packageModel.name;
         [contentBaseView addSubview:contentTitleLabel];

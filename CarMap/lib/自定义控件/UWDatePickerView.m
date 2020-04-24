@@ -35,6 +35,8 @@
     self.backgVIew.layer.borderColor = [[UIColor whiteColor]CGColor];
     self.backgVIew.layer.masksToBounds = YES;
     
+    [self.datePickerView setValue:[UIColor blackColor] forKey:@"textColor"];
+    
     /**确定*/
     self.sureBtn.layer.cornerRadius = 3;
     
