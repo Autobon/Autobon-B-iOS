@@ -23,7 +23,7 @@
 //    self.workHourLabel.text = [NSString stringWithFormat:@"工时：%@", self.productModel.workingHours];
 //    self.warrantyPeriodLabel.text = [NSString stringWithFormat:@"质保期间：%@月", self.productModel.warranty];
     
-    
+    self.backgroundColor = [UIColor whiteColor];
     
     self.numberLabel.text = [NSString stringWithFormat:@"型号：%@", self.productModel.model];
     _priceLabel.text = [NSString stringWithFormat:@"¥%@(元)",self.productModel.price];
@@ -40,6 +40,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         self.contentView.clipsToBounds = YES;
         //编码
         _numberLabel = [[UILabel alloc] init];

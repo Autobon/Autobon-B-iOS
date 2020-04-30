@@ -14,7 +14,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
+        self.backgroundColor = [UIColor whiteColor];
         _packageNameLabel = [[UILabel alloc] init];
         _packageNameLabel.font = [UIFont boldSystemFontOfSize:17];
         [self addSubview:_packageNameLabel];

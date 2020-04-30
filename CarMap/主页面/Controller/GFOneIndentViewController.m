@@ -602,6 +602,7 @@
         _searchbar.searchTextField.placeholder = @"请输入型号或部位进行搜索";
         _searchbar.searchTextField.font = [UIFont systemFontOfSize:14];
         _searchbar.searchTextField.textColor = [UIColor blackColor];
+        _searchbar.searchTextField.backgroundColor = [UIColor clearColor];
     } else {
         _searchbar.placeholder = @"请输入型号或部位进行搜索";
         UITextField * searchField = [_searchbar valueForKey:@"_searchField"];

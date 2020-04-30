@@ -24,7 +24,7 @@
     CGFloat jiange = kWidth * 0.033;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self != nil) {
-        
+        self.backgroundColor = [UIColor whiteColor];
         // 技师头像栏
         UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight * 0.15625)];
         iconView.backgroundColor = [UIColor whiteColor];

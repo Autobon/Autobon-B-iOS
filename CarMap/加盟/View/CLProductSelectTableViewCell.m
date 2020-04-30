@@ -26,7 +26,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentView.clipsToBounds = YES;
-        
+        self.backgroundColor = [UIColor whiteColor];
         
         _priceLabel = [[UILabel alloc] init];
         _priceLabel.textColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
