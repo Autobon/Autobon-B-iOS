@@ -1549,6 +1549,7 @@
 				CODE_SIGN_ENTITLEMENTS = CarMapB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = EXB4V929SQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1573,6 +1574,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/BaiduMapAPI/thirdlibs",
 				);
+				MARKETING_VERSION = 3.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = CarNeighborB;
 				PRODUCT_NAME = CarMapB;
 				PROVISIONING_PROFILE = "";
@@ -1591,6 +1593,7 @@
 				CODE_SIGN_ENTITLEMENTS = CarMapB.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = EXB4V929SQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1615,6 +1618,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/BaiduMapAPI/thirdlibs",
 				);
+				MARKETING_VERSION = 3.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = CarNeighborB;
 				PRODUCT_NAME = CarMapB;
 				PROVISIONING_PROFILE = "";
