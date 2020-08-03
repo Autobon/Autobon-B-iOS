@@ -186,6 +186,7 @@
     
     
 //    [self setSaveDataForView];
+    [self packageBaseViewChangeBtnClick];
     
 }
 
@@ -1153,7 +1154,7 @@
     [_dataOrderBaseView addSubview:_packageScrollView];
     [_packageScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(_dataOrderBaseView);
-        make.top.equalTo(_packageTitleBaseView.mas_bottom);
+        make.top.equalTo(_tableView);
         make.bottom.equalTo(_footBaseView.mas_top);
     }];
     _packageScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * self.packageArray.count);

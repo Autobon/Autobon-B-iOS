@@ -19,16 +19,16 @@
 
 
 //测试服务器
-NSString *const prefixURL = @"http://118.31.41.230:7123/api/mobile";
-NSString* const HOST = @"http://118.31.41.230:7123/api/mobile";
-NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
+//NSString *const prefixURL = @"http://118.31.41.230:7123/api/mobile";
+//NSString* const HOST = @"http://118.31.41.230:7123/api/mobile";
+//NSString* const PUBHOST = @"http://118.31.41.230:7123/api";
 
 
 
 //新的正式服务器
-//NSString *const prefixURL = @"http://47.93.17.218:12345/api/mobile";
-//NSString* const HOST = @"http://47.93.17.218:12345/api/mobile";
-//NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
+NSString *const prefixURL = @"http://47.93.17.218:12345/api/mobile";
+NSString* const HOST = @"http://47.93.17.218:12345/api/mobile";
+NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
 
 
 //NSString *const prefixURL = @"http://10.0.14.19:12345/api/mobile";
