@@ -48,7 +48,10 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         manager.requestSerializer.timeoutInterval = 30.0;
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-        [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            <#code#>
+//        } failure:<#^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)failure#>]
+        [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -81,7 +84,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         
-        [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -135,7 +138,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         
         
-        [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -179,7 +182,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         
         NSString *URLString = [NSString stringWithFormat:@"%@/pub/v2/verifySms",PUBHOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             if(success) {
                 success(responseObject);
@@ -219,7 +222,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/register",HOST];
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -264,7 +267,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/login",HOST];
 //        NSLog(@"-----%@----%@---",URLString,parameters);
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             
             // 获取token 针对个人的操作要加
@@ -320,7 +323,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/resetPassword",HOST];
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -368,7 +371,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/changePassword",HOST];
         
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -414,11 +417,10 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
-        
-        [manager POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [manager POST:URLString parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             [formData appendPartWithFileData:imageData name:@"file" fileName:@"1235.jpg" mimeType:@"JPEG"];
             
-        } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *responseObject) {
+        } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
             if(success) {
@@ -471,7 +473,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order",HOST];
         
         
-        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -522,7 +524,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         AFJSONResponseSerializer *response = (AFJSONResponseSerializer *)manager.responseSerializer;
         response.removesKeysWithNullValues = YES;
         ICLog(@"---URLString-%@----parameters---%@",url,parameters);
-        [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -565,7 +567,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         AFJSONResponseSerializer *response = (AFJSONResponseSerializer *)manager.responseSerializer;
         response.removesKeysWithNullValues = YES;
         
-        [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -609,7 +611,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order",HOST];
         ICLog(@"token----%@--",token);
         
-        [manager GET:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -651,10 +653,12 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
         
-        [manager POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        
+        
+        [manager POST:URLString parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             [formData appendPartWithFileData:imageData name:@"file" fileName:@"1235.jpg" mimeType:@"JPEG"];
-            
-        } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *responseObject) {
+        }  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *responseObject) {
             [alertView removeFromSuperview];
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
             if(success) {
@@ -708,7 +712,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order",HOST];
         
         
-        [manager GET:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -758,7 +762,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order",HOST];
         
         
-        [manager GET:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -800,7 +804,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant",HOST];
         
         
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView remove];
             if(success) {
                 success(responseObject);
@@ -851,7 +855,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/comment",HOST];
         
         
-        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -899,7 +903,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/technician/getTechnician",HOST];
         
         
-        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             if(success) {
                 success(responseObject);
@@ -938,7 +942,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
     NSString *URLString = [NSString stringWithFormat:@"%@/coop/pushId",HOST];
     
     
-    [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+    [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if(success) {
             success(responseObject);
@@ -981,7 +985,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/orderCount",HOST];
         
         
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView remove];
             if(success) {
                 success(responseObject);
@@ -1031,7 +1035,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/technician/%ld",HOST, jishiID];
         
         
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1078,7 +1082,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/getSaleList",HOST];
         
         
-        [manager POST:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1121,7 +1125,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/saleFired",HOST];
         
         
-        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             [alertView remove];
             if(success) {
                 success(responseObject);
@@ -1164,7 +1168,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/addAccount",HOST];
         
         
-        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1208,7 +1212,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/message",HOST];
         
         
-        [manager GET:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
 //            [aView remove];
             if(success) {
                 success(responseObject);
@@ -1261,7 +1265,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/technician/search",HOST];
 //        NSLog(@"------URLString----%@",URLString);
         
-        [manager GET:URLString parameters:@{@"query":string} progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:@{@"query":string} headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             //            NSLog(@"----responseObject--%@--",responseObject);
             if(success) {
                 
@@ -1314,7 +1318,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/appoint",HOST];
         
         
-        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1360,7 +1364,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"autoken"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         
-        [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
             if(success) {
                 success(responseObject);
@@ -1404,7 +1408,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/%ld",HOST,orderId];
         
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -1446,7 +1450,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop//merchant/order/%@/cancel",HOST,orderId];
 //        NSLog(@"--URLString----%@--",URLString);
         
-        [manager PUT:URLString parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager PUT:URLString parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             [alertView removeFromSuperview];
             
@@ -1501,7 +1505,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/check",HOST];
         
         
-        [manager POST:URLString parameters:check progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:check headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1548,7 +1552,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
-        [manager POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [manager POST:URLString parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             [formData appendPartWithFileData:imageData name:@"file" fileName:@"1235.jpg" mimeType:@"JPEG"];
             
         } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *responseObject) {
@@ -1599,7 +1603,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/order/listUnfinished",HOST];
         
         
-        [manager POST:URLString parameters:dictionary progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:dictionary headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *responseObject) {
             if(success) {
                 success(responseObject);
             }
@@ -1643,7 +1647,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/favorite/technician/%@",HOST,parameters[@"techId"]];
         //        NSLog(@"token-可能是这里错了-%@-－－URLString--%@-",token,URLString);
-        [manager POST:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             //            NSLog(@"走出来了");
             [aView removeFromSuperview];
             if(success) {
@@ -1698,7 +1702,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/favorite/technician/%@",HOST,parameters[@"cooperatorId"]];
         //        NSLog(@"token-可能是这里错了-%@-－－URLString--%@-",token,URLString);
-        [manager DELETE:URLString parameters:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager DELETE:URLString parameters:nil headers:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             //            NSLog(@"走出来了");
             [aView removeFromSuperview];
             if(success) {
@@ -1753,7 +1757,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/favorite/technician",HOST];
         //        NSLog(@"token-可能是这里错了-%@-－－URLString--%@-",token,URLString);
-        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             //            NSLog(@"走出来了");
             [aView removeFromSuperview];
             if(success) {
@@ -1804,7 +1808,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/%@/status/score",HOST,parameters[@"orderId"]];
         //        NSLog(@"token-可能是这里错了-%@-－－URLString--%@-",token,URLString);
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             //            NSLog(@"走出来了");
             [aView removeFromSuperview];
             if(success) {
@@ -1850,7 +1854,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer",HOST];
         
-        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1891,7 +1895,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/%@",HOST,orderId];
         
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1932,7 +1936,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu",HOST];
         
-        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -1973,7 +1977,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/%@",HOST,orderId];
         ICLog(@"--URLString-----%@---token--%@---", URLString, token);
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2014,7 +2018,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/create",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2055,7 +2059,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/add",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2096,7 +2100,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/remove",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2137,7 +2141,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/%@",HOST,orderId];
         
-        [manager DELETE:URLString parameters:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager DELETE:URLString parameters:nil headers:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2178,7 +2182,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/data/order2",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2219,7 +2223,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/create",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2260,7 +2264,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/update/%@",HOST, parameters[@"id"]];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2301,7 +2305,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/product/offer/set/menu/list",HOST];
         
-        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2342,7 +2346,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2382,7 +2386,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre",HOST];
         
-        [manager GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2422,7 +2426,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre",HOST];
         
-        [manager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager DELETE:URLString parameters:parameters headers:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2463,7 +2467,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/comment/more",HOST];
         
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2504,7 +2508,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Cookie"];
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/%@/tech",HOST,parameters[@"id"]];
         
-        [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager GET:URLString parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);
@@ -2546,7 +2550,7 @@ NSString* const PUBHOST = @"http://47.93.17.218:12345/api";
         NSString *URLString = [NSString stringWithFormat:@"%@/coop/merchant/order/pre/%@",HOST,parameters[@"id"]];
         [parameters removeObjectForKey:@"id"];
         ICLog(@"parameters--%@--", parameters);
-        [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
+        [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, NSDictionary *responseObject) {
             [alertView removeFromSuperview];
             if(success) {
                 success(responseObject);

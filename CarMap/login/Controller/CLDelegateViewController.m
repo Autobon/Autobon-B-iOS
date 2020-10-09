@@ -8,7 +8,7 @@
 
 #import "CLDelegateViewController.h"
 #import "GFNavigationView.h"
-
+#import <WebKit/WebKit.h>
 
 
 @interface CLDelegateViewController ()
@@ -31,7 +31,7 @@
 //    UIBarButtonItem *leftBut = [[UIBarButtonItem alloc] initWithCustomView:backBut];
 //    self.navigationItem.leftBarButtonItem = leftBut;
 
-    UIWebView *webView = [[UIWebView alloc]init];
+    WKWebView *webView = [[WKWebView alloc]init];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"servicedelegate" ofType:@"html"];
     NSURL* url = [NSURL fileURLWithPath:path];
     NSURLRequest* request = [NSURLRequest requestWithURL:url] ;

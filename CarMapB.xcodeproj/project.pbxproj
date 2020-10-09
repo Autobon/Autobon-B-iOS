@@ -1574,7 +1574,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/BaiduMapAPI/thirdlibs",
 				);
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = CarNeighborB;
 				PRODUCT_NAME = CarMapB;
 				PROVISIONING_PROFILE = "";
@@ -1618,7 +1618,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/BaiduMapAPI/thirdlibs",
 				);
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = CarNeighborB;
 				PRODUCT_NAME = CarMapB;
 				PROVISIONING_PROFILE = "";
