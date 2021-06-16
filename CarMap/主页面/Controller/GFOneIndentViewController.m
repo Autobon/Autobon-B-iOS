@@ -1157,30 +1157,53 @@
         make.top.equalTo(_tableView);
         make.bottom.equalTo(_footBaseView.mas_top);
     }];
-    _packageScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 45 * self.packageArray.count);
+    
+    UIView *contentView = [[UIView alloc]init];
+    [_packageScrollView addSubview:contentView];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_packageScrollView);
+        make.width.equalTo(_packageScrollView);
+    }];
+    
+    
     _packageSelectButtonArray = [[NSMutableArray alloc]init];
-//    self.selectPackageIdArray = [[NSMutableArray alloc]init];
     self.selectPackageArray = [[NSMutableArray alloc]init];
+    UILabel *lastLabel;
     for (int i = 0; i < self.packageArray.count; i++) {
         CLProductPackageModel *productModel = self.packageArray[i];
         
+        UILabel *contentTitleLabel = [[UILabel alloc] init];
+//        contentTitleLabel.text = [NSString stringWithFormat:@"%@ %@ %@", productModel.name, productModel.name, productModel.name];
+        contentTitleLabel.text = productModel.name;
+        contentTitleLabel.numberOfLines = 0;
+        [contentView addSubview:contentTitleLabel];
+        [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(contentView).offset(25);
+            if (i == 0){
+                make.top.equalTo(contentView).offset(10);
+            }else{
+                make.top.equalTo(lastLabel.mas_bottom).offset(30);
+            }
+            make.right.equalTo(contentView).offset(-95);
+            if (i == self.packageArray.count - 1){
+                make.bottom.equalTo(contentView).offset(-10);
+            }
+        }];
+        lastLabel = contentTitleLabel;
+        
+
         UIButton *contentBaseButton = [[UIButton alloc]init];
-        contentBaseButton.backgroundColor = [UIColor whiteColor];
-        [_packageScrollView addSubview:contentBaseButton];
+//        contentBaseButton.backgroundColor = [UIColor whiteColor];
+        [contentView addSubview:contentBaseButton];
         contentBaseButton.frame = CGRectMake(0, 0 + i * 45, self.view.frame.size.width, 45);
         contentBaseButton.tag = i;
         [contentBaseButton addTarget:self action:@selector(packageBaseViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UILabel *contentTitleLabel = [[UILabel alloc] init];
-        contentTitleLabel.text = productModel.name;
-//        contentTitleLabel.text = [NSString stringWithFormat:@"套餐%d", i + 1];
-        [contentBaseButton addSubview:contentTitleLabel];
-        [contentTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(contentBaseButton).offset(25);
-            make.centerY.equalTo(contentBaseButton);
-            make.right.equalTo(contentBaseButton).offset(-95);
+        [contentBaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(contentView);
+            make.top.equalTo(contentTitleLabel).offset(-10);
+            make.bottom.equalTo(contentTitleLabel).offset(10);
         }];
-        
+//
         UIButton *contentButton = [[UIButton alloc]init];
         [contentButton setTitle:@"选择" forState:UIControlStateNormal];
         contentButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -1196,18 +1219,7 @@
         contentButton.tag = i;
         [contentButton addTarget:self action:@selector(scrollViewPackageSelectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_packageSelectButtonArray addObject:contentButton];
-        
-//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//        NSMutableDictionary *dataDictionary = [userDefaults objectForKey:@"homeOrderData"];
-//        NSArray *packageIdArray;
-//        if (dataDictionary){
-//            ICLog(@"---存储的数据---dataDictionary--%@----", dataDictionary);
-//            packageIdArray = dataDictionary[@"packageIdArray"];
-//            if (packageIdArray){
-//                self.selectPackageIdArray = [[NSMutableArray alloc]initWithArray:packageIdArray];
-//            }
-//        }
-        
+
         if ([self.selectPackageIdArray containsObject:productModel.idString]){
             [contentButton setTitle:@"已选择" forState:UIControlStateNormal];
             contentButton.selected = YES;
@@ -1217,7 +1229,6 @@
             ICLog(@"-----self.selectPackageArray----%@---", self.selectPackageArray);
         }
     }
-    
 }
 
 #pragma mark - 选择套餐按钮相应方法
@@ -1328,11 +1339,6 @@
             cell.contentButton.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:96 / 255.0 blue:1 / 255.0 alpha:1];
         }
     }
-    
-    
-    
-    
-    
     
     return cell;
 }
